@@ -1,0 +1,21 @@
+# Ignore Python bytecode
+*.py[co]
+__pycache__
+
+# Ignore IDE config
+.idea
+
+# Ignore Vagrant files
+.vagrant
+
+# Ignore gettext Machine Object files
+*.mo
+
+# Ignore media files
+/media/*
+
+# Ignore error logs
+*.log
+
+# Ignorw sql dumps
+*.sql
