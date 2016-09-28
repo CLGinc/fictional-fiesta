@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'SciLog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
+        'NAME': os.environ.get('DATABASE_NAME', 'scilog'),
+        'USER': os.environ.get('DATABASE_USER', 'scilog'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'scilog'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
 
