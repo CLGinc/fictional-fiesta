@@ -16,19 +16,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+SECRET_KEY = os.environ.get('SECRET_KEY', 'DEVELOPMENT_SECRET_KEY')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pperm9$$_za17noxm)lmdclx1gi@*vl&ozf8em-x$b26%xocy#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
+DEBUG = os.environ.get('DEBUG', True)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -121,13 +112,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '/var/www/SciLog/static/')
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-STATIC_URL = '/static/'
-
-# Media files (user images)
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-MEDIA_URL = '/media/'
+MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT',  '/var/www/SciLog/media/')
