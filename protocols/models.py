@@ -23,7 +23,7 @@ class Procedure(models.Model):
     last_modified_by_user = models.ForeignKey(User, related_name='procedures')
 
     def __str__(self):
-        return 'Procedure {}'.format(self.id)
+        return 'Procedure for protocol {}'.format(self.protocol.name)
 
 
 class Protocol(models.Model):
@@ -36,7 +36,7 @@ class Protocol(models.Model):
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
     assets = models.ManyToManyField(Asset, related_name='protocols')
-    procedure = models.ForeignKey(Procedure, related_name='protocols')
+    procedure = models.OneToOneField(Procedure, related_name='protocol')
     sources = models.ManyToManyField('projects.Source', related_name='protocols')
     datetime_created = models.DateTimeField(auto_now_add=True)
 
