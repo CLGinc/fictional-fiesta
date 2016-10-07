@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="SciLog">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>SciLog | Project list</title>
+
+    <!-- Page styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.min.css"/>
+    <link rel="stylesheet" href="../static/front/css/custom.css"/>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+  </head>
+  <body>
+    <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row mdl-color--white">
+          <div class="mdl-layout-spacer"></div>
+          <img src="../static/front/img/optimised.svg" alt="logo">
+          <span class="mdl-layout-title mdl-color-text--blue-grey-700">SciLog</span>
+          <div class="mdl-layout-spacer"></div>
+          <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+            <a href="/logout"><i class="material-icons mdl-color-text--blue-500">power_settings_new</i></a>
+          </label>
+          <div class="mdl-tooltip" for="logout">
+            Bye bye
+          </div>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-color--grey-100">
+        <header class="user-card--drawer">
+          <img src="../static/front/img/ninja.png" class="user-card--avatar">
+          <div class="user-card--name">
+            <span class="mdl-layout-title">Ivan Ivanov</span>
+            <span class="mdl-color-text--grey-600">Scientific Director</span>
+          </div>
+        </header>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content mdl-grid">
+          <span class="mdl-list mdl-cell mdl-cell--11-col mdl mdl-typography--title">PROJECT LIST</span>
+          <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Project name</th>
+              <th>Protocols</th>
+              <th>Description</th>
+              <th>Sources</th>
+              <th>Modify</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+              <td>25</td>
+              <td>$2.90</td>
+              <td>$2.90</td>
+              <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+              <td>50</td>
+              <td>$1.25</td>
+              <td>$2.90</td>
+              <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+              <td>10</td>
+              <td>$2.35</td>
+              <td>$2.90</td>
+              <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+              <td>10</td>
+              <td>$2.35</td>
+              <td>$2.90</td>
+              <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </main>
+    </div>
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  </body>
+</html>
