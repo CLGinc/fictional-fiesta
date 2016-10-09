@@ -112,8 +112,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'SciLog/static'),
+]
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
-STATIC_ROOT = os.environ.get('STATIC_ROOT', '/var/www/SciLog/static/')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT',  '/var/www/SciLog/media/')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT',  os.path.join(BASE_DIR, 'media'))
