@@ -10,7 +10,7 @@ class University(models.Model):
 
 
 class Researcher(models.Model):
-    user = models.OneToOneField(User, related_name='researchers')
+    user = models.OneToOneField(User, related_name='researcher')
     university = models.ForeignKey(University, related_name='researchers')
     scientific_degree = models.CharField(max_length=255)
 
