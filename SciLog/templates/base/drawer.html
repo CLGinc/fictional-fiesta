@@ -1,0 +1,15 @@
+<div class="mdl-layout__drawer mdl-color--grey-100">
+<header class="user-card--drawer">
+  <img src="../static/front/img/ninja.png" class="user-card--avatar">
+  <div class="user-card--name">
+    <span class="mdl-layout-title">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+    <span class="mdl-color-text--grey-600">{{ request.user.researchers.scientific_degree }}</span>
+  </div>
+</header>
+<nav class="mdl-navigation">
+  <a class="mdl-navigation__link" href="">Link</a>
+  <a class="mdl-navigation__link" href="">Link</a>
+  <a class="mdl-navigation__link" href="">Link</a>
+  <a class="mdl-navigation__link" href="">Link</a>
+</nav>
+</div>
