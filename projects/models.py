@@ -15,8 +15,8 @@ class Source(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    sources = models.ManyToManyField(Source, related_name='projects')
-    protocols = models.ManyToManyField('protocols.Protocol', related_name='projects')
+    sources = models.ManyToManyField(Source, related_name='projects', null=True, blank=True)
+    protocols = models.ManyToManyField('protocols.Protocol', related_name='projects', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -30,8 +30,8 @@ class Role(models.Model):
     )
 
     user = models.ForeignKey(User, related_name='roles')
-    project = models.ForeignKey(Project, related_name='roles')
-    protocol = models.ForeignKey('protocols.Protocol', related_name='roles')
+    project = models.ForeignKey(Project, related_name='roles', null=True, blank=True)
+    protocol = models.ForeignKey('protocols.Protocol', related_name='roles', null=True, blank=True)
     role = models.CharField(max_length=255, choices=ROLES)
 
     def __str__(self):
