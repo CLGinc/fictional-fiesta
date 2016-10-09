@@ -28,7 +28,7 @@ class Procedure(models.Model):
 
 class Protocol(models.Model):
     LABELS = (
-        ('standart', 'Standart'),
+        ('standard', 'Standard'),
         ('modified', 'Modified'),
     )
 
