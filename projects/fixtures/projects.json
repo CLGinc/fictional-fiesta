@@ -1,0 +1,32 @@
+[
+{
+  "model": "projects.project",
+  "pk": 1,
+  "fields": {
+    "name": "Project 0",
+    "description": "A project to create liquid fart",
+    "sources": [],
+    "protocols": []
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 2,
+  "fields": {
+    "name": "Project 1",
+    "description": "Molding plates in sauce",
+    "sources": [],
+    "protocols": []
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 3,
+  "fields": {
+    "name": "Project 2",
+    "description": "Melting keyboards in water",
+    "sources": [],
+    "protocols": []
+  }
+}
+]
