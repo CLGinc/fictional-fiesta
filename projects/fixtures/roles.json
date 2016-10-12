@@ -1,0 +1,122 @@
+[
+{
+  "model": "projects.role",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "project": 1,
+    "protocol": null,
+    "role": "owner"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "project": 2,
+    "protocol": null,
+    "role": "contributor"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "project": 3,
+    "protocol": null,
+    "role": "watcher"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 4,
+  "fields": {
+    "user": 10,
+    "project": 3,
+    "protocol": null,
+    "role": "owner"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 5,
+  "fields": {
+    "user": 9,
+    "project": 2,
+    "protocol": null,
+    "role": "contributor"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 6,
+  "fields": {
+    "user": 8,
+    "project": 1,
+    "protocol": null,
+    "role": "owner"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 13,
+  "fields": {
+    "user": 8,
+    "project": 2,
+    "protocol": null,
+    "role": "owner"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 14,
+  "fields": {
+    "user": 8,
+    "project": 3,
+    "protocol": null,
+    "role": "contributor"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 15,
+  "fields": {
+    "user": 9,
+    "project": 1,
+    "protocol": null,
+    "role": "watcher"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 16,
+  "fields": {
+    "user": 9,
+    "project": 3,
+    "protocol": null,
+    "role": "contributor"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 17,
+  "fields": {
+    "user": 10,
+    "project": 1,
+    "protocol": null,
+    "role": "watcher"
+  }
+},
+{
+  "model": "projects.role",
+  "pk": 18,
+  "fields": {
+    "user": 10,
+    "project": 2,
+    "protocol": null,
+    "role": "watcher"
+  }
+}
+]
