@@ -19,7 +19,6 @@ class Researcher(models.Model):
     university = models.ForeignKey(University, related_name='researchers')
     scientific_degree = models.CharField(max_length=255)
 
-
     def __str__(self):
         return '{} {}'.format(self.scientific_degree, self.user.first_name, self.user.last_name)
 
