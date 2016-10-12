@@ -1,6 +1,9 @@
+/* Page layout */
 .page-content {
   max-width: 1200px;
 }
+
+/* user card */
 .user-card--drawer {
   box-sizing: border-box;
   display: -webkit-flex;
@@ -25,4 +28,9 @@
 .user-card--name {
   text-align: center;
   margin-top: 24px;
+}
+
+/* Tables */
+.table--wrap {
+  white-space: normal;
 }

@@ -13,17 +13,17 @@
           <tr>
             <th class="mdl-data-table__cell--non-numeric">Project name</th>
             <th class="mdl-data-table__cell--non-numeric">Description</th>
-            <th>Protocols</th>
-            <th>Modify</th>
+            <th class="mdl-cell--hide-phone">Protocols</th>
+            <th class="mdl-cell--hide-phone">Modify</th>
           </tr>
         </thead>
         <tbody>
           {% for project in projects_list %}
           <tr>
-            <td class="mdl-data-table__cell--non-numeric">{{ project.name }}</td>
-            <td class="mdl-data-table__cell--non-numeric">{{ project.description }}</td>
-            <td>toadd</td>
-            <td>
+            <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.name }}</td>
+            <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.description }}</td>
+            <td class="mdl-cell--hide-phone">toadd</td>
+            <td class="mdl-cell--hide-phone">
               <button class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons">mode_edit</i>
               </button>
