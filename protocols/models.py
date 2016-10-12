@@ -23,7 +23,7 @@ class Procedure(models.Model):
     last_modified_by_user = models.ForeignKey(User, related_name='procedures')
 
     def __str__(self):
-        return 'Procedure for protocol {}'.format(self.protocol.name)
+        return 'Procedure {} created by {}'.format(self.id, self.last_modified_by_user)
 
 
 class Protocol(models.Model):
