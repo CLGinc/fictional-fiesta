@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class Source(models.Model):
@@ -45,3 +46,19 @@ class Role(models.Model):
             self.get_role_display(),
             role_object_label
         )
+
+    def clean(self):
+        if not(self.project or self.protocol):
+            raise ValidationError('You must choose either project or protocol!')
+        if self.project and self.protocol:
+            raise ValidationError('You cannot select project and protocol for the same role!')
+        if self.project and Role.objects.filter(
+                project=self.project,
+                user=self.user).exists():
+            raise ValidationError(
+                'There is already an existing role for this combination of researcher and project!')
+        if self.protocol and Role.objects.filter(
+                protocol=self.protocol,
+                user=self.user).exists():
+            raise ValidationError(
+                'There is already an existing role for this combination of researcher and protocol!')
