@@ -2,37 +2,37 @@
 {% load staticfiles %}
 {% block title %}Sci Log - Projects List{% endblock %}
 {% block body %}
-    <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      {% include "base/top_header.html" %}
-      {% include "base/drawer.html" %}
-      <main class="mdl-layout__content">
-        <div class="page-content mdl-grid">
-          <span class="mdl-list mdl-cell mdl-cell--11-col mdl mdl-typography--title">PROJECT LIST</span>
-          <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric">Project name</th>
-              <th class="mdl-data-table__cell--non-numeric">Description</th>
-              <th>Protocols</th>
-              <th>Modify</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for project in projects_list %}
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">{{ project.name }}</td>
-              <td class="mdl-data-table__cell--non-numeric">{{ project.description }}</td>
-              <td>toadd</td>
-              <td>
-                <button class="mdl-button mdl-js-button mdl-button--icon">
-                  <i class="material-icons">mode_edit</i>
-                </button>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        </div>
-      </main>
-    </div>
-    {% endblock %}
+  <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    {% include "base/top_header.html" %}
+    {% include "base/drawer.html" %}
+    <main class="mdl-layout__content">
+      <div class="page-content mdl-grid">
+        <span class="mdl-list mdl-cell mdl-cell--11-col mdl mdl-typography--title">PROJECT LIST</span>
+        <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Project name</th>
+            <th class="mdl-data-table__cell--non-numeric">Description</th>
+            <th>Protocols</th>
+            <th>Modify</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects_list %}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">{{ project.name }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ project.description }}</td>
+            <td>toadd</td>
+            <td>
+              <button class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">mode_edit</i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </main>
+  </div>
+{% endblock %}
