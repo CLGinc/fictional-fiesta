@@ -7,30 +7,38 @@
     {% include "base/drawer.html" %}
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
-        <span class="mdl-list mdl-cell mdl-cell--11-col mdl mdl-typography--title">PROJECT LIST</span>
+        <div class="mdl-cell mdl-cell--12-col">
+          <p class="mdl-typography--headline mdl-color-text--blue-grey-600 subpageheader">PROJECTS LIST</p>
+          <button class="mdl-button mdl-js-button mdl-button--primary">
+            <i class="material-icons">playlist_add</i> Add project
+          </button>
+          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+            <i class="material-icons">filter_list</i> Filter projects
+          </button>
+        </div>
         <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
-        <thead>
-          <tr>
-            <th class="mdl-data-table__cell--non-numeric">Project name</th>
-            <th class="mdl-data-table__cell--non-numeric">Description</th>
-            <th class="mdl-cell--hide-phone">Protocols</th>
-            <th class="mdl-cell--hide-phone">Modify</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for project in projects_list %}
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.name }}</td>
-            <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.description }}</td>
-            <td class="mdl-cell--hide-phone">toadd</td>
-            <td class="mdl-cell--hide-phone">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">mode_edit</i>
-              </button>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-grey-600">Project name</th>
+              <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-grey-600">Description</th>
+              <th class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">Protocols</th>
+              <th class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">Modify</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for project in projects_list %}
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.name }}</td>
+              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.description|truncatechars_html:97 }}</td>
+              <td class="mdl-cell--hide-phone">toadd</td>
+              <td class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
       </table>
       </div>
     </main>

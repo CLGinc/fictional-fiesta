@@ -1,6 +1,11 @@
 /* Page layout */
 .page-content {
-  max-width: 1200px;
+  max-width: 1400px;
+}
+
+/* Text */
+.subpageheader {
+  margin: 40px auto;
 }
 
 /* user card */
