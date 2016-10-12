@@ -15,8 +15,8 @@ class Source(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    sources = models.ManyToManyField(Source, related_name='projects', null=True, blank=True)
-    protocols = models.ManyToManyField('protocols.Protocol', related_name='projects', null=True, blank=True)
+    sources = models.ManyToManyField(Source, related_name='projects', blank=True)
+    protocols = models.ManyToManyField('protocols.Protocol', related_name='projects', blank=True)
 
     def __str__(self):
         return self.name
