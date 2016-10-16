@@ -27,12 +27,12 @@
             </tr>
           </thead>
           <tbody>
-            {% for project in projects_list %}
+            {% for role in roles_list %}
             <tr>
-              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.name }}</td>
-              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ project.description|truncatechars_html:97 }}</td>
-              <td class="mdl-cell--hide-phone">{{ project.protocols.count }}</td>
-              <td class="mdl-cell--hide-phone">to add</td>
+              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ role.project.name }}</td>
+              <td class="mdl-data-table__cell--non-numeric table--wrap">{{ role.project.description|truncatechars_html:97 }}</td>
+              <td class="mdl-cell--hide-phone">{{ role.project.protocols.count }}</td>
+              <td class="mdl-cell--hide-phone">{{ role.get_role_display }}</td>
               <td class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">
                 <button class="mdl-button mdl-js-button mdl-button--icon">
                   <i class="material-icons">mode_edit</i>
