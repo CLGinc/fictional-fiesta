@@ -9,9 +9,9 @@ def projects_list(request):
     paginator = Paginator(roles_list, 15)
     page = request.GET.get('page')
     try:
-        request_items_page = paginator.page(page)
+        roles_list_page = paginator.page(page)
     except PageNotAnInteger:
-        request_items_page = paginator.page(number=1)
+        roles_list_page = paginator.page(number=1)
     except EmptyPage:
-        request_items_page = paginator.page(paginator.num_pages)
+        roles_list_page = paginator.page(paginator.num_pages)
     return render(request, 'projects_list.html', locals())
