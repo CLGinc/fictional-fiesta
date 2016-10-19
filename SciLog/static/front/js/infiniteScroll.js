@@ -4,6 +4,11 @@ $(window).load(function() {
       totalPages = $('#total_pages').text(),
       viewParam = $(location).attr('href');
 
+  //Click event to scroll to top
+	$('.scrollToTop-button').click(function(){
+		$(win).animate({scrollTop : 0},300);
+		return false;
+	});
   $('#paginator').addClass('hidden');
 	// Each time the user scrolls
 	$(win).scroll(function() {
@@ -15,7 +20,6 @@ $(window).load(function() {
           newCurrentPage = nextPageNumber,
           pageBaseLink = $('#paginator_next').attr('href')
           newNextPageLink = "?page="+(nextPageNumber+1);
-          console.log("end reached");
       if(newCurrentPage <= totalPages) {
   	    $('#loading').addClass('is-active');
         $('#current_page_number').html(newCurrentPage);
