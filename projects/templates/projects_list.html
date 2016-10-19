@@ -16,7 +16,7 @@
             <i class="material-icons">filter_list</i> Filter projects
           </button>
         </div>
-        <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col" id="items_container">
           <thead>
             <tr>
               <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-grey-600">Project name</th>
@@ -26,7 +26,7 @@
               <th class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">Modify</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="items_list">
             {% for role in roles_list_page %}
             <tr>
               <td class="mdl-data-table__cell--non-numeric table--wrap">{{ role.project.name }}</td>
@@ -41,8 +41,68 @@
             </tr>
             {% endfor %}
           </tbody>
-      </table>
+        </table>
+        <div class="mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+          <div class="mdl-layout-spacer"></div>
+        </div>
+        {% if paginator.num_pages > 1 %}
+          <div class="mdl-cell mdl-cell--12-col mdl-grid" id="paginator">
+            <div class="mdl-layout-spacer"></div>
+            {% if roles_list_page.has_previous %}
+            <a href="?page={{ roles_list_page.previous_page_number }}">
+              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">Previous</button>
+            </a>
+            {% endif %}
+            {% if roles_list_page.number != 1 and roles_list_page.previous_page_number != 1 %}
+            <a href="?page=1">
+              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">1</button>
+            </a>
+            {% endif %}
+            {% if roles_list_page.previous_page_number|add:"-1" > 1 %}
+            <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" disabled>
+            ...
+            </button>
+            {% endif %}
+            {% if roles_list_page.has_previous %}
+            <a href="?page={{ roles_list_page.previous_page_number }}">
+              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">{{ roles_list_page.previous_page_number }}</button>
+              <div id="previous_page_number" class="hidden">{{ roles_list_page.previous_page_number }}</div>
+            </a>
+            {% endif %}
+            <button id="current_page_number" class="mdl-button mdl-js-button mdl-button--primary" disabled>
+              {{ roles_list_page.number }}
+            </button>
+            {% if roles_list_page.has_next %}
+            <a href="?page={{ roles_list_page.next_page_number }}">
+              <button id="next_page_number" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">{{ roles_list_page.next_page_number }}</button>
+            </a>
+            {% endif %}
+            {% if roles_list_page.next_page_number|add:"1" < paginator.num_pages %}
+            <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" disabled>
+            ...
+            </button>
+            {% endif %}
+            {% if roles_list_page.number != paginator.num_pages and roles_list_page.next_page_number != paginator.num_pages %}
+            <a href="?page={{ paginator.num_pages }}">
+              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">{{ paginator.num_pages }}</button>
+            </a>
+            {% endif %}
+            {% if roles_list_page.has_next %}
+            <a id="paginator_next" href="?page={{ roles_list_page.next_page_number }}">
+              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">Next</button>
+            </a>
+            {% endif %}
+            <div id="total_pages" class="hidden">{{ paginator.num_pages }}</div>
+            <div class="mdl-layout-spacer"></div>
+          </div>
+        {% endif %}
       </div>
     </main>
   </div>
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
 {% endblock %}
