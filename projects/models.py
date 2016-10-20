@@ -35,6 +35,9 @@ class Role(models.Model):
     protocol = models.ForeignKey('protocols.Protocol', related_name='roles', null=True, blank=True)
     role = models.CharField(max_length=255, choices=ROLES)
 
+    class Meta:
+        unique_together = (('user', 'project'), ('user', 'protocol'))
+
     def __str__(self):
         role_object_label = ''
         if self.project:
@@ -52,13 +55,3 @@ class Role(models.Model):
             raise ValidationError('You must choose either project or protocol!')
         if self.project and self.protocol:
             raise ValidationError('You cannot select project and protocol for the same role!')
-        if self.project and Role.objects.filter(
-                project=self.project,
-                user=self.user).exists():
-            raise ValidationError(
-                'There is already an existing role for this combination of researcher and project!')
-        if self.protocol and Role.objects.filter(
-                protocol=self.protocol,
-                user=self.user).exists():
-            raise ValidationError(
-                'There is already an existing role for this combination of researcher and protocol!')
