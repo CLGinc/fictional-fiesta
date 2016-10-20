@@ -5,7 +5,12 @@ from projects.models import Project, Role
 
 
 def projects_list(request):
-    roles_list = request.user.researcher.get_roles(scope='project')
+    if request.GET.getlist('role'):
+        roles_list = request.user.researcher.get_roles(
+            scope='project',
+            roles=request.GET.getlist('role'))
+    else:
+        roles_list = request.user.researcher.get_roles(scope='project')
     paginator = Paginator(roles_list, 15)
     page = request.GET.get('page')
     try:
