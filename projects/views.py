@@ -15,7 +15,7 @@ def projects_list(request):
         roles_list = request.user.researcher.get_roles(scope='project')
     if request.GET.get('name'):
         name_filter = request.GET.get('name')
-        roles_list = roles_list.filter(project__name__contains=request.GET.get('name'))
+        roles_list = roles_list.filter(project__name__icontains=request.GET.get('name'))
     paginator = Paginator(roles_list, 15)
     page = request.GET.get('page')
     try:
