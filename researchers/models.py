@@ -22,7 +22,7 @@ class Researcher(models.Model):
     def __str__(self):
         return '{} {}'.format(self.scientific_degree, self.user.first_name, self.user.last_name)
 
-    def get_roles(self, scope=None, roles=[role[0] for role in Role._meta.get_field('role').choices]):
+    def get_roles(self, scope=None, roles=Role.get_db_roles()):
         """
         Returns roles list django query set based on scope and a list of role names.
         If no role names are specified all roles are selected.
