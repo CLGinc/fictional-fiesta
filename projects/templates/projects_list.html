@@ -15,7 +15,7 @@
           <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="accordion">
             <i class="material-icons">filter_list</i> Filter projects
           </button>
-          <form method="get" class="panel">
+          <form method="get" class="panel{% if is_filtered %} show{% endif %}">
             <div class="mdl-grid">
               <div class="mdl-cell mdl-cell--12-col">
                 <label class="mdl-color-text--blue-grey-600"><h6>Role</h6></label>
