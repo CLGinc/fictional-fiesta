@@ -25,12 +25,12 @@ $(window).load(function() {
         $('#current_page_number').html(newCurrentPage);
         $('#paginator_next').attr('href', newNextPageLink);
 
-    		$.ajax({
+    	$.ajax({
           data: {
-                txtsearch: $('#items_list').val()
+                page: nextPageNumber
             },
           type: "GET",
-    			url: viewParam + '?page=' + nextPageNumber,
+    			url: viewParam,
     			dataType: 'html',
     			success: function(data) {
             var result = $('<tbody />').append(data).find('#items_list').html();
