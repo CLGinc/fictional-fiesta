@@ -55,3 +55,7 @@ class Role(models.Model):
             raise ValidationError('You must choose either project or protocol!')
         if self.project and self.protocol:
             raise ValidationError('You cannot select project and protocol for the same role!')
+
+    @classmethod
+    def get_db_roles(cls):
+        return [role[0] for role in cls.ROLES]

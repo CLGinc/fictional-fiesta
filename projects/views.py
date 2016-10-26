@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from projects.models import Project, Role
-
 
 def projects_list(request):
     if request.GET.getlist('role'):
