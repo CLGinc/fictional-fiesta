@@ -17,8 +17,8 @@
           </button>
           <form method="get" class="panel">
             <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--1-col">
-                <label>Role</label>
+              <div class="mdl-cell mdl-cell--12-col">
+                <label class="mdl-color-text--blue-grey-600"><h6>Role</h6></label>
                 {% for role_value, role_label in roles_labels %}
                   <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
                     <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
@@ -26,7 +26,7 @@
                   </label>
                 {% endfor %}
               </div>
-              <div class="mdl-cell mdl-cell--4-col">
+              <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield">
                   <input class="mdl-textfield__input" type="text" id="sample1" name="name" value="{{ name_filter }}">
                   <label class="mdl-textfield__label" for="sample1">Name...</label>
