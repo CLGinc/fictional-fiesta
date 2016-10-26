@@ -26,10 +26,10 @@ $(window).load(function() {
         $('#paginator_next').attr('href', newNextPageLink);
 
     	$.ajax({
-          data: {
+            data: {
                 page: nextPageNumber
             },
-          type: "GET",
+            type: "GET",
     			url: viewParam,
     			dataType: 'html',
     			success: function(data) {
