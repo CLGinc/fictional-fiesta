@@ -45,3 +45,17 @@
 .table--wrap {
   white-space: normal;
 }
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+.panel.show {
+    opacity: 1;
+    max-height: 500px;
+}

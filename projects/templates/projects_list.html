@@ -12,9 +12,29 @@
           <button class="mdl-button mdl-js-button mdl-button--primary">
             <i class="material-icons">playlist_add</i> Add project
           </button>
-          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="accordion">
             <i class="material-icons">filter_list</i> Filter projects
           </button>
+          <form method="get" class="panel">
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--1-col">
+                <label>Role</label>
+                {% for role_value, role_label in roles_labels %}
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
+                    <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
+                    <span class="mdl-checkbox__label">{{ role_label }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="sample1" name="name" value="{{ name_filter }}">
+                  <label class="mdl-textfield__label" for="sample1">Name...</label>
+                </div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Apply</button>
+              </div>
+            </div>
+          </form>
         </div>
         {% if roles_list_page %}
             <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col" id="items_container">
@@ -112,4 +132,5 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
 {% endblock %}
