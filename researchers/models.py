@@ -33,13 +33,13 @@ class Researcher(models.Model):
                 user=self.user,
                 role__in=roles,
                 protocol=None
-                ).exclude(project=None).select_related(scope)
+            ).exclude(project=None).select_related(scope)
         elif scope == 'protocol':
             return Role.objects.filter(
                 user=self.user,
                 role__in=roles,
                 project=None
-                ).exclude(protocol=None).select_related(scope)
+            ).exclude(protocol=None).select_related(scope)
         else:
             return Role.objects.filter(
                 user=self.user,
