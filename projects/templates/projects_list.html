@@ -17,13 +17,8 @@
           </button>
           <form method="get" id="filter-form" class="filter-form">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-cell mdl-cell--2-col">
                 <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Role</p>
-              </div>
-              <div class="mdl-cell mdl-cell--9-col">
-                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Name</p>
-              </div>
-              <div class="mdl-cell mdl-cell--3-col">
                 {% for role_value, role_label in roles_labels %}
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
                   <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
@@ -31,18 +26,27 @@
                 </label>
                 {% endfor %}
               </div>
-              <div class="mdl-cell mdl-cell--9-col">
-                <div class="mdl-textfield mdl-js-textfield alignment-fix--labels ">
+              <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset-desktop">
+                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Project name</p>
+                <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
                   <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
-                  <label class="mdl-textfield__label" for="input-filter--name">Name...</label>
+                  <label class="mdl-textfield__label" for="input-filter--name"></label>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset-desktop">
+                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Creation date</p>
+                <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
+                  Datepicker
                 </div>
               </div>
             </div>
-            <div class="mdl-cell mdl-cell--12-col filter-button--area">
-              <button class="mdl-button mdl-js-button mdl-button--primary">
+            <div class="mdl-grid mdl-cell mdl-cell--12-col filter-button--area">
+              <div class="mdl-layout-spacer"></div>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                 <i class="material-icons">playlist_play</i>
                   Apply
               </button>
+              <div class="mdl-layout-spacer"></div>
             </div>
           </form>
         </div>
