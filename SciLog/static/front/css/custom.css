@@ -2,6 +2,9 @@
 .page-content {
   max-width: 1400px;
 }
+.alignment-fix--labels {
+  padding-top: 0;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
