@@ -25,19 +25,19 @@ $(window).load(function() {
         $('#current_page_number').html(newCurrentPage);
         $('#paginator_next').attr('href', newNextPageLink);
 
-    	$.ajax({
-            data: {
-                page: nextPageNumber
-            },
-            type: "GET",
-    			url: viewParam,
-    			dataType: 'html',
-    			success: function(data) {
-            var result = $('<tbody />').append(data).find('#items_list').html();
-    				$('#items_list').append(result);
-    				$('#loading').removeClass('is-active');
-    				}
-    			});
+      	$.ajax({
+              data: {
+                  page: nextPageNumber
+              },
+              type: "GET",
+        			url: viewParam,
+        			dataType: 'html',
+        			success: function(data) {
+                var result = $('<tbody />').append(data).find('#items_list').html();
+        				$('#items_list').append(result);
+        				$('#loading').removeClass('is-active');
+      				}
+      			});
         }
   		}
 	});

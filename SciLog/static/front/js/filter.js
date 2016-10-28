@@ -1,5 +1,3 @@
-var acc = document.getElementById("accordion");
-
-acc.onclick = function(){
-    this.nextElementSibling.classList.toggle("show");
-}
+$('#filter-button').click(function() {
+  $('#filter-form').toggle(200);
+});
