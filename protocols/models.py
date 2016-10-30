@@ -1,8 +1,20 @@
-from django.contrib.auth.models import User
+import os
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 from adminsortable.models import SortableMixin
+from researchers.models import Researcher, Source
+
+
+def create_unique_id():
+    unique_id = os.urandom(4).hex()
+    while(True):
+        try:
+            Protocol.objects.get(unique_id=unique_id)
+        except Protocol.DoesNotExist:
+            return(unique_id)
+        unique_id = os.urandom(4).hex()
 
 
 class Asset(models.Model):
@@ -20,10 +32,10 @@ class Asset(models.Model):
 
 class Procedure(models.Model):
     datetime_last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by_user = models.ForeignKey(User, related_name='procedures')
+    last_modified_by = models.ForeignKey(Researcher, related_name='procedures')
 
     def __str__(self):
-        return 'Procedure {} created by {}'.format(self.id, self.last_modified_by_user)
+        return 'Procedure {} created by {}'.format(self.id, self.last_modified_by)
 
 
 class Protocol(models.Model):
@@ -32,12 +44,13 @@ class Protocol(models.Model):
         ('modified', 'Modified'),
     )
 
+    unique_id = models.CharField(max_length=8, primary_key=True, default=create_unique_id)
     name = models.CharField(max_length=255)
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
     assets = models.ManyToManyField(Asset, related_name='protocols')
     procedure = models.OneToOneField(Procedure, related_name='protocol')
-    sources = models.ManyToManyField('projects.Source', related_name='protocols', blank=True)
+    sources = models.ManyToManyField(Source, related_name='protocols', blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -63,7 +76,7 @@ class Result(models.Model):
     )
 
     note = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.ForeignKey(User, related_name='results')
+    owner = models.ForeignKey(Researcher, related_name='results')
     state = models.CharField(max_length=20, choices=STATES, default=STATES[0][0])
 
     def __str__(self):
