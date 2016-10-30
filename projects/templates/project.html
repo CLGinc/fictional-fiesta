@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - Project Name{% endblock %}
+{% block body %}
+  <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    {% include "base/top_header.html" %}
+    {% include "base/drawer.html" %}
+    <main class="mdl-layout__content">
+      <div class="page-content mdl-grid">
+
+      </div>
+    </main>
+  </div>
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
+{% endblock %}

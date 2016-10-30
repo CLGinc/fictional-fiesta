@@ -38,3 +38,7 @@ def projects_list(request):
     except EmptyPage:
         roles_list_page = paginator.page(paginator.num_pages)
     return render(request, 'projects_list.html', locals())
+
+
+def project(request, project_id):
+    return render(request, 'project.html', locals())
