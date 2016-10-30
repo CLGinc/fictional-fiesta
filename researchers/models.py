@@ -69,19 +69,19 @@ class Researcher(models.Model):
         """
         if scope == 'project':
             return Role.objects.filter(
-                user=self.user,
+                researcher=self,
                 role__in=roles,
                 protocol=None
             ).exclude(project=None).select_related(scope)
         elif scope == 'protocol':
             return Role.objects.filter(
-                user=self.user,
+                researcher=self,
                 role__in=roles,
                 project=None
             ).exclude(protocol=None).select_related(scope)
         else:
             return Role.objects.filter(
-                user=self.user,
+                researcher=self,
                 role__in=roles,).select_related('project', 'protocol')
 
 
