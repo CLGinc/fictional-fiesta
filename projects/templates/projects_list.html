@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - Projects List{% endblock %}
+{% block title %}Sci Log - My Projects{% endblock %}
 {% block body %}
   <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     {% include "base/top_header.html" %}
@@ -8,13 +8,38 @@
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
-          <p class="mdl-typography--headline mdl-color-text--blue-grey-600 subpageheader">PROJECTS LIST</p>
-          <button class="mdl-button mdl-js-button mdl-button--primary">
+          <p class="mdl-typography--headline mdl-color-text--blue-grey-600 subpageheader">My Projects</p>
+          <button class="mdl-button mdl-js-button mdl-button--primary" id="new-project-button">
             <i class="material-icons">playlist_add</i> Add project
           </button>
           <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="filter-button">
             <i class="material-icons">filter_list</i> Filter projects
           </button>
+          <form method="post" id="new-project-form" class="new-project-form">
+            {% csrf_token %}
+            <div class="mdl-grid mdl-cell mdl-cell--12-col">
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                  <label class="mdl-textfield__label" for="input-new-project--name">Project Name</label>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
+                  <label class="mdl-textfield__label" for="input-new-project--desc">Project Description</label>
+                </div>
+              </div>
+            </div>
+            <div class="mdl-grid mdl-cell mdl-cell--12-col new-project--area">
+              <div class="mdl-layout-spacer"></div>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                <i class="material-icons">playlist_play</i>
+                  Create Project
+              </button>
+              <div class="mdl-layout-spacer"></div>
+            </div>
+          </form>
           <form method="get" id="filter-form" class="filter-form">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
               <div class="mdl-cell mdl-cell--2-col">

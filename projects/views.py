@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template.context_processors import csrf
 
 from .models import Role
+from .forms import NewProjectForm
 
 
 def projects_list(request):
@@ -19,6 +21,14 @@ def projects_list(request):
         name_filter = request.GET.get('name')
         roles_list = roles_list.filter(project__name__icontains=request.GET.get('name'))
         is_filtered = True
+
+    new_project_form = NewProjectForm(request.POST or None)
+    if request.method == 'POST':
+        if new_project_form.is_valid():
+            new_project_form.save()
+            new_project_role = Role.objects.create(user=request.user, project=new_project_form.instance, role='owner')
+            new_project_role.save()
+            return redirect('/projects/')
     paginator = Paginator(roles_list, 15)
     page = request.GET.get('page')
     try:
