@@ -17,7 +17,7 @@ def create_unique_id():
 class Project(models.Model):
     unique_id = models.CharField(max_length=8, primary_key=True, default=create_unique_id)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
     sources = models.ManyToManyField('researchers.Source', related_name='projects', blank=True)
     protocols = models.ManyToManyField('protocols.Protocol', related_name='projects', blank=True)
 
