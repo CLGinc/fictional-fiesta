@@ -1,7 +1,7 @@
 [
 {
   "model": "projects.project",
-  "pk": 1,
+  "pk": "0f570c02",
   "fields": {
     "name": "Project 0",
     "description": "A project to create liquid fart",
@@ -11,7 +11,7 @@
 },
 {
   "model": "projects.project",
-  "pk": 2,
+  "pk": "0f570c01",
   "fields": {
     "name": "Project 1",
     "description": "Molding plates in sauce",
@@ -21,7 +21,7 @@
 },
 {
   "model": "projects.project",
-  "pk": 3,
+  "pk": "0f570c03",
   "fields": {
     "name": "Project 2",
     "description": "Melting keyboards in water",

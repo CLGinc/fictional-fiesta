@@ -1,120 +1,120 @@
 [
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 1,
   "fields": {
-    "user": 1,
-    "project": 1,
+    "researcher": 1,
+    "project": "0f570c02",
     "protocol": null,
     "role": "owner"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 2,
   "fields": {
-    "user": 1,
-    "project": 2,
+    "researcher": 1,
+    "project": "0f570c01",
     "protocol": null,
     "role": "contributor"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 3,
   "fields": {
-    "user": 1,
-    "project": 3,
+    "researcher": 1,
+    "project": "0f570c03",
     "protocol": null,
     "role": "watcher"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 4,
   "fields": {
-    "user": 10,
-    "project": 3,
+    "researcher": 4,
+    "project": "0f570c03",
     "protocol": null,
     "role": "owner"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 5,
   "fields": {
-    "user": 9,
-    "project": 2,
+    "researcher": 3,
+    "project": "0f570c01",
     "protocol": null,
     "role": "contributor"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 6,
   "fields": {
-    "user": 8,
-    "project": 1,
+    "researcher": 2,
+    "project": "0f570c02",
     "protocol": null,
     "role": "owner"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 13,
   "fields": {
-    "user": 8,
-    "project": 2,
+    "researcher": 2,
+    "project": "0f570c01",
     "protocol": null,
     "role": "owner"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 14,
   "fields": {
-    "user": 8,
-    "project": 3,
+    "researcher": 2,
+    "project": "0f570c03",
     "protocol": null,
     "role": "contributor"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 15,
   "fields": {
-    "user": 9,
-    "project": 1,
+    "researcher": 3,
+    "project": "0f570c02",
     "protocol": null,
     "role": "watcher"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 16,
   "fields": {
-    "user": 9,
-    "project": 3,
+    "researcher": 3,
+    "project": "0f570c03",
     "protocol": null,
     "role": "contributor"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 17,
   "fields": {
-    "user": 10,
-    "project": 1,
+    "researcher": 4,
+    "project": "0f570c02",
     "protocol": null,
     "role": "watcher"
   }
 },
 {
-  "model": "projects.role",
+  "model": "researchers.role",
   "pk": 18,
   "fields": {
-    "user": 10,
-    "project": 2,
+    "researcher": 4,
+    "project": "0f570c01",
     "protocol": null,
     "role": "watcher"
   }
