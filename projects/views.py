@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.context_processors import csrf
 
-from .models import Role
+from researchers.models import Role
 from .forms import NewProjectForm
 
 
