@@ -26,7 +26,10 @@ def projects_list(request):
     if request.method == 'POST':
         if new_project_form.is_valid():
             new_project_form.save()
-            new_project_role = Role.objects.create(user=request.user, project=new_project_form.instance, role='owner')
+            new_project_role = Role.objects.create(
+                researcher=request.user.researcher,
+                project=new_project_form.instance,
+                role='owner')
             new_project_role.save()
             return redirect('/projects/')
     paginator = Paginator(roles_list, 15)
