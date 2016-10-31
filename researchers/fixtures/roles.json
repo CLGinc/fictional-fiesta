@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "researcher": 1,
-    "project": "0f570c02",
+    "project": 1,
     "protocol": null,
     "role": "owner"
   }
@@ -14,7 +14,7 @@
   "pk": 2,
   "fields": {
     "researcher": 1,
-    "project": "0f570c01",
+    "project": 2,
     "protocol": null,
     "role": "contributor"
   }
@@ -24,7 +24,7 @@
   "pk": 3,
   "fields": {
     "researcher": 1,
-    "project": "0f570c03",
+    "project": 3,
     "protocol": null,
     "role": "watcher"
   }
@@ -34,7 +34,7 @@
   "pk": 4,
   "fields": {
     "researcher": 4,
-    "project": "0f570c03",
+    "project": 3,
     "protocol": null,
     "role": "owner"
   }
@@ -44,7 +44,7 @@
   "pk": 5,
   "fields": {
     "researcher": 3,
-    "project": "0f570c01",
+    "project": 2,
     "protocol": null,
     "role": "contributor"
   }
@@ -54,7 +54,7 @@
   "pk": 6,
   "fields": {
     "researcher": 2,
-    "project": "0f570c02",
+    "project": 1,
     "protocol": null,
     "role": "owner"
   }
@@ -64,7 +64,7 @@
   "pk": 13,
   "fields": {
     "researcher": 2,
-    "project": "0f570c01",
+    "project": 2,
     "protocol": null,
     "role": "owner"
   }
@@ -74,7 +74,7 @@
   "pk": 14,
   "fields": {
     "researcher": 2,
-    "project": "0f570c03",
+    "project": 3,
     "protocol": null,
     "role": "contributor"
   }
@@ -84,7 +84,7 @@
   "pk": 15,
   "fields": {
     "researcher": 3,
-    "project": "0f570c02",
+    "project": 1,
     "protocol": null,
     "role": "watcher"
   }
@@ -94,7 +94,7 @@
   "pk": 16,
   "fields": {
     "researcher": 3,
-    "project": "0f570c03",
+    "project": 3,
     "protocol": null,
     "role": "contributor"
   }
@@ -104,7 +104,7 @@
   "pk": 17,
   "fields": {
     "researcher": 4,
-    "project": "0f570c02",
+    "project": 1,
     "protocol": null,
     "role": "watcher"
   }
@@ -114,7 +114,7 @@
   "pk": 18,
   "fields": {
     "researcher": 4,
-    "project": "0f570c01",
+    "project": 2,
     "protocol": null,
     "role": "watcher"
   }

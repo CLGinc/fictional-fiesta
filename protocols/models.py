@@ -44,7 +44,7 @@ class Protocol(models.Model):
         ('modified', 'Modified'),
     )
 
-    unique_id = models.CharField(max_length=8, primary_key=True, default=create_unique_id)
+    unique_id = models.CharField(max_length=8, unique=True, default=create_unique_id)
     name = models.CharField(max_length=255)
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
