@@ -7,7 +7,12 @@
     {% include "base/drawer.html" %}
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
-
+        <div class="mdl-cell mdl-cell--12-col">
+          <header>
+            <p class="mdl-typography--title mdl-color-text--blue-grey-600">{{ selected_project.name }}</p>
+            <p class="mdl-color-text--blue-grey-600">{{ selected_project.description }}</p>
+          </header>
+        </div>
       </div>
     </main>
   </div>
