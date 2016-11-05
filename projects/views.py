@@ -32,7 +32,8 @@ def projects_list(request):
                 project=new_project_form.instance,
                 role='owner')
             new_project_role.save()
-            return redirect('/projects/')
+            return redirect(
+                '/projects/{}'.format(new_project_form.instance.unique_id))
     paginator = Paginator(roles_list, 15)
     page = request.GET.get('page')
     try:
