@@ -19,7 +19,8 @@ def projects_list(request):
         roles_list = request.user.researcher.get_roles(scope='project')
     if request.GET.get('name'):
         name_filter = request.GET.get('name')
-        roles_list = roles_list.filter(project__name__icontains=request.GET.get('name'))
+        roles_list = roles_list.filter(
+            project__name__icontains=request.GET.get('name'))
         is_filtered = True
 
     new_project_form = NewProjectForm(request.POST or None)
