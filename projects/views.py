@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.context_processors import csrf
+from django.http import Http404
 
 from researchers.models import Role
 from .forms import NewProjectForm
+from .models import Project
 
 
 def projects_list(request):
@@ -46,4 +48,8 @@ def projects_list(request):
 
 
 def project(request, project_id):
+    try:
+        selected_project = Project.objects.get(unique_id=project_id)
+    except Project.DoesNotExist:
+        raise Http404()
     return render(request, 'project.html', locals())
