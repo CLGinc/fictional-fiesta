@@ -18,16 +18,18 @@
           <form method="post" id="new-project-form" class="new-project-form">
             {% csrf_token %}
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <div class="mdl-cell mdl-cell--4-col">
+              <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--2-col">Project name</p>
+              <div class="mdl-cell mdl-cell--10-col">
                 <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
-                  <label class="mdl-textfield__label" for="input-new-project--name">Project Name</label>
+                  <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                  <label class="mdl-textfield__label" for="input-new-project--name"></label>
                 </div>
               </div>
-              <div class="mdl-cell mdl-cell--4-col">
+              <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--2-col">Project description</p>
+              <div class="mdl-cell mdl-cell--10-col">
                 <div class="mdl-textfield mdl-js-textfield">
                   <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
-                  <label class="mdl-textfield__label" for="input-new-project--desc">Project Description</label>
+                  <label class="mdl-textfield__label" for="input-new-project--desc"></label>
                 </div>
               </div>
             </div>
@@ -42,8 +44,15 @@
           </form>
           <form method="get" id="filter-form" class="filter-form">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <div class="mdl-cell mdl-cell--2-col">
-                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Role</p>
+              <p class="padding-fix--labels mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">Project name</p>
+              <div class="mdl-cell mdl-cell--10-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
+                  <label class="mdl-textfield__label" for="input-filter--name"></label>
+                </div>
+              </div>
+              <p class="mdl-cell mdl-cell--2-col mdl-color-text--light-blue-500 mdl-typography--subhead">Role</p>
+              <div class="mdl-cell mdl-cell--4-col">
                 {% for role_value, role_label in roles_labels %}
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
                   <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
@@ -51,15 +60,8 @@
                 </label>
                 {% endfor %}
               </div>
-              <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset-desktop">
-                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Project name</p>
-                <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
-                  <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
-                  <label class="mdl-textfield__label" for="input-filter--name"></label>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset-desktop">
-                <p class="mdl-color-text--blue-grey-600 mdl-typography--subhead">Creation date</p>
+              <p class="mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">Creation date</p>
+              <div class="mdl-cell mdl-cell--4-col">
                 <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
                   Datepicker
                 </div>
@@ -79,19 +81,19 @@
             <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col" id="items_container">
               <thead>
                 <tr>
-                  <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-grey-600">Project name</th>
-                  <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-grey-600">Description</th>
-                  <th class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">Protocols</th>
-                  <th class="mdl-cell--hide-phone mdl-color-text--blue-grey-600">Role</th>
+                  <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Project name</th>
+                  <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Description</th>
+                  <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Protocols</th>
+                  <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Role</th>
                 </tr>
               </thead>
               <tbody id="items_list">
                 {% for role in roles_list_page %}
-                <tr>
-                  <td class="mdl-data-table__cell--non-numeric table--wrap"><a target="_blank" href="/projects/{{ role.project.unique_id }}">{{ role.project.name }}</a></td>
-                  <td class="mdl-data-table__cell--non-numeric table--wrap">{{ role.project.description|truncatechars_html:97 }}</td>
-                  <td class="mdl-cell--hide-phone">{{ role.project.protocols.count }}</td>
-                  <td class="mdl-cell--hide-phone">{{ role.get_role_display }}</td>
+                <tr class="links--table-row">
+                  <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table links--table-name" href="/projects/{{ role.project.unique_id }}">{{ role.project.name }}</a></td>
+                  <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.description|truncatechars_html:97 }}</a></td>
+                  <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.protocols.count }}</a></td>
+                  <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.get_role_display }}</a></td>
                 </tr>
                 {% endfor %}
               </tbody>
