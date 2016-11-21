@@ -60,10 +60,19 @@
                 </label>
                 {% endfor %}
               </div>
-              <p class="mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">Creation date</p>
+              <p class="mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="date-from--trigger">
+                  <i class="material-icons">date_range</i>
+                    From
+                </button>
+              </p>
               <div class="mdl-cell mdl-cell--4-col">
+                <p id="date-from--label"></p>
                 <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
-                  Datepicker
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="input-filter--date-from" name="date-from" value="">
+                    <label class="mdl-textfield__label" id="input-filter--date-from-label" for="date-from"></label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -167,5 +176,8 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/datepicker/js/moment.min.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/datepicker/js/draggabilly.pkgd.min.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/datepicker/js/mdDateTimePicker.min.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
 {% endblock %}
