@@ -9,21 +9,18 @@ from .models import Project
 
 
 def projects_list(request):
-    is_filtered = False
     roles_labels = Role.ROLES
     selected_roles = request.GET.getlist('role')
     if request.GET.getlist('role'):
         roles_list = request.user.researcher.get_roles(
             scope='project',
             roles=selected_roles)
-        is_filtered = True
     else:
         roles_list = request.user.researcher.get_roles(scope='project')
     if request.GET.get('name'):
         name_filter = request.GET.get('name')
         roles_list = roles_list.filter(
             project__name__icontains=request.GET.get('name'))
-        is_filtered = True
 
     new_project_form = NewProjectForm(request.POST or None)
     if request.method == 'POST':
