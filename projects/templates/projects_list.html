@@ -103,7 +103,7 @@
                 <tr>
                   <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Project name</th>
                   <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Description</th>
-                  <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Created</th>
+                  <th class="mdl-cell--hide-phone mdl-cell--hide-tablet mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Created</th>
                   <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Protocols</th>
                   <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Role</th>
                 </tr>
@@ -113,7 +113,7 @@
                 <tr class="links--table-row">
                   <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table links--table-name" href="/projects/{{ role.project.unique_id }}">{{ role.project.name }}</a></td>
                   <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.description|truncatechars_html:97 }}</a></td>
-                  <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.datetime_created }}</a></td>
+                  <td class="mdl-cell--hide-phone mdl-cell--hide-tablet mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.datetime_created }}</a></td>
                   <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.protocols.count }}</a></td>
                   <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.get_role_display }}</a></td>
                 </tr>
