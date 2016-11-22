@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.context_processors import csrf
@@ -21,7 +23,18 @@ def projects_list(request):
         name_filter = request.GET.get('name')
         roles_list = roles_list.filter(
             project__name__icontains=request.GET.get('name'))
-
+    if request.GET.get('created-from'):
+        created_from = datetime.strptime(
+            request.GET.get('created-from'),
+            '%Y-%m-%d').date()
+        roles_list = roles_list.filter(
+            project__datetime_created__date__gte=created_from)
+    if request.GET.get('created-to'):
+        created_to = datetime.strptime(
+            request.GET.get('created-to'),
+            '%Y-%m-%d').date()
+        roles_list = roles_list.filter(
+            project__datetime_created__date__lte=created_to)
     new_project_form = NewProjectForm(request.POST or None)
     if request.method == 'POST':
         if new_project_form.is_valid():
