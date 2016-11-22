@@ -18,18 +18,22 @@
           <form method="post" id="new-project-form" class="new-project-form">
             {% csrf_token %}
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--2-col">Project name</p>
-              <div class="mdl-cell mdl-cell--10-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
-                  <label class="mdl-textfield__label" for="input-new-project--name"></label>
+              <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project name</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-textfield mdl-js-textfield width--full">
+                    <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                    <label class="mdl-textfield__label" for="input-new-project--name"></label>
+                  </div>
                 </div>
               </div>
-              <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--2-col">Project description</p>
-              <div class="mdl-cell mdl-cell--10-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
-                  <label class="mdl-textfield__label" for="input-new-project--desc"></label>
+              <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project description</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-textfield mdl-js-textfield width--full">
+                    <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
+                    <label class="mdl-textfield__label" for="input-new-project--desc"></label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -44,35 +48,42 @@
           </form>
           <form method="get" id="filter-form" class="filter-form">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <p class="padding-fix--labels mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">Project name</p>
-              <div class="mdl-cell mdl-cell--10-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
-                  <label class="mdl-textfield__label" for="input-filter--name"></label>
+              <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Project name</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-textfield mdl-js-textfield width--full">
+                    <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
+                    <label class="mdl-textfield__label" for="input-filter--name"></label>
+                  </div>
                 </div>
               </div>
-              <p class="mdl-cell mdl-cell--2-col mdl-color-text--light-blue-500 mdl-typography--subhead">Role</p>
-              <div class="mdl-cell mdl-cell--4-col">
-                {% for role_value, role_label in roles_labels %}
-                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
-                  <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
-                  <span class="mdl-checkbox__label">{{ role_label }}</span>
-                </label>
-                {% endfor %}
-              </div>
-              <p class="mdl-cell mdl-cell--2-col mdl-color-text--blue-500 mdl-typography--subhead">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="date-from--trigger">
-                  <i class="material-icons">date_range</i>
-                    From
-                </button>
-              </p>
-              <div class="mdl-cell mdl-cell--4-col">
-                <p id="date-from--label"></p>
-                <div class="mdl-textfield mdl-js-textfield alignment-fix--labels">
-                  <div class="mdl-textfield mdl-js-textfield">
+              <div class="mdl-grid mdl-cell mdl-cell--3-col">
+                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Date from</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-textfield mdl-js-textfield width--full">
                     <input class="mdl-textfield__input" type="text" id="input-filter--date-from" name="date-from" value="">
-                    <label class="mdl-textfield__label" id="input-filter--date-from-label" for="date-from"></label>
+                    <label class="mdl-textfield__label" for="date-from"><i class="material-icons right">arrow_drop_down</i></label>
                   </div>
+                </div>
+              </div>
+              <div class="mdl-grid mdl-cell mdl-cell--3-col">
+                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Date to</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-textfield mdl-js-textfield width--full">
+                    <input class="mdl-textfield__input" type="text" id="input-filter--date-to" name="date-to" value="">
+                    <label class="mdl-textfield__label" for="date-to"><i class="material-icons right">arrow_drop_down</i></label>
+                  </div>
+                </div>
+              </div>
+              <div class="mdl-grid mdl-cell mdl-cell--12-col">
+                <p class="mdl-cell mdl-cell--12-col mdl-color-text--light-blue-500 mdl-typography--subhead">Role</p>
+                <div class="mdl-cell mdl-cell--12-col">
+                  {% for role_value, role_label in roles_labels %}
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
+                    <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
+                    <span class="mdl-checkbox__label">{{ role_label }}</span>
+                  </label>
+                  {% endfor %}
                 </div>
               </div>
             </div>
@@ -80,7 +91,7 @@
               <div class="mdl-layout-spacer"></div>
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                 <i class="material-icons">playlist_play</i>
-                  Apply
+                  Apply filter
               </button>
               <div class="mdl-layout-spacer"></div>
             </div>
