@@ -5,9 +5,18 @@
 .alignment-fix--labels {
   padding-top: 0;
 }
+.width--full {
+  width: 100%;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
 }
 /*Links*/
 a {
@@ -80,6 +89,9 @@ a {
 }
 .border--right-blue {
   border-right: 1px #448aff solid;
+}
+.padding--top-15 {
+  padding-top: 5px;
 }
 /* New Project */
 .new-project-form {
