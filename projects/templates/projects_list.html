@@ -8,7 +8,7 @@
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
-          <p class="mdl-typography--headline mdl-color-text--blue-grey-600 subpageheader">My Projects</p>
+          <p class="mdl-typography--headline mdl-color-text--blue-500 subpageheader">My Projects</p>
           <button class="mdl-button mdl-js-button mdl-button--primary" id="new-project-button">
             <i class="material-icons">playlist_add</i> Add project
           </button>
@@ -189,8 +189,9 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/datepicker/js/moment.min.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/datepicker/js/draggabilly.pkgd.min.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/datepicker/js/mdDateTimePicker.min.js" %}"></script>
-  <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/datepicker.js" %}"></script>
 {% endblock %}

@@ -18,6 +18,12 @@
 .right {
   float: right;
 }
+.padding-40 {
+  padding: 25px;
+}
+.margin--left-0 {
+  margin-left: 0;
+}
 /*Links*/
 a {
   color: inherit;
