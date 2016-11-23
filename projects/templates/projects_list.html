@@ -61,7 +61,7 @@
                 <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Created from</p>
                 <div class="mdl-cell mdl-cell--12-col">
                   <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-filter--date-from" name="created-from" value="">
+                    <input class="mdl-textfield__input" type="text" id="input-filter--date-from" name="created-from" value="{{ created_from|date:"Y-m-d" }}">
                     <label class="mdl-textfield__label" for="created-from"><i class="material-icons right">arrow_drop_down</i></label>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                 <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Created to</p>
                 <div class="mdl-cell mdl-cell--12-col">
                   <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-filter--date-to" name="created-to" value="">
+                    <input class="mdl-textfield__input" type="text" id="input-filter--date-to" name="created-to" value="{{ created_to|date:"Y-m-d" }}">
                     <label class="mdl-textfield__label" for="created-to"><i class="material-icons right">arrow_drop_down</i></label>
                   </div>
                 </div>
