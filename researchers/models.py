@@ -2,9 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-from projects.models import Project
-
-
 class University(models.Model):
     name = models.CharField(max_length=255)
 
@@ -23,7 +20,7 @@ class Role(models.Model):
     )
 
     researcher = models.ForeignKey('Researcher', related_name='roles')
-    project = models.ForeignKey(Project, related_name='roles', null=True, blank=True)
+    project = models.ForeignKey('projects.Project', related_name='roles', null=True, blank=True)
     protocol = models.ForeignKey('protocols.Protocol', related_name='roles', null=True, blank=True)
     role = models.CharField(max_length=255, choices=ROLES)
 

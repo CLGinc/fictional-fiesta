@@ -1,10 +1,9 @@
 import os
 
+from adminsortable.models import SortableMixin
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
-
-from adminsortable.models import SortableMixin
-from researchers.models import Researcher, Source
 
 
 def create_unique_id():
@@ -32,7 +31,7 @@ class Asset(models.Model):
 
 class Procedure(models.Model):
     datetime_last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by = models.ForeignKey(Researcher, related_name='procedures')
+    last_modified_by = models.ForeignKey('researchers.Researcher', related_name='procedures')
 
     def __str__(self):
         return 'Procedure {} created by {}'.format(self.id, self.last_modified_by)
@@ -50,7 +49,7 @@ class Protocol(models.Model):
     label = models.CharField(max_length=20, choices=LABELS)
     assets = models.ManyToManyField(Asset, related_name='protocols')
     procedure = models.OneToOneField(Procedure, related_name='protocol')
-    sources = models.ManyToManyField(Source, related_name='protocols', blank=True)
+    sources = models.ManyToManyField('researchers.Source', related_name='protocols', blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -76,7 +75,7 @@ class Result(models.Model):
     )
 
     note = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.ForeignKey(Researcher, related_name='results')
+    owner = models.ForeignKey('researchers.Researcher', related_name='results')
     state = models.CharField(max_length=20, choices=STATES, default=STATES[0][0])
 
     def __str__(self):
