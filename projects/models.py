@@ -3,6 +3,8 @@ import os
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from researchers.models import Role
+
 
 def create_unique_id():
     unique_id = os.urandom(4).hex()
@@ -24,3 +26,16 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_participants_by_role(self):
+        participants_by_role = list()
+        for role_value, role_label in Role.ROLES:
+            if self.roles.filter(role=role_value).exists():
+                participants_by_role.append(
+                    (
+                        role_label,
+                        self.roles.filter(
+                            role=role_value).order_by('researcher')
+                    )
+                )
+        return participants_by_role
