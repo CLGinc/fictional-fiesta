@@ -61,8 +61,15 @@ def projects_list(request):
 def project(request, project_id):
     try:
         selected_project = Project.objects.get(unique_id=project_id)
-        participants_roles = Role.objects.filter(
-            project=selected_project).order_by('researcher')
+        participants_roles = list()
+        for role_value, role_label in Role.ROLES:
+            participants_roles.append(
+                (
+                    role_label, Role.objects.filter(
+                        project=selected_project,
+                        role=role_value).order_by('researcher')
+                )
+            )
     except Project.DoesNotExist:
         raise Http404()
     return render(request, 'project.html', locals())
