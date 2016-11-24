@@ -6,7 +6,6 @@ from django.template.context_processors import csrf
 from django.http import Http404
 
 from researchers.models import Role
-from protocols.models import Protocol
 from .forms import NewProjectForm
 from .models import Project
 
