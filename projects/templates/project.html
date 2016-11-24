@@ -25,7 +25,9 @@
               <h2 class="mdl-card__title-text">Protocols</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-              {{ selected_project.protocols }}
+              {% for protocol in selected_project.protocols.all %}
+                {{ protocol.name }}<br/>
+              {% endfor %}
             </div>
           </div>
           <div class="mdl-card width--full">
@@ -33,7 +35,9 @@
               <h2 class="mdl-card__title-text">Sources</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-              {{ selected_project.sources }}
+              {% for source in selected_project.sources.all %}
+                {{ source.name }}<br/>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -43,7 +47,9 @@
               <h2 class="mdl-card__title-text">Participants</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              add list
+              {% for role in participants_roles %}
+                {{ role.researcher }} - {{ role.role }}<br/>
+              {% endfor %}
             </div>
             <div class="mdl-card__actions mdl-card--border">
               <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
