@@ -64,8 +64,8 @@ def project(request, project_id):
         for role_value, role_label in Role.ROLES:
             participants_roles.append(
                 (
-                    role_label, Role.objects.filter(
-                        project=selected_project,
+                    role_label,
+                    selected_project.roles.filter(
                         role=role_value).order_by('researcher')
                 )
             )
