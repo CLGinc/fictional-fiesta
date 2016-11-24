@@ -47,7 +47,7 @@
               <h2 class="mdl-card__title-text">Participants</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              {% for role_value, roles in participants_roles %}
+              {% for role_value, roles in participants_by_role %}
                 --- {{ role_value }}/s ---<br/>
                 {% for role in roles %}
                   {{ role.researcher }} - {{ role.role }}<br/>
