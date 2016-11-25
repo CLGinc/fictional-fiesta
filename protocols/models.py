@@ -68,7 +68,7 @@ class Step(SortableMixin):
         ordering = ['order']
 
     def __str__(self):
-        return self.name
+        return self.text
 
 
 class Result(models.Model):
