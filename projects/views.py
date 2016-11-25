@@ -64,8 +64,12 @@ def project(request, project_id):
         protocols = {}
         for protocol in selected_project.protocols.all():
             protocols[protocol] = {
-                'created': protocol.results.filter(state='created').count(),
-                'finished': protocol.results.filter(state='finished').count(),
+                'created': protocol.results.filter(
+                    state='created',
+                    project=selected_project).count(),
+                'finished': protocol.results.filter(
+                    state='finished',
+                    project=selected_project).count(),
                 'procedures': protocol.procedure.steps.count(),
                 }
     except Project.DoesNotExist:
