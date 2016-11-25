@@ -61,6 +61,13 @@ def project(request, project_id):
     try:
         selected_project = Project.objects.get(unique_id=project_id)
         participants_by_role = selected_project.get_participants_by_role()
+        protocols = {}
+        for protocol in selected_project.protocols.all():
+            protocols[protocol] = {
+                'created': protocol.results.filter(state='created').count(),
+                'finished': protocol.results.filter(state='finished').count(),
+                'procedures': protocol.procedure.steps.count(),
+                }
     except Project.DoesNotExist:
         raise Http404()
     return render(request, 'project.html', locals())

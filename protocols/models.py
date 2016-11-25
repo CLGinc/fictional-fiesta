@@ -55,6 +55,9 @@ class Protocol(models.Model):
     def __str__(self):
         return self.name
 
+    def get_owner(self):
+        return self.roles.get(role='owner')
+
 
 class Step(SortableMixin):
     text = models.CharField(max_length=255)
