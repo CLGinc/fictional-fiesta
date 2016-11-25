@@ -8,6 +8,16 @@
 .width--full {
   width: 100%;
 }
+.margin--none {
+  margin: 0;
+}
+.padding--top-none {
+  padding-top: 0;
+}
+.padding--left-none {
+  padding-left: 0;
+}
+
 /* Text */
 .subpageheader {
   margin: 40px auto;
@@ -24,6 +34,10 @@
 .margin--left-0 {
   margin-left: 0;
 }
+/*Borders*/
+.border--bottom {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
 /*Links*/
 a {
   color: inherit;
@@ -39,6 +53,9 @@ a {
 }
 .links--table-name {
   font-weight: 600;
+}
+.links--wrap {
+  white-space: normal;
 }
 /*Scroll to top*/
 .scrollToTop-container {
@@ -73,6 +90,20 @@ a {
 .user-card--name {
   text-align: center;
   margin-top: 24px;
+}
+/*Participants list*/
+.participant-list--link {
+  display: block;
+  width: 100%;
+  padding: 8px;
+}
+.participant-list--link:hover {
+  color: #2196f3 !important;
+}
+.participant-list--avatar {
+  height: 40px;
+  width: 40px;
+  margin-right: 16px;
 }
 
 /* Tables */
