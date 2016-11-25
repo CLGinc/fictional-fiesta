@@ -11,8 +11,17 @@
 .margin--none {
   margin: 0;
 }
+.margin--left-0 {
+  margin-left: 0;
+}
+.padding-40 {
+  padding: 25px;
+}
 .padding--top-none {
   padding-top: 0;
+}
+.padding--bottom-8 {
+  padding-bottom: 8px;
 }
 .padding--left-none {
   padding-left: 0;
@@ -27,12 +36,6 @@
 }
 .right {
   float: right;
-}
-.padding-40 {
-  padding: 25px;
-}
-.margin--left-0 {
-  margin-left: 0;
 }
 /*Borders*/
 .border--bottom {
@@ -109,6 +112,10 @@ a {
   height: 36px;
   width: 36px;
   margin-right: 12px;
+}
+/*Protocol list*/
+.protocol-list > div {
+  padding-bottom: 16px;
 }
 
 /* Tables */
