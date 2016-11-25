@@ -25,13 +25,13 @@
               <h2 class="mdl-card__title-text">Protocols</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-              {% for protocol in selected_project.protocols.all %}
+              {% for protocol, stats in protocols.items %}
                 {{ protocol.name }}<br/>
                 {{ protocol.label }}<br/>
-                {{ protocol.results.filter(state='created').count }}<br/>
-                {{ protocol.results.filter(state='finished').count }}<br/>
-                {{ protocol.procedure.steps.all.count }}<br/>
-                {{ protocol.roles }}<br/>
+                {{ stats.created }}<br/>
+                {{ stats.finished }}<br/>
+                {{ stats.procedures }}<br/>
+                {{ protocol.get_owner }}<br/>
               {% endfor %}
             </div>
           </div>
