@@ -26,7 +26,12 @@
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
               {% for protocol in selected_project.protocols.all %}
-                {{ protocol.name }}<br/>{{ protocol.label }}<br/>{{ protocol.procedure.results }}<br/>{{ protocol.name }}<br/>{{ protocol.datetime_created }}<br/>{{ protocol.assets }}<br/>
+                {{ protocol.name }}<br/>
+                {{ protocol.label }}<br/>
+                {{ protocol.results.filter(state='created').count }}<br/>
+                {{ protocol.results.filter(state='finished').count }}<br/>
+                {{ protocol.procedure.steps.all.count }}<br/>
+                {{ protocol.roles }}<br/>
               {% endfor %}
             </div>
           </div>
@@ -36,7 +41,9 @@
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
               {% for source in selected_project.sources.all %}
-                {{ source.name }}<br/>{{ source.url }}<br/>{{ source.isbn }}<br/>
+                {{ source.name }}<br/>
+                {{ source.url }}<br/>
+                {{ source.isbn }}<br/>
               {% endfor %}
             </div>
           </div>
