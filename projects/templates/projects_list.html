@@ -9,11 +9,11 @@
       <div class="page-content mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
           <p class="mdl-typography--headline mdl-color-text--blue-500 subpageheader">My Projects</p>
-          <button class="mdl-button mdl-js-button mdl-button--primary" id="new-project-button">
-            <i class="material-icons">playlist_add</i> Add project
+          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="new-project-button">
+            <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add project
           </button>
           <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="filter-button">
-            <i class="material-icons">filter_list</i> Filter projects
+            <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
           </button>
           <form method="post" id="new-project-form" class="new-project-form">
             {% csrf_token %}
@@ -39,7 +39,7 @@
             </div>
             <div class="mdl-grid mdl-cell mdl-cell--12-col new-project--area">
               <div class="mdl-layout-spacer"></div>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              <button class="mdl-button mdl-js-button mdl-color--blue-500 mdl-color-text--white">
                 <i class="material-icons">playlist_play</i>
                   Create Project
               </button>
@@ -89,7 +89,7 @@
             </div>
             <div class="mdl-grid mdl-cell mdl-cell--12-col filter-button--area">
               <div class="mdl-layout-spacer"></div>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-color--blue-500 mdl-color-text--white">
                 <i class="material-icons">playlist_play</i>
                   Apply filter
               </button>

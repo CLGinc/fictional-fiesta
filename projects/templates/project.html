@@ -28,9 +28,10 @@
               {% for protocol, stats in protocols.items %}
                 {{ protocol.name }}<br/>
                 {{ protocol.label }}<br/>
-                {{ stats.created }}<br/>
-                {{ stats.finished }}<br/>
-                {{ stats.procedures }}<br/>
+                 experiments in progress {{ stats.created }}<br/>
+                 completed experiments {{ stats.finished }}<br/>
+                   successful X<br/>
+                 steps {{ stats.procedures }}<br/>
                 {{ protocol.get_owner }}<br/>
               {% endfor %}
             </div>
@@ -54,40 +55,36 @@
               <h2 class="mdl-card__title-text">Participants</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              {% for role_value, roles in participants_by_role %}
-                --- {{ role_value }}/s ---<br/>
-                {% for role in roles %}
-                  {{ role.researcher }} - {{ role.role }}<br/>
+              <ul class="mdl-list margin--none padding--top-none">
+                {% for role_value, roles in participants_by_role %}
+                <li class="mdl-list__item padding--left-none">{{ role_value }}</li>
+                  {% for role in roles %}
+                <li class="mdl-list__item padding--left-none">
+                  <span class="mdl-list__item-primary-content">
+                    <img class="participant-list--avatar" src="/static/front/img/ninja.png">
+                    <a class="links--wrap mdl-color-text--blue-grey-600 participant-list--link" href="">
+                      <span>{{ role.researcher }}</span>
+                    </a>
+                  </span>
+                  <span class="mdl-list__item-secondary-content mdl-color-text--blue-grey-600">
+                    {% if role.role == 'owner' %}
+                    <i class="material-icons">person_outline</i>
+                    {% endif %}
+                    {% if role.role == 'contributor' %}
+                    <i class="material-icons">people_outline</i>
+                    {% endif %}
+                    {% if role.role == 'watcher' %}
+                    <i class="material-icons">remove_red_eye</i>
+                    {% endif %}
+                  </span>
+                </li>
+                  {% endfor %}
                 {% endfor %}
-              {% endfor %}
-            </div>
-            <div class="mdl-list">
-              <div class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-avatar">person</i>
-                  <span>Bryan Cranston</span>
-                </span>
-                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-              </div>
-              <div class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-avatar">person</i>
-                  <span>Aaron Paul</span>
-                </span>
-                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-              </div>
-              <div class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-avatar">person</i>
-                  <span>Bob Odenkirk</span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-                  <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-              </span>
-              </div>
+              </ul>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600">
+                <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 See all participants
               </a>
             </div>
