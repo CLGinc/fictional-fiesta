@@ -92,18 +92,23 @@ a {
   margin-top: 24px;
 }
 /*Participants list*/
+.participant-list {
+  width: 100%;
+}
 .participant-list--link {
   display: block;
   width: 100%;
   padding: 8px;
+  font-weight: normal;
+  font-size: 14px;
 }
 .participant-list--link:hover {
   color: #2196f3 !important;
 }
 .participant-list--avatar {
-  height: 40px;
-  width: 40px;
-  margin-right: 16px;
+  height: 36px;
+  width: 36px;
+  margin-right: 12px;
 }
 
 /* Tables */
