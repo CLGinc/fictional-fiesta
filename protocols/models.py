@@ -57,7 +57,7 @@ class Protocol(models.Model):
 
 
 class Step(SortableMixin):
-    name = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)
     procedure = models.ForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
@@ -77,6 +77,9 @@ class Result(models.Model):
     note = models.CharField(max_length=255, null=True, blank=True)
     owner = models.ForeignKey('researchers.Researcher', related_name='results')
     state = models.CharField(max_length=20, choices=STATES, default=STATES[0][0])
+    is_successful = models.BooleanField(default=False)
+    protocol = models.ForeignKey(Protocol, related_name='results')
+    project = models.ForeignKey('projects.Project', related_name='results', null=True, blank=True)
 
     def __str__(self):
         return 'Result {}'.format(self.id)
@@ -92,6 +95,7 @@ class Attachment(models.Model):
 
 
 class DataColumn(models.Model):
+    result = models.ForeignKey(Result, related_name='data_columns')
     data = JSONField()
     is_independent = models.BooleanField(default=False)
     measurement = models.CharField(max_length=255)
