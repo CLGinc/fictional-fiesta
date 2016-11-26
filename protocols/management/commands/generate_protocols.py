@@ -1,5 +1,7 @@
 import random
 import json
+import time
+import logging
 
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -38,6 +40,7 @@ class Command(BaseCommand):
             help='Number of data-columns per result. Default: 10')
 
     def handle(self, *args, **options):
+        start_time = time.time()
         MEASUREMENTS = (
             ('Volume', 'litre'),
             ('Mass', 'kg'),
@@ -47,8 +50,9 @@ class Command(BaseCommand):
             ('Speed' 'm/s'),
             ('Speed' 'm/s'),
         )
-        #'''
+        logger = logging.getLogger('django')
         for protocol_idx in range(options['protocols']):
+            logger.info('Start generating protocols')
             # Preparations for connecting
             # protocol with projects and researchers
             researcher = random.choice(Researcher.objects.all())
@@ -116,4 +120,6 @@ class Command(BaseCommand):
                         project=project,
                         role=random.choice(Role.ROLES)[0]
                     )
-        #'''
+            execution_time = time.time() - start_time
+            logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
+                execution_time))
