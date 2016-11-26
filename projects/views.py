@@ -70,6 +70,8 @@ def project(request, project_id):
                 'finished': protocol.results.filter(
                     state='finished',
                     project=selected_project).count(),
+                'successful': protocol.results.filter(
+                    is_successful=True).count(),
                 'procedures': protocol.procedure.steps.count(),
                 }
     except Project.DoesNotExist:
