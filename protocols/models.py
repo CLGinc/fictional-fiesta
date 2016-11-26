@@ -39,7 +39,7 @@ class Protocol(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
-    assets = models.ManyToManyField(Asset, related_name='protocols', null=True, blank=True)
+    assets = models.ManyToManyField(Asset, related_name='protocols', blank=True)
     sources = models.ManyToManyField('researchers.Source', related_name='protocols', blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
