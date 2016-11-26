@@ -18,7 +18,7 @@ def create_unique_id():
 
 class Asset(models.Model):
     CATEGORIES = (
-        ('matirial', 'Material'),
+        ('material', 'Material'),
         ('equipment', 'Equipment')
     )
 
