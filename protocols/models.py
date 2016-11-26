@@ -56,7 +56,7 @@ class Protocol(models.Model):
         return self.name
 
     def get_owner(self):
-        return self.roles.get(role='owner')
+        return self.roles.get(role='owner').researcher
 
 
 class Step(SortableMixin):
