@@ -29,14 +29,6 @@ class Asset(models.Model):
         return self.name
 
 
-class Procedure(models.Model):
-    datetime_last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by = models.ForeignKey('researchers.Researcher', related_name='procedures')
-
-    def __str__(self):
-        return 'Procedure {} created by {}'.format(self.id, self.last_modified_by)
-
-
 class Protocol(models.Model):
     LABELS = (
         ('standard', 'Standard'),
@@ -48,7 +40,6 @@ class Protocol(models.Model):
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
     assets = models.ManyToManyField(Asset, related_name='protocols', null=True, blank=True)
-    procedure = models.OneToOneField(Procedure, related_name='protocol')
     sources = models.ManyToManyField('researchers.Source', related_name='protocols', blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
@@ -57,6 +48,15 @@ class Protocol(models.Model):
 
     def get_owner(self):
         return self.roles.get(role='owner').researcher
+
+
+class Procedure(models.Model):
+    protocol = models.OneToOneField(Protocol, related_name='procedure')
+    datetime_last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey('researchers.Researcher', related_name='procedures')
+
+    def __str__(self):
+        return 'Procedure {} created by {}'.format(self.id, self.last_modified_by)
 
 
 class Step(SortableMixin):
