@@ -57,7 +57,7 @@ class Command(BaseCommand):
             # protocol with projects and researchers
             add_to_projects = False
             researcher = random.choice(Researcher.objects.all())
-            if projects.objects.exist():
+            if Project.objects.exists():
                 add_to_projects = random.choice((True, False))
             if add_to_projects:
                 number_of_projects = 0
