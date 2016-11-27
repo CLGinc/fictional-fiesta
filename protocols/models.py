@@ -4,6 +4,7 @@ from adminsortable.models import SortableMixin
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 def create_unique_id():
@@ -86,6 +87,10 @@ class Result(models.Model):
 
     def __str__(self):
         return 'Result {}'.format(self.id)
+
+    def clean(self):
+        if self.is_successful and not(self.state=='finished'):
+            raise ValidationError({'is_successful':'Unfinished result cannot be marked successful!'})
 
 
 class Attachment(models.Model):
