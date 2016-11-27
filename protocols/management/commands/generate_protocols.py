@@ -97,7 +97,8 @@ class Command(BaseCommand):
                     state=random.choice(Result.STATES)[0],
                     is_successful=random.choice((True, False)),
                     protocol=protocol,
-                    project=random.choice(projects) if add_to_projects else None
+                    project=random.choice(
+                        projects) if add_to_projects else None
                 )
             # Create data columnd constructed from random data
             for data_idx in range(options['data_columns']):
