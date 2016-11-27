@@ -91,11 +91,15 @@ class Command(BaseCommand):
                 )
             # Create randomly generated results for the selected protocol
             for result_idx in range(options['results']):
+                is_successful = False
+                state = random.choice(Result.STATES)[0]
+                if state == 'finished':
+                    is_successful = random.choice((True, False))
                 result = Result.objects.create(
                     note='Note for result {}'.format(result_idx),
                     owner=researcher,
-                    state=random.choice(Result.STATES)[0],
-                    is_successful=random.choice((True, False)),
+                    state=state,
+                    is_successful=is_successful,
                     protocol=protocol,
                     project=random.choice(
                         projects) if add_to_projects else None
