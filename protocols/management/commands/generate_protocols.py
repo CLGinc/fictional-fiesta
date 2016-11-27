@@ -55,8 +55,10 @@ class Command(BaseCommand):
         for protocol_idx in range(options['protocols']):
             # Preparations for connecting
             # protocol with projects and researchers
+            add_to_projects = False
             researcher = random.choice(Researcher.objects.all())
-            add_to_projects = random.choice((True, False))
+            if projects.objects.exist():
+                add_to_projects = random.choice((True, False))
             if add_to_projects:
                 number_of_projects = 0
                 while number_of_projects == 0:
