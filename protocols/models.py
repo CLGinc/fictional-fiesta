@@ -84,6 +84,7 @@ class Result(models.Model):
     is_successful = models.BooleanField(default=False)
     protocol = models.ForeignKey(Protocol, related_name='results')
     project = models.ForeignKey('projects.Project', related_name='results', null=True, blank=True)
+    datetime_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return 'Result {}'.format(self.id)
