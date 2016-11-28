@@ -77,7 +77,7 @@
             </div>
           </div>
           {% endif %}
-          {% if protocols %}
+          {% if selected_project.protocols %}
           <div class="mdl-card mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
               <h2 class="mdl-card__title-text">Protocols</h2>
@@ -98,7 +98,7 @@
                   <div class="mdl-cell mdl-cell--1-col">Modify</div>
                 </div>
               </li>
-              {% for protocol, stats in protocols.items %}
+              {% for protocol in selected_project.protocols.all %}
           		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                 <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
                   <div class="mdl-cell mdl-cell--7-col">{{ protocol.name }}</div>
