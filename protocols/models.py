@@ -93,8 +93,8 @@ class Result(models.Model):
         return 'Result {}'.format(self.id)
 
     def clean(self):
-        if self.is_successful and not(self.state=='finished'):
-            raise ValidationError({'is_successful':'Unfinished result cannot be marked successful!'})
+        if self.is_successful and not(self.state == 'finished'):
+            raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
 
 
 class Attachment(models.Model):
