@@ -98,28 +98,31 @@
           </form>
         </div>
         {% if roles_list_page %}
-        <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col" id="items_container">
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Project name</th>
-              <th class="mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Description</th>
-              <th class="mdl-cell--hide-phone mdl-cell--hide-tablet mdl-data-table__cell--non-numeric mdl-color-text--blue-500">Created</th>
-              <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Protocols</th>
-              <th class="mdl-cell--hide-phone mdl-color-text--blue-500">Role</th>
-            </tr>
-          </thead>
-          <tbody id="items_list">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
+            <h2 class="mdl-card__title-text">Protocols</h2>
+          </div>
+          <ul class="mdl-list">
+            <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500 padding--left-none">
+              <div class="mdl-cell mdl-cell--2-col">Project name</div>
+              <div class="mdl-cell mdl-cell--6-col">Description</div>
+              <div class="mdl-cell mdl-cell--2-col">Created</div>
+              <div class="mdl-cell mdl-cell--1-col">Protocols</div>
+              <div class="mdl-cell mdl-cell--1-col">Role</div>
+            </li>
             {% for role in roles_list_page %}
-            <tr class="links--table-row">
-              <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table links--table-name" href="/projects/{{ role.project.unique_id }}">{{ role.project.name }}</a></td>
-              <td class="mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.description|truncatechars_html:97 }}</a></td>
-              <td class="mdl-cell--hide-phone mdl-cell--hide-tablet mdl-data-table__cell--non-numeric table--wrap"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.datetime_created }}</a></td>
-              <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.project.protocols.count }}</a></td>
-              <td class="mdl-cell--hide-phone"><a class="mdl-color-text--grey-700 links--table" href="/projects/{{ role.project.unique_id }}">{{ role.get_role_display }}</a></td>
-            </tr>
+            <a href="/projects/{{ role.project.unique_id }}" class="links--wrap">
+              <li class="mdl-grid mdl-list__item border--bottom padding--left-none list--link">
+                <div class="mdl-cell mdl-cell--2-col">{{ role.project.name }}</div>
+                <div class="mdl-cell mdl-cell--6-col">{{ role.project.description|truncatechars_html:97 }}</div>
+                <div class="mdl-cell mdl-cell--2-col">{{ role.project.datetime_created }}</div>
+                <div class="mdl-cell mdl-cell--1-col">{{ role.project.protocols.count }}</div>
+                <div class="mdl-cell mdl-cell--1-col">{{ role.get_role_display }}</div>
+              </li>
+            </a>
             {% endfor %}
-          </tbody>
-        </table>
+          </ul>
+        </div>
         {% else %}
         <div class="mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card width--full">
