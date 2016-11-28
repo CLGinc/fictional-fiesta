@@ -101,6 +101,8 @@ class Result(models.Model):
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
+            if not(self.project.roles.filter(researcher=self.owner).exclude(role='watcher').exists()):
+                raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
 
 
 class Attachment(models.Model):
