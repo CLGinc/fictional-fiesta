@@ -36,7 +36,7 @@
               <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                 <div class="mdl-grid mdl-cell mdl-cell--11-col">
                   <div class="mdl-cell mdl-cell--4-col">Protocol</div>
-                  <div class="mdl-cell mdl-cell--3-col">Last modified</div>
+                  <div class="mdl-cell mdl-cell--3-col">Created by</div>
                   <div class="mdl-cell mdl-cell--3-col">Created on</div>
                   <div class="mdl-cell mdl-cell--1-col">State</div>
                   <div class="mdl-cell mdl-cell--1-col">Success</div>
@@ -49,7 +49,7 @@
           		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                 <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
                   <div class="mdl-cell mdl-cell--4-col">{{ result.protocol }}</div>
-                  <div class="mdl-cell mdl-cell--3-col">{{ result.datetime_created }}</div>
+                  <div class="mdl-cell mdl-cell--3-col">{{ result.owner }}</div>
                   <div class="mdl-cell mdl-cell--3-col">{{ result.datetime_created }}</div>
                   <div class="mdl-cell mdl-cell--1-col">{{ result.state }}</div>
                   {% if result.is_successful == True %}
