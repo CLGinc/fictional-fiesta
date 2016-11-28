@@ -95,6 +95,9 @@ class Result(models.Model):
     def clean(self):
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
+        if self.project:
+            if not(self.protocol in self.project.protocols.all()):
+                raise ValidationError('The selected protocol does not belong to the selected project!')
 
 
 class Attachment(models.Model):
