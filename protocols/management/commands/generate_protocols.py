@@ -79,7 +79,7 @@ class Command(BaseCommand):
             protocol_role = Role.objects.create(
                 researcher=researcher,
                 protocol=protocol,
-                role=random.choice(Role.ROLES)[0]
+                role=random.choice(Role.ROLES[:2])[0]
             )
             # Create random role between projects and researcher
             if add_to_projects:
@@ -89,7 +89,7 @@ class Command(BaseCommand):
                         project_role = Role.objects.create(
                             researcher=researcher,
                             projects=project,
-                            role=random.choice(Role.ROLES)[0]
+                            role=random.choice(Role.ROLES[:2])[0]
                         )
             procedure = Procedure.objects.create(
                 protocol=protocol,
