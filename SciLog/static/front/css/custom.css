@@ -17,6 +17,14 @@
 .margin--bottom-16 {
   margin-bottom: 16px;
 }
+.margin--bottom-0 {
+  margin-bottom: 0;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .padding-40 {
   padding: 25px;
 }
@@ -121,6 +129,17 @@ a {
 }
 .list--link:hover {
   color: #2196f3;
+}
+.list--link-edit,.list--link-remove {
+  font-size: 18px;
+}
+.list--link-edit:hover {
+  color: #ff9800!important;
+  cursor: pointer;
+}
+.list--link-remove:hover {
+  color: #ff1744!important;
+  cursor: pointer;
 }
 
 /* Filter */
