@@ -51,15 +51,6 @@ a {
   white-space: nowrap;
   font-weight: 500;
 }
-.links--table {
-  display: block;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-.links--table-name {
-  font-weight: 600;
-}
 .links--wrap {
   white-space: normal;
 }
@@ -108,6 +99,7 @@ a {
   padding: 8px;
   font-weight: normal;
   font-size: 14px;
+  cursor: pointer;
 }
 .participant-list--link:hover {
   color: #2196f3 !important;
@@ -128,12 +120,7 @@ a {
   cursor: pointer;
 }
 .list--link:hover {
-  color: #2196f3 !important;
-}
-
-/* Tables */
-.table--wrap {
-  white-space: normal;
+  color: #2196f3;
 }
 
 /* Filter */

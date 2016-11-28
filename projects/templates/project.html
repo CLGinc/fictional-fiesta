@@ -92,14 +92,14 @@
                 {% for role_value, roles in participants_by_role %}
                 <li class="mdl-list__item padding--left-none padding--top-none">{{ role_value }}</li>
                   {% for role in roles %}
-                <li class="mdl-list__item padding--left-none padding--top-none">
-                  <span class="mdl-list__item-primary-content">
-                    <img class="participant-list--avatar" src="/static/front/img/ninja.png">
-                    <a class="links--wrap participant-list--link" href="">
-                      <span>{{ role.researcher }}</span>
-                    </a>
-                  </span>
-                </li>
+                  <a class="links--wrap" href="/userid/">
+                    <li class="mdl-list__item padding--left-none padding--top-none participant-list--link">
+                      <span class="mdl-list__item-primary-content">
+                        <img class="participant-list--avatar" src="/static/front/img/ninja.png">
+                          <span>{{ role.researcher }}</span>
+                      </span>
+                    </li>
+                  </a>
                   {% endfor %}
                 {% endfor %}
               </ul>
