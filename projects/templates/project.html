@@ -154,7 +154,11 @@
                   <div class="mdl-cell mdl-cell--4-col">{{ source.isbn }}</div>
                 </a>
                 <div class="links--wrap mdl-grid mdl-cell mdl-cell--2-col list--link">
-                  <a href="{{ source.url }}" class="links--wrap mdl-cell mdl-cell--12-col">Visit site</a>
+                  <a href="{{ source.url }}" target="_blank" class="links--wrap mdl-cell mdl-cell--12-col">
+                    {% if source.url %}
+                    Visit site
+                    {% endif %}
+                  </a>
                 </div>
                 <div class="links--wrap mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
                   <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
