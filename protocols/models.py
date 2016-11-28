@@ -93,6 +93,9 @@ class Result(models.Model):
         return 'Result {}'.format(self.id)
 
     def clean(self):
+        if self.owner:
+            if not(self.protocol.roles.filter(researcher=self.owner).exclude(role='watcher').exists()):
+                raise ValidationError({'owner': 'The selected researcher cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
         if self.project:
