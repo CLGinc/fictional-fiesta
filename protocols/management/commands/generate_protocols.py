@@ -75,6 +75,22 @@ class Command(BaseCommand):
                 description='Description for protocol {}'.format(protocol_idx),
                 label=random.choice(Protocol.LABELS)[0]
             )
+            # Create random role between protocol and researcher
+            protocol_role = Role.objects.create(
+                researcher=researcher,
+                protocol=protocol,
+                role=random.choice(Role.ROLES)[0]
+            )
+            # Create random role between projects and researcher
+            if add_to_projects:
+                for project in projects:
+                    project.protocols.add(protocol)
+                    if not(project.roles.filter(researcher=researcher)):
+                        project_role = Role.objects.create(
+                            researcher=researcher,
+                            projects=project,
+                            role=random.choice(Role.ROLES)[0]
+                        )
             procedure = Procedure.objects.create(
                 protocol=protocol,
                 datetime_last_modified=timezone.now(),
@@ -118,22 +134,6 @@ class Command(BaseCommand):
                     measurement=measurement[0],
                     unit=measurement[1],
                 )
-            # Create random role between protocol and researcher
-            protocol_role = Role.objects.create(
-                researcher=researcher,
-                protocol=protocol,
-                role=random.choice(Role.ROLES)[0]
-            )
-            # Create random role between projects and researcher
-            if add_to_projects:
-                for project in projects:
-                    project.protocols.add(protocol)
-                    if not(project.roles.filter(researcher=researcher)):
-                        project_role = Role.objects.create(
-                            researcher=researcher,
-                            projects=project,
-                            role=random.choice(Role.ROLES)[0]
-                        )
         execution_time = time.time() - start_time
         logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
                 execution_time))
