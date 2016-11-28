@@ -86,6 +86,9 @@ class Result(models.Model):
     project = models.ForeignKey('projects.Project', related_name='results', null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+            ordering = ['-datetime_created', 'owner']
+
     def __str__(self):
         return 'Result {}'.format(self.id)
 
