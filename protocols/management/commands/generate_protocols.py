@@ -88,7 +88,7 @@ class Command(BaseCommand):
                     if not(project.roles.filter(researcher=researcher)):
                         project_role = Role.objects.create(
                             researcher=researcher,
-                            projects=project,
+                            project=project,
                             role=random.choice(Role.ROLES[:2])[0]
                         )
             procedure = Procedure.objects.create(
