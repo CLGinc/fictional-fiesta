@@ -60,7 +60,16 @@ def projects_list(request):
 def project(request, project_id):
     try:
         selected_project = Project.objects.get(unique_id=project_id)
+        results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
+        paginator = Paginator(results, 15)
+        page = request.GET.get('page')
+        try:
+            results_page = paginator.page(page)
+        except PageNotAnInteger:
+            results_page = paginator.page(number=1)
+        except EmptyPage:
+            results_page = paginator.page(paginator.num_pages)
     except Project.DoesNotExist:
         raise Http404()
     return render(request, 'project.html', locals())
