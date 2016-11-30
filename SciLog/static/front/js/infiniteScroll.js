@@ -8,8 +8,8 @@ var pageNum = 1, // The latest page loaded
     hasNextPage = true, // Indicates whether to expect another page after this one
     viewParam = $(location).attr('href'),
     datamode = $('#items_list').attr('data-mode'),
-    win = $('main');
-    loadmorebtn = $("#loadmorebtn")
+    win = $('main'),
+    loadmorebtn = $("#loadmorebtn");
 
 $(window).load(function(){
   if(datamode == 'infinitescroll'){
@@ -17,6 +17,7 @@ $(window).load(function(){
     alert('infinitescroll');
   } else if(datamode == 'loadmore') {
     alert('loadmore');
+    $(loadmorebtn).bind('click', loadItems);
   }
   return false;
 });
