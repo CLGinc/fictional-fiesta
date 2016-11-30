@@ -73,7 +73,7 @@ var loadItems = function() {
         success: function(data) {
             // Update global next page variable
             hasNextPage = true;//.hasNext;
-            var result = $('<li />').append(data).find('#items_list').html();
+            var result = $(data).find('#items_list').html();
     				$('#items_list').append(result);
         },
         error: function(data) {
