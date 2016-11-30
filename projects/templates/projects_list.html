@@ -111,7 +111,7 @@
               <div class="mdl-cell mdl-cell--1-col">Role</div>
             </li>
             <li>
-              <ul class="mdl-list" id="items_list">
+              <ul class="mdl-list" id="items_list" data-mode="infinitescroll">
                 {% for role in roles_list_page %}
                 <li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                   <a href="/projects/{{ role.project.unique_id }}" class="links--wrap mdl-grid mdl-cell mdl-cell--12-col list--link">
