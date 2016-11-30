@@ -47,13 +47,15 @@ def projects_list(request):
             return redirect(
                 '/projects/{}'.format(new_project_form.instance.unique_id))
     paginator = Paginator(roles_list, 15)
-    page = request.GET.get('page')
-    try:
-        roles_list_page = paginator.page(page)
-    except PageNotAnInteger:
-        roles_list_page = paginator.page(number=1)
-    except EmptyPage:
-        roles_list_page = paginator.page(paginator.num_pages)
+    roles_list_page = paginator.page(1)
+    if request.method == 'GET' and request.is_ajax():
+        page = request.GET.get('page')
+        try:
+            roles_list_page = paginator.page(page)
+        except PageNotAnInteger:
+            raise Http404
+        except EmptyPage:
+            raise Http404
     return render(request, 'projects_list.html', locals())
 
 
@@ -63,13 +65,16 @@ def project(request, project_id):
         results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
-        page = request.GET.get('page')
-        try:
-            results_page = paginator.page(page)
-        except PageNotAnInteger:
-            results_page = paginator.page(number=1)
-        except EmptyPage:
-            results_page = paginator.page(paginator.num_pages)
+        results_page = paginator.page(1)
+        if request.method == 'GET' and request.is_ajax():
+            page = request.GET.get('page')
+            try:
+                results_page = paginator.page(page)
+            except PageNotAnInteger:
+                raise Http404
+            except EmptyPage:
+                raise Http404
+
     except Project.DoesNotExist:
         raise Http404()
     return render(request, 'project.html', locals())
