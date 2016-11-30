@@ -45,7 +45,7 @@
                 </div>
               </li>
               <li>
-                <ul class="mdl-list" id="items_list" data-mode="loadmore">
+                <ul class="mdl-list" id="items_list" data-mode="loadmore" data-pages="{{ paginator.num_pages }}">
                   {% for result in results_page %}
               		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                     <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
@@ -77,6 +77,7 @@
                 <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 Load more results
               </a>
+              <div class="mdl-spinner mdl-js-spinner top-8" id="loading"></div>
             </div>
           </div>
           {% endif %}

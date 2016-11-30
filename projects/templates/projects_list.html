@@ -99,9 +99,6 @@
         </div>
         {% if roles_list_page %}
         <div class="mdl-card mdl-cell mdl-cell--12-col">
-          <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
-            <h2 class="mdl-card__title-text">Protocols</h2>
-          </div>
           <ul class="mdl-list">
             <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500 padding--left-none">
               <div class="mdl-cell mdl-cell--2-col">Project name</div>
@@ -111,7 +108,7 @@
               <div class="mdl-cell mdl-cell--1-col">Role</div>
             </li>
             <li>
-              <ul class="mdl-list" id="items_list" data-mode="infinitescroll">
+              <ul class="mdl-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
                 {% for role in roles_list_page %}
                 <li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                   <a href="/projects/{{ role.project.unique_id }}" class="links--wrap mdl-grid mdl-cell mdl-cell--12-col list--link">
@@ -145,7 +142,11 @@
           </div>
         </div>
         {% endif %}
-        {% include "base/loader.html" %}
+        <div class="mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+          <div class="mdl-layout-spacer"></div>
+        </div>
       </div>
       {% include "base/scroll_top.html" %}
     </main>
