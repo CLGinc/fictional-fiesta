@@ -1,44 +1,3 @@
-// // Events fired on window load (infinite scroll handling)
-// $(window).load(function() {
-// 	var win = $('main'),
-//       totalPages = $('#total_pages').text(),
-//       viewParam = $(location).attr('href');
-//
-//   //Click event to scroll to top
-// 	$('.scrollToTop-button').click(function(){
-// 		$(win).animate({scrollTop : 0},300);
-// 		return false;
-// 	});
-//   // $('#paginator').addClass('hidden');
-// 	// Each time the user scrolls
-// 	$(win).scroll(function() {
-// 		// End of the document reached?
-//     var element = event.target;
-// 		if(element.scrollHeight - element.scrollTop === element.clientHeight) {
-//       var currentPage = parseInt($('#current_page_number').text()),
-//           nextPageNumber = currentPage + 1,
-//           newCurrentPage = nextPageNumber;
-//       if(newCurrentPage <= totalPages) {
-//   	    $('#loading').addClass('is-active');
-//         $('#current_page_number').html(newCurrentPage);
-//         console.log("ajax");
-//       	$.ajax({
-//               data: {
-//                   page: nextPageNumber
-//               },
-//               type: "GET",
-//         			url: viewParam,
-//         			dataType: 'html',
-//         			success: function(data) {
-//                 var result = $('<li />').append(data).find('#items_list').html();
-//         				$('#items_list').append(result);
-//         				$('#loading').removeClass('is-active');
-//       				}
-//       			});
-//         }
-//   		}
-// 	});
-// });
 $('.scrollToTop-button').click(function(){
 	$(win).animate({scrollTop : 0},300);
 	return false;
@@ -48,10 +7,18 @@ $('.scrollToTop-button').click(function(){
 var pageNum = 1, // The latest page loaded
     hasNextPage = true, // Indicates whether to expect another page after this one
     viewParam = $(location).attr('href'),
+    datamode = $('#items_list').attr('data-mode'),
     win = $('main');
+    loadmorebtn = $("#loadmorebtn")
 
 $(window).load(function(){
-  $(win).bind('scroll', loadOnScroll);
+  if(datamode == 'infinitescroll'){
+    $(win).bind('scroll', loadOnScroll);
+    alert('infinitescroll');
+  } else if(datamode == 'loadmore') {
+    alert('loadmore');
+  }
+  return false;
 });
 
 // loadOnScroll handler
@@ -81,17 +48,13 @@ var loadItems = function() {
     $.ajax({
         url: viewParam,
         data: {page: pageNum},
-        dataType: 'json',
+        type: "GET",
+        dataType: 'html',
         success: function(data) {
             // Update global next page variable
             hasNextPage = true;//.hasNext;
-
-            // Loop through all items
-            for (i in data) {
-                $("#items_list").after()
-                console.log(data);
-                // Do something with your json object response
-            }
+            var result = $('<li />').append(data).find('#items_list').html();
+    				$('#items_list').append(result);
         },
         error: function(data) {
             // When I get a 400 back, fail safely
