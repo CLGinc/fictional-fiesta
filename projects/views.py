@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.context_processors import csrf
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 
 from researchers.models import Role
 from .forms import NewProjectForm
@@ -53,9 +53,9 @@ def projects_list(request):
         try:
             roles_list_page = paginator.page(page)
         except PageNotAnInteger:
-            raise Http404
+            return HttpResponseBadRequest(reason='Page must be integer!')
         except EmptyPage:
-            raise Http404
+            return HttpResponseBadRequest(reason='Page does not exist!')
     return render(request, 'projects_list.html', locals())
 
 
@@ -71,9 +71,9 @@ def project(request, project_id):
             try:
                 results_page = paginator.page(page)
             except PageNotAnInteger:
-                raise Http404
+                return HttpResponseBadRequest(reason='Page must be integer!')
             except EmptyPage:
-                raise Http404
+                return HttpResponseBadRequest(reason='Page does not exist!')
 
     except Project.DoesNotExist:
         raise Http404()
