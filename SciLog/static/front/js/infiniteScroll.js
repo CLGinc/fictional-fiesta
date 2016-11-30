@@ -9,6 +9,7 @@ var pageNum = 1, // The latest page loaded
     viewParam = $(location).attr('href'),
     datamode = $('#items_list').attr('data-mode'),
     win = $('main');
+    loadmorebtn = $("#loadmorebtn")
 
 $(window).load(function(){
   if(datamode == 'infinitescroll'){
