@@ -37,7 +37,9 @@
 .padding--left-none {
   padding-left: 0;
 }
-
+.top-8 {
+  top:8px;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
@@ -98,6 +100,13 @@ a {
   margin-top: 24px;
 }
 /*Participants list*/
+.mdl-list {
+  -webkit-transition: height 1s;
+  -moz-transition: height 1s;
+  -ms-transition: height 1s;
+  -o-transition: height 1s;
+  transition: height 1s;
+}
 .participant-list {
   width: 100%;
 }
