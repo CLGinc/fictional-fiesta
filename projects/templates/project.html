@@ -22,17 +22,16 @@
               {{ selected_project.description }}
             </div>
           </div>
-          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-cell mdl-cell--12-col">
-            <div class="mdl-tabs__tab-bar">
-                <a href="#results-panel" class="mdl-tabs__tab is-active padding--left-none"><h2 class="mdl-card__title-text">Results</h2></a>
-                <a href="#protocols-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Protocols</h2></a>
-                <a href="#sources-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Sources</h2></a>
-                <div class="mdl-layout-spacer"></div>
-                <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect">
-                  <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
-                </a>
+          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-tabs__tab-bar mdl-cell mdl-cell--12-col block">
+              <a href="#results-panel" class="mdl-tabs__tab is-active padding--left-none"><h2 class="mdl-card__title-text">Results</h2></a>
+              <a href="#protocols-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Protocols</h2></a>
+              <a href="#sources-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Sources</h2></a>
+              <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect right">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
+              </a>
             </div>
-            <div class="mdl-tabs__panel is-active" id="results-panel">
+            <div class="mdl-tabs__panel is-active mdl-cell mdl-cell--12-col padding--top-24" id="results-panel">
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--11-col">
@@ -84,8 +83,8 @@
                 </div>
               </div>
             </div>
-            <div class="mdl-tabs__panel" id="protocols-panel">
-              <ul class="mdl-list margin--bottom-0" id="accordeon--protocols">
+            <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="protocols-panel">
+              <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--11-col">
                     <div class="mdl-cell mdl-cell--7-col">Name</div>
@@ -115,8 +114,8 @@
                 {% endfor %}
             	</ul>
             </div>
-            <div class="mdl-tabs__panel" id="sources-panel">
-              <ul class="mdl-list margin--bottom-0 accordeon" id="accordeon--sources">
+            <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="sources-panel">
+              <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--9-col">
                     <div class="mdl-cell mdl-cell--8-col">Name</div>
@@ -194,6 +193,5 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
-  <script type = "text/javascript" src="{% static "front/js/readmore.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
 {% endblock %}
