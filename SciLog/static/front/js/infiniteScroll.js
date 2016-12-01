@@ -1,8 +1,3 @@
-$('.scrollToTop-button').click(function(){
-	$(win).animate({scrollTop : 0},300);
-	return false;
-});
-
 // Scroll globals
 var pageNum = 1, // The latest page loaded
     hasNextPage = true, // Indicates whether to expect another page after this one

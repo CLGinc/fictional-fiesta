@@ -90,7 +90,7 @@
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add protocol
               </a>
             </div>
-          	<ul class="mdl-list margin--bottom-0">
+          	<ul class="mdl-list margin--bottom-0" id="accordeon--protocols">
               <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                 <div class="mdl-grid mdl-cell mdl-cell--11-col">
                   <div class="mdl-cell mdl-cell--7-col">Name</div>
@@ -120,7 +120,7 @@
               {% endfor %}
           	</ul>
             <div class="mdl-card__actions">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600">
+              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="accordeon--protocols">
                 <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 See all protocols
               </a>
@@ -136,7 +136,7 @@
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add source
               </a>
             </div>
-          	<ul class="mdl-list margin--bottom-0">
+          	<ul class="mdl-list margin--bottom-0 accordeon" id="accordeon--sources">
               <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                 <div class="mdl-grid mdl-cell mdl-cell--9-col">
                   <div class="mdl-cell mdl-cell--8-col">Name</div>
@@ -174,7 +174,7 @@
               {% endfor %}
           	</ul>
             <div class="mdl-card__actions">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600">
+              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="accordeon--sources">
                 <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 See all sources
               </a>
@@ -205,7 +205,7 @@
               </ul>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600">
+              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand">
                 <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 See all participants
               </a>
@@ -220,4 +220,6 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/readmore.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
 {% endblock %}
