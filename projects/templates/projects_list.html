@@ -9,10 +9,10 @@
       <div class="page-content mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
           <h1 class="mdl-typography--headline mdl-color-text--blue-500 subpageheader">My Projects</h1>
-          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="new-project-button">
+          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
             <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add project
           </button>
-          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" id="filter-button">
+          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
             <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
           </button>
           <form method="post" id="new-project-form" class="new-project-form">
@@ -155,7 +155,7 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
-  <script type = "text/javascript" src="{% static "front/js/filter.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/datepicker/js/moment.min.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/datepicker/js/mdDateTimePicker.min.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/datepicker.js" %}"></script>
