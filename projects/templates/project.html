@@ -22,7 +22,6 @@
               {{ selected_project.description }}
             </div>
           </div>
-
           <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-cell mdl-cell--12-col">
             <div class="mdl-tabs__tab-bar">
                 <a href="#results-panel" class="mdl-tabs__tab is-active padding--left-none"><h2 class="mdl-card__title-text">Results</h2></a>
@@ -33,7 +32,6 @@
                   <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
                 </a>
             </div>
-
             <div class="mdl-tabs__panel is-active" id="results-panel">
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
@@ -77,11 +75,13 @@
                 </li>
             	</ul>
               <div class="mdl-card__actions">
-                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600 right" id="loadmorebtn">
-                  <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                  Load more results
-                </a>
+                <div class="right">
                 <div class="mdl-spinner mdl-js-spinner top-8" id="loading"></div>
+                  <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" id="loadmorebtn">
+                    <i class="material-icons mdl-color-text--blue-500">expand_more</i>
+                    Load more results
+                  </a>
+                </div>
               </div>
             </div>
             <div class="mdl-tabs__panel" id="protocols-panel">
@@ -155,166 +155,6 @@
             	</ul>
             </div>
           </div>
-
-          <!-- {% if selected_project.results %}
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
-              <h2 class="mdl-card__title-text">Results</h2>
-              <div class="mdl-layout-spacer"></div>
-              <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add result
-              </a>
-            </div>
-          	<ul class="mdl-list margin--bottom-0">
-              <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-                <div class="mdl-grid mdl-cell mdl-cell--11-col">
-                  <div class="mdl-cell mdl-cell--4-col">Protocol</div>
-                  <div class="mdl-cell mdl-cell--3-col">Created by</div>
-                  <div class="mdl-cell mdl-cell--3-col">Created on</div>
-                  <div class="mdl-cell mdl-cell--1-col">State</div>
-                  <div class="mdl-cell mdl-cell--1-col">Success</div>
-                </div>
-                <div class="mdl-grid mdl-cell mdl-cell--1-col">
-                  <div class="mdl-cell mdl-cell--1-col">Modify</div>
-                </div>
-              </li>
-              <li>
-                <ul class="mdl-list" id="items_list" data-mode="loadmore" data-pages="{{ paginator.num_pages }}">
-                  {% for result in results_page %}
-              		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
-                    <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
-                      <div class="mdl-cell mdl-cell--4-col">{{ result.protocol }}</div>
-                      <div class="mdl-cell mdl-cell--3-col">{{ result.owner }}</div>
-                      <div class="mdl-cell mdl-cell--3-col">{{ result.datetime_created }}</div>
-                      <div class="mdl-cell mdl-cell--1-col">{{ result.state }}</div>
-                      {% if result.is_successful == True %}
-                      <div class="mdl-cell mdl-cell--1-col mdl-color-text--green-600 mdl-typography--text-center">Yes</div>
-                      {% else %}
-                      <div class="mdl-cell mdl-cell--1-col mdl-color-text--pink-600 mdl-typography--text-center">No</div>
-                      {% endif %}
-                    </a>
-                    <div class="mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
-                      <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                        <i class="material-icons list--link-edit">edit</i>
-                      </button>
-                      <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                        <i class="material-icons list--link-remove">clear</i>
-                      </button>
-                    </div>
-              		</li>
-                  {% endfor %}
-                </ul>
-              </li>
-          	</ul>
-            <div class="mdl-card__actions">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" id="loadmorebtn">
-                <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                Load more results
-              </a>
-              <div class="mdl-spinner mdl-js-spinner top-8" id="loading"></div>
-            </div>
-          </div>
-          {% endif %}
-          {% if selected_project.protocols %}
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
-              <h2 class="mdl-card__title-text">Protocols</h2>
-              <div class="mdl-layout-spacer"></div>
-              <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add protocol
-              </a>
-            </div>
-          	<ul class="mdl-list margin--bottom-0" id="accordeon--protocols">
-              <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-                <div class="mdl-grid mdl-cell mdl-cell--11-col">
-                  <div class="mdl-cell mdl-cell--7-col">Name</div>
-                  <div class="mdl-cell mdl-cell--4-col">Owner</div>
-                  <div class="mdl-cell mdl-cell--1-col">Label</div>
-                </div>
-                <div class="mdl-grid mdl-cell mdl-cell--1-col">
-                  <div class="mdl-cell mdl-cell--1-col">Modify</div>
-                </div>
-              </li>
-              {% for protocol in selected_project.protocols.all %}
-          		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
-                <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
-                  <div class="mdl-cell mdl-cell--7-col">{{ protocol.name }}</div>
-                  <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
-                  <div class="mdl-cell mdl-cell--1-col">{{ protocol.label }}</div>
-                </a>
-                <div class="mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
-                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                    <i class="material-icons list--link-edit">edit</i>
-                  </button>
-                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                    <i class="material-icons list--link-remove">clear</i>
-                  </button>
-                </div>
-          		</li>
-              {% endfor %}
-          	</ul>
-            <div class="mdl-card__actions">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="accordeon--protocols">
-                <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                See all protocols
-              </a>
-            </div>
-          </div>
-          {% endif %}
-          {% if selected_project.sources %}
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__title mdl-color-text--blue-500 padding--left-none">
-              <h2 class="mdl-card__title-text">Sources</h2>
-              <div class="mdl-layout-spacer"></div>
-              <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add source
-              </a>
-            </div>
-          	<ul class="mdl-list margin--bottom-0 accordeon" id="accordeon--sources">
-              <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-                <div class="mdl-grid mdl-cell mdl-cell--9-col">
-                  <div class="mdl-cell mdl-cell--8-col">Name</div>
-                  <div class="mdl-cell mdl-cell--4-col">ISBN</div>
-                </div>
-                <div class="mdl-grid mdl-cell mdl-cell--2-col">
-                  <div class="mdl-cell mdl-cell--7-col">Url</div>
-                </div>
-                <div class="mdl-grid mdl-cell mdl-cell--1-col">
-                  <div class="mdl-cell mdl-cell--1-col">Modify</div>
-                </div>
-              </li>
-              {% for source in selected_project.sources.all %}
-          		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
-                <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--9-col list--link">
-                  <div class="mdl-cell mdl-cell--8-col">{{ source.name }}</div>
-                  <div class="mdl-cell mdl-cell--4-col">{{ source.isbn }}</div>
-                </a>
-                <div class="links--wrap mdl-grid mdl-cell mdl-cell--2-col list--link">
-                  <a href="{{ source.url }}" target="_blank" class="links--wrap mdl-cell mdl-cell--12-col">
-                    {% if source.url %}
-                    Visit site
-                    {% endif %}
-                  </a>
-                </div>
-                <div class="links--wrap mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
-                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                    <i class="material-icons list--link-edit">edit</i>
-                  </button>
-                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
-                    <i class="material-icons list--link-remove">clear</i>
-                  </button>
-                </div>
-          		</li>
-              {% endfor %}
-          	</ul>
-            <div class="mdl-card__actions">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="accordeon--sources">
-                <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                See all sources
-              </a>
-            </div>
-          </div>
-          {% endif %} -->
         </div>
         <div class="mdl-cell mdl-cell--3-col">
           <div class="mdl-card participant-list">
