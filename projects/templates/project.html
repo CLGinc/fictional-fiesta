@@ -157,7 +157,7 @@
               <h2 class="mdl-card__title-text">Participants</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <ul class="mdl-list margin--none padding--top-none accordeon" id="test">
+              <ul class="mdl-list margin--none padding--top-none">
                 {% for role_value, roles in participants_by_role %}
                 <li class="mdl-list__item padding--left-none padding--top-none">{{ role_value }}</li>
                   {% for role in roles %}
@@ -172,12 +172,6 @@
                   {% endfor %}
                 {% endfor %}
               </ul>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="test">
-                <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                See all participants
-              </a>
             </div>
           </div>
         </div>
