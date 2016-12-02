@@ -46,7 +46,7 @@
                   </div>
                 </li>
                 <li>
-                  <ul class="mdl-list" id="items_list" data-mode="loadmore" data-pages="{{ paginator.num_pages }}">
+                  <ul class="mdl-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
                     {% for result in results_page %}
                 		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                       <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
@@ -73,14 +73,10 @@
                   </ul>
                 </li>
             	</ul>
-              <div class="mdl-card__actions">
-                <div class="right">
-                <div class="mdl-spinner mdl-js-spinner top-8" id="loading"></div>
-                  <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" id="loadmorebtn">
-                    <i class="material-icons mdl-color-text--blue-500">expand_more</i>
-                    Load more results
-                  </a>
-                </div>
+              <div class="mdl-cell mdl-cell--12-col mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+                <div class="mdl-layout-spacer"></div>
               </div>
             </div>
             <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="protocols-panel">
@@ -161,7 +157,7 @@
               <h2 class="mdl-card__title-text">Participants</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <ul class="mdl-list margin--none padding--top-none">
+              <ul class="mdl-list margin--none padding--top-none accordeon" id="test">
                 {% for role_value, roles in participants_by_role %}
                 <li class="mdl-list__item padding--left-none padding--top-none">{{ role_value }}</li>
                   {% for role in roles %}
@@ -178,7 +174,7 @@
               </ul>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand">
+              <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-600" data-trigger="expand" data-target="test">
                 <i class="material-icons mdl-color-text--blue-500">expand_more</i>
                 See all participants
               </a>
