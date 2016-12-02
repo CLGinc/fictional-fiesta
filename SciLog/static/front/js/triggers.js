@@ -8,3 +8,8 @@ $('[data-trigger="filter"]').click(function() {
   var targetElementId = $(this).attr('data-target');
   $('#'+targetElementId).toggle(200);
 });
+// expand
+$('[data-trigger="expand"]').click(function() {
+  var targetElementId = $(this).attr('data-target');
+  $('#'+targetElementId).toggleClass('accordeon--expand');
+});
