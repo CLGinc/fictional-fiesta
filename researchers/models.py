@@ -53,7 +53,7 @@ class Role(models.Model):
 
 class Researcher(models.Model):
     user = models.OneToOneField(User, related_name='researcher')
-    university = models.ForeignKey(University, related_name='researchers')
+    university = models.ForeignKey(University, related_name='researchers', null=True, blank=True)
     scientific_degree = models.CharField(max_length=255)
 
     def __str__(self):
