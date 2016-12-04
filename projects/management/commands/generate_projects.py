@@ -1,10 +1,8 @@
 import random
-import json
 import time
 import logging
 
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 
 from projects.models import Project
 from researchers.models import Researcher, Role
