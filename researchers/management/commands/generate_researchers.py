@@ -25,9 +25,13 @@ class Command(BaseCommand):
         logger = logging.getLogger('django')
         logger.info('Start generating researchers')
         for researcher_idx in range(options['researchers']):
-            User.objects.create(
+            user = User.objects.create(
                 username=uuid.uuid4(),
-                password=uuid.uuid4()
+                password=uuid.uuid4(),
+                first_name="User {}".format(researcher_idx)
+            )
+            researcher = Researcher.objects.create(
+                user=user
             )
         execution_time = time.time() - start_time
         logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
