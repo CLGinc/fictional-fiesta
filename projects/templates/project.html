@@ -32,6 +32,7 @@
               </a>
             </div>
             <div class="mdl-tabs__panel is-active mdl-cell mdl-cell--12-col padding--top-24" id="results-panel">
+              {% if results_page %}
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--11-col">
@@ -73,6 +74,9 @@
                   </ul>
                 </li>
             	</ul>
+              {% else %}
+              FIXME There are no results yet. Use the '+' button to add more. FIXME
+              {% endif %}
               <div class="mdl-cell mdl-cell--12-col mdl-grid">
                 <div class="mdl-layout-spacer"></div>
                 <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
@@ -80,6 +84,7 @@
               </div>
             </div>
             <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="protocols-panel">
+              {% if selected_project.protocols.all %}
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--11-col">
@@ -109,8 +114,12 @@
             		</li>
                 {% endfor %}
             	</ul>
+              {% else %}
+              FIXME There are no protocols yet. Use the '+' button to add more. FIXME
+              {% endif %}
             </div>
             <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="sources-panel">
+              {% if selected_project.sources.all %}
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--9-col">
@@ -148,6 +157,9 @@
             		</li>
                 {% endfor %}
             	</ul>
+              {% else %}
+              FIXME There are no sources yet. Use the '+' button to add more. FIXME
+              {% endif %}
             </div>
           </div>
         </div>
