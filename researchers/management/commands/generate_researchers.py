@@ -16,9 +16,9 @@ class Command(BaseCommand):
         parser.add_argument(
             '-r',
             '--researchers',
-            default=100,
+            default=10,
             type=int,
-            help='Number of researchers. Default: 100')
+            help='Number of researchers. Default: 10')
 
     def handle(self, *args, **options):
         start_time = time.time()
