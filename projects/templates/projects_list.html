@@ -15,7 +15,7 @@
           <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
             <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
           </button>
-          <form method="post" id="new-project-form" class="new-project-form">
+          <form method="post" id="new-project-form" class="new-project-form mdl-shadow--6dp">
             {% csrf_token %}
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
               <div class="mdl-grid mdl-cell mdl-cell--6-col">
@@ -46,7 +46,7 @@
               <div class="mdl-layout-spacer"></div>
             </div>
           </form>
-          <form method="get" id="filter-form" class="filter-form">
+          <form method="get" id="filter-form" class="filter-form mdl-shadow--6dp">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
               <div class="mdl-grid mdl-cell mdl-cell--6-col">
                 <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Project name</p>

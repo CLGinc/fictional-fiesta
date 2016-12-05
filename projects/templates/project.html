@@ -24,12 +24,18 @@
           </div>
           <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-grid mdl-grid--no-spacing">
             <div class="mdl-tabs__tab-bar mdl-cell mdl-cell--12-col block">
-              <a href="#results-panel" class="mdl-tabs__tab is-active padding--left-none"><h2 class="mdl-card__title-text">Results</h2></a>
-              <a href="#protocols-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Protocols</h2></a>
-              <a href="#sources-panel" class="mdl-tabs__tab"><h2 class="mdl-card__title-text">Sources</h2></a>
-              <a class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect right">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
+              <a href="#results-panel" data-trigger="tab"  data-target="add-result-form" class="mdl-tabs__tab is-active padding--left-none">
+                <h2 class="mdl-card__title-text">Results</h2>
               </a>
+              <a href="#protocols-panel" data-trigger="tab"  data-target="add-protocol-form" class="mdl-tabs__tab">
+                <h2 class="mdl-card__title-text">Protocols</h2>
+              </a>
+              <a href="#sources-panel" data-trigger="tab" data-target="add-source-form" class="mdl-tabs__tab">
+                <h2 class="mdl-card__title-text">Sources</h2>
+              </a>
+              <button data-trigger="filter" data-target="add-result-form" id="button-add" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect right hidden">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
+              </button>
             </div>
             <div class="mdl-tabs__panel is-active mdl-cell mdl-cell--12-col padding--top-24" id="results-panel">
               {% if results_page %}
@@ -93,6 +99,37 @@
               </div>
             </div>
             <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="protocols-panel">
+              <form method="post" id="add-protocol-form" class="new-project-form mdl-shadow--8dp">
+                {% csrf_token %}
+                <div class="mdl-grid mdl-cell mdl-cell--12-col">
+                  <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                    <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project name</p>
+                    <div class="mdl-cell mdl-cell--12-col">
+                      <div class="mdl-textfield mdl-js-textfield width--full">
+                        <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                        <label class="mdl-textfield__label" for="input-new-project--name"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                    <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project description</p>
+                    <div class="mdl-cell mdl-cell--12-col">
+                      <div class="mdl-textfield mdl-js-textfield width--full">
+                        <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
+                        <label class="mdl-textfield__label" for="input-new-project--desc"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdl-grid mdl-cell mdl-cell--12-col new-project--area">
+                  <div class="mdl-layout-spacer"></div>
+                  <button class="mdl-button mdl-js-button mdl-color--blue-500 mdl-color-text--white">
+                    <i class="material-icons">playlist_play</i>
+                      Add protocol
+                  </button>
+                  <div class="mdl-layout-spacer"></div>
+                </div>
+              </form>
               {% if selected_project.protocols.all %}
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
@@ -137,6 +174,37 @@
               {% endif %}
             </div>
             <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col padding--top-24" id="sources-panel">
+              <form method="post" id="add-source-form" class="new-project-form mdl-shadow--6dp">
+                {% csrf_token %}
+                <div class="mdl-grid mdl-cell mdl-cell--12-col">
+                  <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                    <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project name</p>
+                    <div class="mdl-cell mdl-cell--12-col">
+                      <div class="mdl-textfield mdl-js-textfield width--full">
+                        <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                        <label class="mdl-textfield__label" for="input-new-project--name"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mdl-grid mdl-cell mdl-cell--6-col">
+                    <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project description</p>
+                    <div class="mdl-cell mdl-cell--12-col">
+                      <div class="mdl-textfield mdl-js-textfield width--full">
+                        <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
+                        <label class="mdl-textfield__label" for="input-new-project--desc"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdl-grid mdl-cell mdl-cell--12-col new-project--area">
+                  <div class="mdl-layout-spacer"></div>
+                  <button class="mdl-button mdl-js-button mdl-color--blue-500 mdl-color-text--white">
+                    <i class="material-icons">playlist_play</i>
+                      Add source
+                  </button>
+                  <div class="mdl-layout-spacer"></div>
+                </div>
+              </form>
               {% if selected_project.sources.all %}
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
