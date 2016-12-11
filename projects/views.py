@@ -71,7 +71,7 @@ def project(request, project_id):
                         ).exclude(
                             protocol__in=selected_project.protocols.all())
                     return
-                else if request.GET.get('sources-to-add'):
+                elif request.GET.get('sources-to-add'):
                     sources_to_add = request.user.researcher.sources
                     return
             results = selected_project.results.all()
