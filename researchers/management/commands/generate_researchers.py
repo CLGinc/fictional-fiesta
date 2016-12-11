@@ -27,10 +27,10 @@ class Command(BaseCommand):
         latest_user_id = User.objects.latest('id').id
         for researcher_idx in range(options['researchers']):
             user = User.objects.create(
-                username='user{}'.format(researcher_idx+latest_user_id),
-                password='user{}'.format(researcher_idx+latest_user_id),
+                username='user{}'.format(researcher_idx+latest_user_id+1),
+                password='user{}'.format(researcher_idx+latest_user_id+1),
                 first_name='User',
-                last_name=str(researcher_idx+latest_user_id)
+                last_name=str(researcher_idx+latest_user_id+1)
             )
             researcher = Researcher.objects.create(
                 user=user
