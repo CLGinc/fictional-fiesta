@@ -26,8 +26,8 @@ class Command(BaseCommand):
         logger.info('Start generating researchers')
         for researcher_idx in range(options['researchers']):
             user = User.objects.create(
-                username=uuid.uuid4(),
-                password='',
+                username='user{}'.format(researcher_idx),
+                password='user{}'.format(researcher_idx),
                 first_name='User',
                 last_name=str(researcher_idx)
             )
