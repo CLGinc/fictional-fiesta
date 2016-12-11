@@ -24,12 +24,13 @@ class Command(BaseCommand):
         start_time = time.time()
         logger = logging.getLogger('django')
         logger.info('Start generating researchers')
+        latest_user_id = User.objects.latest('id').id
         for researcher_idx in range(options['researchers']):
             user = User.objects.create(
-                username='user{}'.format(researcher_idx),
-                password='user{}'.format(researcher_idx),
+                username='user{}'.format(researcher_idx+latest_user_id),
+                password='user{}'.format(researcher_idx+latest_user_id),
                 first_name='User',
-                last_name=str(researcher_idx)
+                last_name=str(researcher_idx+latest_user_id)
             )
             researcher = Researcher.objects.create(
                 user=user
