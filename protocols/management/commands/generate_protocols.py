@@ -89,7 +89,7 @@ class Command(BaseCommand):
                         project_role = Role.objects.create(
                             researcher=researcher,
                             project=project,
-                            role=random.choice(Role.ROLES[:2])[0]
+                            role=random.choice(Role.ROLES[1:])[0]
                         )
             procedure = Procedure.objects.create(
                 protocol=protocol,
