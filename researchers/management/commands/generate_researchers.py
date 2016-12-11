@@ -26,7 +26,7 @@ class Command(BaseCommand):
         logger.info('Start generating researchers')
         latest_user_id = User.objects.latest('id').id
         for researcher_idx in range(options['researchers']):
-            user = User.objects.create(
+            user = User.objects.create_user(
                 username='user{}'.format(researcher_idx+latest_user_id+1),
                 password='user{}'.format(researcher_idx+latest_user_id+1),
                 first_name='User',
