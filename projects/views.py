@@ -60,21 +60,22 @@ def projects_list(request):
 
 
 def project(request, project_id):
-    try:
-        selected_project = Project.objects.get(unique_id=project_id)
-        results = selected_project.results.all()
-        participants_by_role = selected_project.get_participants_by_role()
-        paginator = Paginator(results, 15)
-        results_page = paginator.page(1)
-        if request.method == 'GET' and request.is_ajax():
-            page = request.GET.get('page')
-            try:
-                results_page = paginator.page(page)
-            except PageNotAnInteger:
-                return HttpResponseBadRequest(reason='Page must be integer!')
-            except EmptyPage:
-                return HttpResponseBadRequest(reason='Page does not exist!')
+    if request.method == 'GET':
+        try:
+            selected_project = Project.objects.get(unique_id=project_id)
+            results = selected_project.results.all()
+            participants_by_role = selected_project.get_participants_by_role()
+            paginator = Paginator(results, 15)
+            results_page = paginator.page(1)
+            if request.is_ajax():
+                page = request.GET.get('page')
+                try:
+                    results_page = paginator.page(page)
+                except PageNotAnInteger:
+                    return HttpResponseBadRequest(reason='Page must be integer!')
+                except EmptyPage:
+                    return HttpResponseBadRequest(reason='Page does not exist!')
 
-    except Project.DoesNotExist:
-        raise Http404()
-    return render(request, 'project.html', locals())
+        except Project.DoesNotExist:
+            raise Http404()
+        return render(request, 'project.html', locals())
