@@ -63,13 +63,17 @@ def project(request, project_id):
     if request.method == 'GET':
         try:
             selected_project = Project.objects.get(unique_id=project_id)
-            if request.is_ajax() and request.GET.get('protocols-to-add'):
-                protocols_roles_to_add = request.user.researcher.get_roles(
-                    scope='protocol',
-                    roles=('owner', 'contributor')
-                    ).exclude(
-                        protocol__in=selected_project.protocols.all())
-                return
+            if request.is_ajax():
+                if request.GET.get('protocols-to-add'):
+                    protocols_roles_to_add = request.user.researcher.get_roles(
+                        scope='protocol',
+                        roles=('owner', 'contributor')
+                        ).exclude(
+                            protocol__in=selected_project.protocols.all())
+                    return
+                else if request.GET.get('sources-to-add'):
+                    sources_to_add = request.user.researcher.sources
+                    return
             results = selected_project.results.all()
             participants_by_role = selected_project.get_participants_by_role()
             paginator = Paginator(results, 15)
