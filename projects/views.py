@@ -67,6 +67,7 @@ def project(request, project_id):
             participants_by_role = selected_project.get_participants_by_role()
             paginator = Paginator(results, 15)
             results_page = paginator.page(1)
+            # hangle ajax pagination
             if request.is_ajax():
                 page = request.GET.get('page')
                 try:
