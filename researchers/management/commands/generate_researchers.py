@@ -27,8 +27,9 @@ class Command(BaseCommand):
         for researcher_idx in range(options['researchers']):
             user = User.objects.create(
                 username=uuid.uuid4(),
-                password=uuid.uuid4(),
-                first_name="User {}".format(researcher_idx)
+                password='',
+                first_name='User',
+                last_name=str(researcher_idx)
             )
             researcher = Researcher.objects.create(
                 user=user
