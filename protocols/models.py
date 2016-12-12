@@ -120,18 +120,18 @@ class Result(models.Model):
             if not(self.protocol.roles.filter(
                     researcher=self.owner).exclude(role='watcher').exists()):
                 raise ValidationError({'owner': 'The selected \
-                    researcher cannot add results to this protocol!'})
+researcher cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished \
-                result cannot be marked successful!'})
+result cannot be marked successful!'})
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
                 raise ValidationError('The selected protocol \
-                    does not belong to the selected project!')
+does not belong to the selected project!')
             if not(self.project.roles.filter(
                     researcher=self.owner).exclude(role='watcher').exists()):
                 raise ValidationError({'owner': 'The selected researcher \
-                    cannot add results to this project!'})
+cannot add results to this project!'})
 
 
 class Attachment(models.Model):
