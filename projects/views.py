@@ -35,8 +35,8 @@ def projects_list(request):
             '%Y-%m-%d').date()
         roles_list = roles_list.filter(
             project__datetime_created__date__lte=created_to)
-    new_project_form = NewProjectForm(request.POST or None)
     if request.method == 'POST':
+        new_project_form = NewProjectForm(request.POST or None)
         if new_project_form.is_valid():
             new_project_form.save()
             new_project_role = Role.objects.create(
