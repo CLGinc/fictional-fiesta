@@ -53,18 +53,18 @@ class Role(models.Model):
     def clean(self):
         if not(self.project or self.protocol):
             raise ValidationError('You must choose \
-                either project or protocol!')
+either project or protocol!')
         if self.project and self.protocol:
             raise ValidationError('You cannot select \
-                project and protocol for the same role!')
+project and protocol for the same role!')
         if self.role == 'owner':
             if self.project and self.project.roles.filter(role='owner').exists:
                 raise ValidationError('There is already \
-                    an owner of this project!')
+an owner of this project!')
             if self.protocol and self.protocol.roles.filter(
                     role='owner').exists:
                 raise ValidationError('There is already \
-                    an owner of this protocol!')
+an owner of this protocol!')
 
     @classmethod
     def get_db_roles(cls):
