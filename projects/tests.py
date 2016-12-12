@@ -19,3 +19,9 @@ class ProjectsTest(TestCase):
         url = reverse('projects_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+    def test_get_project(self):
+        self.client.login(username='user0', password='user0')
+        url = reverse('project', kwargs={'project_id': '0f570c02'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
