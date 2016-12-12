@@ -46,58 +46,91 @@ class ProjectsTest(TestCase):
 
     def test_get_roles_owners(self):
         # Check data for Researcher 0
-        roles_list_researcher0 = list(self.researcher0.get_roles(scope='projects', roles=['owner']))
-        expected_projects_list_researcher0 = self.roles_per_projects.get(self.researcher0).get('owner')
-        self.assertEqual(len(roles_list_researcher0), len(expected_projects_list_researcher0))
+        roles_list_researcher0 = list(
+            self.researcher0.get_roles(scope='projects', roles=['owner']))
+        expected_projects_list_researcher0 = self.roles_per_projects.get(
+            self.researcher0).get('owner')
+        self.assertEqual(
+            len(roles_list_researcher0),
+            len(expected_projects_list_researcher0))
         for project in expected_projects_list_researcher0:
             self.assertIn(project, expected_projects_list_researcher0)
 
         # Check data for Researcher 1
-        projects_list_researcher1 = list(self.researcher1.get_roles(scope='projects', roles=['owner']))
+        projects_list_researcher1 = list(
+            self.researcher1.get_roles(scope='projects', roles=['owner']))
         self.assertEqual(projects_list_researcher1, [])
 
         # Check data for Researcher 2
-        projects_list_researcher2 = list(self.researcher2.get_roles(scope='projects', roles=['owner']))
-        expected_projects_list_researcher2 = self.roles_per_projects.get(self.researcher2).get('owner')
-        self.assertEqual(len(projects_list_researcher2), len(expected_projects_list_researcher2))
+        projects_list_researcher2 = list(
+            self.researcher2.get_roles(scope='projects', roles=['owner']))
+        expected_projects_list_researcher2 = self.roles_per_projects.get(
+            self.researcher2).get('owner')
+        self.assertEqual(
+            len(projects_list_researcher2),
+            len(expected_projects_list_researcher2))
         for project in expected_projects_list_researcher2:
             self.assertIn(project, expected_projects_list_researcher2)
 
     def test_get_roles_contributors(self):
         # Check data for Researcher 0
-        roles_list_researcher0 = list(self.researcher0.get_roles(scope='projects', roles=['contributor']))
-        expected_projects_list_researcher0 = self.roles_per_projects.get(self.researcher0).get('contributor')
-        self.assertEqual(len(roles_list_researcher0), len(expected_projects_list_researcher0))
+        roles_list_researcher0 = list(
+            self.researcher0.get_roles(
+                scope='projects',
+                roles=['contributor']))
+        expected_projects_list_researcher0 = self.roles_per_projects.get(
+            self.researcher0).get('contributor')
+        self.assertEqual(
+            len(roles_list_researcher0),
+            len(expected_projects_list_researcher0))
         for project in expected_projects_list_researcher0:
             self.assertIn(project, expected_projects_list_researcher0)
 
         # Check data for Researcher 1
-        projects_list_researcher1 = list(self.researcher1.get_roles(scope='projects', roles=['contributor']))
-        expected_projects_list_researcher1 = self.roles_per_projects.get(self.researcher1).get('contributor')
-        self.assertEqual(len(projects_list_researcher1), len(expected_projects_list_researcher1))
+        projects_list_researcher1 = list(
+            self.researcher1.get_roles(
+                scope='projects',
+                roles=['contributor']))
+        expected_projects_list_researcher1 = self.roles_per_projects.get(
+            self.researcher1).get('contributor')
+        self.assertEqual(
+            len(projects_list_researcher1),
+            len(expected_projects_list_researcher1))
         for project in expected_projects_list_researcher1:
             self.assertIn(project, expected_projects_list_researcher1)
 
         # Check data for Researcher 2
-        projects_list_researcher2 = list(self.researcher2.get_roles(scope='projects', roles=['contributor']))
+        projects_list_researcher2 = list(
+            self.researcher2.get_roles(
+                scope='projects',
+                roles=['contributor']))
         self.assertEqual(projects_list_researcher2, [])
 
     def test_get_roles_watchers(self):
         # Check data for Researcher 0
-        roles_list_researcher0 = list(self.researcher0.get_roles(scope='projects', roles=['watcher']))
+        roles_list_researcher0 = list(
+            self.researcher0.get_roles(scope='projects', roles=['watcher']))
         self.assertEqual(roles_list_researcher0, [])
 
         # Check data for Researcher 1
-        projects_list_researcher1 = list(self.researcher1.get_roles(scope='projects', roles=['watcher']))
-        expected_projects_list_researcher1 = self.roles_per_projects.get(self.researcher1).get('watcher')
-        self.assertEqual(len(projects_list_researcher1), len(expected_projects_list_researcher1))
+        projects_list_researcher1 = list(
+            self.researcher1.get_roles(scope='projects', roles=['watcher']))
+        expected_projects_list_researcher1 = self.roles_per_projects.get(
+            self.researcher1).get('watcher')
+        self.assertEqual(
+            len(projects_list_researcher1),
+            len(expected_projects_list_researcher1))
         for project in expected_projects_list_researcher1:
             self.assertIn(project, expected_projects_list_researcher1)
 
         # Check data for Researcher 2
-        projects_list_researcher2 = list(self.researcher2.get_roles(scope='projects', roles=['watcher']))
-        expected_projects_list_researcher2 = self.roles_per_projects.get(self.researcher2).get('watcher')
-        self.assertEqual(len(projects_list_researcher2), len(expected_projects_list_researcher2))
+        projects_list_researcher2 = list(
+            self.researcher2.get_roles(scope='projects', roles=['watcher']))
+        expected_projects_list_researcher2 = self.roles_per_projects.get(
+            self.researcher2).get('watcher')
+        self.assertEqual(
+            len(projects_list_researcher2),
+            len(expected_projects_list_researcher2))
         for project in expected_projects_list_researcher2:
             self.assertIn(project, expected_projects_list_researcher2)
 

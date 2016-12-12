@@ -21,12 +21,22 @@ class Role(models.Model):
     )
 
     researcher = models.ForeignKey('Researcher', related_name='roles')
-    project = models.ForeignKey('projects.Project', related_name='roles', null=True, blank=True)
-    protocol = models.ForeignKey('protocols.Protocol', related_name='roles', null=True, blank=True)
+    project = models.ForeignKey(
+        'projects.Project',
+        related_name='roles',
+        null=True,
+        blank=True)
+    protocol = models.ForeignKey(
+        'protocols.Protocol',
+        related_name='roles',
+        null=True,
+        blank=True)
     role = models.CharField(max_length=255, choices=ROLES)
 
     class Meta:
-        unique_together = (('researcher', 'project'), ('researcher', 'protocol'))
+        unique_together = (
+            ('researcher', 'project'),
+            ('researcher', 'protocol'))
 
     def __str__(self):
         role_object_label = ''
@@ -42,15 +52,19 @@ class Role(models.Model):
 
     def clean(self):
         if not(self.project or self.protocol):
-            raise ValidationError('You must choose either project or protocol!')
+            raise ValidationError('You must choose \
+                either project or protocol!')
         if self.project and self.protocol:
-            raise ValidationError('You cannot select project and protocol for the same role!')
+            raise ValidationError('You cannot select \
+                project and protocol for the same role!')
         if self.role == 'owner':
             if self.project and self.project.roles.filter(role='owner').exists:
-                raise ValidationError('There is already an owner of this project!')
-            if self.protocol and self.protocol.roles.filter(role='owner').exists:
-                raise ValidationError('There is already an owner of this protocol!')
-
+                raise ValidationError('There is already \
+                    an owner of this project!')
+            if self.protocol and self.protocol.roles.filter(
+                    role='owner').exists:
+                raise ValidationError('There is already \
+                    an owner of this protocol!')
 
     @classmethod
     def get_db_roles(cls):
@@ -59,7 +73,11 @@ class Role(models.Model):
 
 class Researcher(models.Model):
     user = models.OneToOneField(User, related_name='researcher')
-    university = models.ForeignKey(University, related_name='researchers', null=True, blank=True)
+    university = models.ForeignKey(
+        University,
+        related_name='researchers',
+        null=True,
+        blank=True)
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
@@ -67,7 +85,8 @@ class Researcher(models.Model):
 
     def get_roles(self, scope=None, roles=Role.get_db_roles()):
         """
-        Returns roles list django query set based on scope and a list of role names.
+        Returns roles list django query set based on
+        scope and a list of role names.
         If no role names are specified all roles are selected.
         Scope defines if the query gets roles for projects, protocols or both.
         """
