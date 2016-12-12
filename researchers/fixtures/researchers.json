@@ -34,5 +34,14 @@
     "university": 1,
     "scientific_degree": "Contributor2"
   }
+},
+{
+  "model": "researchers.researcher",
+  "pk": 5,
+  "fields": {
+    "user": 11,
+    "university": 1,
+    "scientific_degree": "Temp"
+  }
 }
 ]
