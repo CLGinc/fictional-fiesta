@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 
-from .models import Researcher
+from .models import Researcher, Role
 from projects.models import Project
+from protocols.models import Protocol
 
 
 class ProjectsTest(TestCase):
@@ -12,8 +14,9 @@ class ProjectsTest(TestCase):
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
+        'researchers/fixtures/roles',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles']
+        'protocols/fixtures/protocols']
 
     def setUp(self):
         self.client = Client()
@@ -23,6 +26,9 @@ class ProjectsTest(TestCase):
         self.researcher0 = Researcher.objects.get(user__username='user0')
         self.researcher1 = Researcher.objects.get(user__username='user1')
         self.researcher2 = Researcher.objects.get(user__username='user2')
+        self.tempuser = Researcher.objects.get(user__username='tempuser')
+        self.protocol0 = Protocol.objects.get(name='Protocol 0')
+        self.protocol0 = Protocol.objects.get(name='Protocol 1')
         self.roles_per_projects = {
             self.researcher0: {
                 'owner': [self.project0, self.project1],
@@ -94,3 +100,35 @@ class ProjectsTest(TestCase):
         self.assertEqual(len(projects_list_researcher2), len(expected_projects_list_researcher2))
         for project in expected_projects_list_researcher2:
             self.assertIn(project, expected_projects_list_researcher2)
+
+    def test_add_role_with_project_and_protocol(self):
+        role = Role(
+            researcher=self.tempuser,
+            project=self.project0,
+            protocol=self.protocol0,
+            role='watcher'
+        )
+        self.assertRaises(ValidationError, role.save())
+
+    def test_role_without_project_and_protocol(self):
+        role = Role(
+            researcher=self.tempuser,
+            role='watcher'
+        )
+        self.assertRaises(ValidationError, role.save())
+
+    def test_add_second_owner_to_project(self):
+        role = Role(
+            researcher=self.tempuser,
+            project=self.project0,
+            role='owner'
+        )
+        self.assertRaises(ValidationError, role.save())
+
+    def test_add_second_owner_to_protocol(self):
+        role = Role(
+            researcher=self.tempuser,
+            protocol=self.protocol0,
+            role='owner'
+        )
+        self.assertRaises(ValidationError, role.save())

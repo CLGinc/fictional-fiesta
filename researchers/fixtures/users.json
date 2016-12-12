@@ -70,5 +70,23 @@
     "groups": [],
     "user_permissions": []
   }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$a3rBeqTPLrCr$TYYC666ZYQRTDy5hpxL/dgM8C7YUQwrig0RyabknaPk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tempuser",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-12T18:03:23.286Z",
+    "groups": [],
+    "user_permissions": []
+  }
 }
 ]
