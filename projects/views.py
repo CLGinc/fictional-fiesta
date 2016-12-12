@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import FieldError
 from django.template.context_processors import csrf
 from django.http import Http404, HttpResponseBadRequest
 
@@ -48,6 +49,9 @@ def projects_list(request):
                 '%Y-%m-%d').date()
             roles_list = roles_list.filter(
                 project__datetime_created__date__lte=created_to)
+        if request.GET.get('order-by'):
+            order_by = request.GET.get('order-by')
+            roles_list = roles_list.order_by(order_by)
         paginator = Paginator(roles_list, 15)
         roles_list_page = paginator.page(1)
         if request.is_ajax():
@@ -58,7 +62,10 @@ def projects_list(request):
                 return HttpResponseBadRequest(reason='Page must be integer!')
             except EmptyPage:
                 return HttpResponseBadRequest(reason='Page does not exist!')
-        return render(request, 'projects_list.html', locals())
+        try:
+            return render(request, 'projects_list.html', locals())
+        except FieldError:
+            return HttpResponseBadRequest('Parameter order_by not valid!')
 
 
 def project(request, project_id):
