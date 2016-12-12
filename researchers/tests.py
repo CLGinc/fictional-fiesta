@@ -47,7 +47,7 @@ class ProjectsTest(TestCase):
     def test_get_roles_owners(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='projects', roles=['owner']))
+            self.researcher0.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
             self.researcher0).get('owner')
         self.assertEqual(
@@ -58,12 +58,12 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='projects', roles=['owner']))
+            self.researcher1.get_roles(scope='project', roles=['owner']))
         self.assertEqual(projects_list_researcher1, [])
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='projects', roles=['owner']))
+            self.researcher2.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
             self.researcher2).get('owner')
         self.assertEqual(
@@ -76,7 +76,7 @@ class ProjectsTest(TestCase):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
             self.researcher0.get_roles(
-                scope='projects',
+                scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
             self.researcher0).get('contributor')
@@ -89,7 +89,7 @@ class ProjectsTest(TestCase):
         # Check data for Researcher 1
         projects_list_researcher1 = list(
             self.researcher1.get_roles(
-                scope='projects',
+                scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
             self.researcher1).get('contributor')
@@ -102,19 +102,19 @@ class ProjectsTest(TestCase):
         # Check data for Researcher 2
         projects_list_researcher2 = list(
             self.researcher2.get_roles(
-                scope='projects',
+                scope='project',
                 roles=['contributor']))
         self.assertEqual(projects_list_researcher2, [])
 
     def test_get_roles_watchers(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='projects', roles=['watcher']))
+            self.researcher0.get_roles(scope='project', roles=['watcher']))
         self.assertEqual(roles_list_researcher0, [])
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='projects', roles=['watcher']))
+            self.researcher1.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
             self.researcher1).get('watcher')
         self.assertEqual(
@@ -125,7 +125,7 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='projects', roles=['watcher']))
+            self.researcher2.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
             self.researcher2).get('watcher')
         self.assertEqual(
