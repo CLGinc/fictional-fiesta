@@ -1,36 +1,6 @@
 [
 {
   "model": "researchers.role",
-  "pk": 1,
-  "fields": {
-    "researcher": 1,
-    "project": 1,
-    "protocol": null,
-    "role": "owner"
-  }
-},
-{
-  "model": "researchers.role",
-  "pk": 2,
-  "fields": {
-    "researcher": 1,
-    "project": 2,
-    "protocol": null,
-    "role": "contributor"
-  }
-},
-{
-  "model": "researchers.role",
-  "pk": 3,
-  "fields": {
-    "researcher": 1,
-    "project": 3,
-    "protocol": null,
-    "role": "watcher"
-  }
-},
-{
-  "model": "researchers.role",
   "pk": 4,
   "fields": {
     "researcher": 4,
@@ -117,6 +87,106 @@
     "project": 2,
     "protocol": null,
     "role": "watcher"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 29,
+  "fields": {
+    "researcher": 3,
+    "project": null,
+    "protocol": 811,
+    "role": "owner"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 30,
+  "fields": {
+    "researcher": 4,
+    "project": null,
+    "protocol": 812,
+    "role": "owner"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 31,
+  "fields": {
+    "researcher": 2,
+    "project": null,
+    "protocol": 813,
+    "role": "contributor"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 32,
+  "fields": {
+    "researcher": 4,
+    "project": null,
+    "protocol": 814,
+    "role": "contributor"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 33,
+  "fields": {
+    "researcher": 4,
+    "project": null,
+    "protocol": 815,
+    "role": "owner"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 34,
+  "fields": {
+    "researcher": 2,
+    "project": null,
+    "protocol": 816,
+    "role": "owner"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 35,
+  "fields": {
+    "researcher": 4,
+    "project": null,
+    "protocol": 817,
+    "role": "owner"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 36,
+  "fields": {
+    "researcher": 2,
+    "project": null,
+    "protocol": 818,
+    "role": "contributor"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 37,
+  "fields": {
+    "researcher": 4,
+    "project": null,
+    "protocol": 819,
+    "role": "contributor"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 38,
+  "fields": {
+    "researcher": 2,
+    "project": null,
+    "protocol": 820,
+    "role": "contributor"
   }
 }
 ]
