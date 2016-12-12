@@ -141,14 +141,22 @@ class ProjectsTest(TestCase):
             protocol=self.protocol0,
             role='watcher'
         )
-        self.assertRaises(ValidationError, role.save())
+        with self.assertRaises(ValidationError) as e:
+            role.clean()
+        self.assertEqual(
+            ["You cannot select project and protocol for the same role!"],
+            e.exception.messages)
 
     def test_role_without_project_and_protocol(self):
         role = Role(
             researcher=self.tempuser,
             role='watcher'
         )
-        self.assertRaises(ValidationError, role.save())
+        with self.assertRaises(ValidationError) as e:
+            role.clean()
+        self.assertEqual(
+            ["You must choose either project or protocol!"],
+            e.exception.messages)
 
     def test_add_second_owner_to_project(self):
         role = Role(
@@ -156,7 +164,11 @@ class ProjectsTest(TestCase):
             project=self.project0,
             role='owner'
         )
-        self.assertRaises(ValidationError, role.save())
+        with self.assertRaises(ValidationError) as e:
+            role.clean()
+        self.assertEqual(
+            ["There is already an owner of this project!"],
+            e.exception.messages)
 
     def test_add_second_owner_to_protocol(self):
         role = Role(
@@ -164,4 +176,8 @@ class ProjectsTest(TestCase):
             protocol=self.protocol0,
             role='owner'
         )
-        self.assertRaises(ValidationError, role.save())
+        with self.assertRaises(ValidationError) as e:
+            role.clean()
+        self.assertEqual(
+            ["There is already an owner of this protocol!"],
+            e.exception.messages)
