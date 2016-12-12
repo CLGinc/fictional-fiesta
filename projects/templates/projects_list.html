@@ -22,7 +22,7 @@
                 <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project name</p>
                 <div class="mdl-cell mdl-cell--12-col">
                   <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255" {% if new_project_form.description.value %}value="{{ new_project_form.name.value }}"{% endif %}>
+                    <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255">
                     <label class="mdl-textfield__label" for="input-new-project--name"></label>
                   </div>
                 </div>
@@ -31,7 +31,7 @@
                 <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project description</p>
                 <div class="mdl-cell mdl-cell--12-col">
                   <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255"  {% if new_project_form.description.value %}value="{{ new_project_form.description.value }}"{% endif %}>
+                    <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255">
                     <label class="mdl-textfield__label" for="input-new-project--desc"></label>
                   </div>
                 </div>
