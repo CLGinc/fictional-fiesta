@@ -1,9 +1,11 @@
 <li id="{{ protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
+  {% for protocol_role in protocols_roles_to_add %}
   <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
-    <div class="mdl-cell mdl-cell--7-col">{{ protocol.name }}</div>
-    <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
-    <div class="mdl-cell mdl-cell--1-col">{{ protocol.label }}</div>
+    <div class="mdl-cell mdl-cell--7-col">{{ protocol_role.protocol.name }}</div>
+    <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
+    <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
   </a>
+  {% endfor %}
   <div class="mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
     <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
       <i class="material-icons list--link-edit">edit</i>

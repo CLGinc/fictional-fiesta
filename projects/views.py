@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import FieldError
 from django.template.context_processors import csrf
 from django.http import Http404, HttpResponseBadRequest
+from django.template.response import TemplateResponse
 
 from researchers.models import Role
 from .forms import NewProjectForm
@@ -79,7 +80,10 @@ def project(request, project_id):
                         roles=('owner', 'contributor')
                         ).exclude(
                             protocol__in=selected_project.protocols.all())
-                    return
+                    return render(
+                        request,
+                        'protocols_to_add.html',
+                        protocols_roles_to_add)
                 elif request.GET.get('sources-to-add'):
                     sources_to_add = request.user.researcher.sources
                     return
