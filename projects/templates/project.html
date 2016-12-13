@@ -53,7 +53,7 @@
                   </div>
                 </li>
                 <li>
-                  <ul class="mdl-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+                  <ul class="mdl-list padding--top-none" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
                     {% for result in results_page %}
                 		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
                       <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
@@ -230,7 +230,7 @@
               <ul class="mdl-list margin--bottom-0">
                 <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
                   <div class="mdl-grid mdl-cell mdl-cell--1-col">
-                    <div class="mdl-cell mdl-cell--1-col">Modify</div>
+                    <div class="mdl-cell mdl-cell--1-col">Select</div>
                   </div>
                   <div class="mdl-grid mdl-cell mdl-cell--11-col">
                     <div class="mdl-cell mdl-cell--7-col">Name</div>
@@ -239,7 +239,7 @@
                   </div>
                 </li>
                 <li>
-                  <ul class="mdl-list" id="protocols_to_add_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+                  <ul class="mdl-list padding--top-none" id="protocols_to_add_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
 
                   </ul>
                 </li>
@@ -257,7 +257,7 @@
               </div>
               {% endif %}
             </div>
-            <div class="mdl-card__actions mdl-card--border">
+            <div class="mdl-card__actions mdl-card--border mdl-cell mdl-cell--12-col">
               <a data-trigger="submit" data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
                 OK
               </a>
@@ -295,4 +295,5 @@
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/addDataRequest.js" %}"></script>
 {% endblock %}

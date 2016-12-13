@@ -83,7 +83,7 @@ def project(request, project_id):
                     return render(
                         request,
                         'protocols_to_add.html',
-                        protocols_roles_to_add)
+                        locals())
                 elif request.GET.get('sources-to-add'):
                     sources_to_add = request.user.researcher.sources
                     return
