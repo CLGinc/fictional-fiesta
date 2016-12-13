@@ -226,8 +226,38 @@
               <h2 class="mdl-card__title-text mdl-color-text--blue-500">Add protocols</h2>
             </div>
             <div class="mdl-card__supporting-text modal--content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Mauris sagittis pellentesque lacus eleifend lacinia...
+              {% if results_page %}
+              <ul class="mdl-list margin--bottom-0">
+                <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
+                  <div class="mdl-grid mdl-cell mdl-cell--11-col">
+                    <div class="mdl-cell mdl-cell--4-col">Protocol</div>
+                    <div class="mdl-cell mdl-cell--3-col">Created by</div>
+                    <div class="mdl-cell mdl-cell--3-col">Created on</div>
+                    <div class="mdl-cell mdl-cell--1-col">State</div>
+                    <div class="mdl-cell mdl-cell--1-col">Success</div>
+                  </div>
+                  <div class="mdl-grid mdl-cell mdl-cell--1-col">
+                    <div class="mdl-cell mdl-cell--1-col">Modify</div>
+                  </div>
+                </li>
+                <li>
+                  <ul class="mdl-list" id="protocols_to_add_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+
+                  </ul>
+                </li>
+              </ul>
+              {% else %}
+              <div class="mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing">
+                <div class="mdl-card width--full">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text mdl-color-text--accent">No results</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
+                    There are no results yet. Use the '+ ADD' button to add more.
+                  </div>
+                </div>
+              </div>
+              {% endif %}
             </div>
             <div class="mdl-card__actions mdl-card--border">
               <a data-trigger="submit" data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
