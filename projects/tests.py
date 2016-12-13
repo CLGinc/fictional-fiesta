@@ -9,7 +9,8 @@ class ProjectsTest(TestCase):
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles']
+        'researchers/fixtures/roles',
+        'protocols/fixtures/protocols']
 
     def setUp(self):
         self.client = Client()
