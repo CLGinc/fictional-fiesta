@@ -18,10 +18,17 @@ $('[data-trigger="show"]').click(function(){
   var targetElementId = $(this).attr('data-target');
   $('#'+targetElementId).toggleClass('element--show-animate');
 });
+$('[data-ajax="addDataRequest"]').click(function(){
+  var targetElementId = $(this).attr('data-target'),
+      requestTarget = $('#'+targetElementId).attr('data-request');
+  addDataRequest(requestTarget);
+});
 // close
 $('[data-trigger="close"]').click(function(){
-  var targetElementId = $(this).attr('data-target');
+  var targetElementId = $(this).attr('data-target'),
+      requestTarget = $('#'+targetElementId).attr('data-request');
   $('#'+targetElementId).removeClass('element--show-animate');
+  deleteOldList(requestTarget);
 });
 // submit
 $('[data-trigger="submit"]').click(function(){
