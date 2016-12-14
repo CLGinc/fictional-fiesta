@@ -1,10 +1,10 @@
-{% for protocol_role in protocols_roles_to_add %}
+{% for source in sources_to_add %}
 <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
   <div class="mdl-cell mdl-cell--1-col">
     <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
   </div>
-  <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.name }}</div>
-  <div class="mdl-cell mdl-cell--2-col">{{ protocol_role.protocol.get_owner }}</div>
-  <div class="mdl-cell mdl-cell--5-col">{{ protocol_role.protocol.label }}</div>
+  <div class="mdl-cell mdl-cell--4-col">{{ source.name }}</div>
+  <div class="mdl-cell mdl-cell--2-col">{{ source.isbn }}</div>
+  <div class="mdl-cell mdl-cell--5-col">{{ source.url }}</div>
 </li>
 {% endfor %}
