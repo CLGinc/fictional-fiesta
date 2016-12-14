@@ -1,6 +1,3 @@
-$(window).load(function(){
-  addDataRequest();
-});
 // Find checkbox state and toggle it
 var toggleCheckbox = function(){
   var targetCheckbox = $(this).attr('data-target');
@@ -10,28 +7,35 @@ var toggleCheckbox = function(){
     $('#'+targetCheckbox).prop('checked', true);
   }
 };
+// clean html after list is closed
+var deleteOldList = function(requestTarget) {
+  $('#'+requestTarget).empty();
+}
 // Ajax request to retrieve list
-var addDataRequest = function() {
-    $('#loading').addClass('is-active');
+var addDataRequest = function(requestTarget) {
     // Configure the url we're about to hit
+    $('[data-type="loader"]').removeClass('hidden');
+    $('[data-type="loader"]').addClass('is-active');
+    var dataTarget = requestTarget+'=True';
     $.ajax({
         url: viewParam,
-        data: {'protocols-to-add':'True'},
+        data: dataTarget,
         type: "GET",
         dataType: 'html',
         success: function(data) {
             // Update global next page variable
-    				$('#protocols_to_add_list').append(data);
+    				$('#'+requestTarget).html(data);
             $('[data-trigger="checkbox"]').bind('click', toggleCheckbox);
         },
         error: function(data) {
             // When I get a 400 back, fail safely
-            // bind a new event to the add button so the user can retry
+            $('#'+requestTarget).html('no protocol for you');
         },
-        complete: function(data, textStatus){
+        complete: function(data){
             // Turn the scroll monitor back on
             // bind the event again so the user can open the list again
-            $('#loading').removeClass('is-active');
+            $('[data-type="loader"]').addClass('hidden');
+            $('[data-type="loader"]').removeClass('is-active');
         }
     });
 };

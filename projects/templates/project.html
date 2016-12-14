@@ -33,7 +33,7 @@
               <a href="#sources-panel" data-trigger="tab" data-target="modal--sources" class="mdl-tabs__tab">
                 <h2 class="mdl-card__title-text">Sources</h2>
               </a>
-              <button data-trigger="show" id="button-add" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect right hidden">
+              <button data-trigger="show" data-ajax="addDataRequest" id="button-add" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect right hidden">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
               </button>
             </div>
@@ -220,70 +220,68 @@
             </div>
           </div>
         </div>
-        <div id="modal--protocols" class="modal mdl-grid mdl-cell mdl-cell--12-col">
-          <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid" role="dialog" aria-hidden="true">
+        <div id="modal--protocols" class="modal mdl-grid mdl-cell mdl-cell--12-col visible" data-request="protocols_to_add_list">
+          <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid visible" role="dialog" aria-hidden="true">
             <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--white">
               <h2 class="mdl-card__title-text mdl-color-text--blue-500">Add protocols</h2>
             </div>
             <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
-              {% if selected_project.protocols.all %}
+              <div class="mdl-spinner mdl-js-spinner is-active center" data-type="loader"></div>
               <ul class="mdl-list margin--bottom-0">
-                <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-                  <div class="mdl-grid mdl-cell mdl-cell--1-col">
-                    <div class="mdl-cell mdl-cell--1-col">Select</div>
-                  </div>
-                  <div class="mdl-grid mdl-cell mdl-cell--11-col">
-                    <div class="mdl-cell mdl-cell--7-col">Name</div>
-                    <div class="mdl-cell mdl-cell--4-col">Owner</div>
-                    <div class="mdl-cell mdl-cell--1-col">Label</div>
-                  </div>
+                <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
+                  <div class="mdl-cell mdl-cell--1-col">Select</div>
+                  <div class="mdl-cell mdl-cell--6-col">Name</div>
+                  <div class="mdl-cell mdl-cell--4-col">Owner</div>
+                  <div class="mdl-cell mdl-cell--1-col">Label</div>
                 </li>
                 <li>
-                  <ul class="mdl-list padding--top-none" id="protocols_to_add_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+                  <ul class="mdl-list padding--top-none" id="protocols_to_add_list">
 
                   </ul>
                 </li>
               </ul>
-              {% else %}
-              <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="mdl-card width--full">
-                  <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text mdl-color-text--accent">No results</h2>
-                  </div>
-                  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-                    There are no available protocols
-                  </div>
-                </div>
-              </div>
-              {% endif %}
             </div>
             <div class="mdl-snackbar mdl-snackbar--active mdl-color--white mdl-shadow--8dp">
-              <a data-trigger="close"  data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+              <a data-trigger="close"  data-target="modal--protocols" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
                 <i class="material-icons mdl-color-text--blue-500">close</i>
                 Cancel
               </a>
-              <a data-trigger="submit" data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+              <a data-trigger="submit" data-target="modal--protocols" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
                 ADD
               </a>
             </div>
           </div>
         </div>
-        <div id="modal--sources" class="modal mdl-grid mdl-grid--no-spacing page-content mdl-cell mdl-cell--12-col">
-          <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col" role="dialog" aria-hidden="true">
-            <div class="mdl-card__title">
+        <div id="modal--sources" class="modal mdl-grid mdl-cell mdl-cell--12-col visible" data-request="sources_to_add_list">
+          <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid visible" role="dialog" aria-hidden="true">
+            <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--white">
               <h2 class="mdl-card__title-text mdl-color-text--blue-500">Add sources</h2>
             </div>
-            <div class="mdl-card__supporting-text modal--content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Mauris sagittis pellentesque lacus eleifend lacinia...
+            <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
+              <div class="mdl-spinner mdl-js-spinner is-active center" data-type="loader"></div>
+              <ul class="mdl-list margin--bottom-0">
+                <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
+                  <div class="mdl-cell mdl-cell--1-col">Select</div>
+                  <div class="mdl-cell mdl-cell--4-col">Name</div>
+                  <div class="mdl-cell mdl-cell--2-col">ISBN</div>
+                  <div class="mdl-cell mdl-cell--5-col">URL</div>
+                </li>
+                <li>
+                  <ul class="mdl-list padding--top-none" id="sources_to_add_list">
+
+                  </ul>
+                </li>
+              </ul>
             </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a data-trigger="submit" data-target="modal--sources" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
-                OK
-              </a>
-              <a data-trigger="close"  data-target="modal--sources" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
+            <div class="mdl-snackbar mdl-snackbar--active mdl-color--white mdl-shadow--8dp">
+              <a data-trigger="close"  data-target="modal--sources" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">close</i>
                 Cancel
+              </a>
+              <a data-trigger="submit" data-target="modal--sources" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
+                ADD
               </a>
             </div>
           </div>
