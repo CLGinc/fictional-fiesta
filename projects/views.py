@@ -74,7 +74,7 @@ def project(request, project_id):
         try:
             selected_project = Project.objects.get(unique_id=project_id)
             if request.is_ajax():
-                if request.GET.get('protocols_to_add'):
+                if request.GET.get('protocols_to_add_list'):
                     protocols_roles_to_add = request.user.researcher.get_roles(
                         scope='protocol',
                         roles=('owner', 'contributor')
@@ -84,7 +84,7 @@ def project(request, project_id):
                         request,
                         'protocols_to_add.html',
                         locals())
-                elif request.GET.get('sources_to_add'):
+                elif request.GET.get('sources_to_add_list'):
                     sources_to_add = request.user.researcher.sources
                     return
             results = selected_project.results.all()
