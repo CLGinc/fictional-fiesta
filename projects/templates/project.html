@@ -220,9 +220,9 @@
             </div>
           </div>
         </div>
-        <div id="modal--protocols" class="modal mdl-grid page-content mdl-cell mdl-cell--12-col">
+        <div id="modal--protocols" class="modal mdl-grid mdl-cell mdl-cell--12-col">
           <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid" role="dialog" aria-hidden="true">
-            <div class="mdl-card__title mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--white">
               <h2 class="mdl-card__title-text mdl-color-text--blue-500">Add protocols</h2>
             </div>
             <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
@@ -257,12 +257,14 @@
               </div>
               {% endif %}
             </div>
-            <div class="mdl-card__actions mdl-card--border mdl-cell mdl-cell--12-col">
-              <a data-trigger="submit" data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
-                OK
-              </a>
-              <a data-trigger="close"  data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-500 right">
+            <div class="mdl-snackbar mdl-snackbar--active mdl-color--white mdl-shadow--8dp">
+              <a data-trigger="close"  data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">close</i>
                 Cancel
+              </a>
+              <a data-trigger="submit" data-target="modal--protocols" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
+                ADD
               </a>
             </div>
           </div>
