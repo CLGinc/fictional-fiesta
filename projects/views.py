@@ -101,9 +101,11 @@ def project(request, project_id):
                 try:
                     results_page = paginator.page(page)
                 except PageNotAnInteger:
-                    return HttpResponseBadRequest(reason='Page must be integer!')
+                    return HttpResponseBadRequest(
+                        reason='Page must be integer!')
                 except EmptyPage:
-                    return HttpResponseBadRequest(reason='Page does not exist!')
+                    return HttpResponseBadRequest(
+                        reason='Page does not exist!')
 
         except Project.DoesNotExist:
             raise Http404()
