@@ -86,7 +86,11 @@ def project(request, project_id):
                         locals())
                 elif request.GET.get('sources_to_add_list'):
                     sources_to_add = request.user.researcher.sources
-                    return
+                    return render(
+                        request,
+                        'sources_to_add.html',
+                        locals()
+                    )
             results = selected_project.results.all()
             participants_by_role = selected_project.get_participants_by_role()
             paginator = Paginator(results, 15)
