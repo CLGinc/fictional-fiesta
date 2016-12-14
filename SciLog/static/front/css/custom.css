@@ -180,10 +180,10 @@ a {
 }
 /*Modal*/
 .modal {
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  /*overflow-y: scroll;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.2s ease-in-out;
@@ -194,10 +194,7 @@ a {
   z-index: 100;
 }
 .modal--content {
-  /*bottom: 0;*/
-  height: 100%;
   width: 100%;
-  overflow-y: scroll;
 }
 .element--show-animate {
   visibility: visible;

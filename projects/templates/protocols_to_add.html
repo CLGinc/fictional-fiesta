@@ -1,5 +1,5 @@
 {% for protocol_role in protocols_roles_to_add %}
-<li data-trigger="close" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
+<li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
   <div class="mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
     <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
   </div>
