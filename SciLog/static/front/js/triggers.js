@@ -30,7 +30,7 @@ $('[data-trigger="close"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   deleteOldList(requestTarget);
 });
-// submit
+// submit form
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
