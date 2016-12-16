@@ -7,18 +7,21 @@
     <div class="mdl-cell mdl-cell--1-col">Label</div>
   </li>
   <li>
-    <ul class="mdl-list padding--top-none">
-      {% for protocol_role in protocols_roles_to_add %}
-      <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
-        <div class="mdl-cell mdl-cell--1-col">
-          <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
-        </div>
-        <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
-        <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
-        <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
-      </li>
-      {% endfor %}
-    </ul>
+    <form id="form--protocols" method="post" action="/projects/protocols/">
+      {% csrf_token %}
+      <ul class="mdl-list padding--top-none">
+        {% for protocol_role in protocols_roles_to_add %}
+        <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
+          <div class="mdl-cell mdl-cell--1-col">
+            <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
+          <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
+          <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
+        </li>
+        {% endfor %}
+      </ul>
+    </form>
   </li>
 </ul>
 {% else %}
