@@ -1,10 +1,33 @@
-{% for protocol_role in protocols_roles_to_add %}
-<li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
-  <div class="mdl-cell mdl-cell--1-col">
-    <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
+{% if protocols_roles_to_add %}
+<ul class="mdl-list margin--bottom-0">
+  <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
+    <div class="mdl-cell mdl-cell--1-col">Select</div>
+    <div class="mdl-cell mdl-cell--6-col">Name</div>
+    <div class="mdl-cell mdl-cell--4-col">Owner</div>
+    <div class="mdl-cell mdl-cell--1-col">Label</div>
+  </li>
+  <li>
+    <ul class="mdl-list padding--top-none">
+      {% for protocol_role in protocols_roles_to_add %}
+      <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
+        <div class="mdl-cell mdl-cell--1-col">
+          <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
+        <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
+        <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>
+{% else %}
+<div class="mdl-card width--full">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text mdl-color-text--accent">No sources</h2>
   </div>
-  <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
-  <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
-  <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
-</li>
-{% endfor %}
+  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
+    You have no available sources.
+  </div>
+</div>
+{% endif %}

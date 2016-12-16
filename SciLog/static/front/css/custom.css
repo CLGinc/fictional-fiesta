@@ -192,9 +192,11 @@ a {
   -o-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
+  min-height: 100%;
 }
 .modal--content {
   width: 100%;
+  min-height: 100%;
 }
 .visible {
   overflow: visible;
