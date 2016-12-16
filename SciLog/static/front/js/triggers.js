@@ -32,9 +32,10 @@ $('[data-trigger="close"]').click(function(){
 });
 // submit
 $('[data-trigger="submit"]').click(function(){
-  var targetElementId = $(this).attr('data-target');
+  var targetElementId = $(this).attr('data-target'),
+      targetForm = $(this).attr('data-form');
   $('#'+targetElementId).removeClass('element--show-animate');
-  // DO SOME OTHER STUFF
+  $('#'+targetForm).submit();
 });
 // update active tab and display add new button
 $('[data-trigger="tab"]').click(function() {
