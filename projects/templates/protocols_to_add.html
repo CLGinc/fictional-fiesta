@@ -13,7 +13,7 @@
         {% for protocol_role in protocols_roles_to_add %}
         <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
           <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
+            <input type="checkbox" name="{{ protocol_role.protocol.unique_id }}" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
           </div>
           <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
           <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
