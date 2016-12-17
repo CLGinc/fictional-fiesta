@@ -13,7 +13,7 @@
         {% for source in sources_to_add %}
         <li data-trigger="checkbox" data-target="checkbox_{{ source_role.source.unique_id }}" id="{{ source_role.source.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
           <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="{{ source_role.source.unique_id }}" id="checkbox_{{ source_role.source.unique_id }}" class="checkbox">
+            <input type="checkbox" name="element_choices" id="checkbox_{{ source_role.source.unique_id }}" class="checkbox">
           </div>
           <div class="mdl-cell mdl-cell--4-col">{{ source.name }}</div>
           <div class="mdl-cell mdl-cell--2-col">{{ source.isbn }}</div>
