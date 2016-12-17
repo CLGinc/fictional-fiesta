@@ -7,7 +7,7 @@
     <div class="mdl-cell mdl-cell--1-col">Label</div>
   </li>
   <li>
-    <form id="form--protocols" method="post" action="/projects/protocols/">
+    <form id="form--protocols" method="post" action="#">
       {% csrf_token %}
       <ul class="mdl-list padding--top-none">
         {% for protocol_role in protocols_roles_to_add %}
