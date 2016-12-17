@@ -78,7 +78,7 @@ def project(request, project_id):
     if request.method == 'GET':
         if request.is_ajax():
             if request.GET.get('protocols_to_add_list'):
-                protocols_roles_to_add = researcher.protocols_to_add(
+                protocols_to_add = researcher.protocols_to_add(
                     selected_project)
                 return render(
                     request,
