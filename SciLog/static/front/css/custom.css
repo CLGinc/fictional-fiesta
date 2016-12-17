@@ -83,6 +83,10 @@ a {
   z-index: 9000;
 }
 /* user card */
+.button--height-normal {
+  line-height: normal;
+  height: auto;
+}
 .user-card--drawer {
   box-sizing: border-box;
   display: -webkit-flex;

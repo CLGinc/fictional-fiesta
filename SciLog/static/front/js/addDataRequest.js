@@ -31,7 +31,7 @@ var addDataRequest = function(requestTarget) {
         },
         error: function(data) {
             // When I get a 400 back, fail safely
-            $('#'+requestTarget).html('no protocol for you');
+            $('#'+requestTarget).html('There was a problem, please contact your administrator!');
         },
         complete: function(data){
             // Turn the scroll monitor back on
@@ -42,7 +42,7 @@ var addDataRequest = function(requestTarget) {
     });
 };
 
-// Ajax request to post form data
+// Ajax request to post form data NOT USED
 function pushRequest(requestUrl) {
   // var element = event.target,
   var epid = $(element).parents("li").attr("id"),
