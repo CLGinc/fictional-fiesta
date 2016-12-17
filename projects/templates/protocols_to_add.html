@@ -13,7 +13,7 @@
         {% for protocol in protocols_to_add %}
         <li data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}" id="{{ protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
           <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="choices" value="{{ protocol.id }}" id="checkbox_{{ protocol.unique_id }}" class="checkbox">
+            <input type="checkbox" name="element_choices" value="{{ protocol.id }}" id="checkbox_{{ protocol.unique_id }}" class="checkbox">
           </div>
           <div class="mdl-cell mdl-cell--6-col">{{ protocol.name }}</div>
           <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
