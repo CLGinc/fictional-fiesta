@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from protocols.models import Protocol
+
 
 class University(models.Model):
     name = models.CharField(max_length=255)
@@ -108,11 +110,11 @@ class Researcher(models.Model):
                 role__in=roles,).select_related('project', 'protocol')
 
     def protocols_to_add(self, project):
-        return self.get_roles(
-            scope='protocol',
-            roles=('owner', 'contributor')
-            ).exclude(
-                protocol__in=project.protocols.all())
+        protocols = Protocol.objects.filter(
+            roles__researcher=self,
+            roles__project=None
+            ).exclude(id__in=[o.id for o in project.protocols.all()])
+        return protocols
 
 
 class Source(models.Model):
