@@ -54,7 +54,7 @@ class Protocol(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.label
+        return self.name
 
     def get_owner(self):
         return self.roles.get(role='owner').researcher
