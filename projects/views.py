@@ -8,7 +8,7 @@ from django.http import Http404, HttpResponseBadRequest
 from django.template.response import TemplateResponse
 
 from researchers.models import Role
-from .forms import NewProjectForm, AddProtocolsForm
+from .forms import NewProjectForm, AddElementsForm
 from .models import Project
 
 
@@ -85,7 +85,8 @@ def project(request, project_id):
                     'protocols_to_add.html',
                     locals())
             elif request.GET.get('sources_to_add_list'):
-                sources_to_add = request.user.researcher.sources.all()
+                sources_to_add = researcher.sources.all().exclude(
+                    id__in=[o.id for o in selected_project.sources.all()])
                 return render(
                     request,
                     'sources_to_add.html',
@@ -107,5 +108,26 @@ def project(request, project_id):
                 return HttpResponseBadRequest(
                     reason='Page does not exist!')
         return render(request, 'project.html', locals())
+    elif request.method == 'POST':
+        if request.POST.get('element_type') == 'p':
+            protocols_to_add = researcher.protocols_to_add(selected_project)
+            add_elements_form = AddElementsForm(
+                request.POST or None,
+                queryset=protocols_to_add)
+        elif request.POST.get('element_type') == 's':
+            sources_to_add = researcher.sources.all().exclude(
+                id__in=[o.id for o in selected_project.sources.all()])
+            add_elements_form = AddElementsForm(
+                request.POST or None,
+                queryset=sources_to_add)
+        if add_elements_form.is_valid():
+            element_type = add_elements_form.cleaned_data['element_type']
+            if element_type == 'p':
+                selected_project.protocols.add(
+                    *list(add_elements_form.cleaned_data['element_choices']))
+            elif element_type == 's':
+                selected_project.sources.add(
+                    *list(add_elements_form.cleaned_data['element_choices']))
+        return redirect('.')
     else:
         return HttpResponseBadRequest('Method not supported!')

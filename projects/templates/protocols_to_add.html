@@ -11,17 +11,20 @@
       {% csrf_token %}
       <ul class="mdl-list padding--top-none">
         {% for protocol in protocols_to_add %}
-        <li data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}" id="{{ protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
+        <li data-trigger="checkbox" data-target="checkbox_{{ protocol.id }}" id="{{ protocol.id }}" class="mdl-list__item border--bottom mdl-grid list--link">
           <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="element_choices" value="{{ protocol.id }}" id="checkbox_{{ protocol.unique_id }}" class="checkbox">
+            <input type="checkbox" name="element_choices" value="{{ protocol.id }}" id="checkbox_{{ protocol.id }}" class="checkbox">
           </div>
           <div class="mdl-cell mdl-cell--6-col">{{ protocol.name }}</div>
           <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
           <div class="mdl-cell mdl-cell--1-col">{{ protocol.label }}</div>
         </li>
         {% endfor %}
-        <input class="hidden" name="type" value="protocols"/>
       </ul>
+      <select class="hidden" name="element_type" value="p">
+        <option selected value="p">Protocols</option>
+        <option value="s">Sources</option>
+      </select>
     </form>
   </li>
 </ul>
