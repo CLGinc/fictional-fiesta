@@ -1,4 +1,4 @@
-{% if protocols_roles_to_add %}
+{% if protocols_to_add %}
 <ul class="mdl-list margin--bottom-0">
   <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
     <div class="mdl-cell mdl-cell--1-col">Select</div>
@@ -10,14 +10,14 @@
     <form id="form--protocols" method="post" action="">
       {% csrf_token %}
       <ul class="mdl-list padding--top-none">
-        {% for protocol_role in protocols_roles_to_add %}
-        <li data-trigger="checkbox" data-target="checkbox_{{ protocol_role.protocol.unique_id }}" id="{{ protocol_role.protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
+        {% for protocol in protocols_to_add %}
+        <li data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}" id="{{ protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
           <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="{{ protocol_role.protocol.unique_id }}" id="checkbox_{{ protocol_role.protocol.unique_id }}" class="checkbox">
+            <input type="checkbox" name="choices" value="{{ protocol.id }}" id="checkbox_{{ protocol.unique_id }}" class="checkbox">
           </div>
-          <div class="mdl-cell mdl-cell--6-col">{{ protocol_role.protocol.name }}</div>
-          <div class="mdl-cell mdl-cell--4-col">{{ protocol_role.protocol.get_owner }}</div>
-          <div class="mdl-cell mdl-cell--1-col">{{ protocol_role.protocol.label }}</div>
+          <div class="mdl-cell mdl-cell--6-col">{{ protocol.name }}</div>
+          <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
+          <div class="mdl-cell mdl-cell--1-col">{{ protocol.label }}</div>
         </li>
         {% endfor %}
       </ul>
@@ -27,10 +27,10 @@
 {% else %}
 <div class="mdl-card width--full">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text mdl-color-text--accent">No sources</h2>
+    <h2 class="mdl-card__title-text mdl-color-text--accent">No protocols</h2>
   </div>
   <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-    You have no available sources.
+    You have no available protocols.
   </div>
 </div>
 {% endif %}
