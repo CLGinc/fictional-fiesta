@@ -24,6 +24,11 @@
     </form>
   </li>
 </ul>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ add_protocols_form }}
+    <button type="submit">POST</button>
+</form>
 {% else %}
 <div class="mdl-card width--full">
   <div class="mdl-card__title">
