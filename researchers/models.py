@@ -107,6 +107,13 @@ class Researcher(models.Model):
                 researcher=self,
                 role__in=roles,).select_related('project', 'protocol')
 
+        def protocols_to_add(self, project):
+            return self.get_roles(
+                scope='protocol',
+                roles=('owner', 'contributor')
+                ).exclude(
+                    protocol__in=project.protocols.all())
+
 
 class Source(models.Model):
     name = models.CharField(max_length=255)
