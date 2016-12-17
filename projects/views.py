@@ -109,3 +109,5 @@ def project(request, project_id):
                 return HttpResponseBadRequest(
                     reason='Page does not exist!')
         return render(request, 'project.html', locals())
+    else:
+        return HttpResponseBadRequest('Method not supported!')
