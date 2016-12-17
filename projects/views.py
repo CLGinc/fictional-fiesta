@@ -72,16 +72,14 @@ def projects_list(request):
 def project(request, project_id):
     try:
         selected_project = Project.objects.get(unique_id=project_id)
+        researcher = request.user.researcher
     except Project.DoesNotExist:
         raise Http404()
     if request.method == 'GET':
         if request.is_ajax():
             if request.GET.get('protocols_to_add_list'):
-                protocols_roles_to_add = request.user.researcher.get_roles(
-                    scope='protocol',
-                    roles=('owner', 'contributor')
-                    ).exclude(
-                        protocol__in=selected_project.protocols.all())
+                protocols_roles_to_add = researcher.protocols_to_add(
+                    selected_project)
                 return render(
                     request,
                     'protocols_to_add.html',
