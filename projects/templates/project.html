@@ -197,9 +197,13 @@
           </div>
         </div>
         <div class="mdl-cell mdl-cell--3-col">
-          <div class="mdl-card participant-list">
-            <div class="mdl-card__title mdl-color-text--blue-500">
+          <div class="participant-list">
+            <div class="mdl-card__title mdl-color-text--blue-500 mdl-grid mdl-grid--no-spacing">
               <h2 class="mdl-card__title-text">Participants</h2>
+              <div class="mdl-layout-spacer"></div>
+              <button data-trigger="show" data-ajax="addDataRequest" data-target="modal--participants" id="button--add-participants" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect button--height-normal">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
+              </button>
             </div>
             <div class="mdl-card__supporting-text">
               <ul class="mdl-list margin--none padding--top-none">
@@ -260,6 +264,29 @@
                 Cancel
               </a>
               <a data-trigger="submit" data-target="modal--sources" data-form="form--sources" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
+                ADD
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="modal--participants" class="modal mdl-grid mdl-cell mdl-cell--12-col visible" data-request="participants_to_add_list">
+          <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid visible" role="dialog" aria-hidden="true">
+            <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--white">
+              <h2 class="mdl-card__title-text mdl-color-text--blue-500">Add participants</h2>
+            </div>
+            <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
+              <div class="mdl-spinner mdl-js-spinner is-active center" data-type="loader"></div>
+              <div id="participants_to_add_list">
+
+              </div>
+            </div>
+            <div class="mdl-snackbar mdl-snackbar--active mdl-color--white mdl-shadow--8dp">
+              <a data-trigger="close"  data-target="modal--participants" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
+                <i class="material-icons mdl-color-text--blue-500">close</i>
+                Cancel
+              </a>
+              <a data-trigger="submit" data-target="modal--participants" data-form="form--participants" class="mdl-cell--6-col mdl-button mdl-js-button mdl-color-text--blue-grey-600 right">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
                 ADD
               </a>
