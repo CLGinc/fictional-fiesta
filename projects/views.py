@@ -8,7 +8,7 @@ from django.http import Http404, HttpResponseBadRequest
 from django.template.response import TemplateResponse
 
 from researchers.models import Role
-from .forms import NewProjectForm
+from .forms import NewProjectForm, AddProtocolsForm
 from .models import Project
 
 
@@ -70,43 +70,42 @@ def projects_list(request):
 
 
 def project(request, project_id):
+    try:
+        selected_project = Project.objects.get(unique_id=project_id)
+    except Project.DoesNotExist:
+        raise Http404()
     if request.method == 'GET':
-        try:
-            selected_project = Project.objects.get(unique_id=project_id)
-            if request.is_ajax():
-                if request.GET.get('protocols_to_add_list'):
-                    protocols_roles_to_add = request.user.researcher.get_roles(
-                        scope='protocol',
-                        roles=('owner', 'contributor')
-                        ).exclude(
-                            protocol__in=selected_project.protocols.all())
-                    return render(
-                        request,
-                        'protocols_to_add.html',
-                        locals())
-                elif request.GET.get('sources_to_add_list'):
-                    sources_to_add = request.user.researcher.sources.all()
-                    return render(
-                        request,
-                        'sources_to_add.html',
-                        locals()
-                    )
-            results = selected_project.results.all()
-            participants_by_role = selected_project.get_participants_by_role()
-            paginator = Paginator(results, 15)
-            results_page = paginator.page(1)
-            # hangle ajax pagination
-            if request.is_ajax():
-                page = request.GET.get('page')
-                try:
-                    results_page = paginator.page(page)
-                except PageNotAnInteger:
-                    return HttpResponseBadRequest(
-                        reason='Page must be integer!')
-                except EmptyPage:
-                    return HttpResponseBadRequest(
-                        reason='Page does not exist!')
-
-        except Project.DoesNotExist:
-            raise Http404()
+        if request.is_ajax():
+            if request.GET.get('protocols_to_add_list'):
+                protocols_roles_to_add = request.user.researcher.get_roles(
+                    scope='protocol',
+                    roles=('owner', 'contributor')
+                    ).exclude(
+                        protocol__in=selected_project.protocols.all())
+                return render(
+                    request,
+                    'protocols_to_add.html',
+                    locals())
+            elif request.GET.get('sources_to_add_list'):
+                sources_to_add = request.user.researcher.sources.all()
+                return render(
+                    request,
+                    'sources_to_add.html',
+                    locals()
+                )
+        results = selected_project.results.all()
+        participants_by_role = selected_project.get_participants_by_role()
+        paginator = Paginator(results, 15)
+        results_page = paginator.page(1)
+        # hangle ajax pagination
+        if request.is_ajax():
+            page = request.GET.get('page')
+            try:
+                results_page = paginator.page(page)
+            except PageNotAnInteger:
+                return HttpResponseBadRequest(
+                    reason='Page must be integer!')
+            except EmptyPage:
+                return HttpResponseBadRequest(
+                    reason='Page does not exist!')
         return render(request, 'project.html', locals())
