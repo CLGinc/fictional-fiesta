@@ -7,7 +7,7 @@
     <div class="mdl-cell mdl-cell--1-col">Label</div>
   </li>
   <li>
-    <form id="form--protocols" method="post" action="#">
+    <form id="form--protocols" method="post" action="">
       {% csrf_token %}
       <ul class="mdl-list padding--top-none">
         {% for protocol_role in protocols_roles_to_add %}
@@ -24,11 +24,6 @@
     </form>
   </li>
 </ul>
-<form method="post" action="">
-    {% csrf_token %}
-    {{ add_protocols_form }}
-    <button type="submit">POST</button>
-</form>
 {% else %}
 <div class="mdl-card width--full">
   <div class="mdl-card__title">
