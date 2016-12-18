@@ -132,6 +132,9 @@ a {
   width: 36px;
   margin-right: 12px;
 }
+.participant-list--role {
+  padding: 8px;
+}
 /*Protocol list*/
 .protocol-list > div {
   padding-bottom: 16px;
@@ -201,6 +204,22 @@ a {
 .modal--content {
   width: 100%;
   min-height: 100%;
+}
+.modal--button-container {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: block;
+}
+.modal--button {
+  margin-left: 280px;
+}
+@media screen and (max-width: 1025px) {
+  .modal--button {
+    margin-left: 45px;
+  }
 }
 .visible {
   overflow: visible;
