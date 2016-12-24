@@ -121,6 +121,6 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT',  os.path.join(BASE_DIR, 'media'))
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login_user'
+LOGIN_REDIRECT_URL = 'projects_list'
+LOGOUT_REDIRECT_URL = 'home'
