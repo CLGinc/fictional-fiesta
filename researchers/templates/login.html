@@ -12,7 +12,7 @@
           <form method="post" action="{% url 'login_user' %}">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield">
-              <input autofocus="" class="mdl-textfield__input" id="id_email" maxlength="254" name="email" type="text" required />
+              <input autofocus="" class="mdl-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
               <label class="mdl-textfield__label" for="id_email">Email</label>
               {% if form.errors.email %}
               <div id="id_email_error" class="error-tooltip">
