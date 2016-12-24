@@ -2,20 +2,21 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserChangeForm, AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 
-ERROR_MESSAGE = _("Please enter a correct email and password. ")
-ERROR_MESSAGE_RESTRICTED = _("You do not have permission to access the admin.")
-ERROR_MESSAGE_INACTIVE = _("This account is inactive.")
+ERROR_MESSAGE = _('Please enter a correct email and password. ')
+ERROR_MESSAGE_RESTRICTED = _('You do not have permission to access the admin.')
+ERROR_MESSAGE_INACTIVE = _('This account is inactive.')
 
 
 class EmailAuthenticationForm(AuthenticationForm):
-    """
+    '''
     Override the default AuthenticationForm to
      force email-as-username behavior.
-    """
-    email = forms.EmailField(label=_("Email"), max_length=75)
+    '''
+    email = forms.EmailField(label=_('Email'), max_length=75)
     message_incorrect_password = ERROR_MESSAGE
     message_inactive = ERROR_MESSAGE_INACTIVE
 
@@ -35,3 +36,31 @@ class EmailAuthenticationForm(AuthenticationForm):
             if not self.user_cache.is_active:
                 raise forms.ValidationError(self.message_inactive)
         return self.cleaned_data
+
+
+class EmailUserCreationForm(UserCreationForm):
+    '''
+    Override the default UserCreationForm to force email-as-username behavior.
+    '''
+    email = forms.EmailField(label=_('Email'), max_length=75)
+
+    class Meta:
+        model = User
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(EmailUserCreationForm, self).__init__(*args, **kwargs)
+        del self.fields['username']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if user_exists(email):
+            raise forms.ValidationError(
+                _('A user with that email already exists.'))
+        return email
+
+    def save(self, commit=True):
+        # Ensure that the username is set to the email address provided,
+        # so the user_save_patch() will keep things in sync.
+        self.instance.username = self.instance.email
+        return super(EmailUserCreationForm, self).save(commit=commit)
