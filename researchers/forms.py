@@ -53,7 +53,7 @@ class EmailUserCreationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if user_exists(email):
+        if User.objects.filter(username=email).exists():
             raise forms.ValidationError(
                 _('A user with that email already exists.'))
         return email
