@@ -50,7 +50,6 @@ class EmailUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(EmailUserCreationForm, self).__init__(*args, **kwargs)
-        del self.fields['username']
 
     def clean_email(self):
         email = self.cleaned_data['email']
