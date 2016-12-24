@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+
+from .forms import EmailAuthenticationForm
 
 
 def login_user(request):
     if request.user.is_authenticated():
         return redirect(reverse(settings.LOGIN_REDIRECT_URL))
-    form = AuthenticationForm(None, request.POST or None)
+    form = EmailAuthenticationForm(None, request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             user = form.get_user()
