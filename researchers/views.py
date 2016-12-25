@@ -16,7 +16,7 @@ def login_user(request):
             user = form.get_user()
             if user is not None:
                 if user.is_active:
-                    login(request, user)
+                    login(request, user, user.backend)
                     return redirect(reverse(settings.LOGIN_REDIRECT_URL))
     return render(request, 'login.html', locals())
 
@@ -35,6 +35,6 @@ def register_user(request):
             form.save()
             user = form.instance
             Researcher.objects.create(user=user)
-            login(request, user)
+            login(request, user, 'django.contrib.auth.backends.ModelBackend')
             return redirect(settings.REGISTER_REDIRECT_URL)
     return render(request, 'register.html', locals())
