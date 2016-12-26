@@ -42,3 +42,11 @@ class Invitation(models.Model):
         editable=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if not(self.project or self.protocol):
+            raise ValidationError('You must choose \
+either project or protocol!')
+        if self.project and self.protocol:
+            raise ValidationError('You cannot select \
+project and protocol for the same invitation!')
