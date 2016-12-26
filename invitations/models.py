@@ -16,6 +16,6 @@ class Invitation(models.Model):
         blank=True,
         null=True
     )
-    key = models.UUIDField(default=uuid.uuid4, editable=False)
+    key = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
