@@ -15,11 +15,11 @@ class Invitation(models.Model):
     email = models.EmailField(unique=True, max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
-        related_name='invitations'
+        related_name='inviter_invitations'
     )
     invited = models.ForeignKey(
         'researchers.Researcher',
-        related_name='invitations',
+        related_name='invited_invitations',
         blank=True,
         null=True
     )
