@@ -1,18 +1,16 @@
-import os
-
+from django.utils.crypto import get_random_string
 from django.db import models
 
 from researchers.models import Role
 
 
 def create_unique_id():
-    unique_id = os.urandom(4).hex()
     while(True):
+        unique_id = get_random_string(8)
         try:
             Project.objects.get(unique_id=unique_id)
         except Project.DoesNotExist:
             return(unique_id)
-        unique_id = os.urandom(4).hex()
 
 
 class Project(models.Model):
