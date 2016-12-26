@@ -23,6 +23,18 @@ class Invitation(models.Model):
         blank=True,
         null=True
     )
+    protocol = models.ForeignKey(
+        'protocols.Protocol',
+        related_name='invitations',
+        blank=True,
+        null=True
+    )
+    project = models.ForeignKey(
+        'projects.Project',
+        related_name='invitations',
+        blank=True,
+        null=True
+    )
     key = models.CharField(
         unique=True,
         default=generate_key,
