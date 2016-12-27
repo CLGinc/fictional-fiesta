@@ -1,5 +1,6 @@
 from django.utils.crypto import get_random_string
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 def generate_key():
@@ -58,7 +59,7 @@ project and protocol for the same invitation!')
 researchers to this project')
         if self.protocol and \
             self.inviter.roles.filter(
-                project=self.project,
+                project=self.protocol,
                 role='watcher'):
             raise ValidationError('You cannot invite \
 researchers to this protocol')
