@@ -41,6 +41,7 @@ class Invitation(models.Model):
         default=generate_key,
         max_length=64,
         editable=False)
+    accepted = models.BooleanField(default=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
