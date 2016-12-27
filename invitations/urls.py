@@ -1,5 +1,7 @@
 from django.conf.urls import url
 
-from . import views
+from . import views, ajax
 
-urlpatterns = []
+urlpatterns = [
+    url(r'^create/$', ajax.create_invitation, name='create_invitation'),
+]
