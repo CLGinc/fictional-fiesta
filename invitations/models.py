@@ -50,3 +50,15 @@ either project or protocol!')
         if self.project and self.protocol:
             raise ValidationError('You cannot select \
 project and protocol for the same invitation!')
+        if self.project and \
+            self.inviter.roles.filter(
+                project=self.project,
+                role='watcher'):
+            raise ValidationError('You cannot invite \
+researchers to this project')
+        if self.protocol and \
+            self.inviter.roles.filter(
+                project=self.project,
+                role='watcher'):
+            raise ValidationError('You cannot invite \
+researchers to this protocol')
