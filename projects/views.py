@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import FieldError
 from django.template.context_processors import csrf
-from django.http import Http404, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest
 from django.template.response import TemplateResponse
 
 from researchers.models import Role
