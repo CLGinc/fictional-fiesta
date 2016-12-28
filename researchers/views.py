@@ -8,6 +8,7 @@ from .models import Researcher
 
 
 def login_user(request):
+    next_redirect = request.GET.get('next')
     if request.user.is_authenticated():
         return redirect(reverse(settings.LOGIN_REDIRECT_URL))
     form = EmailAuthenticationForm(data=request.POST or None)
@@ -17,7 +18,10 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user, user.backend)
-                    return redirect(reverse(settings.LOGIN_REDIRECT_URL))
+                    if next_redirect:
+                        return redirect(next_redirect)
+                    else:
+                        return redirect(reverse(settings.LOGIN_REDIRECT_URL))
     return render(request, 'login.html', locals())
 
 
