@@ -15,6 +15,20 @@ def accept_invitation(request):
     if request.method == 'POST':
         if form.is_valid():
             invitation.accept(invited=request.user.researcher)
+            if invitation.project:
+                return redirect(
+                    reverse(
+                        'project',
+                        [invitation.project.unique_id]
+                    )
+                )
+            elif invitation.protocol:
+                return redirect(
+                    reverse(
+                        'protocol',
+                        [invitation.protocol.unique_id]
+                    )
+                )
     if request.user.is_authenticated():
         return render(request, 'accept_invitation.html', locals())
     else:
