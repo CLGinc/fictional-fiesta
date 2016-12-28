@@ -28,7 +28,7 @@ var unbindevent = function() {
 };
 
 // loadOnScroll handler
-var loadOnScroll = function() {
+var loadOnScroll = function(event) {
    // If the current scroll position is past out cutoff point...
     var element = event.target;
         if(element.scrollHeight - element.scrollTop === element.clientHeight) {

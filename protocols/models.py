@@ -1,20 +1,18 @@
-import os
-
 from adminsortable.models import SortableMixin
 
+from django.utils.crypto import get_random_string
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.core.exceptions import ValidationError
 
 
 def create_unique_id():
-    unique_id = os.urandom(4).hex()
     while(True):
+        unique_id = get_random_string(8)
         try:
             Protocol.objects.get(unique_id=unique_id)
         except Protocol.DoesNotExist:
             return(unique_id)
-        unique_id = os.urandom(4).hex()
 
 
 class Asset(models.Model):
