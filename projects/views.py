@@ -96,6 +96,7 @@ def project(request, project_id):
                 )
             # else:
             #    return HttpResponseBadRequest(reason='Request not supported!')
+        can_edit = researcher.can_edit(selected_project)
         results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
