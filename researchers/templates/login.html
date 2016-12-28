@@ -9,7 +9,11 @@
           <h2 class="mdl-card__title-text">SciLog Login</h2>
         </div>
         <div class="mdl-card__supporting-text">
+          {% if next_redirect %}
+          <form method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
+          {% else %}
           <form method="post" action="{% url 'login_user' %}">
+          {% endif %}
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield">
               <input autofocus="" class="mdl-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
@@ -46,13 +50,11 @@
         {% endif %}
         <div class="mdl-textfield mdl-js-textfield">
           <li>
-            <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-          </li>
-          <li>
+            {% if next_redirect %}
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_redirect }}">Login with Google</a>
+            {% else %}
             <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
-          </li>
-          <li>
-            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+            {% endif %}
           </li>
         </div>
       </div>
