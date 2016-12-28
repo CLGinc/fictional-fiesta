@@ -4,14 +4,18 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from .models import Invitation
+from .forms import AcceptInvitationForm
 
 
-def accept_invitation(request, key):
+def accept_invitation(request):
+    key = request.GET.get('key') or request.POST.get('key')
     invitation = get_object_or_404(Invitation, key=key)
-    next_redirect = '?next={}'.format(reverse('accept_invitation', args=[key]))
-    print(next_redirect)
-    if request.method == 'GET':
-        if request.user.is_authenticated():
-            return render(request, 'accept_invitation.html', locals())
-        else:
-            return redirect(reverse(settings.LOGIN_URL)+next_redirect)
+    next_redirect = '?next={}?key={}'.format(reverse('accept_invitation'), key)
+    form = AcceptInvitationForm({'key': key})
+    if request.method == 'POST':
+        if form.is_valid():
+            invitation.accept(invited=request.user.researcher)
+    if request.user.is_authenticated():
+        return render(request, 'accept_invitation.html', locals())
+    else:
+        return redirect(reverse(settings.LOGIN_URL)+next_redirect)
