@@ -50,17 +50,11 @@
         {% endif %}
         <div class="mdl-textfield mdl-js-textfield">
           <li>
-            <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-          </li>
-          <li>
             {% if next_redirect %}
             <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_redirect }}">Login with Google</a>
             {% else %}
             <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
             {% endif %}
-          </li>
-          <li>
-            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
           </li>
         </div>
       </div>
