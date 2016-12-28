@@ -68,6 +68,9 @@ researchers to this protocol')
         if self.inviter == self.invited:
             raise ValidationError('Inviter \
 and invited cannot be the same')
+        if self.accepted and not(self.invited):
+            raise ValidationError('Invited \
+cannot be present for invitation that is not accepted')
 
     def send(self):
         # To develop seinding via MJ send API
