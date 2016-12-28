@@ -4,4 +4,5 @@ from . import views, ajax
 
 urlpatterns = [
     url(r'^create/$', ajax.create_invitation, name='create_invitation'),
+    url(r'^accept/(?P<key>(\d|[a-zA-Z]){64})$', views.accept_invitation, name='accept_invitation'),
 ]
