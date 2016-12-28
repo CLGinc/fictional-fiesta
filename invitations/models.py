@@ -68,3 +68,8 @@ researchers to this protocol')
     def send(self):
         # To develop seinding via MJ send API
         pass
+
+    def accept(self, invited):
+        self.invited = invited
+        self.accepted = True
+        self.save()
