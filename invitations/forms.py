@@ -12,3 +12,11 @@ class CreateInvitationForm(forms.ModelForm):
             'protocol',
             'project',
             ]
+
+
+class AcceptInvitationForm(forms.ModelForm):
+    class Meta:
+        model = Invitation
+        fields = [
+            'key',
+            ]
