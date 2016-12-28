@@ -19,14 +19,14 @@ def accept_invitation(request):
                 return redirect(
                     reverse(
                         'project',
-                        [invitation.project.unique_id]
+                        args=[invitation.project.unique_id]
                     )
                 )
             elif invitation.protocol:
                 return redirect(
                     reverse(
                         'protocol',
-                        [invitation.protocol.unique_id]
+                        args=[invitation.protocol.unique_id]
                     )
                 )
     if request.user.is_authenticated():
