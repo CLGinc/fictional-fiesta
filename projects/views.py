@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import FieldError
@@ -12,6 +13,7 @@ from .forms import NewProjectForm, AddElementsForm
 from .models import Project
 
 
+@login_required
 def projects_list(request):
     # Handle new project creation
     if request.method == 'POST':
@@ -69,6 +71,7 @@ def projects_list(request):
             return HttpResponseBadRequest('Parameter order_by not valid!')
 
 
+@login_required
 def project(request, project_id):
     try:
         selected_project = Project.objects.get(unique_id=project_id)
