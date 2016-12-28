@@ -31,6 +31,7 @@ def logout_user(request):
 
 
 def register_user(request):
+    next_redirect = request.GET.get('next')
     if request.user.is_authenticated():
         return redirect(reverse(settings.REGISTER_REDIRECT_URL))
     form = EmailUserCreationForm(data=request.POST or None)
@@ -40,5 +41,8 @@ def register_user(request):
             user = form.instance
             Researcher.objects.create(user=user)
             login(request, user, 'django.contrib.auth.backends.ModelBackend')
-            return redirect(settings.REGISTER_REDIRECT_URL)
+            if next_redirect:
+                return redirect(next_redirect)
+            else:
+                return redirect(reverse(settings.REGISTER_REDIRECT_URL))
     return render(request, 'register.html', locals())
