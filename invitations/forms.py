@@ -14,9 +14,5 @@ class CreateInvitationForm(forms.ModelForm):
             ]
 
 
-class AcceptInvitationForm(forms.ModelForm):
-    class Meta:
-        model = Invitation
-        fields = [
-            'key',
-            ]
+class AcceptInvitationForm(forms.Form):
+    key = forms.CharField(max_length=64)
