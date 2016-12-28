@@ -21,6 +21,10 @@ class Role(models.Model):
         ('contributor', 'Contributor'),
         ('watcher', 'Watcher'),
     )
+    ROLES_CAN_EDIT = (
+        'owner',
+        'contributor'
+    )
 
     researcher = models.ForeignKey('Researcher', related_name='roles')
     project = models.ForeignKey(
@@ -115,6 +119,10 @@ class Researcher(models.Model):
             roles__project=None
             ).exclude(id__in=[o.id for o in project.protocols.all()])
         return protocols
+
+    def can_edit(self, item):
+        role = item.roles.get(researcher=self)
+        return role.role in Role.ROLES_CAN_EDIT
 
 
 class Source(models.Model):
