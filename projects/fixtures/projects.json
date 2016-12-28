@@ -3,7 +3,6 @@
   "model": "projects.project",
   "pk": 1,
   "fields": {
-    "unique_id": "0f570c02",
     "name": "Project 0",
     "description": "A project to create liquid fart",
     "datetime_created": "2016-11-23T09:46:31.099Z",
@@ -19,7 +18,6 @@
   "model": "projects.project",
   "pk": 2,
   "fields": {
-    "unique_id": "0f570c01",
     "name": "Project 1",
     "description": "Molding plates in sauce",
     "datetime_created": "2016-11-23T09:46:31.099Z",
@@ -35,7 +33,6 @@
   "model": "projects.project",
   "pk": 3,
   "fields": {
-    "unique_id": "0f570c03",
     "name": "Project 2",
     "description": "Melting keyboards in water",
     "datetime_created": "2016-11-23T09:46:31.099Z",
