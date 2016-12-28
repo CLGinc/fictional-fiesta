@@ -65,6 +65,9 @@ researchers to this project')
                 role='watcher'):
             raise ValidationError('You cannot invite \
 researchers to this protocol')
+        if self.inviter == self.invited:
+            raise ValidationError('Inviter \
+and invited cannot be the same')
 
     def send(self):
         # To develop seinding via MJ send API
