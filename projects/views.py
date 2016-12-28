@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import FieldError
@@ -73,11 +74,9 @@ def projects_list(request):
 
 @login_required
 def project(request, project_id):
-    try:
-        selected_project = Project.objects.get(unique_id=project_id)
-        researcher = request.user.researcher
-    except Project.DoesNotExist:
-        raise Http404()
+    selected_project = get_object_or_404(Project, unique_id=project_id)
+    researcher = request.user.researcher
+
     if request.method == 'GET':
         if request.is_ajax():
             if request.GET.get('protocols_to_add_list'):
