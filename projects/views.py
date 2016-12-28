@@ -76,6 +76,7 @@ def projects_list(request):
 def project(request, project_id):
     selected_project = get_object_or_404(Project, id=project_id)
     researcher = request.user.researcher
+    can_edit = researcher.can_edit(selected_project)
 
     if request.method == 'GET':
         if request.is_ajax():
@@ -96,7 +97,6 @@ def project(request, project_id):
                 )
             # else:
             #    return HttpResponseBadRequest(reason='Request not supported!')
-        can_edit = researcher.can_edit(selected_project)
         results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
@@ -113,7 +113,7 @@ def project(request, project_id):
                 return HttpResponseBadRequest(
                     reason='Page does not exist!')
         return render(request, 'project.html', locals())
-    elif request.method == 'POST':
+    elif request.method == 'POST' and can_edit:
         if request.POST.get('element_type') == 'p':
             protocols_to_add = researcher.protocols_to_add(selected_project)
             add_elements_form = AddElementsForm(
