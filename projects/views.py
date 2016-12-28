@@ -27,7 +27,7 @@ def projects_list(request):
                 role='owner')
             new_project_role.save()
             return redirect(
-                '/projects/{}'.format(new_project_form.instance.unique_id))
+                '/projects/{}'.format(new_project_form.instance.id))
     elif request.method == 'GET':
         roles_labels = Role.ROLES
         selected_roles = request.GET.getlist('role')
@@ -74,7 +74,7 @@ def projects_list(request):
 
 @login_required
 def project(request, project_id):
-    selected_project = get_object_or_404(Project, unique_id=project_id)
+    selected_project = get_object_or_404(Project, id=project_id)
     researcher = request.user.researcher
 
     if request.method == 'GET':
@@ -94,8 +94,8 @@ def project(request, project_id):
                     'sources_to_add.html',
                     locals()
                 )
-            else:
-                return HttpResponseBadRequest(reason='Request not supported!')
+            # else:
+            #    return HttpResponseBadRequest(reason='Request not supported!')
         results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
