@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.http import Http404
 
 from .models import Invitation
 from .forms import AcceptInvitationForm
@@ -10,6 +11,10 @@ from .forms import AcceptInvitationForm
 def accept_invitation(request):
     key = request.GET.get('key') or request.POST.get('key')
     invitation = get_object_or_404(Invitation, key=key)
+    if invitation.is_expired() or \
+            invitation.inviter == request.user.researcher or \
+            invitation.accepted:
+        raise Http404()
     form = AcceptInvitationForm({'key': key})
     if request.method == 'POST':
         if form.is_valid():
