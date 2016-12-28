@@ -1,6 +1,7 @@
 from django.utils.crypto import get_random_string
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 def generate_key():
@@ -73,3 +74,8 @@ researchers to this protocol')
         self.invited = invited
         self.accepted = True
         self.save()
+
+    def is_expired(self):
+        expiration_date = self.datetime_created + \
+            timezone.timedelta(self.expiration_days)
+        return not(expiration_date > timezone.now() > self.datetime_created)
