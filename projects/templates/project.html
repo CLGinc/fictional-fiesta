@@ -204,7 +204,7 @@
               <h2 class="mdl-card__title-text">Participants</h2>
               <div class="mdl-layout-spacer"></div>
               {% if can_edit %}
-              <button data-trigger="show" data-ajax="addDataRequest" data-target="modal--participants" id="button--add-participants" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect button--height-normal">
+              <button data-trigger="show" data-target="modal--participants" id="button--add-participants" class="mdl-button mdl-color-text--blue-grey-600 mdl-js-button mdl-js-ripple-effect button--height-normal">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
               </button>
               {% endif %}
@@ -274,21 +274,29 @@
             </div>
           </div>
         </div>
-        <div id="modal--participants" class="modal mdl-grid mdl-cell mdl-cell--12-col visible" data-request="participants_to_add_list">
+        <div id="modal--participants" class="modal mdl-grid mdl-cell mdl-cell--6-col visible">
           <div class="mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col mdl-grid visible mdl-grid--no-spacing" role="dialog" aria-hidden="true">
             <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--blue-500 mdl-shadow--2dp">
               <h2 class="mdl-card__title-text mdl-color-text--white">Add participants</h2>
             </div>
-            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full hidden" data-type="loader"></div>
+            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full hidden"></div>
             <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
-              <div id="participants_to_add_list">
-
-              </div>
+              Please input the email of the person to invite. Use the add more button for multiple invites.
+              <form action="" id="participant_invite_form">
+                <div class="mdl-textfield mdl-js-textfield width--full" id="email_input_1">
+                  <input class="mdl-textfield__input" type="email" name="email">
+                  <label class="mdl-textfield__label"></label>
+                </div>
+              </form>
+              <a data-trigger="add-input" data-target="email_input_1" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
+                ADD more participants
+              </a>
             </div>
             <div class="modal--button-container mdl-color--white mdl-shadow--8dp">
-              <a data-trigger="submit" data-target="modal--participants" data-form="form--participants" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 modal--button">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
-                ADD
+              <a data-trigger="submit" data-target="modal--participants" data-form="participant_invite_form" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600 modal--button">
+                <i class="material-icons mdl-color-text--blue-500">send</i>
+                Send invites
               </a>
               <a data-trigger="close"  data-target="modal--participants" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">close</i>

@@ -30,6 +30,33 @@ $('[data-trigger="close"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   deleteOldList(requestTarget);
 });
+// add new input
+$('[data-trigger="add-input"]').click(function(){
+  var targetElementId = $(this).attr('data-target'),
+      suffix = parseInt(/^.*\_(\d+)$/.exec(targetElementId)[1]),
+      newTargetId = 'email_input_'+(suffix+1);
+  $('#'+targetElementId).clone().attr('id', newTargetId).insertAfter($('#'+targetElementId));
+  $(this).attr('data-target', newTargetId);
+  var observer = new MutationObserver(function(mutations) {
+        var upgrade = false;
+
+        for (var i = 0; i < mutations.length; i++) {
+            if (mutations[i].addedNodes.length > 0) {
+                upgrade = true;
+                break;
+            }
+        }
+        if (upgrade) {
+            // If there is at least a new element, upgrade the DOM.
+            // Note: upgrading elements one by one seems to insert bugs in MDL
+            window.componentHandler.upgradeDom();
+        }
+    });
+observer.observe(document, {
+    childList : true,
+    subtree : true
+});
+});
 // submit form
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
