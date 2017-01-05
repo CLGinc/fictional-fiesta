@@ -288,6 +288,8 @@
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label"></label>
                 </div>
+                <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
+                <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
               </form>
               <a data-trigger="add-input" data-target="email_input_1" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
