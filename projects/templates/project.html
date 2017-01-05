@@ -282,7 +282,8 @@
             <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate hidden"></div>
             <div class="mdl-card__supporting-text modal--content mdl-cell mdl-cell--12-col">
               Please input the email of the person to invite. Use the add more button for multiple invites.
-              <form action="" id="participant_invite_form">
+              <form method="post" action="{% url 'create_invitation' %}" id="participant_invite_form">
+                {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield width--full" id="email_input_1">
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label"></label>
