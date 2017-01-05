@@ -25,7 +25,7 @@ var addDataRequest = function(requestTarget) {
         type: "GET",
         dataType: 'html',
         success: function(data) {
-            // Update global next page variable
+            // Append request template
     				$('#'+requestTarget).html(data);
             $('[data-trigger="checkbox"]').bind('click', toggleCheckbox);
         },

@@ -68,14 +68,13 @@ var loadItems = function() {
         success: function(data) {
             // Update global next page variable
             hasNextPage = true;//.hasNext;
-            var result = $(data).find('#items_list').html();
-    				$('#items_list').append(result);
+    				$('#items_list').append(data);
         },
         error: function(data) {
             // When I get a 400 back, fail safely
             hasNextPage = false
         },
-        complete: function(data, textStatus){
+        complete: function(data){
             // Turn the scroll monitor back on
             bindevent();
             $('#loading').removeClass('is-active');

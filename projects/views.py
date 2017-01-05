@@ -66,6 +66,7 @@ def projects_list(request):
                 return HttpResponseBadRequest(reason='Page must be integer!')
             except EmptyPage:
                 return HttpResponseBadRequest(reason='Page does not exist!')
+            return render(request, 'projects_list_page.html', locals())
         try:
             return render(request, 'projects_list.html', locals())
         except FieldError:
@@ -79,6 +80,9 @@ def project(request, project_id):
     can_edit = researcher.can_edit(selected_project)
 
     if request.method == 'GET':
+        results = selected_project.results.all()
+        participants_by_role = selected_project.get_participants_by_role()
+        paginator = Paginator(results, 15)
         if request.is_ajax():
             if request.GET.get('protocols_to_add_list'):
                 protocols_to_add = researcher.protocols_to_add(
@@ -95,23 +99,21 @@ def project(request, project_id):
                     'sources_to_add.html',
                     locals()
                 )
-            # else:
-            #    return HttpResponseBadRequest(reason='Request not supported!')
-        results = selected_project.results.all()
-        participants_by_role = selected_project.get_participants_by_role()
-        paginator = Paginator(results, 15)
+            # hangle ajax pagination
+            elif request.GET.get('page'):
+                page = request.GET.get('page')
+                try:
+                    results_page = paginator.page(page)
+                except PageNotAnInteger:
+                    return HttpResponseBadRequest(
+                        reason='Page must be integer!')
+                except EmptyPage:
+                    return HttpResponseBadRequest(
+                        reason='Page does not exist!')
+                return render(request, 'project_results_page.html', locals())
+            else:
+                return HttpResponseBadRequest(reason='Request not supported!')
         results_page = paginator.page(1)
-        # hangle ajax pagination
-        if request.is_ajax():
-            page = request.GET.get('page')
-            try:
-                results_page = paginator.page(page)
-            except PageNotAnInteger:
-                return HttpResponseBadRequest(
-                    reason='Page must be integer!')
-            except EmptyPage:
-                return HttpResponseBadRequest(
-                    reason='Page does not exist!')
         return render(request, 'project.html', locals())
     elif request.method == 'POST' and can_edit:
         if request.POST.get('element_type') == 'p':
