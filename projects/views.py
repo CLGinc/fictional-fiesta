@@ -80,6 +80,9 @@ def project(request, project_id):
     can_edit = researcher.can_edit(selected_project)
 
     if request.method == 'GET':
+        results = selected_project.results.all()
+        participants_by_role = selected_project.get_participants_by_role()
+        paginator = Paginator(results, 15)
         if request.is_ajax():
             if request.GET.get('protocols_to_add_list'):
                 protocols_to_add = researcher.protocols_to_add(
@@ -97,7 +100,7 @@ def project(request, project_id):
                     locals()
                 )
             # hangle ajax pagination
-            elif request.get('page'):
+            elif request.GET.get('page'):
                 page = request.GET.get('page')
                 try:
                     results_page = paginator.page(page)
@@ -110,9 +113,6 @@ def project(request, project_id):
                 return render(request, 'project_results_page.html', locals())
             else:
                 return HttpResponseBadRequest(reason='Request not supported!')
-        results = selected_project.results.all()
-        participants_by_role = selected_project.get_participants_by_role()
-        paginator = Paginator(results, 15)
         results_page = paginator.page(1)
         return render(request, 'project.html', locals())
     elif request.method == 'POST' and can_edit:
