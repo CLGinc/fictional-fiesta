@@ -66,6 +66,7 @@ def projects_list(request):
                 return HttpResponseBadRequest(reason='Page must be integer!')
             except EmptyPage:
                 return HttpResponseBadRequest(reason='Page does not exist!')
+            return render(request, 'projects_to_load_list.html', locals())
         try:
             return render(request, 'projects_list.html', locals())
         except FieldError:
