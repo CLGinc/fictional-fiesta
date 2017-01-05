@@ -56,7 +56,29 @@
                 </li>
                 <li>
                   <ul class="mdl-list padding--top-none" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
-                    
+                    {% for result in results_page %}
+                		<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
+                      <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
+                        <div class="mdl-cell mdl-cell--4-col">{{ result.protocol }}</div>
+                        <div class="mdl-cell mdl-cell--3-col">{{ result.owner }}</div>
+                        <div class="mdl-cell mdl-cell--3-col">{{ result.datetime_created }}</div>
+                        <div class="mdl-cell mdl-cell--1-col">{{ result.get_state_display }}</div>
+                        {% if result.is_successful == True %}
+                        <div class="mdl-cell mdl-cell--1-col mdl-color-text--green-600 mdl-typography--text-center">Yes</div>
+                        {% else %}
+                        <div class="mdl-cell mdl-cell--1-col mdl-color-text--pink-600 mdl-typography--text-center">No</div>
+                        {% endif %}
+                      </a>
+                      <div class="mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
+                          <i class="material-icons list--link-edit">edit</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
+                          <i class="material-icons list--link-remove">clear</i>
+                        </button>
+                      </div>
+                		</li>
+                    {% endfor %}
                   </ul>
                 </li>
             	</ul>
