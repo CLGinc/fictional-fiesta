@@ -8,6 +8,22 @@ $('[data-trigger="filter"]').click(function() {
   var targetElementId = $(this).attr('data-target');
   $('#'+targetElementId).slideToggle(200);
 });
+$('[data-trigger="filter-togglebtn"]').click(function() {
+  var targetElementId = $(this).attr('data-target'),
+      state = $(this).attr('data-state'),
+      icon = $('[data-content="open-close-icon"]'),
+      text = $('[data-content="open-close-text"]');
+  $('#'+targetElementId).slideToggle(200);
+  if(state === 'open'){
+    icon.html('close');
+    text.html('Cancel');
+    $(this).attr('data-state','close');
+  } else if (state === 'close'){
+    icon.html('playlist_add');
+    text.html('Add');
+    $(this).attr('data-state','open');
+  }
+});
 // expand
 $('[data-trigger="expand"]').click(function() {
   var targetElementId = $(this).attr('data-target');
