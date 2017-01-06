@@ -80,6 +80,33 @@ $('[data-trigger="submit"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   $('#'+targetForm).submit();
 });
+$('[data-trigger="submit-ajax"]').click(function(){
+  console.log('click');
+  var targetForm = '#'+$(this).attr('data-form'),
+      url = $(this).attr('action'),
+      formData = $(targetForm).serialize();
+      console.log('submitting');
+      console.log(formData);
+      //if(!formData===null) { // make this check work
+        $.ajax({
+          url: url,
+          data: formData,
+          type: 'POST',
+          success: function(data)
+          {
+            console.log(data);
+          },
+          error: function()
+          {
+            console.log('error');
+          },
+          complete: function(data)
+          {
+            console.log(data);
+          }
+        });
+    //  }
+  });
 // update active tab and display add new button
 $('[data-trigger="tab"]').click(function() {
   var activeTab = $(this).attr('data-target');
