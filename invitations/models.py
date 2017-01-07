@@ -1,16 +1,8 @@
-from django.utils.crypto import get_random_string
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-
-def generate_key():
-    while(True):
-        key = get_random_string(64)
-        try:
-            Invitation.objects.get(key=key)
-        except Invitation.DoesNotExist:
-            return(key)
+from .utils import generate_key
 
 
 class Invitation(models.Model):
