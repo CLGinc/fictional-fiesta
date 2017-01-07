@@ -74,8 +74,8 @@ def projects_list(request):
 
 
 @login_required
-def project(request, project_uid):
-    selected_project = get_object_or_404(Project, unique_id=project_uid)
+def project(request, unique_id):
+    selected_project = get_object_or_404(Project, unique_id=unique_id)
     researcher = request.user.researcher
     can_edit = researcher.can_edit(selected_project)
 
