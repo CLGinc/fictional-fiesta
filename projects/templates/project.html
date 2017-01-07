@@ -213,18 +213,27 @@
             <div id="modal--participants" class="mdl-grid mdl-cell mdl-cell--12-col filter-form">
               <form method="post" action="{% url 'create_invitation' %}" id="participant_invite_form">
                 {% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield hidden" id="email_input_source">
+                  <input class="mdl-textfield__input" type="email" name="email">
+                  <label class="mdl-textfield__label">Email</label>
+                  <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
+                  <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
+                </div>
                 <div class="mdl-textfield mdl-js-textfield" id="email_input_1">
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label">Email</label>
+                  <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
+                  <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
                 </div>
-                <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
-                <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
+                <div class="mdl-color-text--blue-grey-600 invite--result-text">
+                  <i class="material-icons mdl-color-text--blue-500" style="vertical-align: middle;">check</i><span class="padding--left-16">Invite could not be sent</span>
+                </div>
               </form>
               <a data-trigger="submit-ajax" data-target="modal--participants" data-form="participant_invite_form" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
                 Send
               </a>
-              <a data-trigger="add-input" data-target="email_input_1" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+              <a data-trigger="add-input" data-target="email_input_source" data-currentid="1" data-form="participant_invite_form" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">add</i>
                 More
               </a>

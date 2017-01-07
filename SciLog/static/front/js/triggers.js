@@ -49,29 +49,15 @@ $('[data-trigger="close"]').click(function(){
 // add new input
 $('[data-trigger="add-input"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
-      suffix = parseInt(/^.*\_(\d+)$/.exec(targetElementId)[1]),
-      newTargetId = 'email_input_'+(suffix+1);
-  $('#'+targetElementId).clone().attr('id', newTargetId).insertAfter($('#'+targetElementId));
-  $(this).attr('data-target', newTargetId);
-  var observer = new MutationObserver(function(mutations) {
-        var upgrade = false;
-
-        for (var i = 0; i < mutations.length; i++) {
-            if (mutations[i].addedNodes.length > 0) {
-                upgrade = true;
-                break;
-            }
-        }
-        if (upgrade) {
-            // If there is at least a new element, upgrade the DOM.
-            // Note: upgrading elements one by one seems to insert bugs in MDL
-            window.componentHandler.upgradeDom();
-        }
-    });
-observer.observe(document, {
-    childList : true,
-    subtree : true
-});
+			currentId = $(this).attr('data-currentid'),
+      newTargetId = 'email_input_'+(++currentId),
+			targetForm =  $(this).attr('data-form'),
+			sourceInput = document.getElementById(targetElementId),
+			cloneInput = sourceInput.cloneNode(true);
+	$(cloneInput).removeClass('is-upgraded hidden').removeAttr('data-upgraded').attr('id',newTargetId).children('[name="email"]').val('');
+  componentHandler.upgradeElement(cloneInput);
+  $('#'+targetForm).append($(cloneInput).hide().fadeIn(200));
+	$(this).attr('data-currentid', currentId);
 });
 // submit form
 $('[data-trigger="submit"]').click(function(){
@@ -80,32 +66,34 @@ $('[data-trigger="submit"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   $('#'+targetForm).submit();
 });
+
 $('[data-trigger="submit-ajax"]').click(function(){
-  console.log('click');
   var targetForm = '#'+$(this).attr('data-form'),
       url = $(this).attr('action'),
       formData = $(targetForm).serialize();
-      console.log('submitting');
-      console.log(formData);
-      //if(!formData===null) { // make this check work
-        $.ajax({
-          url: url,
-          data: formData,
-          type: 'POST',
-          success: function(data)
-          {
-            console.log(data);
-          },
-          error: function()
-          {
-            console.log('error');
-          },
-          complete: function(data)
-          {
-            console.log(data);
-          }
-        });
-    //  }
+			$(targetForm).children('div').each(function(){
+				var emailInput = $(this).children("input[name='email']");
+				if(emailInput.val()){
+	        $.ajax({
+	          url: url,
+	          data: formData,
+	          type: 'POST',
+	          success: function(data)
+	          {
+	            console.log(data);
+	          },
+	          error: function()
+	          {
+	            var errorNotif = '';
+							$(targetForm).html('problem');
+	          },
+	          complete: function(data)
+	          {
+	            console.log(data);
+	          }
+	        });
+				}
+			});
   });
 // update active tab and display add new button
 $('[data-trigger="tab"]').click(function() {
