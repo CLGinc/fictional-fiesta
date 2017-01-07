@@ -11,6 +11,8 @@ def create_invitation(request):
         if form.is_valid():
             invitation = form.save()
             invitation.send()
+            return HttpResponse(
+                'Invitation to {} created and sent!'.format(form.email))
         else:
             return HttpResponseBadRequest(reason=form.errors)
     else:
