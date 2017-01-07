@@ -1,9 +1,14 @@
 from django.db import models
 
 from researchers.models import Role
+from .utils import generate_uid
 
 
 class Project(models.Model):
+    unique_id = models.CharField(
+        max_length=8,
+        unique=True,
+        default=generate_uid)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True)
     sources = models.ManyToManyField(

@@ -4,6 +4,8 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from .utils import generate_uid
+
 
 class Asset(models.Model):
     CATEGORIES = (
@@ -24,6 +26,10 @@ class Protocol(models.Model):
         ('modified', 'Modified'),
     )
 
+    unique_id = models.CharField(
+        max_length=8,
+        unique=True,
+        default=generate_uid)
     name = models.CharField(max_length=255)
     description = models.TextField()
     label = models.CharField(max_length=20, choices=LABELS)
