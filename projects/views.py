@@ -84,13 +84,6 @@ def project(request, unique_id):
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
         if request.is_ajax():
-            if request.GET.get('protocols_to_add_list'):
-                protocols_to_add = researcher.protocols_to_add(
-                    selected_project)
-                return render(
-                    request,
-                    'protocols_to_add.html',
-                    locals())
             elif request.GET.get('sources_to_add_list'):
                 sources_to_add = researcher.sources.all().exclude(
                     id__in=[o.id for o in selected_project.sources.all()])
