@@ -27,7 +27,7 @@ def projects_list(request):
                 role='owner')
             new_project_role.save()
             return redirect(
-                '/projects/{}'.format(new_project_form.instance.id))
+                '/projects/{}'.format(new_project_form.instance.unique_id))
     elif request.method == 'GET':
         roles_labels = Role.ROLES
         selected_roles = request.GET.getlist('role')
@@ -74,8 +74,8 @@ def projects_list(request):
 
 
 @login_required
-def project(request, project_id):
-    selected_project = get_object_or_404(Project, id=project_id)
+def project(request, project_uid):
+    selected_project = get_object_or_404(Project, unique_id=project_uid)
     researcher = request.user.researcher
     can_edit = researcher.can_edit(selected_project)
 

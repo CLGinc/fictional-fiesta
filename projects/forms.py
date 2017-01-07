@@ -20,6 +20,7 @@ class AddElementsForm(forms.Form):
         ('s', 'Sources'))
     element_choices = forms.ModelMultipleChoiceField(
         queryset=None,
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
+        to_field_name='unique_id'
     )
     element_type = forms.ChoiceField(CHOICES)
