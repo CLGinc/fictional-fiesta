@@ -61,7 +61,7 @@ project and protocol for the same invitation!')
 researchers to this project')
         if self.protocol and \
             self.inviter.roles.filter(
-                project=self.protocol,
+                protocol=self.protocol,
                 role='watcher'):
             raise ValidationError('You cannot invite \
 researchers to this protocol')
