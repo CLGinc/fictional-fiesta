@@ -18,3 +18,18 @@ def get_protocols_to_add(request, project_uid):
             locals())
     else:
         return HttpResponseForbidden()
+
+
+def get_sources_to_add(request, project_uid):
+    if request.method == 'GET':
+        selected_project = get_object_or_404(Project, unique_id=project_uid)
+        researcher = request.user.researcher
+        sources_to_add = researcher.sources.all().exclude(
+            id__in=[o.id for o in selected_project.sources.all()])
+        return render(
+            request,
+            'sources_to_add.html',
+            locals()
+        )
+    else:
+        return HttpResponseForbidden()

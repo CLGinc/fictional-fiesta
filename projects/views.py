@@ -74,8 +74,8 @@ def projects_list(request):
 
 
 @login_required
-def project(request, unique_id):
-    selected_project = get_object_or_404(Project, unique_id=unique_id)
+def project(request, project_uid):
+    selected_project = get_object_or_404(Project, unique_id=project_uid)
     researcher = request.user.researcher
     can_edit = researcher.can_edit(selected_project)
 
@@ -84,16 +84,8 @@ def project(request, unique_id):
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
         if request.is_ajax():
-            elif request.GET.get('sources_to_add_list'):
-                sources_to_add = researcher.sources.all().exclude(
-                    id__in=[o.id for o in selected_project.sources.all()])
-                return render(
-                    request,
-                    'sources_to_add.html',
-                    locals()
-                )
             # hangle ajax pagination
-            elif request.GET.get('page'):
+            if request.GET.get('page'):
                 page = request.GET.get('page')
                 try:
                     results_page = paginator.page(page)
