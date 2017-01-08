@@ -20,14 +20,9 @@ def projects_list(request):
     if request.method == 'POST':
         new_project_form = NewProjectForm(request.POST or None)
         if new_project_form.is_valid():
-            new_project_form.save()
-            new_project_role = Role.objects.create(
-                researcher=request.user.researcher,
-                project=new_project_form.instance,
-                role='owner')
-            new_project_role.save()
-            return redirect(
-                '/projects/{}'.format(new_project_form.instance.unique_id))
+            new_project = new_project_form.save(
+                researcher=request.user.researcher)
+            return redirect('/projects/{}'.format(new_project.unique_id))
     elif request.method == 'GET':
         roles_labels = Role.ROLES
         selected_roles = request.GET.getlist('role')

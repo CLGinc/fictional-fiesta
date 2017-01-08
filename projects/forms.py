@@ -1,12 +1,21 @@
 from django import forms
 
 from .models import Project
+from researchers.models import Role
 
 
 class NewProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description']
+
+    def save(self, researcher, commit=True):
+        instance = super(NewProjectForm, self).save(commit=True)
+        new_project_role = Role.objects.create(
+            researcher=researcher,
+            project=instance,
+            role='owner')
+        return instance
 
 
 class AddElementsForm(forms.Form):
