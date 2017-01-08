@@ -78,3 +78,7 @@ class ProjectRolesListForm(forms.Form):
     created_to = forms.DateField(required=False)
     role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
     order_by = forms.ChoiceField(choices=ORDER_BY, required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.researcher = kwargs.pop('researcher')
+        super(ProjectRolesListForm, self).__init__(*args, **kwargs)
