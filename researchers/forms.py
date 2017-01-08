@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from .models import Role
+
 
 ERROR_MESSAGE = _('Please enter a correct email and password. ')
 ERROR_MESSAGE_RESTRICTED = _('You do not have permission to access the admin.')
@@ -63,3 +65,16 @@ class EmailUserCreationForm(UserCreationForm):
         # so the user_save_patch() will keep things in sync.
         self.instance.username = self.instance.email
         return super(EmailUserCreationForm, self).save(commit=commit)
+
+
+class ProjectRolesListForm(forms.Form):
+    ORDER_BY = (
+        ('name', 'project__name'),
+        ('creation', 'project__datetime_created'),
+        ('role', 'role')
+    )
+    name = forms.CharField(max_length=255, required=False)
+    created_from = forms.DateField(required=False)
+    created_to = forms.DateField(required=False)
+    role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
+    order_by = forms.ChoiceField(choices=ORDER_BY, required=False)
