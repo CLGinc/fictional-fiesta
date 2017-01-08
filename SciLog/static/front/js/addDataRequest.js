@@ -18,10 +18,9 @@ var addDataRequest = function(requestTarget) {
     // Configure the url we're about to hit
     $('[data-type="loader"]').removeClass('hidden');
     $('[data-type="loader"]').addClass('is-active');
-    var dataTarget = requestTarget+'=True';
+    var dataTarget = viewParam+requestTarget;
     $.ajax({
-        url: viewParam,
-        data: dataTarget,
+        url: dataTarget,
         type: "GET",
         dataType: 'html',
         success: function(data) {

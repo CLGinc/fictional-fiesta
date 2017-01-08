@@ -69,8 +69,9 @@ $('[data-trigger="submit"]').click(function(){
 
 $('[data-trigger="submit-ajax"]').click(function(){
   var targetForm = '#'+$(this).attr('data-form'),
-      url = $(this).attr('action'),
+      url = viewParam + $(targetForm).attr('action'),
       formData = $(targetForm).serialize();
+			console.log(url);
 			$(targetForm).children('div').each(function(){
 				var emailInput = $(this).children("input[name='email']");
 				if(emailInput.val()){
