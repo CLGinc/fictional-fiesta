@@ -38,6 +38,16 @@ class Invitation(models.Model):
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        target = 'Project' if self.project else 'Protocol'
+        invited = self.invited if self.invited else self.email
+        return('{} invitiation from {} to {}'.format(
+            target,
+            self.inviter,
+            invited
+            )
+        )
+
     def clean(self):
         if not(self.project or self.protocol):
             raise ValidationError('You must choose \
