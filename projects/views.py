@@ -10,6 +10,7 @@ from django.http import HttpResponseBadRequest
 from django.template.response import TemplateResponse
 
 from researchers.models import Role
+from researchers.forms import ProjectRolesListForm
 from .forms import NewProjectForm, AddElementsForm
 from .models import Project
 
@@ -25,32 +26,9 @@ def projects_list(request):
             return redirect('/projects/{}'.format(new_project.unique_id))
     elif request.method == 'GET':
         roles_labels = Role.ROLES
-        selected_roles = request.GET.getlist('role')
-        if request.GET.getlist('role'):
-            roles_list = request.user.researcher.get_roles(
-                scope='project',
-                roles=selected_roles)
-        else:
-            roles_list = request.user.researcher.get_roles(scope='project')
-        if request.GET.get('name'):
-            name_filter = request.GET.get('name')
-            roles_list = roles_list.filter(
-                project__name__icontains=request.GET.get('name'))
-        if request.GET.get('created-from'):
-            created_from = datetime.strptime(
-                request.GET.get('created-from'),
-                '%Y-%m-%d').date()
-            roles_list = roles_list.filter(
-                project__datetime_created__date__gte=created_from)
-        if request.GET.get('created-to'):
-            created_to = datetime.strptime(
-                request.GET.get('created-to'),
-                '%Y-%m-%d').date()
-            roles_list = roles_list.filter(
-                project__datetime_created__date__lte=created_to)
-        if request.GET.get('order-by'):
-            order_by = request.GET.get('order-by')
-            roles_list = roles_list.order_by(order_by)
+        form = ProjectRolesListForm(request.GET, researcher=request.user.researcher)
+        if form.is_valid():
+            roles_list = form.project_roles
         paginator = Paginator(roles_list, 15)
         roles_list_page = paginator.page(1)
         if request.is_ajax():
