@@ -46,6 +46,10 @@ $('[data-trigger="close"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   deleteOldList(requestTarget);
 });
+$('[data-trigger="remove-input"]').click(function(){
+  $(this)
+	// complete this action
+});
 // add new input
 $('[data-trigger="add-input"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
@@ -71,6 +75,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
   var targetForm = '#'+$(this).attr('data-form'),
       url = $(targetForm).attr('action'),
       formData = $(targetForm).serialize();
+			console.log(formData);
 			$(targetForm).children('div').each(function(){
 				var emailInput = $(this).children("input[name='email']");
 				if(emailInput.val()){
@@ -82,14 +87,15 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          {
 	            console.log(data);
 	          },
-	          error: function()
+	          error: function(statusText,status,textStatus)
 	          {
-	            var errorNotif = '';
-							$(targetForm).html('problem');
+	            var errorNotif = textStatus;
+							// $(this).html('problem');
+							console.log(errorNotif);
 	          },
 	          complete: function(data)
 	          {
-	            console.log(data);
+	            // console.log(data);
 	          }
 	        });
 				}
