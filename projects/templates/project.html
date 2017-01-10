@@ -211,18 +211,21 @@
               {% endif %}
             </div>
             <div id="modal--participants" class="mdl-grid mdl-cell mdl-cell--12-col filter-form">
-              <div class="mdl-textfield mdl-js-textfield hidden" id="email_input_source">
-                <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
-                  <i class="material-icons mdl-color-text--blue-500">close</i>
-                </a>
-                <input class="mdl-textfield__input" type="email" name="email">
-                <label class="mdl-textfield__label">Email</label>
-                <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
-                <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
-              </div>
-              <form method="post" action="{% url 'create_invitation' %}" id="participant_invite_form">
+              <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" class="hidden">
                 {% csrf_token %}
-                <div class="mdl-textfield mdl-js-textfield" id="email_input_1">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
+                    <i class="material-icons mdl-color-text--blue-500">close</i>
+                  </a>
+                  <input class="mdl-textfield__input" type="email" name="email">
+                  <label class="mdl-textfield__label">Email</label>
+                  <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
+                  <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
+                </div>
+              </form>
+              <form method="post" action="{% url 'create_invitation' %}" id="email_input_1">
+                {% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
                     <i class="material-icons mdl-color-text--blue-500">close</i>
                   </a>
@@ -236,7 +239,7 @@
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
                 Send
               </a>
-              <a data-trigger="add-input" data-target="email_input_source" data-currentid="1" data-form="participant_invite_form" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+              <a data-trigger="add-input" data-currentid="1" data-form="email_input_source" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">add</i>
                 More
               </a>

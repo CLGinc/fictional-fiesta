@@ -47,23 +47,24 @@ $('[data-trigger="close"]').click(function(){
   deleteOldList(requestTarget);
 });
 var removeInput = function(event) {
-  $(event.target).closest('div').remove();
+  $(event.target).closest('form').fadeOut(200, function() { $(this).remove(); });
 };
 $('[data-trigger="remove-input"]').click(function(){
-  removeInput(event);
+	removeInput(event);
 });
 // add new input
 $('[data-trigger="add-input"]').click(function(){
-  var targetElementId = $(this).attr('data-target'),
-			currentId = $(this).attr('data-currentid'),
+	var	currentId = $(this).attr('data-currentid'),
       newTargetId = 'email_input_'+(++currentId),
 			targetForm =  $(this).attr('data-form'),
-			sourceInput = document.getElementById(targetElementId),
-			cloneInput = sourceInput.cloneNode(true);
-	$(cloneInput).removeClass('is-upgraded hidden').removeAttr('data-upgraded').attr('id',newTargetId).children('[name="email"]').val('');
-  componentHandler.upgradeElement(cloneInput);
-  $('#'+targetForm).append($(cloneInput).hide().fadeIn(200));
-	$(cloneInput).children('[data-trigger="remove-input"]').bind('click', removeInput);
+			sourceInput = document.getElementById(targetForm),
+			cloneInput = sourceInput.cloneNode(true),
+			insertTarget = $('#modal--participants').children('form').last(),
+			upgradeTarget = $(cloneInput).children('div').get(0);
+	$(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
+  componentHandler.upgradeElement(upgradeTarget);
+  $(cloneInput).attr('id',newTargetId).removeClass('hidden').hide().fadeIn(300).insertAfter(insertTarget);
+	$(upgradeTarget).children('[data-trigger="remove-input"]').bind('click', removeInput);
 	$(this).attr('data-currentid', currentId);
 });
 // submit form
@@ -75,13 +76,12 @@ $('[data-trigger="submit"]').click(function(){
 });
 
 $('[data-trigger="submit-ajax"]').click(function(){
-  var targetForm = '#'+$(this).attr('data-form'),
-      url = $(targetForm).attr('action'),
-      formData = $(targetForm).serialize();
-			console.log(formData);
-			$(targetForm).children('div').each(function(){
-				var emailInput = $(this).children("input[name='email']");
-				if(emailInput.val()){
+  var targetForm = $('#modal--participants').children('form');
+			$(targetForm).each(function(){
+				var emailInput = $(this).find("input[name='email']"),
+						url = $(this).attr('action');
+				if($(emailInput).val()){
+					var formData = $(this).serialize();
 	        $.ajax({
 	          url: url,
 	          data: formData,
@@ -93,7 +93,6 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          error: function(statusText,status,textStatus)
 	          {
 	            var errorNotif = textStatus;
-							// $(this).html('problem');
 							console.log(errorNotif);
 	          },
 	          complete: function(data)
@@ -104,6 +103,36 @@ $('[data-trigger="submit-ajax"]').click(function(){
 				}
 			});
   });
+// $('[data-trigger="submit-ajax"]').click(function(){
+//   var targetForm = '#'+$(this).attr('data-form'),
+//       url = $(targetForm).attr('action'),
+//       formData = $(targetForm).serialize();
+// 			console.log(formData);
+// 			$(targetForm).children('div').each(function(){
+// 				var emailInput = $(this).children("input[name='email']");
+// 				if(emailInput.val()){
+// 	        $.ajax({
+// 	          url: url,
+// 	          data: formData,
+// 	          type: 'POST',
+// 	          success: function(data)
+// 	          {
+// 	            console.log(data);
+// 	          },
+// 	          error: function(statusText,status,textStatus)
+// 	          {
+// 	            var errorNotif = textStatus;
+// 							// $(this).html('problem');
+// 							console.log(errorNotif);
+// 	          },
+// 	          complete: function(data)
+// 	          {
+// 	            // console.log(data);
+// 	          }
+// 	        });
+// 				}
+// 			});
+//   });
 // update active tab and display add new button
 $('[data-trigger="tab"]').click(function() {
   var activeTab = $(this).attr('data-target');
