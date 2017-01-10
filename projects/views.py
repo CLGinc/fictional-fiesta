@@ -24,11 +24,11 @@ def projects_list(request):
             return redirect('/projects/{}'.format(new_project.unique_id))
     elif request.method == 'GET':
         roles_labels = Role.ROLES
-        form = ProjectRolesListForm(request.GET, researcher=request.user.researcher)
+        form = ProjectRolesListForm(
+            request.GET, researcher=request.user.researcher)
         if form.is_valid():
             roles_list = form.project_roles
         paginator = Paginator(roles_list, 15)
-        roles_list_page = paginator.page(1)
         if request.is_ajax():
             page = request.GET.get('page')
             try:
@@ -38,10 +38,8 @@ def projects_list(request):
             except EmptyPage:
                 return HttpResponseBadRequest(reason='Page does not exist!')
             return render(request, 'projects_list_page.html', locals())
-        try:
-            return render(request, 'projects_list.html', locals())
-        except FieldError:
-            return HttpResponseBadRequest('Parameter order_by not valid!')
+        roles_list_page = paginator.page(1)
+        return render(request, 'projects_list.html', locals())
 
 
 @login_required
