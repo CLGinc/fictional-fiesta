@@ -70,25 +70,12 @@ def project(request, project_uid):
         results_page = paginator.page(1)
         return render(request, 'project.html', locals())
     elif request.method == 'POST' and can_edit:
-        if request.POST.get('element_type') == 'p':
-            protocols_to_add = researcher.protocols_to_add(selected_project)
-            add_elements_form = AddElementsForm(
-                request.POST or None,
-                queryset=protocols_to_add)
-        elif request.POST.get('element_type') == 's':
-            sources_to_add = researcher.sources.all().exclude(
-                id__in=[o.id for o in selected_project.sources.all()])
-            add_elements_form = AddElementsForm(
-                request.POST or None,
-                queryset=sources_to_add)
+        add_elements_form = AddElementsForm(
+            request.POST or None,
+            selected_project=selected_project,
+            researcher=researcher)
         if add_elements_form.is_valid():
-            element_type = add_elements_form.cleaned_data['element_type']
-            if element_type == 'p':
-                selected_project.protocols.add(
-                    *list(add_elements_form.cleaned_data['element_choices']))
-            elif element_type == 's':
-                selected_project.sources.add(
-                    *list(add_elements_form.cleaned_data['element_choices']))
+            add_elements_form.add_elements(selected_project)
         return redirect('.')
     else:
         return HttpResponseBadRequest('Method not supported!')
