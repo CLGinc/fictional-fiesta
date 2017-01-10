@@ -46,9 +46,11 @@ $('[data-trigger="close"]').click(function(){
   $('#'+targetElementId).removeClass('element--show-animate');
   deleteOldList(requestTarget);
 });
+var removeInput = function(event) {
+  $(event.target).closest('div').remove();
+};
 $('[data-trigger="remove-input"]').click(function(){
-  $(this)
-	// complete this action
+  removeInput(event);
 });
 // add new input
 $('[data-trigger="add-input"]').click(function(){
@@ -61,6 +63,7 @@ $('[data-trigger="add-input"]').click(function(){
 	$(cloneInput).removeClass('is-upgraded hidden').removeAttr('data-upgraded').attr('id',newTargetId).children('[name="email"]').val('');
   componentHandler.upgradeElement(cloneInput);
   $('#'+targetForm).append($(cloneInput).hide().fadeIn(200));
+	$(cloneInput).children('[data-trigger="remove-input"]').bind('click', removeInput);
 	$(this).attr('data-currentid', currentId);
 });
 // submit form
