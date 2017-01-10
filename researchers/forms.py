@@ -94,46 +94,41 @@ class ProjectRolesListForm(forms.Form):
     def is_valid(self):
         valid = super(ProjectRolesListForm, self).is_valid()
         if valid:
+            self.cleaned_data = dict(
+                (k, v) for k, v in self.cleaned_data.items() if v
+            )
             self.generate_project_roles()
         return valid
 
     def get_order(self):
-        if self.cleaned_data:
-            order_by = self.cleaned_data.get('order_by')
-            order_by = dict(self.ORDER_BY)[order_by]
-            if self.cleaned_data.get('order_type'):
-                order_type = self.cleaned_data.get('order_type')
-                order_type = dict(self.ORDER_TYPE)[order_type]
-            else:
-                order_type = ''
-            return order_type + order_by
+        order_by = self.cleaned_data.get('order_by', 'creation')
+        if order_by == 'creation':
+            order_type = self.cleaned_data.get('order_type', 'desc')
         else:
-            return None
+            order_type = self.cleaned_data.get('order_type' 'asc')
+        order_by = dict(self.ORDER_BY)[order_by]
+        order_type = dict(self.ORDER_TYPE)[order_type]
+        return order_type + order_by
 
     def generate_project_roles(self):
         project_roles = self.researcher.get_roles(
             scope='project',
-            roles=self.cleaned_data.get('role') or Role.get_db_roles())
+            roles=self.cleaned_data.get('role', Role.get_db_roles()))
         # Filter by project name
         if self.cleaned_data.get('name'):
             project_roles = project_roles.filter(
                 project__name__icontains=self.cleaned_data.get('name'))
         # Filter by project created_from
         if self.cleaned_data.get('created_from'):
-            created_from = datetime.strptime(
-                self.cleaned_data.get('created_from'),
-                '%Y-%m-%d').date()
+            created_from = self.cleaned_data.get('created_from')
             project_roles = project_roles.filter(
                 project__datetime_created__date__gte=created_from)
         # Filter by project created_to
         if self.cleaned_data.get('created_to'):
-            created_to = datetime.strptime(
-                self.cleaned_data.get('created_to'),
-                '%Y-%m-%d').date()
+            created_to = self.cleaned_data.get('created_to')
             project_roles = project_roles.filter(
                 project__datetime_created__date__lte=created_to)
         # Order final list
-        if self.cleaned_data.get('order_by'):
-            order_by = self.get_order()
-            project_roles = project_roles.order_by(order_by)
+        order_by = self.get_order()
+        project_roles = project_roles.order_by(order_by)
         self.project_roles = project_roles
