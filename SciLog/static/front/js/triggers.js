@@ -103,36 +103,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 				}
 			});
   });
-// $('[data-trigger="submit-ajax"]').click(function(){
-//   var targetForm = '#'+$(this).attr('data-form'),
-//       url = $(targetForm).attr('action'),
-//       formData = $(targetForm).serialize();
-// 			console.log(formData);
-// 			$(targetForm).children('div').each(function(){
-// 				var emailInput = $(this).children("input[name='email']");
-// 				if(emailInput.val()){
-// 	        $.ajax({
-// 	          url: url,
-// 	          data: formData,
-// 	          type: 'POST',
-// 	          success: function(data)
-// 	          {
-// 	            console.log(data);
-// 	          },
-// 	          error: function(statusText,status,textStatus)
-// 	          {
-// 	            var errorNotif = textStatus;
-// 							// $(this).html('problem');
-// 							console.log(errorNotif);
-// 	          },
-// 	          complete: function(data)
-// 	          {
-// 	            // console.log(data);
-// 	          }
-// 	        });
-// 				}
-// 			});
-//   });
+
 // update active tab and display add new button
 $('[data-trigger="tab"]').click(function() {
   var activeTab = $(this).attr('data-target');
