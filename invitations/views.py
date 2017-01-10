@@ -26,14 +26,14 @@ def accept_invitation(request):
                 return redirect(
                     reverse(
                         'project',
-                        args=[invitation.project.id]
+                        args=[invitation.project.unique_id]
                     )
                 )
             elif invitation.protocol:
                 return redirect(
                     reverse(
                         'protocol',
-                        args=[invitation.protocol.id]
+                        args=[invitation.protocol.unique_id]
                     )
                 )
     return render(request, 'accept_invitation.html', locals())
