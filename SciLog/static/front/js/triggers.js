@@ -87,19 +87,20 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          url: url,
 	          data: formData,
 	          type: 'POST',
-	          success: function(data)
+	          success: function(response)
 	          {
-	            console.log(data);
+							$(currentForm).append(response);
+							console.log('success');
 	          },
-	          error: function(statusText,status,textStatus)
+	          error: function(response)
 	          {
-	            var errorNotif = textStatus;
-							console.log(errorNotif);
+	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
 							$(currentForm).append(errorNotif);
+							console.log('error');
 	          },
-	          complete: function(data)
+	          complete: function()
 	          {
-	            // console.log(data);
+	            console.log('complete');
 	          }
 	        });
 				}
