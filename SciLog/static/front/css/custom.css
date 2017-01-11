@@ -55,6 +55,16 @@
   right: 0;
   z-index: 1000;
 }
+.input--remove-spinner {
+  position: absolute;
+  right: 7px;
+  width: 20px;
+  height: 20px;
+  border-color: #2196f3;
+}
+.input--remove-spinner .mdl-spinner__layer-4,.input--remove-spinner .mdl-spinner__layer-3,.input--remove-spinner .mdl-spinner__layer-2,.input--remove-spinner .mdl-spinner__layer-1 {
+  border-color: #2196f3;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;

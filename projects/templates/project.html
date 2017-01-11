@@ -215,25 +215,29 @@
                 {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
-                    <i class="material-icons mdl-color-text--blue-500">close</i>
+                    <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
                   </a>
+                  <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label">Email</label>
                   <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
                   <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
                 </div>
+                <div data-content="result"></div>
               </form>
               <form method="post" action="{% url 'create_invitation' %}" id="email_input_1">
                 {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
-                    <i class="material-icons mdl-color-text--blue-500">close</i>
+                    <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
                   </a>
+                  <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label">Email</label>
                   <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
                   <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
                 </div>
+                <div data-content="result"></div>
               </form>
               <a data-trigger="submit-ajax" data-target="modal--participants" data-form="participant_invite_form" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i>

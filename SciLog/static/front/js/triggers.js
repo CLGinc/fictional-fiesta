@@ -81,26 +81,36 @@ $('[data-trigger="submit-ajax"]').click(function(){
 				var emailInput = $(this).find("input[name='email']"),
 						url = $(this).attr('action');
 				if($(emailInput).val()){
-					var formData = $(this).serialize();
-					var currentForm = $(this);
+					var currentForm = $(this),
+							formData = currentForm.serialize(),
+						 	loader = currentForm.find('div[data-content="loader"]'),
+							button = currentForm.find('a'),
+							resultHolder = currentForm.children('div[data-content="result"]'),
+							buttonIcon = button.children('i');
+					button.toggleClass('hidden');
+					loader.toggleClass('is-active');
 	        $.ajax({
 	          url: url,
 	          data: formData,
 	          type: 'POST',
 	          success: function(response)
 	          {
-							$(currentForm).append(response);
-							console.log('success');
+							resultHolder.html(response);
+							loader.toggleClass('is-active');
+							buttonIcon.html('check');
+							button.toggleClass('hidden');
 	          },
 	          error: function(response)
 	          {
 	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
-							$(currentForm).append(errorNotif);
-							console.log('error');
+							resultHolder.html(errorNotif);
+							loader.toggleClass('is-active');
+							buttonIcon.html('close');
+							button.toggleClass('hidden');
 	          },
 	          complete: function()
 	          {
-	            console.log('complete');
+	            // anything to do here?
 	          }
 	        });
 				}
