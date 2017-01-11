@@ -14,6 +14,6 @@ def create_invitation(request):
             return HttpResponse(
                 'Invitation to {} created and sent!'.format(form.cleaned_data['email']))
         else:
-            return HttpResponseBadRequest(reason=form.errors)
+            return HttpResponseBadRequest(reason=form.errors.as_json())
     else:
         return HttpResponseForbidden()
