@@ -82,6 +82,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 						url = $(this).attr('action');
 				if($(emailInput).val()){
 					var formData = $(this).serialize();
+					var currentForm = $(this);
 	        $.ajax({
 	          url: url,
 	          data: formData,
@@ -94,6 +95,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          {
 	            var errorNotif = textStatus;
 							console.log(errorNotif);
+							$(currentForm).append(errorNotif);
 	          },
 	          complete: function(data)
 	          {
