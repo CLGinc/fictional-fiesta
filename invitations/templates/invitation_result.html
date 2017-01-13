@@ -1,3 +1,7 @@
 <div data-response="{{ response.status }}">
-  <div>{{ response.message }}</div>
+  <ul>
+    {% for message in reposnse.message %}
+    <li>{{ response.message }}</li>
+    {% endfor %}
+  </ul>
 </div>
