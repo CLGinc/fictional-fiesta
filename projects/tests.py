@@ -65,7 +65,8 @@ class ProjectsTest(TestCase):
         }
         form = NewProjectForm(data)
         self.assertTrue(form.is_valid())
-        self.assertIsInstance(form.save(self.researcher0), Project)
+        project = form.save(self.researcher0)
+        self.assertIsInstance(project, Project)
         self.assertTrue(
             self.researcher0.roles.filter(
                 project=project, role='owner'
