@@ -5,6 +5,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from .utils import generate_uid
+from .models import Project
 
 
 class ProjectsTest(TestCase):
@@ -31,7 +32,13 @@ class ProjectsTest(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_generate_project_unique_id(self):
+    def test_generate_unique_id(self):
         key = generate_uid()
         self.assertEqual(len(key), 8)
         self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
+
+    def test_generated_unique_id_is_unique(self):
+        for i in range(1000000):
+            Project.objects.create(
+                name='Project {}'.format(i)
+            )
