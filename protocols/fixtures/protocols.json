@@ -3,6 +3,7 @@
   "model": "protocols.protocol",
   "pk": 811,
   "fields": {
+    "unique_id": "635be0c0",
     "name": "Protocol 0",
     "description": "Description for protocol 0",
     "label": "standard",
@@ -15,6 +16,7 @@
   "model": "protocols.protocol",
   "pk": 812,
   "fields": {
+    "unique_id": "27652248",
     "name": "Protocol 1",
     "description": "Description for protocol 1",
     "label": "standard",
@@ -27,6 +29,7 @@
   "model": "protocols.protocol",
   "pk": 813,
   "fields": {
+    "unique_id": "3e39fed1",
     "name": "Protocol 2",
     "description": "Description for protocol 2",
     "label": "modified",
@@ -39,6 +42,7 @@
   "model": "protocols.protocol",
   "pk": 814,
   "fields": {
+    "unique_id": "dc46dec0",
     "name": "Protocol 3",
     "description": "Description for protocol 3",
     "label": "modified",
@@ -51,6 +55,7 @@
   "model": "protocols.protocol",
   "pk": 815,
   "fields": {
+    "unique_id": "04aebe2c",
     "name": "Protocol 4",
     "description": "Description for protocol 4",
     "label": "standard",
@@ -63,6 +68,7 @@
   "model": "protocols.protocol",
   "pk": 816,
   "fields": {
+    "unique_id": "fba17387",
     "name": "Protocol 5",
     "description": "Description for protocol 5",
     "label": "standard",
@@ -75,6 +81,7 @@
   "model": "protocols.protocol",
   "pk": 817,
   "fields": {
+    "unique_id": "55980c82",
     "name": "Protocol 6",
     "description": "Description for protocol 6",
     "label": "standard",
@@ -87,6 +94,7 @@
   "model": "protocols.protocol",
   "pk": 818,
   "fields": {
+    "unique_id": "8f4a328c",
     "name": "Protocol 7",
     "description": "Description for protocol 7",
     "label": "standard",
@@ -99,6 +107,7 @@
   "model": "protocols.protocol",
   "pk": 819,
   "fields": {
+    "unique_id": "8efed357",
     "name": "Protocol 8",
     "description": "Description for protocol 8",
     "label": "modified",
@@ -111,6 +120,7 @@
   "model": "protocols.protocol",
   "pk": 820,
   "fields": {
+    "unique_id": "52944cc7",
     "name": "Protocol 9",
     "description": "Description for protocol 9",
     "label": "standard",
