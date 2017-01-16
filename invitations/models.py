@@ -6,7 +6,7 @@ from .utils import generate_key
 
 
 class Invitation(models.Model):
-    email = models.EmailField(unique=True, max_length=254)
+    email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
         related_name='inviter_invitations'
@@ -37,6 +37,11 @@ class Invitation(models.Model):
     accepted = models.BooleanField(default=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+            ('email', 'project'),
+            ('email', 'protocol'))
 
     def __str__(self):
         target = 'Project' if self.project else 'Protocol'
