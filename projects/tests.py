@@ -1,6 +1,10 @@
+import re
+
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
+
+from .utils import generate_uid
 
 
 class ProjectsTest(TestCase):
@@ -23,6 +27,11 @@ class ProjectsTest(TestCase):
 
     def test_get_project(self):
         self.client.login(username='user0', password='user0')
-        url = reverse('project', kwargs={'project_id': 1})
+        url = reverse('project', kwargs={'project_uid': '0f570c02'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+    def test_generate_project_unique_id(self):
+        key = generate_uid()
+        self.assertEqual(len(key), 8)
+        self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
