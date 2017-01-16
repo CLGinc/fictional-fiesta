@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 
 from .utils import generate_uid
 from .models import Project
+from .forms import NewProjectForm, AddElementsForm
+from researchers.models import Researcher
 
 
 class ProjectsTest(TestCase):
@@ -18,6 +20,7 @@ class ProjectsTest(TestCase):
         'protocols/fixtures/protocols']
 
     def setUp(self):
+        self.researcher0 = Researcher.objects.get(user__username='user0')
         self.client = Client()
 
     def test_get_projects_list(self):
@@ -37,8 +40,34 @@ class ProjectsTest(TestCase):
         self.assertEqual(len(key), 8)
         self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
 
-    def test_generated_unique_id_is_unique(self):
-        for i in range(1000000):
-            Project.objects.create(
-                name='Project {}'.format(i)
+    def test_new_project_form_empty(self):
+        form = NewProjectForm()
+        self.assertFalse(form.is_valid())
+
+    def test_new_project_form_mandatory_fields(self):
+        data = {
+            'name': 'Project 1'
+        }
+        form = NewProjectForm(data)
+        self.assertTrue(form.is_valid())
+        project = form.save(self.researcher0)
+        self.assertIsInstance(project, Project)
+        self.assertTrue(
+            self.researcher0.roles.filter(
+                project=project, role='owner'
             )
+        )
+
+    def test_new_project_form_all_fields(self):
+        data = {
+            'name': 'Project 1',
+            'description': 'Project 1 Description'
+        }
+        form = NewProjectForm(data)
+        self.assertTrue(form.is_valid())
+        self.assertIsInstance(form.save(self.researcher0), Project)
+        self.assertTrue(
+            self.researcher0.roles.filter(
+                project=project, role='owner'
+            )
+        )
