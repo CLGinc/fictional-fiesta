@@ -88,7 +88,10 @@ class Researcher(models.Model):
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return '{} {}'.format(self.user.first_name, self.user.last_name)
+        if self.user.first_name and self.user.last_name:
+            return '{} {}'.format(self.user.first_name, self.user.last_name)
+        else:
+            return self.user.username
 
     def get_roles(self, scope=None, roles=Role.get_db_roles()):
         """
