@@ -3,6 +3,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 from protocols.models import Protocol
+from projects.models import Project
 
 
 class University(models.Model):
@@ -123,6 +124,22 @@ class Researcher(models.Model):
     def can_edit(self, item):
         role = item.roles.get(researcher=self)
         return role.role in Role.ROLES_CAN_EDIT
+
+    def get_projects_to_edit(self):
+        projects = Project.objects.filter(
+            roles__researcher=self,
+            roles__protocol=None,
+            roles__role__in=Role.ROLES_CAN_EDIT
+        )
+        return projects
+
+    def get_protocols_to_edit(self):
+        projects = Protocol.objects.filter(
+            roles__researcher=self,
+            roles__project=None,
+            roles__role__in=Role.ROLES_CAN_EDIT
+        )
+        return projects
 
 
 class Source(models.Model):

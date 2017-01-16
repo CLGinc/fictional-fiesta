@@ -220,8 +220,8 @@
                   <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label">Email</label>
-                  <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
-                  <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
+                  <select class="hidden" name="invitation_object" value="project"/>
+                  <select class="hidden" name="object_choice" value="{{ selected_project.unique_id }}"/>
                 </div>
                 <div data-content="result"></div>
               </form>
@@ -234,8 +234,12 @@
                   <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
                   <input class="mdl-textfield__input" type="email" name="email">
                   <label class="mdl-textfield__label">Email</label>
-                  <input class="hidden" type="text" name="inviter" value="{{ researcher.id }}">
-                  <input class="hidden" type="text" name="project" value="{{ selected_project.id }}">
+                  <select class="hidden" name="invitation_object" value="project">
+                    <option selected value="project">Project</option>
+                  </select>
+                  <select class="hidden" name="object_choice" value="{{ selected_project.unique_id }}">
+                    <option selected value="{{ selected_project.unique_id }}">{{ selected_project.unique_id }}</option>
+                  </select>
                 </div>
                 <div data-content="result"></div>
               </form>
