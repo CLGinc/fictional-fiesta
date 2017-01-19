@@ -89,3 +89,11 @@ class ProjectsFormsTest(TestCase):
                 project=project, role='owner'
             )
         )
+
+    def test_add_elements_form_empty(self):
+        form = AddElementsForm(
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        self.assertFalse(form.is_valid())
+
