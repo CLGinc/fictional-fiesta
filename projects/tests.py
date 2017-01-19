@@ -134,6 +134,19 @@ class ProjectsFormsTest(TestCase):
             protocols_to_add
         )
 
+    def test_add_elements_form_protocols_before_validation(self):
+        data = {
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        with self.assertRaises(AttributeError) as e:
+            form.add_elements(self.project1)
+
     def test_add_elements_form_protocols_watcher(self):
         data = {
             'element_type': 'p',
