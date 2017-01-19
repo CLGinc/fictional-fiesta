@@ -129,7 +129,7 @@ class Researcher(models.Model):
 
     def get_sources_to_add(self, project):
         if self.can_edit(project):
-            sources = Source.objects.all().exclude(
+            sources = self.sources.all().exclude(
                 id__in=[o.id for o in project.sources.all()]
             )
             return sources
