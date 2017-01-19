@@ -17,7 +17,8 @@ class ProjectsTest(TestCase):
         'researchers/fixtures/universities',
         'projects/fixtures/projects',
         'researchers/fixtures/roles',
-        'protocols/fixtures/protocols']
+        'protocols/fixtures/protocols'
+    ]
 
     def setUp(self):
         self.researcher0 = Researcher.objects.get(user__username='user0')
@@ -39,6 +40,20 @@ class ProjectsTest(TestCase):
         key = generate_uid()
         self.assertEqual(len(key), 8)
         self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
+
+
+class ProjectsFormsTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'projects/fixtures/projects',
+        'researchers/fixtures/roles',
+        'protocols/fixtures/protocols'
+    ]
+
+    def setUp(self):
+        self.researcher0 = Researcher.objects.get(user__username='user0')
 
     def test_new_project_form_empty(self):
         form = NewProjectForm()
