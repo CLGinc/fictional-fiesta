@@ -118,11 +118,14 @@ class Researcher(models.Model):
                 role__in=roles,).select_related('project', 'protocol')
 
     def get_protocols_to_add(self, project):
-        protocols = Protocol.objects.filter(
-            roles__researcher=self,
-            roles__project=None
-            ).exclude(id__in=[o.id for o in project.protocols.all()])
-        return protocols
+        if self.can_edit(project):
+            protocols = Protocol.objects.filter(
+                roles__researcher=self,
+                roles__project=None
+                ).exclude(id__in=[o.id for o in project.protocols.all()])
+            return protocols
+        else:
+            return Protocol.objects.none()
 
     def can_edit(self, item):
         role = item.roles.get(researcher=self)
