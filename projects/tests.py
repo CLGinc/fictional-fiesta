@@ -97,3 +97,14 @@ class ProjectsFormsTest(TestCase):
         )
         self.assertFalse(form.is_valid())
 
+    def test_add_elements_form_protocols_all_fields(self):
+        data = {
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        self.assertTrue(form.is_valid())
