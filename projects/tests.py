@@ -56,6 +56,9 @@ class ProjectsFormsTest(TestCase):
         self.researcher0 = Researcher.objects.get(
             user__username='user0@gmail.com'
         )
+        self.researcher1 = Researcher.objects.get(
+            user__username='user1@gmail.com'
+        )
         self.project1 = Project.objects.get(id=1)
 
     def test_new_project_form_empty(self):
@@ -121,3 +124,17 @@ class ProjectsFormsTest(TestCase):
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
+
+    def test_add_elements_form_protocols_watcher(self):
+        data = {
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher1,
+            selected_project=self.project1
+        )
+        self.assertFalse(form.is_valid())
+        self.assertFalse(form.fields['element_choices'].queryset)
+        self.assertIn('element_choices', form.errors.keys())
