@@ -231,6 +231,40 @@ class ProjectsFormsTest(TestCase):
             sources_to_add
         )
 
+    def test_add_elements_form_sources_before_validation(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        with self.assertRaises(AttributeError) as e:
+            form.add_elements(self.project1)
+
+    def test_add_elements_form_sources_add_elements(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        form.is_valid()
+        form.add_elements(self.project1)
+        expected_sourcess = [
+            Source.objects.get(id=1),
+            Source.objects.get(id=2),
+        ]
+        self.assertEqual(
+            list(self.project1.sources.all()),
+            expected_sourcess
+        )
+
     def test_add_elements_form_sources_watcher(self):
         data = {
             'element_type': 's',
