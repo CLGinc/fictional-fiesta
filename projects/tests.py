@@ -46,6 +46,7 @@ class ProjectsFormsTest(TestCase):
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
         'projects/fixtures/projects',
         'researchers/fixtures/roles',
         'protocols/fixtures/protocols'
@@ -101,6 +102,18 @@ class ProjectsFormsTest(TestCase):
         data = {
             'element_type': 'p',
             'element_choices': ['fba17387', '8f4a328c']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_add_elements_form_sources_all_fields(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
         }
         form = AddElementsForm(
             data,

@@ -1,0 +1,32 @@
+[
+{
+  "model": "researchers.source",
+  "pk": 1,
+  "fields": {
+    "name": "Source 0",
+    "researcher": 2,
+    "url": "",
+    "isbn": ""
+  }
+},
+{
+  "model": "researchers.source",
+  "pk": 2,
+  "fields": {
+    "name": "Source 2",
+    "researcher": 2,
+    "url": "",
+    "isbn": ""
+  }
+},
+{
+  "model": "researchers.source",
+  "pk": 3,
+  "fields": {
+    "name": "Source 3",
+    "researcher": 2,
+    "url": "",
+    "isbn": ""
+  }
+}
+]
