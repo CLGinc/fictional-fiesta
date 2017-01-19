@@ -146,11 +146,11 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            researcher=self.researcher0,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
-        self.assertFalse(form.fields['element_choices'].queryset)
+        self.assertTrue(form.fields['element_choices'].queryset)
         self.assertIn('element_choices', form.errors.keys())
 
     def test_add_elements_form_sources_watcher(self):
