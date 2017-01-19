@@ -147,6 +147,30 @@ class ProjectsFormsTest(TestCase):
         with self.assertRaises(AttributeError) as e:
             form.add_elements(self.project1)
 
+    def test_add_elements_form_protocols_add_elements(self):
+        data = {
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        form.is_valid()
+        form.add_elements(self.project1)
+        expected_protocols = [
+            Protocol.objects.get(unique_id='635be0c0'),
+            Protocol.objects.get(unique_id='3e39fed1'),
+            Protocol.objects.get(unique_id='fba17387'),
+            Protocol.objects.get(unique_id='55980c82'),
+            Protocol.objects.get(unique_id='8f4a328c')
+        ]
+        self.assertEqual(
+            list(self.project1.protocols.all()),
+            expected_protocols
+        )
+
     def test_add_elements_form_protocols_watcher(self):
         data = {
             'element_type': 'p',
