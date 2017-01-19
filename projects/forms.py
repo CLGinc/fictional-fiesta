@@ -29,8 +29,7 @@ class AddElementsForm(forms.Form):
             self.fields.get('element_choices').to_field_name = 'unique_id'
             self.fields.get('element_choices').queryset = protocols_to_add
         if self.data.get('element_type') == 's':
-            sources_to_add = researcher.sources.all().exclude(
-                id__in=[o.id for o in selected_project.sources.all()])
+            sources_to_add = researcher.get_sources_to_add(selected_project)
             self.fields.get('element_choices').to_field_name = 'id'
             self.fields.get('element_choices').queryset = sources_to_add
 

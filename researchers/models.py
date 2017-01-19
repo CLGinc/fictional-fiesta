@@ -127,6 +127,15 @@ class Researcher(models.Model):
         else:
             return Protocol.objects.none()
 
+    def get_sources_to_add(self, project):
+        if self.can_edit(project):
+            sources = Source.objects.all().exclude(
+                id__in=[o.id for o in project.sources.all()]
+            )
+            return sources
+        else:
+            return Source.objects.none()
+
     def can_edit(self, item):
         role = item.roles.get(researcher=self)
         return role.role in Role.ROLES_CAN_EDIT
