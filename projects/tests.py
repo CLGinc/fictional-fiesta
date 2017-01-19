@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from .utils import generate_uid
 from .models import Project
 from .forms import NewProjectForm, AddElementsForm
-from researchers.models import Researcher
+from researchers.models import Researcher, Source
 from protocols.models import Protocol
 
 
@@ -173,6 +173,26 @@ class ProjectsFormsTest(TestCase):
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
+
+    def test_add_elements_form_sources_queryset(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        sources_to_add = [
+            Source.objects.get(id=3),
+            Source.objects.get(id=2),
+            Source.objects.get(id=1)
+        ]
+        self.assertEqual(
+            list(form.fields['element_choices'].queryset),
+            sources_to_add
+        )
 
     def test_add_elements_form_sources_watcher(self):
         data = {
