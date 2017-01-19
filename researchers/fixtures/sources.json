@@ -3,7 +3,7 @@
   "model": "researchers.source",
   "pk": 1,
   "fields": {
-    "name": "Source 0",
+    "name": "Source 1",
     "researcher": 2,
     "url": "",
     "isbn": ""
