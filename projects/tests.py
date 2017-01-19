@@ -8,6 +8,7 @@ from .utils import generate_uid
 from .models import Project
 from .forms import NewProjectForm, AddElementsForm
 from researchers.models import Researcher
+from protocols.models import Protocol
 
 
 class ProjectsTest(TestCase):
@@ -113,17 +114,25 @@ class ProjectsFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
 
-    def test_add_elements_form_sources_all_fields(self):
+    def test_add_elements_form_protocols_queryset(self):
         data = {
-            'element_type': 's',
-            'element_choices': ['1', '2']
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
         }
         form = AddElementsForm(
             data,
             researcher=self.researcher0,
             selected_project=self.project1
         )
-        self.assertTrue(form.is_valid())
+        protocols_to_add = [
+            Protocol.objects.get(unique_id='fba17387'),
+            Protocol.objects.get(unique_id='8f4a328c'),
+            Protocol.objects.get(unique_id='52944cc7')
+        ]
+        self.assertEqual(
+            list(form.fields['element_choices'].queryset),
+            protocols_to_add
+        )
 
     def test_add_elements_form_protocols_watcher(self):
         data = {
@@ -152,6 +161,18 @@ class ProjectsFormsTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertTrue(form.fields['element_choices'].queryset)
         self.assertIn('element_choices', form.errors.keys())
+
+    def test_add_elements_form_sources_all_fields(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher0,
+            selected_project=self.project1
+        )
+        self.assertTrue(form.is_valid())
 
     def test_add_elements_form_sources_watcher(self):
         data = {
