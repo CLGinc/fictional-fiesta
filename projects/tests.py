@@ -21,17 +21,16 @@ class ProjectsTest(TestCase):
     ]
 
     def setUp(self):
-        self.researcher0 = Researcher.objects.get(user__username='user0')
         self.client = Client()
 
     def test_get_projects_list(self):
-        self.client.login(username='user0', password='user0')
+        self.client.login(username='user0@gmail.com', password='user0')
         url = reverse('projects_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_get_project(self):
-        self.client.login(username='user0', password='user0')
+        self.client.login(username='user0@gmail.com', password='user0')
         url = reverse('project', kwargs={'project_uid': '0f570c02'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -53,7 +52,10 @@ class ProjectsFormsTest(TestCase):
     ]
 
     def setUp(self):
-        self.researcher0 = Researcher.objects.get(user__username='user0')
+        self.researcher0 = Researcher.objects.get(
+            user__username='user0@gmail.com'
+        )
+        self.project1 = Project.objects.get(id=1)
 
     def test_new_project_form_empty(self):
         form = NewProjectForm()
