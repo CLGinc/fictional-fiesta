@@ -138,3 +138,17 @@ class ProjectsFormsTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertFalse(form.fields['element_choices'].queryset)
         self.assertIn('element_choices', form.errors.keys())
+
+    def test_add_elements_form_protocols_not_in_queryset(self):
+        data = {
+            'element_type': 'p',
+            'element_choices': ['test0', 'test1']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher1,
+            selected_project=self.project1
+        )
+        self.assertFalse(form.is_valid())
+        self.assertFalse(form.fields['element_choices'].queryset)
+        self.assertIn('element_choices', form.errors.keys())
