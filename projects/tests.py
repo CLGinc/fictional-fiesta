@@ -152,3 +152,18 @@ class ProjectsFormsTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertFalse(form.fields['element_choices'].queryset)
         self.assertIn('element_choices', form.errors.keys())
+
+    def test_add_elements_form_sources_watcher(self):
+        data = {
+            'element_type': 's',
+            'element_choices': ['4', '5']
+        }
+        form = AddElementsForm(
+            data,
+            researcher=self.researcher1,
+            selected_project=self.project1
+        )
+        self.assertFalse(form.is_valid())
+        self.assertFalse(form.fields['element_choices'].queryset)
+        self.assertIn('element_choices', form.errors.keys())
+

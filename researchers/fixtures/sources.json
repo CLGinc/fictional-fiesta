@@ -28,5 +28,35 @@
     "url": "",
     "isbn": ""
   }
+},
+{
+  "model": "researchers.source",
+  "pk": 4,
+  "fields": {
+    "name": "Source 4",
+    "researcher": 3,
+    "url": "",
+    "isbn": ""
+  }
+},
+{
+  "model": "researchers.source",
+  "pk": 5,
+  "fields": {
+    "name": "Source 5",
+    "researcher": 3,
+    "url": "",
+    "isbn": ""
+  }
+},
+{
+  "model": "researchers.source",
+  "pk": 6,
+  "fields": {
+    "name": "Source 6",
+    "researcher": 3,
+    "url": "",
+    "isbn": ""
+  }
 }
 ]
