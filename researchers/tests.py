@@ -23,10 +23,18 @@ class ProjectsTest(TestCase):
         self.project0 = Project.objects.get(name='Project 0')
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
-        self.researcher0 = Researcher.objects.get(user__username='user0')
-        self.researcher1 = Researcher.objects.get(user__username='user1')
-        self.researcher2 = Researcher.objects.get(user__username='user2')
-        self.tempuser = Researcher.objects.get(user__username='tempuser')
+        self.researcher0 = Researcher.objects.get(
+            user__username='user0@gmail.com'
+        )
+        self.researcher1 = Researcher.objects.get(
+            user__username='user1@gmail.com'
+        )
+        self.researcher2 = Researcher.objects.get(
+            user__username='user2@gmail.com'
+        )
+        self.tempuser = Researcher.objects.get(
+            user__username='tempuser@gmail.com'
+        )
         self.protocol0 = Protocol.objects.get(name='Protocol 0')
         self.protocol0 = Protocol.objects.get(name='Protocol 1')
         self.roles_per_projects = {

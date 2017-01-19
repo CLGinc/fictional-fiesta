@@ -78,7 +78,7 @@
     "password": "pbkdf2_sha256$30000$a3rBeqTPLrCr$TYYC666ZYQRTDy5hpxL/dgM8C7YUQwrig0RyabknaPk=",
     "last_login": null,
     "is_superuser": false,
-    "username": "tempuser",
+    "username": "tempuser@gmail.com",
     "first_name": "",
     "last_name": "",
     "email": "tempuser@gmail.com",

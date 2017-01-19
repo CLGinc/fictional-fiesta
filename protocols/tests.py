@@ -19,8 +19,12 @@ class ProtocolTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.researcher0 = Researcher.objects.get(user__username='user0')
-        self.researcher1 = Researcher.objects.get(user__username='user1')
+        self.researcher0 = Researcher.objects.get(
+            user__username='user0@gmail.com'
+        )
+        self.researcher1 = Researcher.objects.get(
+            user__username='user1@gmail.com'
+        )
         self.protocol0 = Protocol.objects.get(name='Protocol 0')
         self.project0 = Project.objects.get(name='Project 0')
         self.project1 = Project.objects.get(name='Project 1')
