@@ -24,7 +24,7 @@ class AddElementsForm(forms.Form):
         researcher = kwargs.pop('researcher')
         super(AddElementsForm, self).__init__(*args, **kwargs)
         if self.data.get('element_type') == 'p':
-            protocols_to_add = researcher.protocols_to_add(
+            protocols_to_add = researcher.get_protocols_to_add(
                 selected_project)
             self.fields.get('element_choices').to_field_name = 'unique_id'
             self.fields.get('element_choices').queryset = protocols_to_add

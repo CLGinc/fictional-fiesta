@@ -117,7 +117,7 @@ class Researcher(models.Model):
                 researcher=self,
                 role__in=roles,).select_related('project', 'protocol')
 
-    def protocols_to_add(self, project):
+    def get_protocols_to_add(self, project):
         protocols = Protocol.objects.filter(
             roles__researcher=self,
             roles__project=None

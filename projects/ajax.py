@@ -10,7 +10,7 @@ def get_protocols_to_add(request, project_uid):
     if request.is_ajax() and request.method == 'GET':
         selected_project = get_object_or_404(Project, unique_id=project_uid)
         researcher = request.user.researcher
-        protocols_to_add = researcher.protocols_to_add(
+        protocols_to_add = researcher.get_protocols_to_add(
             selected_project)
         return render(
             request,
