@@ -19,6 +19,9 @@ def create_invitation(request):
                 'email': form.cleaned_data.get('email'),
                 'inviter': request.user.researcher.id,
             }
+            invited = form.get_invited()
+            if invited:
+                data['invited'] = invited.id
             if form.cleaned_data.get('role'):
                 data['role'] = form.cleaned_data.get('role')
             if form.cleaned_data.get('invitation_object') == 'project':

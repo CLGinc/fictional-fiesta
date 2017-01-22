@@ -86,6 +86,10 @@ and invited cannot be the same')
         if self.accepted and not(self.invited):
             raise ValidationError('Invited \
 cannot be present for invitation that is not accepted')
+        if self.invited and self.project:
+            if self.project.roles.filter(researcher=self.invited):
+                raise ValidationError('Invited is already a participant \
+for the selected project')
 
     def send(self):
         # To develop seinding via MJ send API

@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Invitation
 from projects.models import Project
-from researchers.models import Role
+from researchers.models import Researcher, Role
 
 
 class CreateInvitationModelForm(forms.ModelForm):
@@ -13,6 +13,7 @@ class CreateInvitationModelForm(forms.ModelForm):
         fields = [
             'email',
             'inviter',
+            'invited',
             'protocol',
             'project',
             'role',
@@ -40,6 +41,15 @@ class CreateInvitationForm(forms.Form):
         elif self.data.get('invitation_object') == 'protocol':
             protocols_to_edit = self.inviter.get_protocols_to_edit()
             self.fields.get('object_choice').queryset = protocols_to_edit
+
+    def get_invited(self):
+        if self.cleaned_data:
+            if Researcher.objects.filter(
+                user__username=self.cleaned_data.get('email')
+            ).exists():
+                return Researcher.objects.get(
+                    user__username=self.cleaned_data.get('email')
+                )
 
 
 class AcceptInvitationForm(forms.Form):
