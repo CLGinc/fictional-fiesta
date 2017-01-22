@@ -15,8 +15,7 @@ def accept_invitation(request):
     invitation = get_object_or_404(Invitation, key=key)
     if invitation.is_expired() or \
             invitation.inviter == request.user.researcher or \
-            invitation.accepted or \
-            invitation.invited:
+            invitation.accepted:
         raise Http404()
     form = AcceptInvitationForm({'key': key})
     if request.method == 'POST':
