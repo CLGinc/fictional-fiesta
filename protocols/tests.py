@@ -8,7 +8,7 @@ from researchers.models import Researcher
 from projects.models import Project
 
 
-class ProtocolTest(TestCase):
+class ProtocolsTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
