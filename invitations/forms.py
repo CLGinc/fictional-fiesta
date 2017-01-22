@@ -45,10 +45,10 @@ class CreateInvitationForm(forms.Form):
     def get_invited(self):
         if self.cleaned_data:
             if Researcher.objects.filter(
-                user__username=self.cleaned_data.get('email')
+                user__email=self.cleaned_data.get('email')
             ).exists():
                 return Researcher.objects.get(
-                    user__username=self.cleaned_data.get('email')
+                    user__email=self.cleaned_data.get('email')
                 )
 
 
