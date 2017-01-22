@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import CreateInvitationForm, CreateInvitationModelForm
+from .models import Invitation
 
 
 @login_required
@@ -16,9 +17,10 @@ def create_invitation(request):
         if form.is_valid():
             data = {
                 'email': form.cleaned_data.get('email'),
-                'role': form.cleaned_data.get('role'),
                 'inviter': request.user.researcher.id,
             }
+            if form.cleaned_data.get('role'):
+                data['role'] = form.cleaned_data.get('role')
             if form.cleaned_data.get('invitation_object') == 'project':
                 data['project'] = form.cleaned_data.get('object_choice').id
             elif form.cleaned_data.get('invitation_object') == 'protocol':

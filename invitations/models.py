@@ -8,6 +8,8 @@ from researchers.models import Role
 
 
 class Invitation(models.Model):
+    DEFAULT_ROLE = 'watcher'
+
     email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
@@ -34,7 +36,7 @@ class Invitation(models.Model):
     role = models.CharField(
         max_length=255,
         choices=Role.ROLES_TO_INVITE,
-        default='watcher')
+        default=DEFAULT_ROLE)
     key = models.CharField(
         unique=True,
         default=generate_key,

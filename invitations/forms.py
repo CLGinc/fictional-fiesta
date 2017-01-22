@@ -6,6 +6,8 @@ from researchers.models import Role
 
 
 class CreateInvitationModelForm(forms.ModelForm):
+    role = forms.ChoiceField(choices=Role.ROLES_TO_INVITE, required=False)
+
     class Meta:
         model = Invitation
         fields = [
