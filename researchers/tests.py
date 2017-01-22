@@ -202,3 +202,9 @@ class ResearchersTest(TestCase):
         }
         response = self.client.post(url, data)
         self.assertRedirects(response, '/projects/list/')
+
+    def test_get_logout(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse('logout_user')
+        response = self.client.get(url)
+        self.assertRedirects(response, '/login/')
