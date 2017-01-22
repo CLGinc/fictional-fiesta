@@ -31,6 +31,10 @@ class Invitation(models.Model):
         blank=True,
         null=True
     )
+    role = models.CharField(
+        max_length=255,
+        choices=Role.ROLES_TO_INVITE,
+        default='watcher')
     key = models.CharField(
         unique=True,
         default=generate_key,
