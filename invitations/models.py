@@ -94,13 +94,13 @@ cannot be present for invitation that is not accepted')
             if self.project:
                 Role.objects.create(
                     researcher=invited,
-                    role='watcher',
+                    role=self.role,
                     project=self.project
                 )
             elif self.protocol:
                 Role.objects.create(
                     researcher=invited,
-                    role='watcher',
+                    role=self.role,
                     protocol=self.protocol
                 )
             self.invited = invited
