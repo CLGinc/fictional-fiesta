@@ -2,6 +2,7 @@ from django import forms
 
 from .models import Invitation
 from projects.models import Project
+from researchers.models import Role
 
 
 class CreateInvitationModelForm(forms.ModelForm):
@@ -12,6 +13,7 @@ class CreateInvitationModelForm(forms.ModelForm):
             'inviter',
             'protocol',
             'project',
+            'role',
             ]
 
 
@@ -21,6 +23,7 @@ class CreateInvitationForm(forms.Form):
         ('protocol', 'Protocol')
     )
     email = forms.EmailField()
+    role = forms.ChoiceField(choices=Role.ROLES_TO_INVITE, required=False)
     invitation_object = forms.ChoiceField(choices=INVITATION_FOR)
     object_choice = forms.ModelChoiceField(
         queryset=None,
