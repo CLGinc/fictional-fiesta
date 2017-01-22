@@ -20,9 +20,9 @@ class ProjectsTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.project0 = Project.objects.get(name='Project 0')
-        self.project1 = Project.objects.get(name='Project 1')
-        self.project2 = Project.objects.get(name='Project 2')
+        self.project0 = Project.objects.get(id=1)
+        self.project1 = Project.objects.get(id=2)
+        self.project2 = Project.objects.get(id=3)
         self.researcher0 = Researcher.objects.get(
             user__username='user0@gmail.com'
         )

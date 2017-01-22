@@ -26,8 +26,8 @@ class ProtocolTest(TestCase):
             user__username='user1@gmail.com'
         )
         self.protocol0 = Protocol.objects.get(name='Protocol 0')
-        self.project0 = Project.objects.get(name='Project 0')
-        self.project1 = Project.objects.get(name='Project 1')
+        self.project0 = Project.objects.get(id=1)
+        self.project1 = Project.objects.get(id=2)
 
     def test_create_result_when_not_owner_contributor_of_protocol(self):
         result = Result(
