@@ -124,6 +124,20 @@ class InvitationsTests(TestCase):
             e.exception.messages
         )
 
+    def test_invitation_invited_already_in_project(self):
+        invitation = Invitation(
+            email='user2@gmail.com',
+            inviter=self.researcher2,
+            invited=self.researcher1,
+            protocol=self.protocol1
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["Invited is already a participant for the selected protocol"],
+            e.exception.messages
+        )
+
     def test_accept_invitation(self):
         invitation = Invitation.objects.create(
             email='user1@gmail.com',
