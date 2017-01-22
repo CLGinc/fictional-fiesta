@@ -84,9 +84,10 @@ cannot be present for invitation that is not accepted')
         pass
 
     def accept(self, invited):
-        self.invited = invited
-        self.accepted = True
-        self.save()
+        if not(self.is_expired()):
+            self.invited = invited
+            self.accepted = True
+            self.save()
 
     def is_expired(self):
         expiration_date = self.datetime_created + \
