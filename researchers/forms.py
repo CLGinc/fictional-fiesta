@@ -105,7 +105,7 @@ class ProjectRolesListForm(forms.Form):
         if order_by == 'creation':
             order_type = self.cleaned_data.get('order_type', 'desc')
         else:
-            order_type = self.cleaned_data.get('order_type' 'asc')
+            order_type = self.cleaned_data.get('order_type', 'asc')
         order_by = dict(self.ORDER_BY)[order_by]
         order_type = dict(self.ORDER_TYPE)[order_type]
         return order_type + order_by
