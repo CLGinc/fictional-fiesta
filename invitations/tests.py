@@ -114,13 +114,15 @@ class InvitationsTests(TestCase):
         invitation = Invitation.objects.create(
             email='user1@gmail.com',
             inviter=self.researcher1,
-            project=self.project1
+            project=self.project1,
+            role='contributor'
         )
         invitation.accept(self.researcher3)
         self.assertTrue(invitation.accepted)
         role = Role.objects.filter(
             researcher=self.researcher3,
-            project=self.project1
+            project=self.project1,
+            role='contributor'
         )
         self.assertTrue(role.exists())
 
