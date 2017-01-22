@@ -167,12 +167,8 @@ class ProjectsFormsTest(TestCase):
     ]
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(
-            user__username='user1@gmail.com'
-        )
-        self.researcher2 = Researcher.objects.get(
-            user__username='user2@gmail.com'
-        )
+        self.researcher1 = Researcher.objects.get(id=1)
+        self.researcher2 = Researcher.objects.get(id=2)
         self.project1 = Project.objects.get(id=1)
 
     def test_new_project_form_empty(self):
