@@ -228,7 +228,7 @@ class ResearchersTest(TestCase):
         url = reverse('login_user')
         data = {
             'email': 'user1@gmail.com',
-            'password': 'user0'
+            'password': 'user1'
         }
         response = self.client.post(url, data)
         self.assertRedirects(response, '/projects/list/')
@@ -237,13 +237,13 @@ class ResearchersTest(TestCase):
         url = reverse('login_user') + '?next=/projects/0f570c02/'
         data = {
             'email': 'user1@gmail.com',
-            'password': 'user0'
+            'password': 'user1'
         }
         response = self.client.post(url, data)
         self.assertRedirects(response, '/projects/0f570c02/')
 
     def test_get_logout(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('logout_user')
         response = self.client.get(url)
         self.assertRedirects(response, '/login/')

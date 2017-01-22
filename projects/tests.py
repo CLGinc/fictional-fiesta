@@ -27,13 +27,13 @@ class ProjectsTest(TestCase):
         self.project2 = Project.objects.get(id=2)
 
     def test_get_projects_list(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('projects_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_get_project(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('project', kwargs={'project_uid': '0f570c02'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -77,7 +77,7 @@ class ProjectsAjaxTest(TestCase):
         self.client = Client()
 
     def test_get_project_protocols_to_add(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -86,7 +86,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_project_protocols_to_add_non_ajax(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -95,7 +95,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_protocols_to_add_404(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': 'test'}
@@ -104,7 +104,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_post_project_protocols_to_add(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -116,7 +116,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_sources_to_add(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -125,7 +125,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_project_sources_to_add_non_ajax(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -134,7 +134,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_sources_to_add_404(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': 'test'}
@@ -143,7 +143,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_post_project_sources_to_add(self):
-        self.client.login(username='user1@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
