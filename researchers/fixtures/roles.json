@@ -71,16 +71,6 @@
 },
 {
   "model": "researchers.role",
-  "pk": 17,
-  "fields": {
-    "researcher": 3,
-    "project": 1,
-    "protocol": null,
-    "role": "watcher"
-  }
-},
-{
-  "model": "researchers.role",
   "pk": 18,
   "fields": {
     "researcher": 3,
@@ -187,6 +177,16 @@
     "project": null,
     "protocol": 10,
     "role": "contributor"
+  }
+},
+{
+  "model": "researchers.role",
+  "pk": 39,
+  "fields": {
+    "researcher": 1,
+    "project": null,
+    "protocol": 1,
+    "role": "watcher"
   }
 }
 ]

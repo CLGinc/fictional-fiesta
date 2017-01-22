@@ -20,7 +20,8 @@ class ResearchersTest(TestCase):
         'researchers/fixtures/sources',
         'researchers/fixtures/roles',
         'projects/fixtures/projects',
-        'protocols/fixtures/protocols']
+        'protocols/fixtures/protocols'
+    ]
 
     def setUp(self):
         self.client = Client()
@@ -42,7 +43,7 @@ class ResearchersTest(TestCase):
                 'watcher': [self.project1],
                 },
             self.researcher3: {
-                'watcher': [self.project1, self.project2],
+                'watcher': [self.project2],
                 'owner': [self.project3],
                 },
         }

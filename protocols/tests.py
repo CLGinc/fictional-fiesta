@@ -15,7 +15,8 @@ class ProtocolsTest(TestCase):
         'researchers/fixtures/universities',
         'projects/fixtures/projects',
         'researchers/fixtures/roles',
-        'protocols/fixtures/protocols']
+        'protocols/fixtures/protocols'
+    ]
 
     def setUp(self):
         self.client = Client()

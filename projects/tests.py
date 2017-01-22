@@ -58,7 +58,7 @@ class ProjectsTest(TestCase):
         participants = [[a[0], list(a[1])] for a in participants]
         expected_participants = [
             ['Owner', [Role.objects.get(id=6)]],
-            ['Watcher', [Role.objects.get(id=15), Role.objects.get(id=17)]],
+            ['Watcher', [Role.objects.get(id=15)]],
         ]
         self.assertEqual(participants, expected_participants)
 
