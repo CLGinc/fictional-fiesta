@@ -42,6 +42,98 @@ class ProjectsTest(TestCase):
         self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
 
 
+class ProjectsAjaxTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'projects/fixtures/projects',
+        'researchers/fixtures/roles',
+        'protocols/fixtures/protocols'
+    ]
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_project_protocols_to_add(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_protocols_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_project_protocols_to_add_non_ajax(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_protocols_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_project_protocols_to_add_404(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_protocols_to_add',
+            kwargs={'project_uid': 'test'}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 404)
+
+    def test_post_project_protocols_to_add(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_protocols_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_project_sources_to_add(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_sources_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_project_sources_to_add_non_ajax(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_sources_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_project_sources_to_add_404(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_sources_to_add',
+            kwargs={'project_uid': 'test'}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 404)
+
+    def test_post_project_sources_to_add(self):
+        self.client.login(username='user0@gmail.com', password='user0')
+        url = reverse(
+            'project_get_sources_to_add',
+            kwargs={'project_uid': '0f570c02'}
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 403)
+
+
 class ProjectsFormsTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
