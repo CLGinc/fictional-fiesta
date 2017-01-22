@@ -188,3 +188,17 @@ class ResearchersTest(TestCase):
         self.assertEqual(
             ["There is already an owner of this protocol!"],
             e.exception.messages)
+
+    def test_get_login(self):
+        url = reverse('login_user')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_login(self):
+        url = reverse('login_user')
+        data = {
+            'email': 'user0@gmail.com',
+            'password': 'user0'
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(response, '/projects/list/')
