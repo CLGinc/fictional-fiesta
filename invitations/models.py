@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from .utils import generate_key
 
+from researchers.models import Role
+
 
 class Invitation(models.Model):
     email = models.EmailField(max_length=254)
@@ -85,6 +87,18 @@ cannot be present for invitation that is not accepted')
 
     def accept(self, invited):
         if not(self.is_expired()):
+            if self.project:
+                Role.objects.create(
+                    researcher=invited,
+                    role='watcher',
+                    project=self.project
+                )
+            elif self.protocol:
+                Role.objects.create(
+                    researcher=invited,
+                    role='watcher',
+                    protocol=self.protocol
+                )
             self.invited = invited
             self.accepted = True
             self.save()
