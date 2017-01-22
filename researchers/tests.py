@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 
-from .models import Researcher, Role
+from .models import Researcher, Role, Source
 from projects.models import Project
 from protocols.models import Protocol
 
@@ -14,15 +14,16 @@ class ResearchersTest(TestCase):
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
         'researchers/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols']
 
     def setUp(self):
         self.client = Client()
-        self.project0 = Project.objects.get(id=1)
-        self.project1 = Project.objects.get(id=2)
-        self.project2 = Project.objects.get(id=3)
+        self.project1 = Project.objects.get(id=1)
+        self.project2 = Project.objects.get(id=2)
+        self.project3 = Project.objects.get(id=3)
         self.researcher0 = Researcher.objects.get(
             user__username='user0@gmail.com'
         )
@@ -38,16 +39,16 @@ class ResearchersTest(TestCase):
         self.protocol1 = Protocol.objects.get(id=1)
         self.roles_per_projects = {
             self.researcher0: {
-                'owner': [self.project0, self.project1],
-                'contributor': [self.project2],
+                'owner': [self.project1, self.project2],
+                'contributor': [self.project3],
                 },
             self.researcher1: {
-                'contributor': [self.project1, self.project2],
-                'watcher': [self.project0],
+                'contributor': [self.project2, self.project3],
+                'watcher': [self.project1],
                 },
             self.researcher2: {
-                'watcher': [self.project0, self.project1],
-                'owner': [self.project2],
+                'watcher': [self.project1, self.project2],
+                'owner': [self.project3],
                 },
         }
 
@@ -144,7 +145,7 @@ class ResearchersTest(TestCase):
     def test_add_role_with_project_and_protocol(self):
         role = Role(
             researcher=self.tempuser,
-            project=self.project0,
+            project=self.project1,
             protocol=self.protocol1,
             role='watcher'
         )
@@ -168,7 +169,7 @@ class ResearchersTest(TestCase):
     def test_add_second_owner_to_project(self):
         role = Role(
             researcher=self.tempuser,
-            project=self.project0,
+            project=self.project1,
             role='owner'
         )
         with self.assertRaises(ValidationError) as e:
@@ -188,6 +189,43 @@ class ResearchersTest(TestCase):
         self.assertEqual(
             ["There is already an owner of this protocol!"],
             e.exception.messages)
+
+    def test_get_protocols_to_add(self):
+        protocols = list(self.researcher0.get_protocols_to_add(self.project1))
+        expected_protocols = [
+            Protocol.objects.get(unique_id='fba17387'),
+            Protocol.objects.get(unique_id='8f4a328c'),
+            Protocol.objects.get(unique_id='52944cc7')
+        ]
+        self.assertEqual(protocols, expected_protocols)
+
+    def test_get_sources_to_add(self):
+        sources = list(self.researcher0.get_sources_to_add(self.project1))
+        expected_sources = [
+            Source.objects.get(id=3),
+            Source.objects.get(id=2),
+            Source.objects.get(id=1)
+        ]
+        self.assertEqual(sources, expected_sources)
+
+    def test_can_edit(self):
+        self.assertTrue(self.researcher0.can_edit(self.project1))
+        self.assertFalse(self.researcher1.can_edit(self.project1))
+
+    def test_get_projects_to_edit(self):
+        projects = list(self.researcher1.get_projects_to_edit())
+        expected_projects = [
+            Project.objects.get(id=2),
+            Project.objects.get(id=3)
+        ]
+        self.assertEqual(projects, expected_projects)
+
+    def test_get_protocols_to_edit(self):
+        protocols = list(self.researcher1.get_protocols_to_edit())
+        expected_protocols = [
+            Protocol.objects.get(id=1)
+        ]
+        self.assertEqual(protocols, expected_protocols)
 
     def test_get_login(self):
         url = reverse('login_user')
