@@ -9,7 +9,7 @@ from projects.models import Project
 from protocols.models import Protocol
 
 
-class ProjectsTest(TestCase):
+class ResearchersTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -35,8 +35,7 @@ class ProjectsTest(TestCase):
         self.tempuser = Researcher.objects.get(
             user__username='tempuser@gmail.com'
         )
-        self.protocol0 = Protocol.objects.get(name='Protocol 0')
-        self.protocol0 = Protocol.objects.get(name='Protocol 1')
+        self.protocol1 = Protocol.objects.get(id=1)
         self.roles_per_projects = {
             self.researcher0: {
                 'owner': [self.project0, self.project1],
@@ -146,7 +145,7 @@ class ProjectsTest(TestCase):
         role = Role(
             researcher=self.tempuser,
             project=self.project0,
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             role='watcher'
         )
         with self.assertRaises(ValidationError) as e:
@@ -181,7 +180,7 @@ class ProjectsTest(TestCase):
     def test_add_second_owner_to_protocol(self):
         role = Role(
             researcher=self.tempuser,
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             role='owner'
         )
         with self.assertRaises(ValidationError) as e:

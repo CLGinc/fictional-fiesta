@@ -25,7 +25,7 @@ class ProtocolTest(TestCase):
         self.researcher1 = Researcher.objects.get(
             user__username='user1@gmail.com'
         )
-        self.protocol0 = Protocol.objects.get(name='Protocol 0')
+        self.protocol1 = Protocol.objects.get(id=1)
         self.project0 = Project.objects.get(id=1)
         self.project1 = Project.objects.get(id=2)
 
@@ -33,7 +33,7 @@ class ProtocolTest(TestCase):
         result = Result(
             owner=self.researcher0,
             state='created',
-            protocol=self.protocol0
+            protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
@@ -45,7 +45,7 @@ class ProtocolTest(TestCase):
         result = Result(
             owner=self.researcher1,
             state='created',
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             project=self.project0
         )
         with self.assertRaises(ValidationError) as e:
@@ -59,7 +59,7 @@ class ProtocolTest(TestCase):
             owner=self.researcher1,
             state='created',
             is_successful=True,
-            protocol=self.protocol0
+            protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
@@ -71,7 +71,7 @@ class ProtocolTest(TestCase):
         result = Result(
             owner=self.researcher1,
             state='created',
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             project=self.project0
         )
         with self.assertRaises(ValidationError) as e:
