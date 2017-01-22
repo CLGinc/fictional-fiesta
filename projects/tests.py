@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from .utils import generate_uid
 from .models import Project
 from .forms import NewProjectForm, AddElementsForm
-from researchers.models import Researcher, Source
+from researchers.models import Researcher, Role, Source
 from protocols.models import Protocol
 
 
@@ -23,6 +23,8 @@ class ProjectsTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.project1 = Project.objects.get(id=1)
+        self.project2 = Project.objects.get(id=2)
 
     def test_get_projects_list(self):
         self.client.login(username='user0@gmail.com', password='user0')
@@ -40,6 +42,25 @@ class ProjectsTest(TestCase):
         key = generate_uid()
         self.assertEqual(len(key), 8)
         self.assertTrue(re.match(r'([A-Za-z]|[0-9]){8}', key))
+
+    def test_get_participants_by_role_all(self):
+        participants = self.project2.get_participants_by_role()
+        participants = [[a[0], list(a[1])] for a in participants]
+        expected_participants = [
+            ['Owner', [Role.objects.get(id=13)]],
+            ['Contributor', [Role.objects.get(id=5)]],
+            ['Watcher', [Role.objects.get(id=18)]],
+        ]
+        self.assertEqual(participants, expected_participants)
+
+    def test_get_participants_by_role(self):
+        participants = self.project1.get_participants_by_role()
+        participants = [[a[0], list(a[1])] for a in participants]
+        expected_participants = [
+            ['Owner', [Role.objects.get(id=6)]],
+            ['Watcher', [Role.objects.get(id=15), Role.objects.get(id=17)]],
+        ]
+        self.assertEqual(participants, expected_participants)
 
 
 class ProjectsAjaxTest(TestCase):
