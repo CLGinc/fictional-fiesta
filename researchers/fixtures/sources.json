@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "name": "Source 1",
-    "researcher": 2,
+    "researcher": 1,
     "url": "",
     "isbn": ""
   }
@@ -14,7 +14,7 @@
   "pk": 2,
   "fields": {
     "name": "Source 2",
-    "researcher": 2,
+    "researcher": 1,
     "url": "",
     "isbn": ""
   }
@@ -24,7 +24,7 @@
   "pk": 3,
   "fields": {
     "name": "Source 3",
-    "researcher": 2,
+    "researcher": 1,
     "url": "",
     "isbn": ""
   }
@@ -34,7 +34,7 @@
   "pk": 4,
   "fields": {
     "name": "Source 4",
-    "researcher": 3,
+    "researcher": 2,
     "url": "",
     "isbn": ""
   }
@@ -44,7 +44,7 @@
   "pk": 5,
   "fields": {
     "name": "Source 5",
-    "researcher": 3,
+    "researcher": 2,
     "url": "",
     "isbn": ""
   }
@@ -54,7 +54,7 @@
   "pk": 6,
   "fields": {
     "name": "Source 6",
-    "researcher": 3,
+    "researcher": 2,
     "url": "",
     "isbn": ""
   }

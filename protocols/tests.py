@@ -19,11 +19,11 @@ class ProtocolTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.researcher0 = Researcher.objects.get(
-            user__username='user0@gmail.com'
-        )
         self.researcher1 = Researcher.objects.get(
             user__username='user1@gmail.com'
+        )
+        self.researcher2 = Researcher.objects.get(
+            user__username='user2@gmail.com'
         )
         self.protocol1 = Protocol.objects.get(id=1)
         self.project0 = Project.objects.get(id=1)
@@ -31,7 +31,7 @@ class ProtocolTest(TestCase):
 
     def test_create_result_when_not_owner_contributor_of_protocol(self):
         result = Result(
-            owner=self.researcher0,
+            owner=self.researcher1,
             state='created',
             protocol=self.protocol1
         )
@@ -43,7 +43,7 @@ class ProtocolTest(TestCase):
 
     def test_create_result_when_not_owner_contributor_of_project(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
             protocol=self.protocol1,
             project=self.project0
@@ -56,7 +56,7 @@ class ProtocolTest(TestCase):
 
     def test_create_unfinished_successful_result(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
             is_successful=True,
             protocol=self.protocol1
@@ -69,7 +69,7 @@ class ProtocolTest(TestCase):
 
     def test_create_result_where_protocol_does_not_belong_to_project(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
             protocol=self.protocol1,
             project=self.project0

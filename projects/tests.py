@@ -27,13 +27,13 @@ class ProjectsTest(TestCase):
         self.project2 = Project.objects.get(id=2)
 
     def test_get_projects_list(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse('projects_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_get_project(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse('project', kwargs={'project_uid': '0f570c02'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -77,7 +77,7 @@ class ProjectsAjaxTest(TestCase):
         self.client = Client()
 
     def test_get_project_protocols_to_add(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -86,7 +86,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_project_protocols_to_add_non_ajax(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -95,7 +95,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_protocols_to_add_404(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': 'test'}
@@ -104,7 +104,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_post_project_protocols_to_add(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -116,7 +116,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_sources_to_add(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -125,7 +125,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_project_sources_to_add_non_ajax(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -134,7 +134,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_project_sources_to_add_404(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': 'test'}
@@ -143,7 +143,7 @@ class ProjectsAjaxTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_post_project_sources_to_add(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse(
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
@@ -167,11 +167,11 @@ class ProjectsFormsTest(TestCase):
     ]
 
     def setUp(self):
-        self.researcher0 = Researcher.objects.get(
-            user__username='user0@gmail.com'
-        )
         self.researcher1 = Researcher.objects.get(
             user__username='user1@gmail.com'
+        )
+        self.researcher2 = Researcher.objects.get(
+            user__username='user2@gmail.com'
         )
         self.project1 = Project.objects.get(id=1)
 
@@ -185,10 +185,10 @@ class ProjectsFormsTest(TestCase):
         }
         form = NewProjectForm(data)
         self.assertTrue(form.is_valid())
-        project = form.save(self.researcher0)
+        project = form.save(self.researcher1)
         self.assertIsInstance(project, Project)
         self.assertTrue(
-            self.researcher0.roles.filter(
+            self.researcher1.roles.filter(
                 project=project, role='owner'
             )
         )
@@ -200,17 +200,17 @@ class ProjectsFormsTest(TestCase):
         }
         form = NewProjectForm(data)
         self.assertTrue(form.is_valid())
-        project = form.save(self.researcher0)
+        project = form.save(self.researcher1)
         self.assertIsInstance(project, Project)
         self.assertTrue(
-            self.researcher0.roles.filter(
+            self.researcher1.roles.filter(
                 project=project, role='owner'
             )
         )
 
     def test_add_elements_form_empty(self):
         form = AddElementsForm(
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -222,7 +222,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
@@ -234,7 +234,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         protocols_to_add = [
@@ -254,7 +254,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         with self.assertRaises(AttributeError) as e:
@@ -267,7 +267,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         form.is_valid()
@@ -291,7 +291,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            researcher=self.researcher2,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -305,7 +305,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -319,7 +319,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
@@ -331,7 +331,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         sources_to_add = [
@@ -351,7 +351,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         with self.assertRaises(AttributeError) as e:
@@ -364,7 +364,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         form.is_valid()
@@ -385,7 +385,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            researcher=self.researcher2,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -399,7 +399,7 @@ class ProjectsFormsTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher0,
+            researcher=self.researcher1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())

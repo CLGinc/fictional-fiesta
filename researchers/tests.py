@@ -24,29 +24,29 @@ class ResearchersTest(TestCase):
         self.project1 = Project.objects.get(id=1)
         self.project2 = Project.objects.get(id=2)
         self.project3 = Project.objects.get(id=3)
-        self.researcher0 = Researcher.objects.get(
-            user__username='user0@gmail.com'
-        )
         self.researcher1 = Researcher.objects.get(
             user__username='user1@gmail.com'
         )
         self.researcher2 = Researcher.objects.get(
             user__username='user2@gmail.com'
         )
+        self.researcher3 = Researcher.objects.get(
+            user__username='user3@gmail.com'
+        )
         self.tempuser = Researcher.objects.get(
             user__username='tempuser@gmail.com'
         )
         self.protocol1 = Protocol.objects.get(id=1)
         self.roles_per_projects = {
-            self.researcher0: {
+            self.researcher1: {
                 'owner': [self.project1, self.project2],
                 'contributor': [self.project3],
                 },
-            self.researcher1: {
+            self.researcher2: {
                 'contributor': [self.project2, self.project3],
                 'watcher': [self.project1],
                 },
-            self.researcher2: {
+            self.researcher3: {
                 'watcher': [self.project1, self.project2],
                 'owner': [self.project3],
                 },
@@ -55,9 +55,9 @@ class ResearchersTest(TestCase):
     def test_get_roles_owners(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='project', roles=['owner']))
+            self.researcher1.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher0).get('owner')
+            self.researcher1).get('owner')
         self.assertEqual(
             len(roles_list_researcher0),
             len(expected_projects_list_researcher0))
@@ -66,14 +66,14 @@ class ResearchersTest(TestCase):
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='project', roles=['owner']))
+            self.researcher2.get_roles(scope='project', roles=['owner']))
         self.assertEqual(projects_list_researcher1, [])
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='project', roles=['owner']))
+            self.researcher3.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher2).get('owner')
+            self.researcher3).get('owner')
         self.assertEqual(
             len(projects_list_researcher2),
             len(expected_projects_list_researcher2))
@@ -83,11 +83,11 @@ class ResearchersTest(TestCase):
     def test_get_roles_contributors(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(
+            self.researcher1.get_roles(
                 scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher0).get('contributor')
+            self.researcher1).get('contributor')
         self.assertEqual(
             len(roles_list_researcher0),
             len(expected_projects_list_researcher0))
@@ -96,11 +96,11 @@ class ResearchersTest(TestCase):
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(
+            self.researcher2.get_roles(
                 scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher1).get('contributor')
+            self.researcher2).get('contributor')
         self.assertEqual(
             len(projects_list_researcher1),
             len(expected_projects_list_researcher1))
@@ -109,7 +109,7 @@ class ResearchersTest(TestCase):
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(
+            self.researcher3.get_roles(
                 scope='project',
                 roles=['contributor']))
         self.assertEqual(projects_list_researcher2, [])
@@ -117,14 +117,14 @@ class ResearchersTest(TestCase):
     def test_get_roles_watchers(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='project', roles=['watcher']))
+            self.researcher1.get_roles(scope='project', roles=['watcher']))
         self.assertEqual(roles_list_researcher0, [])
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='project', roles=['watcher']))
+            self.researcher2.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher1).get('watcher')
+            self.researcher2).get('watcher')
         self.assertEqual(
             len(projects_list_researcher1),
             len(expected_projects_list_researcher1))
@@ -133,9 +133,9 @@ class ResearchersTest(TestCase):
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='project', roles=['watcher']))
+            self.researcher3.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher2).get('watcher')
+            self.researcher3).get('watcher')
         self.assertEqual(
             len(projects_list_researcher2),
             len(expected_projects_list_researcher2))
@@ -191,7 +191,7 @@ class ResearchersTest(TestCase):
             e.exception.messages)
 
     def test_get_protocols_to_add(self):
-        protocols = list(self.researcher0.get_protocols_to_add(self.project1))
+        protocols = list(self.researcher1.get_protocols_to_add(self.project1))
         expected_protocols = [
             Protocol.objects.get(unique_id='fba17387'),
             Protocol.objects.get(unique_id='8f4a328c'),
@@ -200,7 +200,7 @@ class ResearchersTest(TestCase):
         self.assertEqual(protocols, expected_protocols)
 
     def test_get_sources_to_add(self):
-        sources = list(self.researcher0.get_sources_to_add(self.project1))
+        sources = list(self.researcher1.get_sources_to_add(self.project1))
         expected_sources = [
             Source.objects.get(id=3),
             Source.objects.get(id=2),
@@ -209,11 +209,11 @@ class ResearchersTest(TestCase):
         self.assertEqual(sources, expected_sources)
 
     def test_can_edit(self):
-        self.assertTrue(self.researcher0.can_edit(self.project1))
-        self.assertFalse(self.researcher1.can_edit(self.project1))
+        self.assertTrue(self.researcher1.can_edit(self.project1))
+        self.assertFalse(self.researcher2.can_edit(self.project1))
 
     def test_get_projects_to_edit(self):
-        projects = list(self.researcher1.get_projects_to_edit())
+        projects = list(self.researcher2.get_projects_to_edit())
         expected_projects = [
             Project.objects.get(id=2),
             Project.objects.get(id=3)
@@ -221,7 +221,7 @@ class ResearchersTest(TestCase):
         self.assertEqual(projects, expected_projects)
 
     def test_get_protocols_to_edit(self):
-        protocols = list(self.researcher1.get_protocols_to_edit())
+        protocols = list(self.researcher2.get_protocols_to_edit())
         expected_protocols = [
             Protocol.objects.get(id=1)
         ]
@@ -235,7 +235,7 @@ class ResearchersTest(TestCase):
     def test_post_login(self):
         url = reverse('login_user')
         data = {
-            'email': 'user0@gmail.com',
+            'email': 'user1@gmail.com',
             'password': 'user0'
         }
         response = self.client.post(url, data)
@@ -244,14 +244,14 @@ class ResearchersTest(TestCase):
     def test_post_login_redirect_to_project(self):
         url = reverse('login_user') + '?next=/projects/0f570c02/'
         data = {
-            'email': 'user0@gmail.com',
+            'email': 'user1@gmail.com',
             'password': 'user0'
         }
         response = self.client.post(url, data)
         self.assertRedirects(response, '/projects/0f570c02/')
 
     def test_get_logout(self):
-        self.client.login(username='user0@gmail.com', password='user0')
+        self.client.login(username='user1@gmail.com', password='user0')
         url = reverse('logout_user')
         response = self.client.get(url)
         self.assertRedirects(response, '/login/')
