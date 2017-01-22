@@ -94,6 +94,10 @@ for the selected project')
             if self.protocol.roles.filter(researcher=self.invited):
                 raise ValidationError('Invited is already a participant \
 for the selected protocol')
+        if self.invited:
+            if self.invited.user.email != self.email:
+                raise ValidationError('Selected email address and the \
+email address of the invited cannot be different')
 
     def send(self):
         # To develop seinding via MJ send API

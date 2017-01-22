@@ -138,6 +138,20 @@ class InvitationsTests(TestCase):
             e.exception.messages
         )
 
+    def test_invitation_invited_already_in_project(self):
+        invitation = Invitation(
+            email='test@gmail.com',
+            inviter=self.researcher1,
+            invited=self.researcher3,
+            project=self.project1
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["Selected email address and the email address of the invited cannot be different"],
+            e.exception.messages
+        )
+
     def test_accept_invitation(self):
         invitation = Invitation.objects.create(
             email='user1@gmail.com',
