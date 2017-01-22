@@ -172,7 +172,7 @@ class ProjectsFormsTest(TestCase):
         self.project1 = Project.objects.get(id=1)
 
     def test_new_project_form_empty(self):
-        form = NewProjectForm()
+        form = NewProjectForm(data={})
         self.assertFalse(form.is_valid())
 
     def test_new_project_form_mandatory_fields(self):
@@ -206,6 +206,7 @@ class ProjectsFormsTest(TestCase):
 
     def test_add_elements_form_empty(self):
         form = AddElementsForm(
+            data={},
             researcher=self.researcher1,
             selected_project=self.project1
         )
