@@ -217,3 +217,18 @@ class ResearchersTest(TestCase):
         url = reverse('logout_user')
         response = self.client.get(url)
         self.assertRedirects(response, '/login/')
+
+    def test_get_register(self):
+        url = reverse('register_user')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_register(self):
+        url = reverse('register_user')
+        data = {
+            'email': 'userreg@gmail.com',
+            'password1': 'hr192$^8rh198',
+            'password2': 'hr192$^8rh198',
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(response, '/projects/list/')
