@@ -21,7 +21,7 @@ def get_protocols_to_add(request, project_uid):
 
 
 def get_sources_to_add(request, project_uid):
-    if request.method == 'GET':
+    if request.is_ajax() and if request.method == 'GET':
         selected_project = get_object_or_404(Project, unique_id=project_uid)
         researcher = request.user.researcher
         sources_to_add = researcher.get_sources_to_add(selected_project)
