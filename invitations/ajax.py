@@ -1,5 +1,5 @@
-from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.http import HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 
 
@@ -31,7 +31,14 @@ def create_invitation(request):
             model_form = CreateInvitationModelForm(data)
             if model_form.is_valid():
                 model_form.save()
-                return render(request, 'invitation_result.html', locals())
-        return render(request, 'invitation_result.html', locals())
+                return HttpResponse('Invitation to {} created \
+and sent!'.format(model_form.cleaned_data['email'])
+                )
+            else:
+                return HttpResponseBadRequest(
+                    reason=model_form.errors.as_json()
+                )
+        else:
+                return HttpResponseBadRequest(reason=form.errors.as_json())
     else:
         return HttpResponseForbidden()
