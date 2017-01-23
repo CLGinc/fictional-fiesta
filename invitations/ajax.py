@@ -15,20 +15,9 @@ def create_invitation(request):
             inviter=request.user.researcher
         )
         if form.is_valid():
-            data = {
-                'email': form.cleaned_data.get('email'),
-                'inviter': request.user.researcher.id,
-            }
-            invited = form.get_invited()
-            if invited:
-                data['invited'] = invited.id
-            if form.cleaned_data.get('role'):
-                data['role'] = form.cleaned_data.get('role')
-            if form.cleaned_data.get('invitation_object') == 'project':
-                data['project'] = form.cleaned_data.get('object_choice').id
-            elif form.cleaned_data.get('invitation_object') == 'protocol':
-                data['protocol'] = form.cleaned_data.get('object_choice').id
-            model_form = CreateInvitationModelForm(data)
+            model_form = CreateInvitationModelForm(
+                form.get_data_for_model_form(request.user.researcher)
+            )
             if model_form.is_valid():
                 model_form.save()
                 return HttpResponse('Invitation to {} created \

@@ -51,6 +51,23 @@ class CreateInvitationForm(forms.Form):
                     user__email=self.cleaned_data.get('email')
                 )
 
+    def get_data_for_model_form(self, researcher):
+        data = {}
+        if self.cleaned_data:
+            data = {
+                'email': self.cleaned_data.get('email'),
+                'inviter': researcher.id,
+            }
+            invited = self.get_invited()
+            if invited:
+                data['invited'] = invited.id
+            if self.cleaned_data.get('role'):
+                data['role'] = self.cleaned_data.get('role')
+            if self.cleaned_data.get('invitation_object') == 'project':
+                data['project'] = self.cleaned_data.get('object_choice').id
+            elif self.cleaned_data.get('invitation_object') == 'protocol':
+                data['protocol'] = self.cleaned_data.get('object_choice').id
+        return data
 
 class AcceptInvitationForm(forms.Form):
     key = forms.CharField(max_length=64)
