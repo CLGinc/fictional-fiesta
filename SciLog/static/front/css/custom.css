@@ -265,6 +265,23 @@ a {
   visibility: visible;
   opacity: 1;
 }
+/*Select*/
+.select {
+  border: none;
+  background: none;
+  position: relative;
+  margin: 0 0 0 16px;
+  padding: 4px 0;
+  text-align: left;
+  color: #546e7a;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  outline: none;
+}
 /*Checkboxes*/
 .checkbox {
   position: relative;

@@ -56,16 +56,33 @@ $('[data-trigger="remove-input"]').click(function(){
 $('[data-trigger="add-input"]').click(function(){
 	var	currentId = $(this).attr('data-currentid'),
       newTargetId = 'email_input_'+(++currentId),
+      newTargetRole = newTargetId+'_role',
 			targetForm =  $(this).attr('data-form'),
 			sourceInput = document.getElementById(targetForm),
 			cloneInput = sourceInput.cloneNode(true),
 			insertTarget = $('#modal--participants').children('form').last(),
-			upgradeTarget = $(cloneInput).children('div').get(0);
-	$(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
-  componentHandler.upgradeElement(upgradeTarget);
+			upgradeTarget = $(cloneInput);
+      $(upgradeTarget).find().each(function () {
+          $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
+      });
+	// $(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
+  componentHandler.upgradeElements(upgradeTarget);
+  $(cloneInput).children('#email_input_source_role').attr('id',newTargetRole);
+  $(cloneInput).children('[data-content="email_input_source_role"]').attr('data-content',newTargetRole);
+  $(cloneInput).find('[for="email_input_source_role"]').attr('for',newTargetRole);
   $(cloneInput).attr('id',newTargetId).removeClass('hidden').hide().fadeIn(300).insertAfter(insertTarget);
 	$(upgradeTarget).children('[data-trigger="remove-input"]').bind('click', removeInput);
 	$(this).attr('data-currentid', currentId);
+});
+// selects
+$('[data-trigger="selectValue"]').click(function(){
+  var targetId = $(this).parent().attr('for'),
+      targetInput = $('[data-content="'+targetId+'"]'),
+      targetBtn = $('#'+targetId).children('[data-content="button--label"]'),
+      selectValue = $(this).attr('data-value'),
+      selectLabel = $(this).text();
+  targetBtn.text(selectLabel);
+  targetInput.val(selectValue);
 });
 // submit form
 $('[data-trigger="submit"]').click(function(){
@@ -84,7 +101,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 					var currentForm = $(this),
 							formData = currentForm.serialize(),
 						 	loader = currentForm.find('div[data-content="loader"]'),
-							button = currentForm.find('a'),
+							button = currentForm.find('a[data-trigger="remove-input"]'),
 							resultHolder = currentForm.children('div[data-content="result"]'),
 							buttonIcon = button.children('i');
 					button.toggleClass('hidden');
@@ -102,6 +119,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          },
 	          error: function(response)
 	          {
+              console.log(response);
 	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
 							resultHolder.html(errorNotif);
 							loader.toggleClass('is-active');
