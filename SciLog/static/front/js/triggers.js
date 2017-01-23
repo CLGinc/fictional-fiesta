@@ -62,7 +62,7 @@ $('[data-trigger="add-input"]').click(function(){
 			cloneInput = sourceInput.cloneNode(true),
 			insertTarget = $('#modal--participants').children('form').last(),
 			upgradeTarget = $(cloneInput);
-      $(upgradeTarget).find().each(function () {
+      $(upgradeTarget).children().each(function () {
           $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
       });
 	// $(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
