@@ -31,15 +31,7 @@ def create_invitation(request):
             model_form = CreateInvitationModelForm(data)
             if model_form.is_valid():
                 model_form.save()
-                return render(
-                    request,
-                    'invitation_result.html',
-                    status=200
-                )
-        return render(
-                request,
-                'invitation_result.html',
-                status=400
-            )
+                return render(request, 'invitation_result.html', locals())
+        return render(request, 'invitation_result.html', locals())
     else:
         return HttpResponseForbidden()

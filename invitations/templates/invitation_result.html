@@ -1,4 +1,4 @@
-<div data-response="{{ response.status }}">
+<div data-response="{% if form.errors %}KO{% else %}OK{% endif %}">
   {% if form.errors %}
   <ul>
     {% for error in form.errors.items %}
