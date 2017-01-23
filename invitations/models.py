@@ -125,3 +125,14 @@ email address of the invited cannot be different')
         expiration_date = self.datetime_created + \
             timezone.timedelta(self.expiration_days)
         return not(expiration_date > timezone.now() > self.datetime_created)
+
+    def can_be_accepted(self, accepting_researcher):
+        if self.is_expired():
+            return False
+        if self.inviter == accepting_researcher:
+            return False
+        if self.invited != accepting_researcher:
+            return False
+        if self.email != accepting_researcher.user.email:
+            return False
+        return True

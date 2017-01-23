@@ -68,6 +68,3 @@ class CreateInvitationForm(forms.Form):
             elif self.cleaned_data.get('invitation_object') == 'protocol':
                 data['protocol'] = self.cleaned_data.get('object_choice').id
         return data
-
-class AcceptInvitationForm(forms.Form):
-    key = forms.CharField(max_length=64)
