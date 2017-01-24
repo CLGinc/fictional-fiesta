@@ -60,19 +60,20 @@ $('[data-trigger="add-input"]').click(function(){
 			targetForm =  $(this).attr('data-form'),
 			sourceInput = document.getElementById(targetForm),
 			cloneInput = $(sourceInput).clone(true),
-			insertTarget = $('#modal--participants').children('form').last(),
-			upgradeTarget = $(cloneInput);
-      $(upgradeTarget).children().each(function () {
+			insertTarget = $('#modal--participants').children('form').last();
+      $(cloneInput).find('*').each(function () {
           $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
+					console.log(this);
       });
 	// $(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
-  componentHandler.upgradeElements(upgradeTarget);
   $(cloneInput).children('#email_input_source_role').attr('id',newTargetRole);
   $(cloneInput).children('[data-content="email_input_source_role"]').attr('data-content',newTargetRole);
   $(cloneInput).find('[for="email_input_source_role"]').attr('for',newTargetRole);
   $(cloneInput).attr('id',newTargetId).removeClass('hidden').hide().fadeIn(300).insertAfter(insertTarget);
-	$(upgradeTarget).children('[data-trigger="remove-input"]').bind('click', removeInput);
+	$(cloneInput).children('[data-trigger="remove-input"]').bind('click', removeInput);
 	$(this).attr('data-currentid', currentId);
+	var upgradeTarget = $('#'+newTargetId);
+  componentHandler.upgradeElements(upgradeTarget);
 });
 // selects
 $('[data-trigger="selectValue"]').click(function(){
