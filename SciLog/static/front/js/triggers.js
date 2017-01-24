@@ -59,7 +59,7 @@ $('[data-trigger="add-input"]').click(function(){
       newTargetRole = newTargetId+'_role',
 			targetForm =  $(this).attr('data-form'),
 			sourceInput = document.getElementById(targetForm),
-			cloneInput = sourceInput.cloneNode(true),
+			cloneInput = $(sourceInput).clone(true),
 			insertTarget = $('#modal--participants').children('form').last(),
 			upgradeTarget = $(cloneInput);
       $(upgradeTarget).children().each(function () {
