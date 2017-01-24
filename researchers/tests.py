@@ -4,52 +4,56 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 
-from .models import Researcher, Role
+from .models import Researcher, Role, Source
 from projects.models import Project
 from protocols.models import Protocol
 
+from .forms import ProjectRolesListForm
+from .models import Role
 
-class ProjectsTest(TestCase):
+
+class ResearchersTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
         'researchers/fixtures/roles',
         'projects/fixtures/projects',
-        'protocols/fixtures/protocols']
+        'protocols/fixtures/protocols'
+    ]
 
     def setUp(self):
         self.client = Client()
-        self.project0 = Project.objects.get(name='Project 0')
-        self.project1 = Project.objects.get(name='Project 1')
-        self.project2 = Project.objects.get(name='Project 2')
-        self.researcher0 = Researcher.objects.get(user__username='user0')
-        self.researcher1 = Researcher.objects.get(user__username='user1')
-        self.researcher2 = Researcher.objects.get(user__username='user2')
-        self.tempuser = Researcher.objects.get(user__username='tempuser')
-        self.protocol0 = Protocol.objects.get(name='Protocol 0')
-        self.protocol0 = Protocol.objects.get(name='Protocol 1')
+        self.project1 = Project.objects.get(id=1)
+        self.project2 = Project.objects.get(id=2)
+        self.project3 = Project.objects.get(id=3)
+        self.researcher1 = Researcher.objects.get(id=1)
+        self.researcher2 = Researcher.objects.get(id=2)
+        self.researcher3 = Researcher.objects.get(id=3)
+        self.tempuser = Researcher.objects.get(id=1001)
+        self.protocol1 = Protocol.objects.get(id=1)
         self.roles_per_projects = {
-            self.researcher0: {
-                'owner': [self.project0, self.project1],
-                'contributor': [self.project2],
-                },
             self.researcher1: {
-                'contributor': [self.project1, self.project2],
-                'watcher': [self.project0],
+                'owner': [self.project1, self.project2],
+                'contributor': [self.project3],
                 },
             self.researcher2: {
-                'watcher': [self.project0, self.project1],
-                'owner': [self.project2],
+                'contributor': [self.project2, self.project3],
+                'watcher': [self.project1],
+                },
+            self.researcher3: {
+                'watcher': [self.project2],
+                'owner': [self.project3],
                 },
         }
 
     def test_get_roles_owners(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='project', roles=['owner']))
+            self.researcher1.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher0).get('owner')
+            self.researcher1).get('owner')
         self.assertEqual(
             len(roles_list_researcher0),
             len(expected_projects_list_researcher0))
@@ -58,14 +62,14 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='project', roles=['owner']))
+            self.researcher2.get_roles(scope='project', roles=['owner']))
         self.assertEqual(projects_list_researcher1, [])
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='project', roles=['owner']))
+            self.researcher3.get_roles(scope='project', roles=['owner']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher2).get('owner')
+            self.researcher3).get('owner')
         self.assertEqual(
             len(projects_list_researcher2),
             len(expected_projects_list_researcher2))
@@ -75,11 +79,11 @@ class ProjectsTest(TestCase):
     def test_get_roles_contributors(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(
+            self.researcher1.get_roles(
                 scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher0).get('contributor')
+            self.researcher1).get('contributor')
         self.assertEqual(
             len(roles_list_researcher0),
             len(expected_projects_list_researcher0))
@@ -88,11 +92,11 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(
+            self.researcher2.get_roles(
                 scope='project',
                 roles=['contributor']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher1).get('contributor')
+            self.researcher2).get('contributor')
         self.assertEqual(
             len(projects_list_researcher1),
             len(expected_projects_list_researcher1))
@@ -101,7 +105,7 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(
+            self.researcher3.get_roles(
                 scope='project',
                 roles=['contributor']))
         self.assertEqual(projects_list_researcher2, [])
@@ -109,14 +113,14 @@ class ProjectsTest(TestCase):
     def test_get_roles_watchers(self):
         # Check data for Researcher 0
         roles_list_researcher0 = list(
-            self.researcher0.get_roles(scope='project', roles=['watcher']))
+            self.researcher1.get_roles(scope='project', roles=['watcher']))
         self.assertEqual(roles_list_researcher0, [])
 
         # Check data for Researcher 1
         projects_list_researcher1 = list(
-            self.researcher1.get_roles(scope='project', roles=['watcher']))
+            self.researcher2.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher1).get('watcher')
+            self.researcher2).get('watcher')
         self.assertEqual(
             len(projects_list_researcher1),
             len(expected_projects_list_researcher1))
@@ -125,9 +129,9 @@ class ProjectsTest(TestCase):
 
         # Check data for Researcher 2
         projects_list_researcher2 = list(
-            self.researcher2.get_roles(scope='project', roles=['watcher']))
+            self.researcher3.get_roles(scope='project', roles=['watcher']))
         expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher2).get('watcher')
+            self.researcher3).get('watcher')
         self.assertEqual(
             len(projects_list_researcher2),
             len(expected_projects_list_researcher2))
@@ -137,8 +141,8 @@ class ProjectsTest(TestCase):
     def test_add_role_with_project_and_protocol(self):
         role = Role(
             researcher=self.tempuser,
-            project=self.project0,
-            protocol=self.protocol0,
+            project=self.project1,
+            protocol=self.protocol1,
             role='watcher'
         )
         with self.assertRaises(ValidationError) as e:
@@ -161,7 +165,7 @@ class ProjectsTest(TestCase):
     def test_add_second_owner_to_project(self):
         role = Role(
             researcher=self.tempuser,
-            project=self.project0,
+            project=self.project1,
             role='owner'
         )
         with self.assertRaises(ValidationError) as e:
@@ -173,7 +177,7 @@ class ProjectsTest(TestCase):
     def test_add_second_owner_to_protocol(self):
         role = Role(
             researcher=self.tempuser,
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             role='owner'
         )
         with self.assertRaises(ValidationError) as e:
@@ -181,3 +185,204 @@ class ProjectsTest(TestCase):
         self.assertEqual(
             ["There is already an owner of this protocol!"],
             e.exception.messages)
+
+    def test_get_protocols_to_add(self):
+        protocols = list(self.researcher1.get_protocols_to_add(self.project1))
+        expected_protocols = [
+            Protocol.objects.get(unique_id='fba17387'),
+            Protocol.objects.get(unique_id='8f4a328c'),
+            Protocol.objects.get(unique_id='52944cc7')
+        ]
+        self.assertEqual(protocols, expected_protocols)
+
+    def test_get_sources_to_add(self):
+        sources = list(self.researcher1.get_sources_to_add(self.project1))
+        expected_sources = [
+            Source.objects.get(id=3),
+            Source.objects.get(id=2),
+            Source.objects.get(id=1)
+        ]
+        self.assertEqual(sources, expected_sources)
+
+    def test_can_edit(self):
+        self.assertTrue(self.researcher1.can_edit(self.project1))
+        self.assertFalse(self.researcher2.can_edit(self.project1))
+
+    def test_get_projects_to_edit(self):
+        projects = list(self.researcher2.get_projects_to_edit())
+        expected_projects = [
+            Project.objects.get(id=2),
+            Project.objects.get(id=3)
+        ]
+        self.assertEqual(projects, expected_projects)
+
+    def test_get_protocols_to_edit(self):
+        protocols = list(self.researcher2.get_protocols_to_edit())
+        expected_protocols = [
+            Protocol.objects.get(id=1)
+        ]
+        self.assertEqual(protocols, expected_protocols)
+
+    def test_get_login(self):
+        url = reverse('login_user')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_login(self):
+        url = reverse('login_user')
+        data = {
+            'email': 'user1@gmail.com',
+            'password': 'user1'
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(response, '/projects/list/')
+
+    def test_post_login_redirect_to_project(self):
+        url = reverse('login_user') + '?next=/projects/0f570c02/'
+        data = {
+            'email': 'user1@gmail.com',
+            'password': 'user1'
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(response, '/projects/0f570c02/')
+
+    def test_get_logout(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('logout_user')
+        response = self.client.get(url)
+        self.assertRedirects(response, '/login/')
+
+    def test_get_register(self):
+        url = reverse('register_user')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_register(self):
+        url = reverse('register_user')
+        data = {
+            'email': 'userreg@gmail.com',
+            'password1': 'hr192$^8rh198',
+            'password2': 'hr192$^8rh198',
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(response, '/projects/list/')
+
+
+class ResearchersFormsTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
+        'researchers/fixtures/roles',
+        'projects/fixtures/projects',
+        'protocols/fixtures/protocols']
+
+    def setUp(self):
+        self.researcher1 = Researcher.objects.get(id=1)
+
+    def test_project_roles_list_form_empty(self):
+        form = ProjectRolesListForm(data={}, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+
+    def test_project_roles_list_form_all_fields(self):
+        data = {
+            'name': 'Project 1',
+            'created_from': '2016-01-01',
+            'created_to': '2016-02-01',
+            'role': ['owner'],
+            'order_by': 'name',
+            'order_type': 'asc'
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+
+    def test_project_roles_list_form_name(self):
+        data = {
+            'name': 'Project 1',
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=1, researcher=self.researcher1)
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form_created_from(self):
+        data = {
+            'created_from': '2016-11-23',
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=3, researcher=self.researcher1)
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form_created_to(self):
+        data = {
+            'created_to': '2016-11-22',
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=2, researcher=self.researcher1),
+            Role.objects.get(project__id=1, researcher=self.researcher1),
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form_role(self):
+        data = {
+            'role': ['owner', 'watcher'],
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=2, researcher=self.researcher1),
+            Role.objects.get(project__id=1, researcher=self.researcher1),
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form_default_order(self):
+        form = ProjectRolesListForm(data={}, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=3, researcher=self.researcher1),
+            Role.objects.get(project__id=2, researcher=self.researcher1),
+            Role.objects.get(project__id=1, researcher=self.researcher1),
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form__order_by_name_default_order_type(self):
+        data = {
+            'order_by': 'name',
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=1, researcher=self.researcher1),
+            Role.objects.get(project__id=2, researcher=self.researcher1),
+            Role.objects.get(project__id=3, researcher=self.researcher1),
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_project_roles_list_form__order_by_role_descending(self):
+        data = {
+            'order_by': 'role',
+            'order_type': 'desc'
+        }
+        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project__id=1, researcher=self.researcher1),
+            Role.objects.get(project__id=2, researcher=self.researcher1),
+            Role.objects.get(project__id=3, researcher=self.researcher1),
+        ]
+        projects = list(form.project_roles)
+        self.assertEqual(expected_projects, projects)

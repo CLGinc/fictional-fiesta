@@ -8,28 +8,29 @@ from researchers.models import Researcher
 from projects.models import Project
 
 
-class ProtocolTest(TestCase):
+class ProtocolsTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
         'projects/fixtures/projects',
         'researchers/fixtures/roles',
-        'protocols/fixtures/protocols']
+        'protocols/fixtures/protocols'
+    ]
 
     def setUp(self):
         self.client = Client()
-        self.researcher0 = Researcher.objects.get(user__username='user0')
-        self.researcher1 = Researcher.objects.get(user__username='user1')
-        self.protocol0 = Protocol.objects.get(name='Protocol 0')
-        self.project0 = Project.objects.get(name='Project 0')
-        self.project1 = Project.objects.get(name='Project 1')
+        self.researcher1 = Researcher.objects.get(id=1)
+        self.researcher2 = Researcher.objects.get(id=2)
+        self.protocol1 = Protocol.objects.get(id=1)
+        self.project0 = Project.objects.get(id=1)
+        self.project1 = Project.objects.get(id=2)
 
     def test_create_result_when_not_owner_contributor_of_protocol(self):
         result = Result(
-            owner=self.researcher0,
+            owner=self.researcher1,
             state='created',
-            protocol=self.protocol0
+            protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
@@ -39,9 +40,9 @@ class ProtocolTest(TestCase):
 
     def test_create_result_when_not_owner_contributor_of_project(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             project=self.project0
         )
         with self.assertRaises(ValidationError) as e:
@@ -52,10 +53,10 @@ class ProtocolTest(TestCase):
 
     def test_create_unfinished_successful_result(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
             is_successful=True,
-            protocol=self.protocol0
+            protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
@@ -65,9 +66,9 @@ class ProtocolTest(TestCase):
 
     def test_create_result_where_protocol_does_not_belong_to_project(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.researcher2,
             state='created',
-            protocol=self.protocol0,
+            protocol=self.protocol1,
             project=self.project0
         )
         with self.assertRaises(ValidationError) as e:

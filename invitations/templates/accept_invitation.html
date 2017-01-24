@@ -12,15 +12,7 @@
           <form method="post" action="{% url 'accept_invitation' %}">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield">
-              <input autofocus="" class="mdl-textfield__input" id="id_key" maxlength="254" name="key" {% if form.key.data %}value="{{ form.key.value }}"{% endif %} type="text" required />
-              <label class="mdl-textfield__label" for="id_key">Invitation Key</label>
-              {% if form.errors.key %}
-              <div id="id_email_error" class="error-tooltip">
-                {% for error in form.errors.key %}
-                  {{ error|escape }}<br>
-                {% endfor %}
-              </div>
-              {% endif %}
+              You (<a href="mailto:{{ invitation.email }}">{{ invitation.email }}</a>) have been invited by <b>{{ invitation.inviter }}</b> to join <b>{% if invitation.project %}{{ invitation.project }}{% elif invitation.protocol %}{{ invitation.protocol }}{% endif %}</b>.
             </div>
             <div class="mdl-card__actions">
               <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Accept!</button>

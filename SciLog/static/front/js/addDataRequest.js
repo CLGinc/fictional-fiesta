@@ -11,17 +11,16 @@ var toggleCheckbox = function(){
 // clean html after list is closed
 var deleteOldList = function(requestTarget) {
   $('#'+requestTarget).empty();
-}
+};
 
 // Ajax request to retrieve list
 var addDataRequest = function(requestTarget) {
     // Configure the url we're about to hit
     $('[data-type="loader"]').removeClass('hidden');
     $('[data-type="loader"]').addClass('is-active');
-    var dataTarget = requestTarget+'=True';
+    var dataTarget = viewParam+requestTarget;
     $.ajax({
-        url: viewParam,
-        data: dataTarget,
+        url: dataTarget,
         type: "GET",
         dataType: 'html',
         success: function(data) {
@@ -41,36 +40,3 @@ var addDataRequest = function(requestTarget) {
         }
     });
 };
-
-// Ajax request to post form data NOT USED
-function pushRequest(requestUrl) {
-  // var element = event.target,
-  var epid = $(element).parents("li").attr("id"),
-      dataMerged = {"itemid":epid};
-  $(element).addClass(cssClass);
-
-  $.ajax({
-    type: 'POST',
-    url: requestUrl,
-    data: dataMerged,
-    dataType: "text",
-    success: function() {
-      $("#"+epid).fadeOut(800, function(){ $(this).remove();});
-      var snackbarContainer = document.querySelector('#snackbar-success'),
-          data = {
-        message: 'Success!',
-        timeout: 1000,
-      };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    },
-    error: function(ts) {
-      var snackbarContainer = document.querySelector('#snackbar-error'),
-          data = {
-        message: 'Could not remove entry id' + epid + ' Error: ' + ts.status + ' ' + ts.statusText,
-        timeout: 7000,
-      };
-      console.log(ts.responseText);
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    }
-  });
-}

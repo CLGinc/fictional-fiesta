@@ -43,8 +43,27 @@
 .padding--left-none {
   padding-left: 0;
 }
+.padding--left-16 {
+  padding-left: 16;
+}
 .top-8 {
   top:8px;
+}
+/* Input */
+.input--remove {
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+}
+.input--remove-spinner {
+  position: absolute;
+  right: 7px;
+  width: 20px;
+  height: 20px;
+  border-color: #2196f3;
+}
+.input--remove-spinner .mdl-spinner__layer-4,.input--remove-spinner .mdl-spinner__layer-3,.input--remove-spinner .mdl-spinner__layer-2,.input--remove-spinner .mdl-spinner__layer-1 {
+  border-color: #2196f3;
 }
 /* Text */
 .subpageheader {
@@ -58,6 +77,16 @@
 }
 .block {
   display: block;
+}
+.text--icon {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
 }
 /*Borders*/
 .border--bottom {
@@ -134,6 +163,15 @@ a {
 }
 .participant-list--role {
   padding: 8px;
+}
+/*Participants invite*/
+.invite--result-text {
+  height:27px;
+  font-size:18px;
+  line-height:1;
+  display:inline-block;
+  vertical-align: middle;
+  padding-bottom:16px;
 }
 /*Protocol list*/
 .protocol-list > div {
@@ -226,6 +264,23 @@ a {
 .element--show-animate {
   visibility: visible;
   opacity: 1;
+}
+/*Select*/
+.select {
+  border: none;
+  background: none;
+  position: relative;
+  margin: 0 0 0 16px;
+  padding: 4px 0;
+  text-align: left;
+  color: #546e7a;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  outline: none;
 }
 /*Checkboxes*/
 .checkbox {

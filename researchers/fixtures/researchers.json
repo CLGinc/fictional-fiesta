@@ -1,45 +1,45 @@
 [
 {
   "model": "researchers.researcher",
-  "pk": 1,
+  "pk": 1000,
   "fields": {
-    "user": 1,
+    "user": 1000,
     "university": 1,
     "scientific_degree": "Fart Producer"
   }
 },
 {
   "model": "researchers.researcher",
-  "pk": 2,
+  "pk": 1,
   "fields": {
-    "user": 8,
+    "user": 1,
     "university": 1,
     "scientific_degree": "Contributor0"
   }
 },
 {
   "model": "researchers.researcher",
-  "pk": 3,
+  "pk": 2,
   "fields": {
-    "user": 9,
+    "user": 2,
     "university": 1,
     "scientific_degree": "Contributor1"
   }
 },
 {
   "model": "researchers.researcher",
-  "pk": 4,
+  "pk": 3,
   "fields": {
-    "user": 10,
+    "user": 3,
     "university": 1,
     "scientific_degree": "Contributor2"
   }
 },
 {
   "model": "researchers.researcher",
-  "pk": 5,
+  "pk": 1001,
   "fields": {
-    "user": 11,
+    "user": 1001,
     "university": 1,
     "scientific_degree": "Temp"
   }

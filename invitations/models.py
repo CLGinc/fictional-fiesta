@@ -1,20 +1,16 @@
-from django.utils.crypto import get_random_string
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
+from .utils import generate_key
 
-def generate_key():
-    while(True):
-        key = get_random_string(64)
-        try:
-            Invitation.objects.get(key=key)
-        except Invitation.DoesNotExist:
-            return(key)
+from researchers.models import Role
 
 
 class Invitation(models.Model):
-    email = models.EmailField(unique=True, max_length=254)
+    DEFAULT_ROLE = 'watcher'
+
+    email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
         related_name='inviter_invitations'
@@ -37,6 +33,10 @@ class Invitation(models.Model):
         blank=True,
         null=True
     )
+    role = models.CharField(
+        max_length=255,
+        choices=Role.ROLES_TO_INVITE,
+        default=DEFAULT_ROLE)
     key = models.CharField(
         unique=True,
         default=generate_key,
@@ -45,6 +45,21 @@ class Invitation(models.Model):
     accepted = models.BooleanField(default=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+            ('email', 'project'),
+            ('email', 'protocol'))
+
+    def __str__(self):
+        target = 'Project' if self.project else 'Protocol'
+        invited = self.invited if self.invited else self.email
+        return('{} invitiation from {} to {}'.format(
+            target,
+            self.inviter,
+            invited
+            )
+        )
 
     def clean(self):
         if not(self.project or self.protocol):
@@ -61,7 +76,7 @@ project and protocol for the same invitation!')
 researchers to this project')
         if self.protocol and \
             self.inviter.roles.filter(
-                project=self.protocol,
+                protocol=self.protocol,
                 role='watcher'):
             raise ValidationError('You cannot invite \
 researchers to this protocol')
@@ -71,17 +86,53 @@ and invited cannot be the same')
         if self.accepted and not(self.invited):
             raise ValidationError('Invited \
 cannot be present for invitation that is not accepted')
+        if self.invited and self.project:
+            if self.project.roles.filter(researcher=self.invited):
+                raise ValidationError('Invited is already a participant \
+for the selected project')
+        if self.invited and self.protocol:
+            if self.protocol.roles.filter(researcher=self.invited):
+                raise ValidationError('Invited is already a participant \
+for the selected protocol')
+        if self.invited:
+            if self.invited.user.email != self.email:
+                raise ValidationError('Selected email address and the \
+email address of the invited cannot be different')
 
     def send(self):
         # To develop seinding via MJ send API
         pass
 
     def accept(self, invited):
-        self.invited = invited
-        self.accepted = True
-        self.save()
+        if not(self.is_expired()):
+            if self.project:
+                Role.objects.create(
+                    researcher=invited,
+                    role=self.role,
+                    project=self.project
+                )
+            elif self.protocol:
+                Role.objects.create(
+                    researcher=invited,
+                    role=self.role,
+                    protocol=self.protocol
+                )
+            self.invited = invited
+            self.accepted = True
+            self.save()
 
     def is_expired(self):
         expiration_date = self.datetime_created + \
             timezone.timedelta(self.expiration_days)
         return not(expiration_date > timezone.now() > self.datetime_created)
+
+    def can_be_accepted(self, accepting_researcher):
+        if self.is_expired():
+            return False
+        if self.inviter == accepting_researcher:
+            return False
+        if self.invited != accepting_researcher:
+            return False
+        if self.email != accepting_researcher.user.email:
+            return False
+        return True
