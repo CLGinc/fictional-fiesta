@@ -227,8 +227,9 @@
                   <span class="material-icons">arrow_drop_down</span>
                 </a>
                 <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="email_input_source_role">
-                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="watcher">Watcher</li>
-                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="contributor">Contributor</li>
+                  {% for role_label, role in invitation_roles %}
+                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="{{ role_label }}">{{ role }}</li>
+                  {% endfor %}
                 </ul>
                 <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
                 <select class="hidden" name="invitation_object" value="project">
@@ -255,8 +256,9 @@
                   <span class="material-icons">arrow_drop_down</span>
                 </a>
                 <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="email_input_1_role">
-                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="watcher">Watcher</li>
-                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="contributor">Contributor</li>
+                  {% for role_label, role in invitation_roles %}
+                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="{{ role_label }}">{{ role }}</li>
+                  {% endfor %}
                 </ul>
                 <input class="hidden" data-content="email_input_1_role" name="role" value="watcher">
                 <select class="hidden" name="invitation_object" value="project">

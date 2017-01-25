@@ -49,6 +49,7 @@ def project(request, project_uid):
     can_edit = researcher.can_edit(selected_project)
 
     if request.method == 'GET':
+        invitation_roles = Role.ROLES_TO_INVITE
         results = selected_project.results.all()
         participants_by_role = selected_project.get_participants_by_role()
         paginator = Paginator(results, 15)
