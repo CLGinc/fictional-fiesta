@@ -213,24 +213,30 @@
             <div id="modal--participants" class="mdl-grid mdl-cell mdl-cell--12-col filter-form">
               <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" class="hidden">
                 {% csrf_token %}
-                <div class="mdl-textfield mdl-js-textfield">
+                <div class="mdc-textfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
                     <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
                   </a>
                   <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
-                  <input class="mdl-textfield__input" type="email" name="email">
-                  <label class="mdl-textfield__label">Email</label>
+                  <div class="mdc-textfield mdc-textfield--fullwidth">
+                    <input type="email" class="mdc-textfield__input" name="email" aria-controls="my-textfield-helptext" autocomplete="email">
+                    <label class="mdc-textfield__label">Email Address</label>
+                  </div>
                 </div>
-                <span class="mdl-color-text--blue-500 mdl-typography--subhead">Participant role:</span>
-                <a id="email_input_source_role" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
-                  <span data-content="button--label">Watcher</span>
-                  <span class="material-icons">arrow_drop_down</span>
-                </a>
-                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="email_input_source_role">
-                  {% for role_label, role in invitation_roles %}
-                  <li class="mdl-menu__item" data-trigger="selectValue" data-value="{{ role_label }}">{{ role }}</li>
-                  {% endfor %}
-                </ul>
+                <span class="mdl-typography--subhead">Participant role:</span>
+                <div id="email_input_source_role" class="mdc-select" role="listbox" tabindex="0">
+                  <span class="mdc-select__selected-text">Select role</span>
+                  <div class="mdc-simple-menu mdc-select__menu">
+                    <ul class="mdc-list mdc-simple-menu__items">
+                      <li class="mdc-list-item" role="option" aria-selected tabindex="0">
+                        Watcher
+                      </li>
+                      <li class="mdc-list-item" role="option" tabindex="0">
+                        Contributor
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
                 <select class="hidden" name="invitation_object" value="project">
                   <option selected value="project">Project</option>
@@ -240,7 +246,7 @@
                 </select>
                 <div data-content="result"></div>
               </form>
-              <form method="post" action="{% url 'create_invitation' %}" id="email_input_1">
+              <form method="post" action="{% url 'create_invitation' %}">
                 {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
@@ -349,6 +355,8 @@
   </div>
 {% endblock %}
 {% block post_load %}
+  <script type="text/javascript" src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script>window.mdc.autoInit();</script>
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>

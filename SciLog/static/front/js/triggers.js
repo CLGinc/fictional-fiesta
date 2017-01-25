@@ -1,3 +1,8 @@
+var MDCSelect = mdc.select.MDCSelect;
+var MDCTextfield = mdc.textfield.MDCTextfield;
+const select = new MDCSelect(document.querySelector('.mdc-select'));
+const inputs = new MDCTextfield(document.querySelector('.mdc-textfield'));
+
 // scrolltop
 $('.scrollToTop-button').click(function(){
 	$(win).animate({scrollTop : 0},300);
@@ -54,25 +59,16 @@ $('[data-trigger="remove-input"]').click(function(){
 });
 // add new input
 $('[data-trigger="add-input"]').click(function(){
-	var	currentId = $(this).attr('data-currentid'),
-      newTargetId = 'email_input_'+(++currentId),
-      newTargetRole = newTargetId+'_role',
-			targetForm =  $(this).attr('data-form'),
+	var	targetForm =  this.getAttribute('data-form'),
 			sourceInput = document.getElementById(targetForm),
-			cloneInput = $(sourceInput).clone(true),
-			insertTarget = $('#modal--participants').children('form').last();
-      $(cloneInput).find('*').each(function () {
-          $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
-					console.log(this);
-      });
-  $(cloneInput).children('#email_input_source_role').attr('id',newTargetRole);
-  $(cloneInput).children('[data-content="email_input_source_role"]').attr('data-content',newTargetRole);
-  $(cloneInput).find('[for="email_input_source_role"]').attr('for',newTargetRole);
-  $(cloneInput).attr('id',newTargetId).removeClass('hidden').hide().fadeIn(300).insertAfter(insertTarget);
-	$(cloneInput).children('[data-trigger="remove-input"]').bind('click', removeInput);
-	$(this).attr('data-currentid', currentId);
-	var upgradeTarget = $('#'+newTargetId);
-  componentHandler.upgradeElements(upgradeTarget);
+			clone = sourceInput.cloneNode(true);
+			insertTarget = document.getElementById('modal--participants'),
+      lastForm = $(insertTarget).children('form').last();
+  $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
+  clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
+  // componentHandler.upgradeElements(clone);
+  initSelects(clone);
+  initInputs(clone);
 });
 // selects
 $('[data-trigger="selectValue"]').click(function(){
@@ -84,6 +80,19 @@ $('[data-trigger="selectValue"]').click(function(){
   targetBtn.text(selectLabel);
   targetInput.val(selectValue);
 });
+var initSelects = function(clone){
+  var selects = clone.getElementsByClassName('mdc-select');
+  $(selects).each(function(){
+    MDCSelect.attachTo(this);
+    console.log(this);
+  });
+}
+var initInputs = function(clone){
+  var inputs = clone.getElementsByClassName('mdc-textfield');
+  $(inputs).each(function(){
+    MDCTextfield.attachTo(this);
+  });
+}
 // submit form
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),

@@ -65,6 +65,9 @@
 .input--remove-spinner .mdl-spinner__layer-4,.input--remove-spinner .mdl-spinner__layer-3,.input--remove-spinner .mdl-spinner__layer-2,.input--remove-spinner .mdl-spinner__layer-1 {
   border-color: #2196f3;
 }
+.mdc-textfield,.mdc-textfield__input {
+  width: 100%;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
@@ -266,22 +269,16 @@ a {
   opacity: 1;
 }
 /*Select*/
-.select {
-  border: none;
-  background: none;
-  position: relative;
-  margin: 0 0 0 16px;
-  padding: 4px 0;
-  text-align: left;
-  color: #546e7a;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  overflow: hidden;
-  white-space: nowrap;
-  outline: none;
+.mdc-select {
+  z-index: 1001;
+  margin-left: 16px;
+  width: auto!important;
 }
+.mdc-select__menu {
+  z-index: 1001;
+  overflow: visible;
+}
+
 /*Checkboxes*/
 .checkbox {
   position: relative;
