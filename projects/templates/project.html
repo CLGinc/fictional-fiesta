@@ -211,18 +211,18 @@
               {% endif %}
             </div>
             <div id="modal--participants" class="mdl-grid mdl-cell mdl-cell--12-col filter-form">
-              <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" >
+              <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" class="hidden">
                 {% csrf_token %}
                 <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
                     <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
                   </a>
                   <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
-                  <input type="text" name="email" id="my-textfield" class="mdc-textfield__input">
-                  <label class="mdc-textfield__label" for="my-textfield">Email address</label>
+                  <input type="text" name="email" class="mdc-textfield__input">
+                  <label class="mdc-textfield__label">Email address</label>
                 </div>
                 <span class="mdl-typography--subhead">Participant role:</span>
-                <div id="email_input_source_role" class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+                <div class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
                   <span class="mdc-select__selected-text">Select role</span>
                   <div class="mdc-simple-menu mdc-select__menu">
                     <ul class="mdc-list mdc-simple-menu__items">

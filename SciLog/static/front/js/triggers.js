@@ -60,9 +60,7 @@ $('[data-trigger="add-input"]').click(function(){
 			insertTarget = document.getElementById('modal--participants'),
       lastForm = $(insertTarget).children('form').last();
   $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
-	$(clone).children().removeAttr('id').removeClass('mdc-textfield--upgraded');
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
-  // componentHandler.upgradeElements(clone);
 	window.mdc.autoInit(clone);
 });
 // selects
