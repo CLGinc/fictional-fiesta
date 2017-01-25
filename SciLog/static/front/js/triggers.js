@@ -1,8 +1,3 @@
-var MDCSelect = mdc.select.MDCSelect;
-var MDCTextfield = mdc.textfield.MDCTextfield;
-const select = new MDCSelect(document.querySelector('.mdc-select'));
-const inputs = new MDCTextfield(document.querySelector('.mdc-textfield'));
-
 // scrolltop
 $('.scrollToTop-button').click(function(){
 	$(win).animate({scrollTop : 0},300);
@@ -65,10 +60,10 @@ $('[data-trigger="add-input"]').click(function(){
 			insertTarget = document.getElementById('modal--participants'),
       lastForm = $(insertTarget).children('form').last();
   $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
+	$(clone).children().removeAttr('id').removeClass('mdc-textfield--upgraded');
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
   // componentHandler.upgradeElements(clone);
-  initSelects(clone);
-  initInputs(clone);
+	window.mdc.autoInit(clone);
 });
 // selects
 $('[data-trigger="selectValue"]').click(function(){
@@ -80,19 +75,6 @@ $('[data-trigger="selectValue"]').click(function(){
   targetBtn.text(selectLabel);
   targetInput.val(selectValue);
 });
-var initSelects = function(clone){
-  var selects = clone.getElementsByClassName('mdc-select');
-  $(selects).each(function(){
-    MDCSelect.attachTo(this);
-    console.log(this);
-  });
-}
-var initInputs = function(clone){
-  var inputs = clone.getElementsByClassName('mdc-textfield');
-  $(inputs).each(function(){
-    MDCTextfield.attachTo(this);
-  });
-}
 // submit form
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
@@ -135,9 +117,10 @@ $('[data-trigger="submit-ajax"]').click(function(){
 							buttonIcon.html('close');
 							button.toggleClass('hidden');
 	          },
-	          complete: function()
+	          complete: function(response)
 	          {
 	            // anything to do here?
+							console.log(response);
 	          }
 	        });
 				}
