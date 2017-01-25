@@ -65,7 +65,6 @@ $('[data-trigger="add-input"]').click(function(){
           $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
 					console.log(this);
       });
-	// $(upgradeTarget).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
   $(cloneInput).children('#email_input_source_role').attr('id',newTargetRole);
   $(cloneInput).children('[data-content="email_input_source_role"]').attr('data-content',newTargetRole);
   $(cloneInput).find('[for="email_input_source_role"]').attr('for',newTargetRole);
