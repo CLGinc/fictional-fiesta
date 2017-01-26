@@ -211,7 +211,7 @@
               {% endif %}
             </div>
             <div id="modal--participants" class="mdl-grid mdl-cell mdl-cell--12-col filter-form">
-              <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" class="hidden">
+              <form method="post" action="{% url 'create_invitation' %}" id="email_input_source" >
                 {% csrf_token %}
                 <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                   <a data-trigger="remove-input" class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600 input--remove">
@@ -226,16 +226,16 @@
                   <span class="mdc-select__selected-text">Select role</span>
                   <div class="mdc-simple-menu mdc-select__menu">
                     <ul class="mdc-list mdc-simple-menu__items">
-                      <li class="mdc-list-item" role="option" aria-selected tabindex="0">
+                      <li class="mdc-list-item" role="option" aria-selected tabindex="0" data-value="watcher">
                         Watcher
                       </li>
-                      <li class="mdc-list-item" role="option" tabindex="0">
+                      <li class="mdc-list-item" role="option" tabindex="0" data-value="contributor">
                         Contributor
                       </li>
                     </ul>
                   </div>
+                  <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
                 </div>
-                <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
                 <select class="hidden" name="invitation_object" value="project">
                   <option selected value="project">Project</option>
                 </select>

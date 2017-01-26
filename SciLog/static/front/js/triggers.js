@@ -62,7 +62,19 @@ $('[data-trigger="add-input"]').click(function(){
   $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
 	window.mdc.autoInit(clone);
+	$(clone).children('.mdc-select').on('MDCSelect:change', function(event) {
+		setSelectValue(event);
+	});
 });
+$('.mdc-select').on('MDCSelect:change', function(event) {
+	setSelectValue(event);
+});
+var setSelectValue = function(event){
+	var value = event.detail.selectedText_.innerText.toLowerCase(),
+			target = $(event.currentTarget).children('input');
+	$(target).attr('value', value);
+}
+
 // selects
 $('[data-trigger="selectValue"]').click(function(){
   var targetId = $(this).parent().attr('for'),
