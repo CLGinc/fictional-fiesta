@@ -120,7 +120,6 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          },
 	          error: function(response)
 	          {
-              console.log(response);
 	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
 							resultHolder.html(errorNotif);
 							loader.toggleClass('is-active');
@@ -130,7 +129,6 @@ $('[data-trigger="submit-ajax"]').click(function(){
 	          complete: function(response)
 	          {
 	            // anything to do here?
-							console.log(response);
 	          }
 	        });
 				}
