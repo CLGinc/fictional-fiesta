@@ -69,6 +69,7 @@ var loadItems = function() {
             // Update global next page variable
             hasNextPage = true;//.hasNext;
     				$('#items_list').append(data);
+            window.mdc.autoInit(document.getElementById('items_list'), () => {});
         },
         error: function(data) {
             // When I get a 400 back, fail safely
