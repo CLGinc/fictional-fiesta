@@ -54,7 +54,7 @@
                     </div>
                   </li>
                 </ul>
-                <ul class="mdc-list mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+                <ul class="mdc-list mdl-grid mdl-grid--no-spacing width--full" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
                   {% for result in results_page %}
               		<li class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col">
                     <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
@@ -113,7 +113,7 @@
                     </div>
                   </li>
                 </ul>
-                <ul class="mdc-list mdl-grid mdl-grid--no-spacing">
+                <ul class="mdc-list mdl-grid mdl-grid--no-spacing width--full">
                   {% for protocol in selected_project.protocols.all %}
               		<li class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col">
                     <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
