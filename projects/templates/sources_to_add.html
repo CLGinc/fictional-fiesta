@@ -6,13 +6,17 @@
     <div class="mdl-cell mdl-cell--2-col">ISBN</div>
     <div class="mdl-cell mdl-cell--5-col">URL</div>
   </li>
-  <form id="form--sources" method="post" action="">
-    {% csrf_token %}
+</ul>
+<form id="form--sources" method="post" action="">
+  {% csrf_token %}
+  <ul class="mdc-list">
     {% for source in sources_to_add %}
-    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}" id="{{ source.id }}" class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing list--link mdl-cell mdl-cell--12-col">
+    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
+        id="{{ source.id }}"
+        class="mdc-list-item border--bottom width--full list--link">
       <div class="mdl-cell mdl-cell--1-col">
         <div class="mdc-checkbox">
-          <input type="checkbox" id="{{ source.id }}" class="mdc-checkbox__native-control"/>
+          <input type="checkbox" id="checkbox_{{ source.id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
             <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
               <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
@@ -26,13 +30,13 @@
       <div class="mdl-cell mdl-cell--5-col">{{ source.url }}</div>
     </li>
     {% endfor %}
-    <select class="hidden" name="element_type" value="p">
-      <option value="p">Protocols</option>
-      <option selected value="s">Sources</option>
-      <option value="u">Participants</option>
-    </select>
-  </form>
-</ul>
+  </ul>
+  <select class="hidden" name="element_type" value="p">
+    <option value="p">Protocols</option>
+    <option selected value="s">Sources</option>
+    <option value="u">Participants</option>
+  </select>
+</form>
 {% else %}
 <div class="article width--full">
   <h1 class="mdl-color-text--accent section--title">No sources</h1>

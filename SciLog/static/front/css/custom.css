@@ -307,6 +307,11 @@ a {
 .mdc-checkbox {
   vertical-align: middle;
 }
+.mdc-list-item.mdc-ripple-upgraded {
+  left: 0;
+  width: 100%;
+  padding: 0;
+}
 .modal--button-container {
   position: fixed;
   z-index: 100;
