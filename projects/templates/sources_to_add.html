@@ -1,41 +1,37 @@
-{% if sources_to_add %}
-<ul class="mdl-list margin--bottom-0">
-  <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-    <div class="mdl-cell mdl-cell--1-col">Select</div>
-    <div class="mdl-cell mdl-cell--4-col">Name</div>
-    <div class="mdl-cell mdl-cell--2-col">ISBN</div>
-    <div class="mdl-cell mdl-cell--5-col">URL</div>
+<ul class="mdc-list margin--bottom-0">
+  <li class="mdl-grid mdl-grid--no-spacing mdl-cell--hide-phone mdc-list-item border--bottom mdl-color-text--blue-500">
+    <div class="mdl-grid mdl-cell mdl-cell--9-col">
+      <div class="mdl-cell mdl-cell--8-col">Name</div>
+      <div class="mdl-cell mdl-cell--4-col">ISBN</div>
+    </div>
+    <div class="mdl-grid mdl-cell mdl-cell--2-col">
+      <div class="mdl-cell mdl-cell--7-col">Url</div>
+    </div>
+    <div class="mdl-grid mdl-cell mdl-cell--1-col">
+      <div class="mdl-cell mdl-cell--1-col">Modify</div>
+    </div>
   </li>
-  <li>
-    <form id="form--sources" method="post" action="">
-      {% csrf_token %}
-      <ul class="mdl-list padding--top-none">
-        {% for source in sources_to_add %}
-        <li data-trigger="checkbox" data-target="checkbox_{{ source.id }}" id="{{ source.id }}" class="mdl-list__item border--bottom mdl-grid list--link">
-          <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="element_choices" value="{{ source.id }}" id="checkbox_{{ source.id }}" class="checkbox">
-          </div>
-          <div class="mdl-cell mdl-cell--4-col">{{ source.name }}</div>
-          <div class="mdl-cell mdl-cell--2-col">{{ source.isbn }}</div>
-          <div class="mdl-cell mdl-cell--5-col">{{ source.url }}</div>
-        </li>
-        {% endfor %}
-      </ul>
-      <select class="hidden" name="element_type" value="p">
-        <option value="p">Protocols</option>
-        <option selected value="s">Sources</option>
-        <option value="u">Participants</option>
-      </select>
-    </form>
+  {% for source in selected_project.sources.all %}
+  <li class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing">
+    <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--9-col list--link">
+      <div class="mdl-cell mdl-cell--8-col">{{ source.name }}</div>
+      <div class="mdl-cell mdl-cell--4-col">{{ source.isbn }}</div>
+    </a>
+    <div class="links--wrap mdl-grid mdl-cell mdl-cell--2-col list--link">
+      <a href="{{ source.url }}" target="_blank" class="links--wrap mdl-cell mdl-cell--12-col">
+        {% if source.url %}
+        Visit site
+        {% endif %}
+      </a>
+    </div>
+    <div class="links--wrap mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
+      <button class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600">
+        <i class="material-icons list--link-edit">edit</i>
+      </button>
+      <button class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600">
+        <i class="material-icons list--link-remove">clear</i>
+      </button>
+    </div>
   </li>
+  {% endfor %}
 </ul>
-{% else %}
-<div class="mdl-card width--full">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text mdl-color-text--accent">No sources</h2>
-  </div>
-  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
-    You have no available sources.
-  </div>
-</div>
-{% endif %}
