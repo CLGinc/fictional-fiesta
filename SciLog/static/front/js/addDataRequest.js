@@ -27,6 +27,7 @@ var addDataRequest = function(requestTarget) {
             // Append request template
     				$('#'+requestTarget).html(data);
             $('[data-trigger="checkbox"]').bind('click', toggleCheckbox);
+            window.mdc.autoInit(requestTarget);
         },
         error: function(data) {
             // When I get a 400 back, fail safely
