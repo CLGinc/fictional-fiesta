@@ -34,7 +34,6 @@ var addDataRequest = function(requestTarget) {
         error: function(data) {
             // When I get a 400 back, fail safely
             $('#'+requestTarget).html('There was a problem, please contact your administrator!');
-            console.log(url);
         },
         complete: function(data){
             // Turn the scroll monitor back on
