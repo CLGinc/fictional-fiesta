@@ -1,7 +1,4 @@
 /*Temp: to be removed after mdc implementation becomes available*/
-.hidden {
-  display: none !important;
-}
 .mdc-button--icon {
     border-radius: 50%;
     font-size: 24px;
@@ -121,13 +118,15 @@
   vertical-align: middle;
 }
 /*article*/
-.article, .article--modal {
+.article {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+.article, .article--modal {
   font-size: 16px;
   font-weight: 400;
   overflow: hidden;
@@ -373,4 +372,16 @@ a {
   margin-top: 30px;
   padding-top: 15px;
   border-top: 1px solid rgba(0,0,0,.2);
+}
+/*Show native select on small devices*/
+.select-manager > select.mdc-select {
+  display: none;
+}
+@media (max-width: 600px) and (pointer: coarse) {
+  .select-manager > .mdc-select[role="listbox"] {
+    display: none;
+  }
+  .select-manager > select.mdc-select {
+    display: block;
+  }
 }
