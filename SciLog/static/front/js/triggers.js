@@ -57,8 +57,8 @@ $('[data-trigger="add-input"]').click(function(){
 	var	targetForm =  this.getAttribute('data-form'),
 			sourceInput = document.getElementById(targetForm),
 			clone = sourceInput.cloneNode(true);
-			insertTarget = document.getElementById('modal--participants'),
-      lastForm = $(insertTarget).children('form').last();
+			insertTarget = document.getElementById('modal--participants');
+  var lastForm = $(insertTarget).children('form').last();
   $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
 	window.mdc.autoInit(clone);
@@ -95,6 +95,7 @@ $('[data-trigger="submit"]').click(function(){
 
 $('[data-trigger="submit-ajax"]').click(function(){
   var targetForm = $('#modal--participants').children('form');
+      var sendBtn = this;
 			$(targetForm).each(function(){
 				var emailInput = $(this).find("input[name='email']"),
 						url = $(this).attr('action');
@@ -107,28 +108,34 @@ $('[data-trigger="submit-ajax"]').click(function(){
 							buttonIcon = button.children('i');
 					button.toggleClass('hidden');
 					loader.toggleClass('is-active');
+          $(sendBtn).addClass('disabled');
 	        $.ajax({
 	          url: url,
 	          data: formData,
 	          type: 'POST',
 	          success: function(response)
 	          {
-							resultHolder.html(response);
+							resultHolder.removeClass('error').addClass('resultok').html('<p>'+response+'</p>');
 							loader.toggleClass('is-active');
 							buttonIcon.html('check');
 							button.toggleClass('hidden');
 	          },
 	          error: function(response)
 	          {
-	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
-							resultHolder.html(errorNotif);
+              var errorNotif = '';
+              // test with multiple errors (replace response.statusText with json below)
+              // var json = '{"__all__": [{"code": "unique_together", "message": "Invitation with this Email and Project already exists."}],"email":[{"code": "unique_together", "message": "mail not sent."}]}';
+              $.each($.parseJSON(response.statusText), function() {
+                errorNotif += '<p>'+this[0].message+'</p>';
+              });
+							resultHolder.removeClass('resultok').addClass('error').html(errorNotif);
 							loader.toggleClass('is-active');
 							buttonIcon.html('close');
 							button.toggleClass('hidden');
 	          },
 	          complete: function(response)
 	          {
-	            // anything to do here?
+              $(sendBtn).removeClass('disabled');
 	          }
 	        });
 				}

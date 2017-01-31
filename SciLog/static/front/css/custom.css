@@ -12,6 +12,11 @@
     color: inherit;
     line-height: normal;
 }
+.disabled {
+    color: rgba(0, 0, 0, 0.26)!important;
+    cursor: default;
+    pointer-events: none;
+}
 /* Page layout */
 .page-content {
   max-width: 1400px;
@@ -344,6 +349,15 @@ a {
   z-index: 1001;
   overflow: visible;
 }
+.result {
+  padding: 8px 0;
+}
+.resultok {
+  color: rgb(33,150,243);
+}
+.error {
+  color: #ff1744;
+}
 /* Filter */
 .filter-form {
   display: none;
@@ -372,16 +386,4 @@ a {
   margin-top: 30px;
   padding-top: 15px;
   border-top: 1px solid rgba(0,0,0,.2);
-}
-/*Show native select on small devices*/
-.select-manager > select.mdc-select {
-  display: none;
-}
-@media (max-width: 600px) and (pointer: coarse) {
-  .select-manager > .mdc-select[role="listbox"] {
-    display: none;
-  }
-  .select-manager > select.mdc-select {
-    display: block;
-  }
 }
