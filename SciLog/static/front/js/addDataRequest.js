@@ -1,10 +1,8 @@
 // Find checkbox state and toggle it
 var toggleCheckbox = function(){
   var targetCheckbox = $(this).attr('data-target');
-  console.log(targetCheckbox);
   if($('#'+targetCheckbox).prop('checked')){
     $('#'+targetCheckbox).prop('checked', false);
-    console.log('checked');
   } else {
     $('#'+targetCheckbox).prop('checked', true);
   }
@@ -20,6 +18,8 @@ var addDataRequest = function(requestTarget) {
     // Configure the url we're about to hit
     $('[data-type="loader"]').removeClass('hidden');
     $('[data-type="loader"]').addClass('is-active');
+    // remove # from vieparam in case of inactive link is clicked
+    viewParam = viewParam.replace('#','');
     var dataTarget = viewParam+requestTarget;
     $.ajax({
         url: dataTarget,
