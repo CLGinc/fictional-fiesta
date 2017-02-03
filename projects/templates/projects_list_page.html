@@ -1,5 +1,5 @@
 {% for role in roles_list_page %}
-<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
+<li class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing">
   <a href="/projects/{{ role.project.id }}" class="links--wrap mdl-grid mdl-cell mdl-cell--12-col list--link">
     <div class="mdl-cell mdl-cell--2-col">{{ role.project.name }}</div>
     <div class="mdl-cell mdl-cell--6-col">{{ role.project.description|truncatechars_html:92 }}</div>

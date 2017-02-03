@@ -69,7 +69,10 @@
   padding-left: 0;
 }
 .padding--left-16 {
-  padding-left: 16;
+  padding-left: 16px;
+}
+.padding--right-16 {
+  padding-right: 16px;
 }
 .top-8 {
   top:8px;
@@ -370,6 +373,9 @@ a {
 }
 .padding-fix--labels {
   padding: 25px 0;
+}
+.label--hover:hover {
+  cursor: pointer;
 }
 .border--right-blue {
   border-right: 1px #448aff solid;

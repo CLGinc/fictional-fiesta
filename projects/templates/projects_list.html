@@ -8,93 +8,106 @@
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
-          <h1 class="mdl-typography--headline mdl-color-text--blue-500 subpageheader">My Projects</h1>
-          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
+          <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+            My projects
+          </h1>
+          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
             <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add project
           </button>
-          <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
             <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
           </button>
-          <form method="post" id="new-project-form" class="new-project-form mdl-shadow--6dp">
+          <form method="post" id="new-project-form" class="new-project-form mdc-elevation--z4">
             {% csrf_token %}
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-              <div class="mdl-grid mdl-cell mdl-cell--6-col">
-                <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project name</p>
-                <div class="mdl-cell mdl-cell--12-col">
-                  <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" required rows="3" type="text" id="input-new-project--name" name="name" maxlength="255">
-                    <label class="mdl-textfield__label" for="input-new-project--name"></label>
-                  </div>
+              <p class="mdl-cell mdl-cell--12-col mdl-color-text--light-blue-500 mdl-typography--subhead">Add new project</p>
+              <div class="mdl-cell mdl-cell--6-col">
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
+                  <label class="mdc-textfield__label" for="input-new-project--name">Project name</label>
                 </div>
+                <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                  This name will be displayed in the project list and on your project page. Maximum of 255 characters.
+                </p>
               </div>
-              <div class="mdl-grid mdl-cell mdl-cell--6-col">
-                <p class="padding-fix--labels mdl-color-text--blue-500 mdl-typography--subhead mdl-cell mdl-cell--12-col">Project description</p>
-                <div class="mdl-cell mdl-cell--12-col">
-                  <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-new-project--desc" name="description" maxlength="255">
-                    <label class="mdl-textfield__label" for="input-new-project--desc"></label>
-                  </div>
+              <div class="mdl-cell mdl-cell--12-col">
+                <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                  <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
+                  <label class="mdc-textfield__label" for="input-new-project--desc">Project description</label>
                 </div>
+                <p id="new-project-desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                  A short project description. Maximum length of 250 characters.
+                </p>
               </div>
             </div>
             <div class="mdl-grid mdl-cell mdl-cell--12-col new-project--area">
-              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+              <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
                   Create Project
               </button>
-              <button type="button" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
+              <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
                 <i class="material-icons mdl-color-text--blue-500">close</i>
                   Close
               </button>
             </div>
           </form>
-          <form method="get" id="filter-form" class="filter-form mdl-shadow--6dp">
+          <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
+              <p class="mdl-grid mdl-cell mdl-cell--12-col mdl-color-text--light-blue-500 mdl-typography--subhead">Search by project</p>
               <div class="mdl-grid mdl-cell mdl-cell--6-col">
-                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Project name</p>
-                <div class="mdl-cell mdl-cell--12-col">
-                  <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
-                    <label class="mdl-textfield__label" for="input-filter--name"></label>
-                  </div>
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
+                  <label class="mdc-textfield__label" for="input-filter--name">Project name</label>
                 </div>
               </div>
               <div class="mdl-grid mdl-cell mdl-cell--3-col">
-                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Created from</p>
-                <div class="mdl-cell mdl-cell--12-col">
-                  <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ created_from|date:"Y-m-d" }}">
-                    <label class="mdl-textfield__label" for="created-from"><i class="material-icons right">arrow_drop_down</i></label>
-                  </div>
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ created_from|date:"Y-m-d" }}">
+                  <label class="mdc-textfield__label" for="created-from">
+                    <i class="material-icons right">arrow_drop_down</i> Created from:
+                  </label>
                 </div>
               </div>
               <div class="mdl-grid mdl-cell mdl-cell--3-col">
-                <p class="mdl-cell mdl-cell--12-col mdl-color-text--blue-500 mdl-typography--subhead">Created to</p>
-                <div class="mdl-cell mdl-cell--12-col">
-                  <div class="mdl-textfield mdl-js-textfield width--full">
-                    <input class="mdl-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ created_to|date:"Y-m-d" }}">
-                    <label class="mdl-textfield__label" for="created-to"><i class="material-icons right">arrow_drop_down</i></label>
-                  </div>
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ created_to|date:"Y-m-d" }}">
+                  <label class="mdc-textfield__label" for="created-to">
+                    <i class="material-icons right">arrow_drop_down</i> Created to:
+                  </label>
                 </div>
               </div>
               <div class="mdl-grid mdl-cell mdl-cell--12-col">
-                <p class="mdl-cell mdl-cell--12-col mdl-color-text--light-blue-500 mdl-typography--subhead">Role</p>
+                <p class="mdl-cell mdl-cell--12-col mdl-color-text--light-blue-500 mdl-typography--subhead">Search by user role</p>
                 <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdc-form-field">
                   {% for role_value, role_label in roles_labels %}
-                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{ forloop.counter }}">
-                    <input type="checkbox" id="checkbox-{{ forloop.counter }}" name="role" value="{{ role_value }}" class="mdl-checkbox__input" {% if role_value in selected_roles %}checked{% endif %}>
-                    <span class="mdl-checkbox__label">{{ role_label }}</span>
-                  </label>
+                    <div class="mdc-checkbox">
+                      <input
+                          type="checkbox"
+                          id="checkbox-{{ forloop.counter }}"
+                          name="role"
+                          value="{{ role_value }}"
+                          class="mdc-checkbox__native-control"
+                          {% if role_value in selected_roles %}checked{% endif %}/>
+                      <div class="mdc-checkbox__background">
+                        <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+                          <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                      </div>
+                    </div>
+                    <label class="padding--right-16 label--hover" for="checkbox-{{ forloop.counter }}">{{ role_label }}</label>
                   {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>
             <div class="mdl-grid mdl-cell mdl-cell--12-col filter-button--area">
-              <button class="mdl-button mdl-js-button mdl-color-text--blue-grey-600">
+              <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
                 <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
                   Apply filter
               </button>
-              <button type="button" class="mdl-button mdl-js-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+              <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
                 <i class="material-icons mdl-color-text--blue-500">close</i>
                   Close
               </button>
@@ -102,47 +115,39 @@
           </form>
         </div>
         {% if roles_list_page %}
-        <div class="mdl-card mdl-cell mdl-cell--12-col">
-          <ul class="mdl-list">
-            <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500 padding--left-none">
-              <div class="mdl-cell mdl-cell--2-col">Project name</div>
-              <div class="mdl-cell mdl-cell--6-col">Description</div>
-              <div class="mdl-cell mdl-cell--2-col">Created</div>
-              <div class="mdl-cell mdl-cell--1-col">Protocols</div>
-              <div class="mdl-cell mdl-cell--1-col">Role</div>
-            </li>
-            <li>
-              <ul class="mdl-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
-                {% for role in roles_list_page %}
-                <li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
-                  <a href="/projects/{{ role.project.unique_id }}" class="links--wrap mdl-grid mdl-cell mdl-cell--12-col list--link">
-                    <div class="mdl-cell mdl-cell--2-col">{{ role.project.name }}</div>
-                    <div class="mdl-cell mdl-cell--6-col">{{ role.project.description|truncatechars_html:92 }}</div>
-                    <div class="mdl-cell mdl-cell--2-col">{{ role.project.datetime_created }}</div>
-                    <div class="mdl-cell mdl-cell--1-col">{{ role.project.protocols.count }}</div>
-                    <div class="mdl-cell mdl-cell--1-col">{{ role.get_role_display }}</div>
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
+        <div class="mdl-cell mdl-cell--12-col">
+          <ul class="mdc-list-group padding-0">
+            <ul class="mdc-list mdl-grid mdl-grid--no-spacing">
+              <li class="mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-cell--hide-phone mdc-list-item border--bottom mdl-color-text--blue-500">
+                <div class="mdl-cell mdl-cell--2-col">Project name</div>
+                <div class="mdl-cell mdl-cell--6-col">Description</div>
+                <div class="mdl-cell mdl-cell--2-col">Created</div>
+                <div class="mdl-cell mdl-cell--1-col">Protocols</div>
+                <div class="mdl-cell mdl-cell--1-col">Role</div>
+              </li>
+            </ul>
+            <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+              {% for role in roles_list_page %}
+              <li class="mdc-list-item border--bottom mdl-grid mdl-grid--no-spacing">
+                <a href="/projects/{{ role.project.unique_id }}" class="links--wrap mdl-grid mdl-cell mdl-cell--12-col list--link">
+                  <div class="mdl-cell mdl-cell--2-col">{{ role.project.name }}</div>
+                  <div class="mdl-cell mdl-cell--6-col">{{ role.project.description|truncatechars_html:92 }}</div>
+                  <div class="mdl-cell mdl-cell--2-col">{{ role.project.datetime_created }}</div>
+                  <div class="mdl-cell mdl-cell--1-col">{{ role.project.protocols.count }}</div>
+                  <div class="mdl-cell mdl-cell--1-col">{{ role.get_role_display }}</div>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
           </ul>
         </div>
         {% else %}
-        <div class="mdl-cell mdl-cell--12-col mdl-grid">
-          <div class="mdl-card width--full">
-            <div class="mdl-card__title mdl-color-text--accent">
-              <h2 class="mdl-card__title-text">No results</h2>
-            </div>
-            <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
+        <div class="mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing">
+          <div class="article width--full">
+            <h1 class="mdl-color-text--accent section--title">No results</h1>
+            <p class="mdl-color-text--blue-grey-900">
               Please update your search criteria and try again or use the default filter!
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a  href="/projects/list/" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">autorenew</i>
-                Use default filter
-              </a>
-            </div>
+            </p>
           </div>
         </div>
         {% endif %}
@@ -157,6 +162,8 @@
   </div>
 {% endblock %}
 {% block post_load %}
+  <script type="text/javascript" src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script>window.mdc.autoInit();</script>
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
