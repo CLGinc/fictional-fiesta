@@ -15,7 +15,7 @@ toggleButtonFrom.addEventListener('click', function() {
   dialogFrom.toggle();
 });
 toggleButtonFrom.addEventListener('onOk', function() {
-  this.value = dialogFrom.time.format('YYYY-MM-DD').toString();
+  toggleButtonFrom.value = dialogFrom.time.format('YYYY-MM-DD').toString();
 });
 //  To date
 toggleButtonTo.addEventListener('click', function() {
