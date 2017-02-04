@@ -144,6 +144,9 @@ class Researcher(models.Model):
         role = item.roles.get(researcher=self)
         return role.role in Role.ROLES_CAN_EDIT
 
+    def can_view(self, item):
+        return item.roles.filter(researcher=self).exists()
+
     def get_projects_to_edit(self):
         projects = Project.objects.filter(
             roles__researcher=self,

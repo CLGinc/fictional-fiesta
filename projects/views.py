@@ -46,6 +46,8 @@ def projects_list(request):
 def project(request, project_uid):
     selected_project = get_object_or_404(Project, unique_id=project_uid)
     researcher = request.user.researcher
+    if not(researcher.can_view(selected_project)):
+        return render(request, 'project_cannot_view.html', locals())
     can_edit = researcher.can_edit(selected_project)
 
     if request.method == 'GET':
