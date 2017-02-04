@@ -4,10 +4,4 @@ django-admin-sortable==2.0.21
 
 psycopg2==2.6.2
 
-PyJWT==1.4.2
-defusedxml==0.5.0rc1
-oauthlib==2.0.1
-python-social-auth==0.3.6
-python3-openid==3.0.10
-requests==2.13.0
-requests-oauthlib==0.7.0
+social-auth-app-django==1.0.1
