@@ -5,7 +5,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from .models import Invitation
-from .forms import CreateInvitationForm, AcceptInvitationForm
+from .forms import CreateInvitationForm
 from researchers.models import Researcher, Role
 from projects.models import Project
 from protocols.models import Protocol
@@ -217,7 +217,7 @@ class InvitationsTests(TestCase):
         self.client.login(username='user3@gmail.com', password='user3')
         url = reverse('accept_invitation') + '?key=' + invitation.key
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
     def test_post_accept_invitation(self):
         invitation = Invitation.objects.create(
