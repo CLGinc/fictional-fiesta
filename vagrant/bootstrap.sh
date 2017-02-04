@@ -47,7 +47,7 @@ CREATE DATABASE ${APP_DB_NAME} WITH OWNER=${APP_DB_USER}
 EOF
 
 # Setup python and virtualenv
-apt-get install -y python3 python3-dev python3-pip virtualenv
+apt-get install -y python3.6 python3.6-dev python3-pip virtualenv
 
 # echo "export WORKON_HOME=~/.virtualenvs" >> ~/.bashrc
 
