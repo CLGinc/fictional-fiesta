@@ -14,21 +14,20 @@ def accept_invitation(request):
     invitation = get_object_or_404(Invitation, key=key)
     if invitation.can_be_accepted(request.user.researcher):
         if request.method == 'POST':
-            if form.is_valid():
-                invitation.accept(invited=request.user.researcher)
-                if invitation.project:
-                    return redirect(
-                        reverse(
-                            'project',
-                            args=[invitation.project.unique_id]
-                        )
+            invitation.accept(invited=request.user.researcher)
+            if invitation.project:
+                return redirect(
+                    reverse(
+                        'project',
+                        args=[invitation.project.unique_id]
                     )
-                elif invitation.protocol:
-                    return redirect(
-                        reverse(
-                            'protocol',
-                            args=[invitation.protocol.unique_id]
-                        )
+                )
+            elif invitation.protocol:
+                return redirect(
+                    reverse(
+                        'protocol',
+                        args=[invitation.protocol.unique_id]
                     )
+                )
         return render(request, 'accept_invitation.html', locals())
     return HttpResponseForbidden()
