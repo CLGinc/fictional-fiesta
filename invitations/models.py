@@ -131,7 +131,7 @@ email address of the invited cannot be different')
             return False
         if self.inviter == accepting_researcher:
             return False
-        if self.invited != accepting_researcher:
+        if self.invited and self.invited != accepting_researcher:
             return False
         if self.email != accepting_researcher.user.email:
             return False
