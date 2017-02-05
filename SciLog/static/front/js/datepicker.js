@@ -17,7 +17,9 @@ toggleButtonFrom.addEventListener('click', function() {
   dialogFrom.toggle();
 });
 toggleButtonFrom.addEventListener('onOk', function() {
-  toggleButtonFromLabel.addClass('mdc-textfield__label--float-above');
+  if(!toggleButtonFromLabel.hasClass('mdc-textfield__label--float-above')){
+    toggleButtonFromLabel.addClass('mdc-textfield__label--float-above');
+  }
   toggleButtonFrom.value = dialogFrom.time.format('YYYY-MM-DD').toString();
 });
 //  To date
@@ -25,6 +27,8 @@ toggleButtonTo.addEventListener('click', function() {
   dialogTo.toggle();
 });
 toggleButtonTo.addEventListener('onOk', function() {
-  toggleButtonToLabel.addClass('mdc-textfield__label--float-above');
+  if(!toggleButtonToLabel.hasClass('mdc-textfield__label--float-above')){
+    toggleButtonToLabel.addClass('mdc-textfield__label--float-above');
+  }
   toggleButtonTo.value = dialogTo.time.format('YYYY-MM-DD').toString();
 });
