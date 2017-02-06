@@ -73,7 +73,7 @@ var setSelectValue = function(event){
 	var value = event.detail.selectedText_.innerText.toLowerCase(),
 			target = $(event.currentTarget).children('input');
 	$(target).attr('value', value);
-}
+};
 
 // selects
 $('[data-trigger="selectValue"]').click(function(){
