@@ -18,8 +18,30 @@
     pointer-events: none;
 }
 /* Page layout */
+.logo {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+.header {
+  padding: 16px 40px;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
 .page-content {
+  max-width: 100%;
+  /*margin-left: 240px;*/
+}
+.main-grid {
   max-width: 1400px;
+}
+.drawer-fixed {
+  position: fixed;
 }
 .alignment-fix--labels {
   padding-top: 0;

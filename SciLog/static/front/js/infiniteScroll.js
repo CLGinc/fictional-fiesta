@@ -4,17 +4,18 @@ var pageNum = 1, // The latest page loaded
     viewParam = $(location).attr('href'),
     datamode = $('#items_list').attr('data-mode'),
     datalastpage = 1,
-    win = $('main'),
+    win = $(window),
     loadmorebtn = $("#loadmorebtn");
 
 $(window).load(function(){
   datalastpage = $('#items_list').attr('data-pages');
   bindevent();
-  return false;
+  return false
 });
 var bindevent = function(){
   if(datamode == 'infinitescroll'){
     $(win).bind('scroll', loadOnScroll);
+    console.log('bound');
   } else if(datamode == 'loadmore') {
     $(loadmorebtn).bind('click', loadOnClick);
   }

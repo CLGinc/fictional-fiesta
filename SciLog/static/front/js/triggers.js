@@ -1,3 +1,8 @@
+var MDCTemporaryDrawer = mdc.drawer.MDCTemporaryDrawer;
+var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
+document.querySelector('.menu').addEventListener('click', function() {
+  drawer.open = true;
+});
 // scrolltop
 $('.scrollToTop-button').click(function(){
 	$(win).animate({scrollTop : 0},300);
