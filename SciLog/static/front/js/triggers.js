@@ -5,8 +5,7 @@ document.querySelector('.menu').addEventListener('click', function() {
 });
 // scrolltop
 $('.scrollToTop-button').click(function(){
-	$(win).animate({scrollTop : 0},300);
-	return false;
+	$('body').animate({scrollTop : 0},300);
 });
 // filters
 $('[data-trigger="filter"]').click(function() {

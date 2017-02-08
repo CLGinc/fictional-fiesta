@@ -7,15 +7,13 @@ var pageNum = 1, // The latest page loaded
     win = $(window),
     loadmorebtn = $("#loadmorebtn");
 
-$(window).load(function(){
+win.load(function(){
   datalastpage = $('#items_list').attr('data-pages');
   bindevent();
-  return false
 });
 var bindevent = function(){
   if(datamode == 'infinitescroll'){
-    $(win).bind('scroll', loadOnScroll);
-    console.log('bound');
+    win.on('scroll', loadOnScroll);
   } else if(datamode == 'loadmore') {
     $(loadmorebtn).bind('click', loadOnClick);
   }
@@ -31,13 +29,13 @@ var unbindevent = function() {
 // loadOnScroll handler
 var loadOnScroll = function(event) {
    // If the current scroll position is past out cutoff point...
-    var element = event.target;
-        if(element.scrollHeight - element.scrollTop === element.clientHeight) {
-        // temporarily unhook the scroll event watcher so we don't call a bunch of times in a row
-        unbindevent();
-        // execute the load function below that will visit the JSON feed and stuff data into the HTML
-        loadItems();
-    }
+  var element = event.target;
+  if(win.scrollTop() + win.height() == $(document).height()) {
+  // temporarily unhook the scroll event watcher so we don't call a bunch of times in a row
+  unbindevent();
+  // execute the load function below that will visit the JSON feed and stuff data into the HTML
+  loadItems();
+  }
 };
 // loadOnClick handler
 var loadOnClick = function(){
@@ -51,12 +49,10 @@ var loadItems = function() {
     // If the next page doesn't exist, just quit now
     if (hasNextPage === false) {
         $('#loading').removeClass('is-active');
-        return false
     }
     if (pageNum == datalastpage) {
       hasNextPage = false
       $('#loading').removeClass('is-active');
-      return false
     }
     // Update the page number
     pageNum = pageNum + 1;
