@@ -19,7 +19,7 @@
         <form method="post" id="new-project-form" class="new-project-form mdc-elevation--z4">
           {% csrf_token %}
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdl-typography--subhead">Add new project</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
               <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
@@ -52,7 +52,7 @@
         </form>
         <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdl-typography--subhead">Search by project</p>
+            <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
             <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
               <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdl-typography--subhead">Search by user role</p>
+              <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
                 <div class="mdc-form-field">
                 {% for role_value, role_label in roles_labels %}

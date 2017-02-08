@@ -51,7 +51,7 @@ var loadItems = function() {
         $('#loading').removeClass('is-active');
     }
     if (pageNum == datalastpage) {
-      hasNextPage = false
+      hasNextPage = false;
       $('#loading').removeClass('is-active');
     }
     // Update the page number
@@ -70,7 +70,7 @@ var loadItems = function() {
         },
         error: function(data) {
             // When I get a 400 back, fail safely
-            hasNextPage = false
+            hasNextPage = false;
         },
         complete: function(data){
             // Turn the scroll monitor back on
