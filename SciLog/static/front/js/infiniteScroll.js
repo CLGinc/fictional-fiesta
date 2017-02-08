@@ -49,10 +49,12 @@ var loadItems = function() {
     // If the next page doesn't exist, just quit now
     if (hasNextPage === false) {
         $('#loading').removeClass('is-active');
+        return false;
     }
     if (pageNum == datalastpage) {
       hasNextPage = false;
       $('#loading').removeClass('is-active');
+      return false;
     }
     // Update the page number
     pageNum = pageNum + 1;
