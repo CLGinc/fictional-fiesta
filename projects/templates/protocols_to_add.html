@@ -1,20 +1,20 @@
 {% if protocols_to_add %}
-<ul class="mdc-list">
-  <li class="mdl-cell--hide-phone mdc-list-item border--bottom mdl-color-text--blue-500">
-    <div class="mdl-cell--1-col">Select</div>
-    <div class="mdl-cell--6-col">Name</div>
-    <div class="mdl-cell--4-col">Owner</div>
-    <div class="mdl-cell--1-col">Label</div>
+<ul class="mdc-list padding-0">
+  <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Name</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
   </li>
 </ul>
 <form id="form--protocols" method="post" action="">
   {% csrf_token %}
-  <ul class="mdc-list">
+  <ul class="mdc-list padding-0">
     {% for protocol in protocols_to_add %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
         id="{{ protocol.unique_id }}"
-        class="mdc-list-item border--bottom width--full list--link">
-      <div class="mdl-cell mdl-cell--1-col">
+        class="mdc-layout-grid mdc-list-item border--bottom list--link">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
         <div class="mdc-checkbox">
           <input type="checkbox" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
@@ -25,9 +25,9 @@
           </div>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--6-col">{{ protocol.name }}</div>
-      <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
-      <div class="mdl-cell mdl-cell--1-col">{{ protocol.get_label_display }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ protocol.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
     </li>
     {% endfor %}
   </ul>

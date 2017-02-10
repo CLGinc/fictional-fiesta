@@ -18,6 +18,11 @@
     pointer-events: none;
 }
 /* Page layout */
+.mdl-layout-spacer {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 20px;
@@ -319,8 +324,7 @@ a {
 /*Modal*/
 .modal {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 69px;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.2s ease-in-out;
@@ -330,6 +334,7 @@ a {
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
   min-height: 100%;
+  max-width: 1400px;
 }
 .modal--content {
   min-height: 100%;
