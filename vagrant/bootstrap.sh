@@ -53,7 +53,7 @@ apt-get install -y python3.6 python3.6-dev python3-pip virtualenv
 
 # echo "export WORKON_HOME=~/.virtualenvs" >> ~/.bashrc
 
-virtualenv -p /usr/bin/python3 /home/ubuntu/scilog
+virtualenv -p /usr/bin/python3.6 /home/ubuntu/scilog
 
 source /home/ubuntu/scilog/bin/activate
 
