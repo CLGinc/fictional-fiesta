@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+add-apt-repository ppa:jonathonf/python-3.6
 apt-get update
 
 #Setup Locale
@@ -45,6 +46,7 @@ CREATE DATABASE ${APP_DB_NAME} WITH OWNER=${APP_DB_USER}
                                   ENCODING='UTF8'
                                   TEMPLATE=template0;
 EOF
+
 
 # Setup python and virtualenv
 apt-get install -y python3.6 python3.6-dev python3-pip virtualenv
