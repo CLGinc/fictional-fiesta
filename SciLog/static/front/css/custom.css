@@ -27,7 +27,6 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 20px;
   font-weight: 500;
-  line-height: 1;
   letter-spacing: 0.02em;
   font-weight: 400;
   box-sizing: border-box;
@@ -65,11 +64,17 @@
 .margin--right-24 {
   margin-right: 24px;
 }
+.margin--right-48 {
+  margin-right: 48px;
+}
 .margin--bottom-16 {
   margin-bottom: 16px;
 }
 .margin--bottom-0 {
   margin-bottom: 0;
+}
+.margin--top-24 {
+  margin-top: 24px;
 }
 .center {
   display: block;
@@ -153,6 +158,23 @@
 }
 .material-icons {
   vertical-align: middle;
+}
+/*login*/
+.login--message {
+  text-align: center;
+  padding: 24px 0;
+}
+.login--message-subtitle {
+  text-align: center;
+}
+.login--form {
+  padding: 0 24px 24px 24px;
+}
+.login--icon {
+  margin-right: 12px;
+ }
+.abcRioButton {
+  box-shadow: none!important;
 }
 /*article*/
 .article {
