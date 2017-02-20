@@ -38,7 +38,7 @@ echo "host    all             all             all                     md5" >> "$
 
 cat << EOF | sudo -u postgres psql
 -- Create the database user:
-CREATE USER ${APP_DB_USER} WITH PASSWORD '${APP_DB_PASS}' SUPERUSER;
+CREATE USER ${APP_DB_USER} WITH PASSWORD '${APP_DB_PASS}' SUPERUSER CREATEDB;
 -- Create the database:
 CREATE DATABASE ${APP_DB_NAME} WITH OWNER=${APP_DB_USER}
                                   LC_COLLATE='en_US.utf8'
