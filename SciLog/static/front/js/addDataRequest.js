@@ -18,6 +18,8 @@ var addDataRequest = function(requestTarget) {
     // Configure the url we're about to hit
     $('[data-type="loader"]').removeClass('hidden');
     $('[data-type="loader"]').addClass('is-active');
+    // remove # from vieparam in case of inactive link is clicked
+    viewParam = viewParam.replace('#','');
     var dataTarget = viewParam+requestTarget;
     $.ajax({
         url: dataTarget,
@@ -27,6 +29,7 @@ var addDataRequest = function(requestTarget) {
             // Append request template
     				$('#'+requestTarget).html(data);
             $('[data-trigger="checkbox"]').bind('click', toggleCheckbox);
+            window.mdc.autoInit(document.getElementById(requestTarget));
         },
         error: function(data) {
             // When I get a 400 back, fail safely

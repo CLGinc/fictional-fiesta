@@ -1,21 +1,23 @@
 {% for result in results_page %}
-<li class="mdl-list__item border--bottom mdl-grid mdl-grid--no-spacing">
-  <a href="/resultid/" class="links--wrap mdl-grid mdl-cell mdl-cell--11-col list--link">
-    <div class="mdl-cell mdl-cell--4-col">{{ result.protocol }}</div>
-    <div class="mdl-cell mdl-cell--3-col">{{ result.owner }}</div>
-    <div class="mdl-cell mdl-cell--3-col">{{ result.datetime_created }}</div>
-    <div class="mdl-cell mdl-cell--1-col">{{ result.get_state_display }}</div>
+<li class="mdc-list-item border--bottom mdc-layout-grid padding-0">
+  <a href="/resultid/" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link padding-0">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.datetime_created }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ result.get_state_display }}</div>
     {% if result.is_successful == True %}
-    <div class="mdl-cell mdl-cell--1-col mdl-color-text--green-600 mdl-typography--text-center">Yes</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
     {% else %}
-    <div class="mdl-cell mdl-cell--1-col mdl-color-text--pink-600 mdl-typography--text-center">No</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
     {% endif %}
   </a>
-  <div class="mdl-grid mdl-cell mdl-cell--1-col mdl-cell--12-col-phone">
-    <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
+    <button href="#" class="mdc-button mdc-button--icon mdc-layout-grid__cell mdc-layout-grid__cell--span-6"
+       aria-label="Edit result" title="Edit result" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-edit">edit</i>
     </button>
-    <button class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--blue-grey-600">
+    <button href="#" class="mdc-button mdc-button--icon mdc-layout-grid__cell mdc-layout-grid__cell--span-6"
+       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-remove">clear</i>
     </button>
   </div>

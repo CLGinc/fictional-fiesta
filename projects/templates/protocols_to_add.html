@@ -1,41 +1,47 @@
 {% if protocols_to_add %}
-<ul class="mdl-list margin--bottom-0">
-  <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-    <div class="mdl-cell mdl-cell--1-col">Select</div>
-    <div class="mdl-cell mdl-cell--6-col">Name</div>
-    <div class="mdl-cell mdl-cell--4-col">Owner</div>
-    <div class="mdl-cell mdl-cell--1-col">Label</div>
-  </li>
-  <li>
-    <form id="form--protocols" method="post" action="">
-      {% csrf_token %}
-      <ul class="mdl-list padding--top-none">
-        {% for protocol in protocols_to_add %}
-        <li data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}" id="{{ protocol.unique_id }}" class="mdl-list__item border--bottom mdl-grid list--link">
-          <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="checkbox">
-          </div>
-          <div class="mdl-cell mdl-cell--6-col">{{ protocol.name }}</div>
-          <div class="mdl-cell mdl-cell--4-col">{{ protocol.get_owner }}</div>
-          <div class="mdl-cell mdl-cell--1-col">{{ protocol.get_label_display }}</div>
-        </li>
-        {% endfor %}
-      </ul>
-      <select class="hidden" name="element_type" value="p">
-        <option selected value="p">Protocols</option>
-        <option value="s">Sources</option>
-        <option value="u">Participants</option>
-      </select>
-    </form>
+<ul class="mdc-list padding-0">
+  <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Name</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
   </li>
 </ul>
+<form id="form--protocols" method="post" action="">
+  {% csrf_token %}
+  <ul class="mdc-list padding-0">
+    {% for protocol in protocols_to_add %}
+    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
+        id="{{ protocol.unique_id }}"
+        class="mdc-layout-grid mdc-list-item border--bottom list--link">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+        <div class="mdc-checkbox">
+          <input type="checkbox" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
+          <div class="mdc-checkbox__background">
+            <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+              <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ protocol.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  <select class="hidden" name="element_type" value="p">
+    <option selected value="p">Protocols</option>
+    <option value="s">Sources</option>
+    <option value="u">Participants</option>
+  </select>
+</form>
 {% else %}
-<div class="mdl-card width--full">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text mdl-color-text--accent">No protocols</h2>
-  </div>
-  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
+<div class="article width--full">
+  <h1 class="mdl-color-text--accent section--title">No protocols</h1>
+  <p class="mdl-color-text--blue-grey-900">
     You have no available protocols.
-  </div>
+  </p>
 </div>
 {% endif %}

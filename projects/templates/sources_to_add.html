@@ -1,41 +1,47 @@
 {% if sources_to_add %}
-<ul class="mdl-list margin--bottom-0">
-  <li class="mdl-grid mdl-cell--hide-phone mdl-list__item border--bottom mdl-color-text--blue-500">
-    <div class="mdl-cell mdl-cell--1-col">Select</div>
-    <div class="mdl-cell mdl-cell--4-col">Name</div>
-    <div class="mdl-cell mdl-cell--2-col">ISBN</div>
-    <div class="mdl-cell mdl-cell--5-col">URL</div>
-  </li>
-  <li>
-    <form id="form--sources" method="post" action="">
-      {% csrf_token %}
-      <ul class="mdl-list padding--top-none">
-        {% for source in sources_to_add %}
-        <li data-trigger="checkbox" data-target="checkbox_{{ source.id }}" id="{{ source.id }}" class="mdl-list__item border--bottom mdl-grid list--link">
-          <div class="mdl-cell mdl-cell--1-col">
-            <input type="checkbox" name="element_choices" value="{{ source.id }}" id="checkbox_{{ source.id }}" class="checkbox">
-          </div>
-          <div class="mdl-cell mdl-cell--4-col">{{ source.name }}</div>
-          <div class="mdl-cell mdl-cell--2-col">{{ source.isbn }}</div>
-          <div class="mdl-cell mdl-cell--5-col">{{ source.url }}</div>
-        </li>
-        {% endfor %}
-      </ul>
-      <select class="hidden" name="element_type" value="p">
-        <option value="p">Protocols</option>
-        <option selected value="s">Sources</option>
-        <option value="u">Participants</option>
-      </select>
-    </form>
+<ul class="mdc-list padding-0">
+  <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">ISBN</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">URL</div>
   </li>
 </ul>
+<form id="form--sources" method="post" action="">
+  {% csrf_token %}
+  <ul class="mdc-list">
+    {% for source in sources_to_add %}
+    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
+        id="{{ source.id }}"
+        class="mdc-layout-grid mdc-list-item border--bottom list--link">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+        <div class="mdc-checkbox">
+          <input type="checkbox" id="checkbox_{{ source.id }}" class="mdc-checkbox__native-control"/>
+          <div class="mdc-checkbox__background">
+            <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+              <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ source.isbn }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">{{ source.url }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  <select class="hidden" name="element_type" value="p">
+    <option value="p">Protocols</option>
+    <option selected value="s">Sources</option>
+    <option value="u">Participants</option>
+  </select>
+</form>
 {% else %}
-<div class="mdl-card width--full">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text mdl-color-text--accent">No sources</h2>
-  </div>
-  <div class="mdl-card__supporting-text mdl-color-text--blue-grey-900">
+<div class="article width--full">
+  <h1 class="mdl-color-text--accent section--title">No sources</h1>
+  <p class="mdl-color-text--blue-grey-900">
     You have no available sources.
-  </div>
+  </p>
 </div>
 {% endif %}

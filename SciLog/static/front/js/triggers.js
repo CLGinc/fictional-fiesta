@@ -1,7 +1,11 @@
+var MDCTemporaryDrawer = mdc.drawer.MDCTemporaryDrawer;
+var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
+document.querySelector('.menu').addEventListener('click', function() {
+  drawer.open = true;
+});
 // scrolltop
 $('.scrollToTop-button').click(function(){
-	$(win).animate({scrollTop : 0},300);
-	return false;
+	$('body').animate({scrollTop : 0},300);
 });
 // filters
 $('[data-trigger="filter"]').click(function() {
@@ -54,26 +58,27 @@ $('[data-trigger="remove-input"]').click(function(){
 });
 // add new input
 $('[data-trigger="add-input"]').click(function(){
-	var	currentId = $(this).attr('data-currentid'),
-      newTargetId = 'email_input_'+(++currentId),
-      newTargetRole = newTargetId+'_role',
-			targetForm =  $(this).attr('data-form'),
+	var	targetForm =  this.getAttribute('data-form'),
 			sourceInput = document.getElementById(targetForm),
-			cloneInput = $(sourceInput).clone(true),
-			insertTarget = $('#modal--participants').children('form').last();
-      $(cloneInput).find('*').each(function () {
-          $(this).removeClass('is-upgraded').removeAttr('data-upgraded').find('[name="email"]').val('');
-					console.log(this);
-      });
-  $(cloneInput).children('#email_input_source_role').attr('id',newTargetRole);
-  $(cloneInput).children('[data-content="email_input_source_role"]').attr('data-content',newTargetRole);
-  $(cloneInput).find('[for="email_input_source_role"]').attr('for',newTargetRole);
-  $(cloneInput).attr('id',newTargetId).removeClass('hidden').hide().fadeIn(300).insertAfter(insertTarget);
-	$(cloneInput).children('[data-trigger="remove-input"]').bind('click', removeInput);
-	$(this).attr('data-currentid', currentId);
-	var upgradeTarget = $('#'+newTargetId);
-  componentHandler.upgradeElements(upgradeTarget);
+			clone = sourceInput.cloneNode(true);
+			insertTarget = document.getElementById('modal--participants');
+  var lastForm = $(insertTarget).children('form').last();
+  $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
+  clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
+	window.mdc.autoInit(clone);
+	$(clone).children('.mdc-select').on('MDCSelect:change', function(event) {
+		setSelectValue(event);
+	});
 });
+$('.mdc-select').on('MDCSelect:change', function(event) {
+	setSelectValue(event);
+});
+var setSelectValue = function(event){
+	var value = event.detail.selectedText_.innerText.toLowerCase(),
+			target = $(event.currentTarget).children('input');
+	$(target).attr('value', value);
+};
+
 // selects
 $('[data-trigger="selectValue"]').click(function(){
   var targetId = $(this).parent().attr('for'),
@@ -94,6 +99,7 @@ $('[data-trigger="submit"]').click(function(){
 
 $('[data-trigger="submit-ajax"]').click(function(){
   var targetForm = $('#modal--participants').children('form');
+      var sendBtn = this;
 			$(targetForm).each(function(){
 				var emailInput = $(this).find("input[name='email']"),
 						url = $(this).attr('action');
@@ -106,29 +112,34 @@ $('[data-trigger="submit-ajax"]').click(function(){
 							buttonIcon = button.children('i');
 					button.toggleClass('hidden');
 					loader.toggleClass('is-active');
+          $(sendBtn).addClass('disabled');
 	        $.ajax({
 	          url: url,
 	          data: formData,
 	          type: 'POST',
 	          success: function(response)
 	          {
-							resultHolder.html(response);
+							resultHolder.removeClass('error').addClass('resultok').html('<p>'+response+'</p>');
 							loader.toggleClass('is-active');
 							buttonIcon.html('check');
 							button.toggleClass('hidden');
 	          },
 	          error: function(response)
 	          {
-              console.log(response);
-	            var errorNotif = (jQuery.parseJSON(response.statusText)).email[0].message;
-							resultHolder.html(errorNotif);
+              var errorNotif = '';
+              // test with multiple errors (replace response.statusText with json below)
+              // var json = '{"__all__": [{"code": "unique_together", "message": "Invitation with this Email and Project already exists."}],"email":[{"code": "unique_together", "message": "mail not sent."}]}';
+              $.each($.parseJSON(response.statusText), function() {
+                errorNotif += '<p>'+this[0].message+'</p>';
+              });
+							resultHolder.removeClass('resultok').addClass('error').html(errorNotif);
 							loader.toggleClass('is-active');
 							buttonIcon.html('close');
 							button.toggleClass('hidden');
 	          },
-	          complete: function()
+	          complete: function(response)
 	          {
-	            // anything to do here?
+              $(sendBtn).removeClass('disabled');
 	          }
 	        });
 				}
