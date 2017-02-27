@@ -44,7 +44,7 @@
 }
 .main-grid {
   max-width: 1400px;
-  margin-top: 69px;
+  padding-top: 69px;
 }
 .drawer-fixed {
   position: fixed;

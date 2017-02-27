@@ -18,56 +18,47 @@
       </h1>
       <div class="login--form">
         {% if next_redirect %}
-        <form method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
-          {% else %}
-          <form method="post" action="{% url 'login_user' %}">
-            {% endif %}
-            {% csrf_token %}
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
-              <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
-              {% if form.errors.email %}
-              <div id="id_email_error" class="error-tooltip">
-                {% for error in form.errors.email %}
-                {{ error|escape }}<br>
-                {% endfor %}
-              </div>
-              {% endif %}
-            </div>
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" id="id_password" name="password" type="password" required />
-              <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Password</label>
-              {% if form.errors.password %}
-              <div id="id_password_error" class="error-tooltip">
-                {% for error in form.errors.password %}
-                {{ error|escape }}<br>
-                {% endfor %}
-              </div>
-              {% endif %}
-            </div>
-          </form>
-          <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-            <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
-            <span data-content="open-close-text">Log In</span>
-          </button>
-          <div class="g-signin2 mdc-button margin--top-24" data-onsuccess="onSignIn"></div>
-          {% if form.non_field_errors %}
-          <div id="non_field_errors" class="error-tooltip-non">
-            {% for error in form.non_field_errors %}
-            {{ error|escape }}<br>
-            {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-        <!-- <div class="mdl-textfield mdl-js-textfield">
-        <li>
-        {% if next_redirect %}
-        <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_redirect }}">Login with Google</a>
+        <form id="login--form" method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
         {% else %}
-        <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+        <form id="login--form" method="post" action="{% url 'login_user' %}">
         {% endif %}
-      </li>
-    </div> -->
+        {% csrf_token %}
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
+          <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
+        </div>
+        {% if form.errors.email %}
+        <div class="result error">
+          {% for error in form.errors.email %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_password" name="password" type="password" required />
+          <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Password</label>
+        </div>
+        {% if form.errors.password %}
+        <div class="result error">
+          {% for error in form.errors.password %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
+          <span data-content="open-close-text">Log In</span>
+        </button>
+        <div class="g-signin2 mdc-button margin--top-24" data-onsuccess="onSignIn"></div>
+      </form>
+      {% if form.non_field_errors %}
+      <div id="non_field_errors" class="error-tooltip-non">
+        {% for error in form.non_field_errors %}
+        {{ error|escape }}<br>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}
