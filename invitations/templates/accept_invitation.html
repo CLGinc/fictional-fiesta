@@ -10,33 +10,61 @@
       <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
       <div class="mdl-layout-spacer"></div>
     </div>
-    <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
-      Accept Invitation
+    <h1 class="mdc-typography--title mdl-color--blue-300 mdl-color-text--white login--message">
+      You have been invited to participate in a
+      {% if invitation.project %}
+        project
+      {% elif invitation.protocol %}
+        protocol
+      {% endif %}
+      on SciLog
     </h1>
     <div class="mdc-layout-grid">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-        Hello, please review the invitation details and accept.
-      </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-        <ul class="mdc-list padding-0">
-          <li class="mdc-list-item"><p>Your email</p> {{ invitation.email }}</li>
-          <li class="mdc-list-item">Invitation sender {{ invitation.inviter }}</li>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <ul class="mdc-list">
+          <li class="mdc-list-item">
+            <i class="mdc-list-item__start-detail material-icons mdl-color-text--blue-300">assignment</i>
+            {% if invitation.project %}
+              Project name
+            {% elif invitation.protocol %}
+              Protocol name
+            {% endif %}
+          </li>
           <li class="mdc-list-item">
             {% if invitation.project %}
-              Project {{ invitation.project }}
+              {{ invitation.project }}
             {% elif invitation.protocol %}
-              Protocol {{ invitation.protocol }}
+              {{ invitation.protocol }}
             {% endif %}
           </li>
         </ul>
       </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+        <ul class="mdc-list">
+          <li class="mdc-list-item">
+            <i class="mdc-list-item__start-detail material-icons mdl-color-text--blue-300">account_circle</i>
+            Invitation sender
+          </li>
+          <li class="wrap--text list--alternative">{{ invitation.inviter }}</li>
+        </ul>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+        <ul class="mdc-list" style="flex-wrap: wrap;">
+          <li class="mdc-list-item">
+            <i class="mdc-list-item__start-detail material-icons mdl-color-text--blue-300" aria-hidden="true">email</i>
+            Your email
+          </li>
+          <li class="wrap--text list--alternative">{{ invitation.email }}</li>
+        </ul>
+      </div>
     </div>
-    <div class="login--form">
+    <div class="login--form margin--top-24">
       <form method="post" action="{% url 'accept_invitation' %}">
         {% csrf_token %}
-        <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
-          <span data-content="open-close-text">Accept</span>
+        <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
+        <button type="submit" class="width--full mdc-button mdc-button--raised mdl-color--blue-500 mdl-color-text--white" data-mdc-auto-init="MDCRipple">
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--white">done</i>
+          <span data-content="open-close-text">Accept invitation</span>
         </button>
       </form>
       {% if form.non_field_errors %}

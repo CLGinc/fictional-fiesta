@@ -233,6 +233,9 @@ a {
 .links--wrap {
   white-space: normal;
 }
+.wrap--text {
+  overflow-wrap: break-word;
+}
 /*Scroll to top*/
 .scrollToTop-container {
   position: fixed;
@@ -334,6 +337,9 @@ a {
 .list--link-remove:hover {
   color: #ff1744!important;
   cursor: pointer;
+}
+.list--alternative {
+  padding-top: 7px;
 }
 /*Accordeon*/
 .accordeon {
