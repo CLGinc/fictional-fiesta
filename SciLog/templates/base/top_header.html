@@ -1,16 +1,28 @@
 {% load staticfiles %}
-<header class="header mdc-layout-grid mdl-color--white mdc-elevation--z2">
-  <button data-mdc-auto-init="MDCRipple" class="menu mdc-button mdc-button--icon mdl-color-text--blue-500">
-    <i class="material-icons">menu</i>
-  </button>
-  <div class="mdl-layout-spacer"></div>
-  <img src="{% static "front/img/optimised.svg" %}" alt="logo">
-  <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
-  <div class="mdl-layout-spacer"></div>
-  <button data-mdc-auto-init="MDCRipple" class="mdc-button mdc-button--icon mdl-color-text--blue-500">
-    <i class="material-icons">account_circle</i>
-  </button>
-  <button data-mdc-auto-init="MDCRipple" class="mdc-button mdc-button--icon mdl-color-text--blue-500">
-    <a href="/logout"><i class="material-icons">power_settings_new</i></a>
-  </button>
+<header class="mdc-toolbar mdl-color--white mdc-elevation--z2">
+  <section class="mdc-toolbar__section mdc-toolbar__section--align-start mdc-menu-anchor">
+    <button data-mdc-auto-init="MDCRipple" class="menu mdc-button mdc-button--icon mdl-color-text--blue-500">
+      <i class="material-icons">menu</i>
+    </button>
+    <div class="mdl-layout-spacer"></div>
+    <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+    <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+    <div class="mdl-layout-spacer"></div>
+    <button data-mdc-auto-init="MDCRipple" class="mdc-button mdc-button--icon mdl-color-text--blue-500">
+      <i class="material-icons">account_circle</i>
+    </button>
+    <button data-mdc-auto-init="MDCRipple" class="mdc-button mdc-button--icon mdl-color-text--blue-500">
+      <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+    </button>
+    <div class="mdc-simple-menu" tabindex="-1">
+      <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+        <li class="mdc-list-item" role="menuitem" tabindex="0">
+          A Menu Item
+        </li>
+        <li class="mdc-list-item" role="menuitem" tabindex="0">
+          Another Menu Item
+        </li>
+      </ul>
+    </div>
+  </section>
 </header>
