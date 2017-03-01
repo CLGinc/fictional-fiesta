@@ -8,11 +8,11 @@
     <div class="mdc-layout-grid main-grid">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-          {{ selected_project.name }}
-          <button data-mdc-auto-init="MDCRipple" data-trigger="show" data-ajax="addDataRequest"
+          <span id="project_name">{{ selected_project.name }}</span>
+          <button data-mdc-auto-init="MDCRipple" data-trigger="" data-ajax=""
                   id="button-modify"
-                  class="mdc-button mdl-color-text--blue-grey-600">
-            <i class="material-icons mdl-color-text--orange-500">edit</i> Edit
+                  class="mdc-button mdl-color-text--blue-grey-600 right">
+            <i class="material-icons mdl-color-text--blue-500">edit</i> Modify project
           </button>
           <p class="mdc-typography--caption mdl-color-text--blue-grey-500">Created on: {{ selected_project.datetime_created }}</p>
         </h1>
@@ -20,7 +20,7 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <div class="article">
           <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
-          <p class="mdl-color-text--blue-grey-900">
+          <p id="project_desc" class="mdl-color-text--blue-grey-900">
             {{ selected_project.description }}
           </p>
         </div>
