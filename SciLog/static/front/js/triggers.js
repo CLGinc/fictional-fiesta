@@ -7,6 +7,12 @@ document.querySelector('.menu').addEventListener('click', function() {
 $('.scrollToTop-button').click(function(){
 	$('body').animate({scrollTop : 0},300);
 });
+// profile menu
+$('[data-trigger="profile--menu"]').click(function() {
+  var menuEl = document.querySelector('.mdc-simple-menu');
+  var menu = new mdc.menu.MDCSimpleMenu(menuEl);
+  menu.open = !menu.open;
+});
 // filters
 $('[data-trigger="filter"]').click(function() {
   var targetElementId = $(this).attr('data-target');

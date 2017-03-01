@@ -31,6 +31,19 @@
   font-weight: 400;
   box-sizing: border-box;
 }
+.profile--menu {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+}
+.profile--menu a {
+  display: block;
+  width: 100%;
+}
+.profile--menu button {
+  text-align: start;
+}
+.mdc-toolbar {
+  height: 64px;
+}
 .mdc-temporary-drawer__header::before {
   padding-top: 70%;
 }
@@ -273,6 +286,9 @@ a {
 .user-card--name {
   text-align: center;
   margin-top: 24px;
+}
+.user-card--name {
+  transform: perspective(1px);
 }
 /*Participants list*/
 .participant-list--link {
