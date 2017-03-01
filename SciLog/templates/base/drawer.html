@@ -1,5 +1,32 @@
 {% load staticfiles %}
-<aside class="mdc-temporary-drawer mdc-typography" data-mdc-auto-init="MDCTemporaryDrawer">
+<nav class="mdc-permanent-drawer drawer">
+  <div class="mdc-list-group">
+    <nav class="mdc-list">
+      <a class="mdc-list-item mdc-permanent-drawer--selected" href="/projects/list/">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS LIST
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">send</i>Sent Mail
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">drafts</i>Drafts
+      </a>
+    </nav>
+    <hr class="mdc-list-divider">
+    <nav class="mdc-list">
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">email</i>All Mail
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">delete</i>Trash
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">report</i>Spam
+      </a>
+    </nav>
+  </div>
+</nav>
+<aside class="mdc-temporary-drawer mdc-typography mdc-permanent-drawer__content" data-mdc-auto-init="MDCTemporaryDrawer">
   <nav class="mdc-temporary-drawer__drawer">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="/projects/list/">
