@@ -1,11 +1,11 @@
 {% load staticfiles %}
 <aside class="mdc-temporary-drawer mdc-typography" data-mdc-auto-init="MDCTemporaryDrawer">
   <nav class="mdc-temporary-drawer__drawer">
-    <header class="mdc-temporary-drawer__header">
-      <div class="mdc-temporary-drawer__header-content">
+    <header class="mdc-temporary-drawer__header" style="display:block;">
+      <div class="mdc-temporary-drawer__header-content mdc-layout-grid">
         <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar">
-        <div class="user-card--name">
-          <span class="mdl-layout-title">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+        <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <span class="mdl-layout-title">{{ request.user.first_name }} {{ request.user.last_name }}</span><br>
           <span class="mdl-color-text--grey-600">{{ request.user.researcher.scientific_degree }}</span>
         </div>
       </div>

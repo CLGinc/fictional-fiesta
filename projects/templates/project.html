@@ -9,6 +9,11 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
           {{ selected_project.name }}
+          <button data-mdc-auto-init="MDCRipple" data-trigger="show" data-ajax="addDataRequest"
+                  id="button-modify"
+                  class="mdc-button mdl-color-text--blue-grey-600">
+            <i class="material-icons mdl-color-text--orange-500">edit</i> Edit
+          </button>
           <p class="mdc-typography--caption mdl-color-text--blue-grey-500">Created on: {{ selected_project.datetime_created }}</p>
         </h1>
       </div>
