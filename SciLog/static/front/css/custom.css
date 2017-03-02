@@ -46,10 +46,6 @@
 .mdc-toolbar {
   height: 64px;
 }
-.login {
-  margin-top: 40px;
-  max-width: 350px;
-}
 .mdc-temporary-drawer__header::before {
   padding-top: 70%;
 }
@@ -103,6 +99,9 @@ body {
 }
 .margin--top-24 {
   margin-top: 24px;
+}
+.margin--top-40 {
+  margin-top: 40px;
 }
 .center {
   display: block;
@@ -188,9 +187,12 @@ body {
   vertical-align: middle;
 }
 /*login*/
+.login {
+  max-width: 350px;
+}
 .login--message {
   text-align: center;
-  padding: 24px 0;
+  padding: 24px 18px;
 }
 .login--message-subtitle {
   text-align: center;
