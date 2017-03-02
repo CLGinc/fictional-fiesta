@@ -17,9 +17,9 @@
           <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Type</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Invitation sender</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Inviter</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Your email</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Accept</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Accept</div>
           </li>
         </ul>
         <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
@@ -30,12 +30,12 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Project</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Project 54</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Administrator powerful</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">imaloednovremenazapad@edin.mail</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">imaloednovremenazawwwwwwwwww@edin.mail</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
               <form method="post" action="{% url 'accept_invitation' %}">
                 {% csrf_token %}
                 <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
-                <button class="mdc-button mdc-button--raised mdl-color--blue-500 mdl-color-text--white"
+                <button class="mdc-button center mdl-color-text--blue-500"
                         data-mdc-auto-init="MDCRipple">
                   Accept
                 </button>
