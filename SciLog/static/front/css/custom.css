@@ -58,7 +58,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  height: 100%;
+
 }
 .content {
   display: flex;
@@ -69,14 +69,12 @@ body {
 }
 .drawer {
   padding-top: 40px;
+  height: auto;
 }
 .main-grid {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0;
-}
-.drawer-fixed {
-  position: fixed;
 }
 .alignment-fix--labels {
   padding-top: 0;
