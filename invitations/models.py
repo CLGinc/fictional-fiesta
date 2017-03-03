@@ -127,6 +127,8 @@ email address of the invited cannot be different')
         return not(expiration_date > timezone.now() > self.datetime_created)
 
     def can_be_accepted(self, accepting_researcher):
+        if self.accepted:
+            return False
         if self.is_expired():
             return False
         if self.inviter == accepting_researcher:
@@ -136,3 +138,19 @@ email address of the invited cannot be different')
         if self.email != accepting_researcher.user.email:
             return False
         return True
+
+    def get_item(self):
+        if self.project:
+            return 'Project'
+        elif self.protocol:
+            return 'Protocol'
+        else:
+            return None
+
+    def get_item_name(self):
+        if self.project:
+            return self.project.name
+        elif self.protocol:
+            return self.protocol.name
+        else:
+            return None

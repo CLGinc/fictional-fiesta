@@ -1,8 +1,11 @@
 from django.conf.urls import url
 
-from . import views, ajax
+from .views import InvitationsList, AssignInvitation
+from .ajax import CreateInvitation, AcceptInvitation
 
 urlpatterns = [
-    url(r'^create/$', ajax.create_invitation, name='create_invitation'),
-    url(r'^accept/$', views.accept_invitation, name='accept_invitation'),
+    url(r'^create/$', CreateInvitation.as_view(), name='create_invitation'),
+    url(r'^(?P<key>[a-zA-Z0-9]{64})/accept/$', AcceptInvitation.as_view(), name='accept_invitation'),
+    url(r'^list/$', InvitationsList.as_view(), name='invitations_list'),
+    url(r'^(?P<key>[a-zA-Z0-9]{64})/assign/$', AssignInvitation.as_view(), name='assign_invitation'),
 ]

@@ -189,47 +189,66 @@ class InvitationsTests(TestCase):
         invitation.save()
         self.assertFalse(invitation.is_expired())
 
-    def test_get_accept_invitation(self):
+    def test_get_invitations_list(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
             inviter=self.researcher1,
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation') + '?key=' + invitation.key
+        url = reverse('invitations_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_get_accept_invitation_does_not_exist(self):
+    def test_get_item_project(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.assertEqual(invitation.get_item(), 'Project')
+
+    def test_get_item_name_project(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.assertEqual(invitation.get_item_name(), 'Project 1')
+    def test_get_item_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.get_item(), 'Protocol')
+
+    def test_get_item_name_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.get_item_name(), 'Protocol 1')
+
+    def test_get_assign_invitation(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation') + '?key=does_not_exist'
+        url = reverse('assign_invitation', kwargs={'key':invitation.key})
+        response = self.client.get(url)
+        self.assertRedirects(response, reverse('invitations_list'))
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.invited, self.researcher3)
+
+    def test_get_assign_invitation_404(self):
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('assign_invitation', kwargs={'key':'VzdL6HFJcfvrEZTq5voFqYSJ6rTcAv1Zx86eYoSYv30jBVvlR83vdgbcPMs2VYEw'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
-
-    def test_get_accept_expired_invitation(self):
-        invitation = Invitation.objects.create(
-            email='user3@gmail.com',
-            inviter=self.researcher1,
-            project=self.project1,
-        )
-        invitation.datetime_created -= timezone.timedelta(3)
-        invitation.save()
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation') + '?key=' + invitation.key
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
-
-    def test_post_accept_invitation(self):
-        invitation = Invitation.objects.create(
-            email='user3@gmail.com',
-            inviter=self.researcher1,
-            project=self.project1,
-        )
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation')
-        response = self.client.post(url, {'key': invitation.key})
-        self.assertRedirects(response, '/projects/0f570c02/')
-
 
 class InvitationsAjaxTests(TestCase):
     fixtures = [
@@ -251,13 +270,13 @@ class InvitationsAjaxTests(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('create_invitation')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 405)
 
     def test_get_create_invitation_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('create_invitation')
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 405)
 
     def test_post_create_invitation_empty(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -290,6 +309,72 @@ class InvitationsAjaxTests(TestCase):
         )
         self.assertTrue(invitation.exists())
 
+    def test_get_accept_invitation_no_ajax(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_post_accept_invitation_no_ajax(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        response = self.client.post(
+            url,
+            {'key': invitation.key},
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_accept_invitation_ajax(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        response = self.client.get(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 405)
+
+    def test_post_accept_expired_invitation_ajax(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        invitation.datetime_created -= timezone.timedelta(3)
+        invitation.save()
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 403)
+
+    def test_post_accept_invitation(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
 
 class InvitationsFormsTests(TestCase):
     fixtures = [

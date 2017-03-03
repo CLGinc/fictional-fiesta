@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}SciLog - Accept invitation{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+        <span id="project_name">Invitations</span>
+      </h1>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <ul class="mdc-list-group padding-0">
+        <ul class="mdc-list">
+          <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Type</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Inviter</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Created</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Status</div>
+          </li>
+        </ul>
+        <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+          {% for invitation in invitations_list %}
+            <li class="mdc-list-item border--bottom mdc-layout-grid">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ invitation.get_item }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ invitation.get_item_name }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ invitation.inviter }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">{{ invitation.datetime_created }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
+                {% if invitation.accepted %}
+                  Accepted
+                {% elif invitation.is_expired %}
+                  Expired
+                {% else %}
+                  <form method="post" action="{% url 'accept_invitation' key=invitation.key %}">
+                    {% csrf_token %}
+                    <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
+                    <button class="mdc-button center mdl-color-text--blue-500"
+                    data-mdc-auto-init="MDCRipple">
+                    Accept
+                    </button>
+                  </form>
+                {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}
