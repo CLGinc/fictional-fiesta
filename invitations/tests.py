@@ -231,6 +231,23 @@ class InvitationsTests(TestCase):
         )
         self.assertEqual(invitation.get_item_name(), 'Protocol 1')
 
+    def test_get_assign_invitation(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('assign_invitation', kwargs={'slug':invitation.key})
+        response = self.client.get(url)
+        self.assertRedirects(response, reverse('invitations_list'))
+
+    def test_get_assign_invitation_404(self):
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('assign_invitation', kwargs={'slug':'VzdL6HFJcfvrEZTq5voFqYSJ6rTcAv1Zx86eYoSYv30jBVvlR83vdgbcPMs2VYEw'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
 class InvitationsAjaxTests(TestCase):
     fixtures = [
         'researchers/fixtures/users',
