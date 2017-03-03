@@ -17,18 +17,19 @@ class InvitationsList(ListView):
     def get_queryset(self):
         return Invitation.objects.filter(invited=self.request.user.researcher)
 
-@method_decorator(login_required, name='dispatch')
-class AssignInvitation(SingleObjectMixin, View):
+class SingleInvitationMixin(SingleObjectMixin):
     slug_field = 'key'
 
+    def get_queryset(self):
+        return Invitation.objects.filter(
+            email=self.request.user.email
+        )
+
+@method_decorator(login_required, name='dispatch')
+class AssignInvitation(SingleInvitationMixin, View):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if not(self.object.invited):
             self.object.invited = self.request.user.researcher
             self.object.save()
         return redirect(reverse('invitations_list'))
-
-    def get_queryset(self):
-        return Invitation.objects.filter(
-            email=self.request.user.email
-        )
