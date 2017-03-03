@@ -11,29 +11,29 @@ from .models import Invitation
 from .views import SingleInvitationMixin
 
 
-@login_required
-def create_invitation(request):
-    if request.is_ajax() and request.method == 'POST':
-        form = CreateInvitationForm(
-            request.POST or None,
-            inviter=request.user.researcher
-        )
-        if form.is_valid():
-            model_form = CreateInvitationModelForm(
-                form.get_data_for_model_form(request.user.researcher)
+@method_decorator(login_required, name='dispatch')
+class CreateInvitation(View):
+    def post(self, request, *args, **kwargs):
+        if self.request.is_ajax():
+            form = CreateInvitationForm(
+                request.POST or None,
+                inviter=request.user.researcher
             )
-            if model_form.is_valid():
-                model_form.save()
-                return HttpResponse('Invitation to {} created \
+            if form.is_valid():
+                model_form = CreateInvitationModelForm(
+                    form.get_data_for_model_form(request.user.researcher)
+                )
+                if model_form.is_valid():
+                    model_form.save()
+                    return HttpResponse('Invitation to {} created \
 and sent!'.format(model_form.cleaned_data['email'])
-                )
+                    )
+                else:
+                    return HttpResponseBadRequest(
+                        reason=model_form.errors.as_json()
+                    )
             else:
-                return HttpResponseBadRequest(
-                    reason=model_form.errors.as_json()
-                )
-        else:
                 return HttpResponseBadRequest(reason=form.errors.as_json())
-    else:
         return HttpResponseForbidden()
 
 @method_decorator(login_required, name='dispatch')
