@@ -200,6 +200,37 @@ class InvitationsTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
+    def test_get_item_project(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.assertEqual(invitation.get_item(), 'Project')
+
+    def test_get_item_name_project(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher1,
+            project=self.project1,
+        )
+        self.assertEqual(invitation.get_item_name(), 'Project 1')
+    def test_get_item_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.get_item(), 'Protocol')
+
+    def test_get_item_name_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.researcher2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.get_item_name(), 'Protocol 1')
+
 class InvitationsAjaxTests(TestCase):
     fixtures = [
         'researchers/fixtures/users',
