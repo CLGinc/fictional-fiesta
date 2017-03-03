@@ -35,7 +35,7 @@
                 {% elif invitation.is_expired %}
                   Expired
                 {% else %}
-                  <form method="post" action="{% url 'accept_invitation' %}">
+                  <form method="post" action="{% url 'accept_invitation' key=invitation.key %}">
                     {% csrf_token %}
                     <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
                     <button class="mdc-button center mdl-color-text--blue-500"

@@ -1,11 +1,14 @@
 from django.http import HttpResponseForbidden, HttpResponse
 from django.http import HttpResponseBadRequest
+from django.views import View
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 
 
 from .forms import CreateInvitationForm, CreateInvitationModelForm
 from .models import Invitation
+from .views import SingleInvitationMixin
 
 
 @login_required
@@ -33,12 +36,11 @@ and sent!'.format(model_form.cleaned_data['email'])
     else:
         return HttpResponseForbidden()
 
-@login_required
-def accept_invitation(request):
-    if request.is_ajax() and request.method == 'POST':
-        key = request.POST.get('key')
-        invitation = get_object_or_404(Invitation, key=key)
-        if invitation.can_be_accepted(request.user.researcher):
-            invitation.accept(invited=request.user.researcher)
+@method_decorator(login_required, name='dispatch')
+class AssignInvitation(SingleInvitationMixin, View):
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.can_be_accepted(self.request.user.researcher):
+            self.object.accept(invited=self.request.user.researcher)
             return HttpResponse('Invitation accepted!')
-    return HttpResponseForbidden()
+        return HttpResponseForbidden()
