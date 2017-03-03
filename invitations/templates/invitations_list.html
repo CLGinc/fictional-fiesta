@@ -18,30 +18,33 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Type</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Inviter</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Your email</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Created</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Accept</div>
           </li>
         </ul>
         <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
-          {% for invitaion in invitations_list %}
-            <!-- DO STUFF HERE -->
-          {% endfor %}
-          <li class="mdc-list-item border--bottom mdc-layout-grid">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Project</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Project 54</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Administrator powerful</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">imaloednovremenazawwwwwwwwww@edin.mail</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
-              <form method="post" action="{% url 'accept_invitation' %}">
-                {% csrf_token %}
-                <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
-                <button class="mdc-button center mdl-color-text--blue-500"
-                        data-mdc-auto-init="MDCRipple">
+          {% for invitation in invitations_list %}
+            <li class="mdc-list-item border--bottom mdc-layout-grid">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ invitation.get_item }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ invitation.get_item_name }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ invitation.inviter }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">{{ invitation.datetime_created }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
+                {% if not invitation.accepted %}
+                <form method="post" action="{% url 'accept_invitation' %}">
+                  {% csrf_token %}
+                  <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
+                  <button class="mdc-button center mdl-color-text--blue-500"
+                  data-mdc-auto-init="MDCRipple">
                   Accept
                 </button>
               </form>
+              {% else %}
+              Accepted
+              {% endif %}
             </div>
           </li>
+          {% endfor %}
         </ul>
       </ul>
     </div>
