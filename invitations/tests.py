@@ -270,13 +270,13 @@ class InvitationsAjaxTests(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('create_invitation')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 405)
 
     def test_get_create_invitation_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('create_invitation')
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 405)
 
     def test_post_create_invitation_empty(self):
         self.client.login(username='user1@gmail.com', password='user1')
