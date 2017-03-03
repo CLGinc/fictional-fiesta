@@ -19,6 +19,7 @@ class InvitationsList(ListView):
 
 class SingleInvitationMixin(SingleObjectMixin):
     slug_field = 'key'
+    slug_url_kwarg = 'key'
 
     def get_queryset(self):
         return Invitation.objects.filter(
