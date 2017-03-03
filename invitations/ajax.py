@@ -37,7 +37,7 @@ and sent!'.format(model_form.cleaned_data['email'])
         return HttpResponseForbidden()
 
 @method_decorator(login_required, name='dispatch')
-class AssignInvitation(SingleInvitationMixin, View):
+class AcceptInvitation(SingleInvitationMixin, View):
     def post(self, request, *args, **kwargs):
         if self.request.is_ajax():
             self.object = self.get_object()
