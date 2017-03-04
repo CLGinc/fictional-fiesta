@@ -18,8 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^projects/', include('projects.urls')),
+    url(r'^project/', include('projects.urls')),
     url(r'^', include('researchers.urls')),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^invitations/', include('invitations.urls')),
+    url(r'^invitation/', include('invitations.urls')),
 ]

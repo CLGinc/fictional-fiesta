@@ -2,7 +2,7 @@
 <nav class="mdc-permanent-drawer drawer">
   <div class="mdc-list-group">
     <nav class="mdc-list">
-      <a class="mdc-list-item mdc-permanent-drawer--selected" href="/projects/list/">
+      <a class="mdc-list-item mdc-permanent-drawer--selected" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS LIST
       </a>
       <a class="mdc-list-item" href="#">
@@ -29,7 +29,7 @@
 <aside class="mdc-temporary-drawer mdc-typography mdc-permanent-drawer__content" data-mdc-auto-init="MDCTemporaryDrawer">
   <nav class="mdc-temporary-drawer__drawer">
     <nav class="mdc-list">
-      <a class="mdc-list-item" href="/projects/list/">
+      <a class="mdc-list-item" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS LIST
       </a>
       <a class="mdc-list-item" href="#">

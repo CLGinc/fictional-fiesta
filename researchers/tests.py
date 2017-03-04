@@ -235,16 +235,16 @@ class ResearchersTest(TestCase):
             'password': 'user1'
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/projects/list/')
+        self.assertRedirects(response, '/project/list/')
 
     def test_post_login_redirect_to_project(self):
-        url = reverse('login_user') + '?next=/projects/0f570c02/'
+        url = reverse('login_user') + '?next=/project/0f570c02/'
         data = {
             'email': 'user1@gmail.com',
             'password': 'user1'
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/projects/0f570c02/')
+        self.assertRedirects(response, '/project/0f570c02/')
 
     def test_get_logout(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -265,7 +265,7 @@ class ResearchersTest(TestCase):
             'password2': 'hr192$^8rh198',
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/projects/list/')
+        self.assertRedirects(response, '/project/list/')
 
 
 class ResearchersFormsTest(TestCase):

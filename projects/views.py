@@ -6,6 +6,7 @@ from django.core.exceptions import FieldError
 from django.template.context_processors import csrf
 from django.http import HttpResponseBadRequest
 from django.template.response import TemplateResponse
+from django.core.urlresolvers import reverse
 
 from researchers.models import Role
 from researchers.forms import ProjectRolesListForm
@@ -21,7 +22,12 @@ def projects_list(request):
         if new_project_form.is_valid():
             new_project = new_project_form.save(
                 researcher=request.user.researcher)
-            return redirect('/projects/{}'.format(new_project.unique_id))
+            return redirect(
+                reverse(
+                    'project',
+                    kwargs={'project_uid': new_project.unique_id}
+                )
+            )
     elif request.method == 'GET':
         roles_labels = Role.ROLES
         form = ProjectRolesListForm(
