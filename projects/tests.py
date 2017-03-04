@@ -152,7 +152,7 @@ class ProjectsAjaxTest(TestCase):
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 405)
 
 
 class ProjectsFormsTest(TestCase):
