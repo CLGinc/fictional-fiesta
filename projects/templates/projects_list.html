@@ -16,7 +16,7 @@
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
         <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
       </button>
-      <form method="post" id="new-project-form" class="new-project-form mdc-elevation--z4">
+      <form method="post" action="{% url 'create_project' %}" id="new-project-form" class="new-project-form mdc-elevation--z4">
         {% csrf_token %}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
