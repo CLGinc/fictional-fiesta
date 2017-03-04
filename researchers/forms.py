@@ -67,11 +67,11 @@ class EmailUserCreationForm(UserCreationForm):
         return super(EmailUserCreationForm, self).save(commit=commit)
 
 
-class ProjectRolesListForm(forms.Form):
+class RoleListForm(forms.Form):
     ORDER_BY = (
-        ('name', 'project__name'),
-        ('creation', 'project__datetime_created'),
-        ('role', 'role')
+        ['name', 'model__name'],
+        ['creation', 'model__datetime_created'],
+        ['role', 'role']
     )
     ORDER_TYPE = (
         ('asc', ''),
@@ -87,15 +87,18 @@ class ProjectRolesListForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.researcher = kwargs.pop('researcher')
-        super(ProjectRolesListForm, self).__init__(*args, **kwargs)
+        self.scope = kwargs.pop('scope')
+        for item in self.ORDER_BY:
+            item[1] = item[1].replace('model', self.scope)
+        super(RoleListForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
-        valid = super(ProjectRolesListForm, self).is_valid()
+        valid = super(RoleListForm, self).is_valid()
         if valid:
             self.cleaned_data = dict(
                 (k, v) for k, v in self.cleaned_data.items() if v
             )
-            self.generate_project_roles()
+            self.generate_roles()
         return valid
 
     def get_order(self):
@@ -108,25 +111,27 @@ class ProjectRolesListForm(forms.Form):
         order_type = dict(self.ORDER_TYPE)[order_type]
         return order_type + order_by
 
-    def generate_project_roles(self):
-        project_roles = self.researcher.get_roles(
-            scope='project',
+    def generate_roles(self):
+        """
+        Generate roles based on form data.
+        Query replacement model is used to replace form fields by their
+        query counterpart. For example to filter by project name you need to
+        add project__name__icontains to your filter.
+        """
+        query_replacement_model = {
+            'name': '{}__name__icontains'.format(self.scope),
+            'created_from': '{}__datetime_created__date__gte'.format(self.scope),
+            'created_to': '{}__datetime_created__date__lte'.format(self.scope),
+        }
+        roles = self.researcher.get_roles(
+            scope=self.scope,
             roles=self.cleaned_data.get('role', Role.get_db_roles()))
-        # Filter by project name
-        if self.cleaned_data.get('name'):
-            project_roles = project_roles.filter(
-                project__name__icontains=self.cleaned_data.get('name'))
-        # Filter by project created_from
-        if self.cleaned_data.get('created_from'):
-            created_from = self.cleaned_data.get('created_from')
-            project_roles = project_roles.filter(
-                project__datetime_created__date__gte=created_from)
-        # Filter by project created_to
-        if self.cleaned_data.get('created_to'):
-            created_to = self.cleaned_data.get('created_to')
-            project_roles = project_roles.filter(
-                project__datetime_created__date__lte=created_to)
+        data = dict()
+        for key, value in query_replacement_model.items():
+            if key in self.cleaned_data:
+                data[value] = self.cleaned_data[key]
+        roles = roles.filter(**data)
         # Order final list
         order_by = self.get_order()
-        project_roles = project_roles.order_by(order_by)
-        self.project_roles = project_roles
+        roles = roles.order_by(order_by)
+        self.roles = roles

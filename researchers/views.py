@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import MultipleObjectMixin
 
-from .forms import EmailAuthenticationForm, EmailUserCreationForm, ProjectRolesListForm
+from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
 from .models import Researcher
 
 
@@ -72,8 +72,11 @@ class RoleListMixin(MultipleObjectMixin):
 
     def get_queryset(self):
         roles_list = None
-        form = ProjectRolesListForm(
-            self.request.GET, researcher=self.request.user.researcher)
+        form = RoleListForm(
+            self.request.GET,
+            researcher=self.request.user.researcher,
+            scope=self.scope
+        )
         if form.is_valid():
-            roles_list = form.project_roles
+            roles_list = form.roles
         return roles_list

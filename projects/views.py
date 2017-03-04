@@ -11,7 +11,6 @@ from django.utils.decorators import method_decorator
 
 
 from researchers.models import Role
-from researchers.forms import ProjectRolesListForm
 from researchers.views import RoleListMixin
 from .forms import NewProjectForm, AddElementsForm
 from .models import Project
@@ -46,6 +45,7 @@ class CreateProject(View):
 class ProjectList(ListView, RoleListMixin):
     context_object_name = 'roles_list_page'
     template_name = 'projects_list.html'
+    scope = 'project'
 
     def get(self, request, *args, **kwargs):
         if request.is_ajax():

@@ -8,7 +8,7 @@ from .models import Researcher, Role, Source
 from projects.models import Project
 from protocols.models import Protocol
 
-from .forms import ProjectRolesListForm
+from .forms import RoleListForm
 
 
 class ResearchersTest(TestCase):
@@ -36,15 +36,15 @@ class ResearchersTest(TestCase):
             self.researcher1: {
                 'owner': [self.project1, self.project2],
                 'contributor': [self.project3],
-                },
+            },
             self.researcher2: {
                 'contributor': [self.project2, self.project3],
                 'watcher': [self.project1],
-                },
+            },
             self.researcher3: {
                 'watcher': [self.project2],
                 'owner': [self.project3],
-                },
+            },
         }
 
     def test_get_roles_owners(self):
@@ -281,7 +281,11 @@ class ResearchersFormsTest(TestCase):
         self.researcher1 = Researcher.objects.get(id=1)
 
     def test_project_roles_list_form_empty(self):
-        form = ProjectRolesListForm(data={}, researcher=self.researcher1)
+        form = RoleListForm(
+            data={},
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
 
     def test_project_roles_list_form_all_fields(self):
@@ -293,82 +297,110 @@ class ResearchersFormsTest(TestCase):
             'order_by': 'name',
             'order_type': 'asc'
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
 
     def test_project_roles_list_form_name(self):
         data = {
             'name': 'Project 1',
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=1, researcher=self.researcher1)
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form_created_from(self):
         data = {
             'created_from': '2016-11-23',
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=3, researcher=self.researcher1)
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form_created_to(self):
         data = {
             'created_to': '2016-11-22',
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=2, researcher=self.researcher1),
             Role.objects.get(project__id=1, researcher=self.researcher1),
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form_role(self):
         data = {
             'role': ['owner', 'watcher'],
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=2, researcher=self.researcher1),
             Role.objects.get(project__id=1, researcher=self.researcher1),
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form_default_order(self):
-        form = ProjectRolesListForm(data={}, researcher=self.researcher1)
+        form = RoleListForm(
+            data={},
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=3, researcher=self.researcher1),
             Role.objects.get(project__id=2, researcher=self.researcher1),
             Role.objects.get(project__id=1, researcher=self.researcher1),
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form__order_by_name_default_order_type(self):
         data = {
             'order_by': 'name',
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=1, researcher=self.researcher1),
             Role.objects.get(project__id=2, researcher=self.researcher1),
             Role.objects.get(project__id=3, researcher=self.researcher1),
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
 
     def test_project_roles_list_form__order_by_role_descending(self):
@@ -376,12 +408,16 @@ class ResearchersFormsTest(TestCase):
             'order_by': 'role',
             'order_type': 'desc'
         }
-        form = ProjectRolesListForm(data=data, researcher=self.researcher1)
+        form = RoleListForm(
+            data=data,
+            researcher=self.researcher1,
+            scope='project'
+        )
         self.assertTrue(form.is_valid())
         expected_projects = [
             Role.objects.get(project__id=1, researcher=self.researcher1),
             Role.objects.get(project__id=2, researcher=self.researcher1),
             Role.objects.get(project__id=3, researcher=self.researcher1),
         ]
-        projects = list(form.project_roles)
+        projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
