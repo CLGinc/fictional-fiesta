@@ -98,7 +98,7 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_protocols_to_add',
-            kwargs={'project_uid': 'test'}
+            kwargs={'project_uid': 'test1234'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 404)
@@ -137,7 +137,7 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_get_sources_to_add',
-            kwargs={'project_uid': 'test'}
+            kwargs={'project_uid': 'test1234'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 404)
