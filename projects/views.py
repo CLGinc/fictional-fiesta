@@ -6,6 +6,7 @@ from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
+from django.utils.decorators import method_decorator
 
 
 from researchers.models import Role
@@ -24,6 +25,7 @@ class SingleProjectMixin(SingleObjectMixin):
         )
 
 
+@method_decorator(login_required, name='dispatch')
 class CreateProject(View):
     def post(self, request, *args, **kwargs):
         new_project_form = NewProjectForm(request.POST or None)
