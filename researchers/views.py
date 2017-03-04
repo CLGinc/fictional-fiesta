@@ -9,7 +9,28 @@ from .forms import EmailAuthenticationForm, EmailUserCreationForm
 from .models import Researcher
 
 
-class LoginView(FormView):
+class BaseAuthView(FormView):
+    redirect_url = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseAuthView, self).get_context_data(**kwargs)
+        context['next_redirect'] = self.get_success_url()
+        return context
+
+    def get_success_url(self):
+        return self.request.GET.get(
+            'next',
+            reverse(self.redirect_url)
+        )
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(self.redirect_url)
+        return super(BaseAuthView, self).get(request, *args, **kwargs)
+
+
+class LoginView(BaseAuthView):
+    redirect_url = settings.LOGIN_REDIRECT_URL
     template_name = 'login.html'
     form_class = EmailAuthenticationForm
 
@@ -20,22 +41,6 @@ class LoginView(FormView):
                 login(self.request, user, user.backend)
         return super(LoginView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
-        context['next_redirect'] = self.get_success_url()
-        return context
-
-    def get_success_url(self):
-        return self.request.GET.get(
-            'next',
-            reverse(settings.LOGIN_REDIRECT_URL)
-        )
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            return redirect(reverse(settings.LOGIN_REDIRECT_URL))
-        return super(LoginView, self).get(request, *args, **kwargs)
-
 
 class LogoutView(RedirectView):
     pattern_name = settings.LOGOUT_REDIRECT_URL
@@ -45,7 +50,8 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get_redirect_url(*args, **kwargs)
 
 
-class RegisterView(FormView):
+class RegisterView(BaseAuthView):
+    redirect_url = settings.REGISTER_REDIRECT_URL
     template_name = 'register.html'
     form_class = EmailUserCreationForm
 
@@ -55,19 +61,3 @@ class RegisterView(FormView):
         Researcher.objects.create(user=user)
         login(self.request, user, 'django.contrib.auth.backends.ModelBackend')
         return super(RegisterView, self).form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super(RegisterView, self).get_context_data(**kwargs)
-        context['next_redirect'] = self.get_success_url()
-        return context
-
-    def get_success_url(self):
-        return self.request.GET.get(
-            'next',
-            reverse(settings.REGISTER_REDIRECT_URL)
-        )
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            return redirect(reverse(settings.REGISTER_REDIRECT_URL))
-        return super(RegisterView, self).get(request, *args, **kwargs)
