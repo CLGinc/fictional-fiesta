@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
+from django.utils.decorators import method_decorator
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm
 from .models import Researcher
@@ -55,6 +56,7 @@ class Register(BaseAuthView):
         return super(Register, self).form_valid(form)
 
 
+@method_decorator(login_required, name='dispatch')
 class Logout(RedirectView):
     pattern_name = settings.LOGOUT_REDIRECT_URL
 
