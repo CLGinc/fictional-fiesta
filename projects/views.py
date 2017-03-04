@@ -5,6 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
+from django.views import View
+
 
 from researchers.models import Role
 from researchers.forms import ProjectRolesListForm
@@ -22,10 +24,8 @@ class SingleProjectMixin(SingleObjectMixin):
         )
 
 
-@login_required
-def projects_list(request):
-    # Handle new project creation
-    if request.method == 'POST':
+class CreateProject(View):
+    def post(self, request, *args, **kwargs):
         new_project_form = NewProjectForm(request.POST or None)
         if new_project_form.is_valid():
             new_project = new_project_form.save(
@@ -36,7 +36,12 @@ def projects_list(request):
                     kwargs={'project_uid': new_project.unique_id}
                 )
             )
-    elif request.method == 'GET':
+
+
+@login_required
+def projects_list(request):
+    # Handle new project creation
+    if request.method == 'GET':
         roles_labels = Role.ROLES
         form = ProjectRolesListForm(
             request.GET, researcher=request.user.researcher)
