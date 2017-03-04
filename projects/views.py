@@ -4,11 +4,22 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
+from django.views.generic.detail import SingleObjectMixin
 
 from researchers.models import Role
 from researchers.forms import ProjectRolesListForm
 from .forms import NewProjectForm, AddElementsForm
 from .models import Project
+
+
+class SingleProjectMixin(SingleObjectMixin):
+    slug_field = 'unique_id'
+    slug_url_kwarg = 'project_uid'
+
+    def get_queryset(self):
+        return Project.objects.filter(
+            roles__researcher=self.request.user.researcher
+        )
 
 
 @login_required
