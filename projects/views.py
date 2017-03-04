@@ -6,11 +6,13 @@ from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
+from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 
 
 from researchers.models import Role
 from researchers.forms import ProjectRolesListForm
+from researchers.views import RoleListMixin
 from .forms import NewProjectForm, AddElementsForm
 from .models import Project
 
@@ -40,27 +42,15 @@ class CreateProject(View):
             )
 
 
-@login_required
-def projects_list(request):
-    # Handle new project creation
-    if request.method == 'GET':
-        roles_labels = Role.ROLES
-        form = ProjectRolesListForm(
-            request.GET, researcher=request.user.researcher)
-        if form.is_valid():
-            roles_list = form.project_roles
-        paginator = Paginator(roles_list, 15)
+@method_decorator(login_required, name='dispatch')
+class ProjectList(ListView, RoleListMixin):
+    context_object_name = 'roles_list_page'
+    template_name = 'projects_list.html'
+
+    def get(self, request, *args, **kwargs):
         if request.is_ajax():
-            page = request.GET.get('page')
-            try:
-                roles_list_page = paginator.page(page)
-            except PageNotAnInteger:
-                return HttpResponseBadRequest(reason='Page must be integer!')
-            except EmptyPage:
-                return HttpResponseBadRequest(reason='Page does not exist!')
-            return render(request, 'projects_list_page.html', locals())
-        roles_list_page = paginator.page(1)
-        return render(request, 'projects_list.html', locals())
+            self.template_name = 'projects_list_page.html'
+        return super(ProjectList, self).get(request, *args, **kwargs)
 
 
 @login_required

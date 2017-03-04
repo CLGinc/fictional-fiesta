@@ -6,8 +6,9 @@ from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import MultipleObjectMixin
 
-from .forms import EmailAuthenticationForm, EmailUserCreationForm
+from .forms import EmailAuthenticationForm, EmailUserCreationForm, ProjectRolesListForm
 from .models import Researcher
 
 
@@ -64,3 +65,15 @@ class Logout(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super(Logout, self).get_redirect_url(*args, **kwargs)
+
+
+class RoleListMixin(MultipleObjectMixin):
+    paginate_by = 15
+
+    def get_queryset(self):
+        roles_list = None
+        form = ProjectRolesListForm(
+            self.request.GET, researcher=self.request.user.researcher)
+        if form.is_valid():
+            roles_list = form.project_roles
+        return roles_list
