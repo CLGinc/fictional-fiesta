@@ -6,4 +6,5 @@ def generate_uid():
         8,
         'protocols',
         'Protocol',
-        'unique_id')
+        'unique_id'
+    )

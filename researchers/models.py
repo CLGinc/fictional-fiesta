@@ -126,7 +126,7 @@ class Researcher(models.Model):
             protocols = Protocol.objects.filter(
                 roles__researcher=self,
                 roles__project=None
-                ).exclude(id__in=[o.id for o in project.protocols.all()])
+            ).exclude(id__in=[o.id for o in project.protocols.all()])
             return protocols
         else:
             return Protocol.objects.none()

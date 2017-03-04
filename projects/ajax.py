@@ -1,5 +1,4 @@
-from django.http import HttpResponseForbidden, HttpResponse
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 

@@ -17,6 +17,7 @@ class InvitationsList(ListView):
     def get_queryset(self):
         return Invitation.objects.filter(invited=self.request.user.researcher)
 
+
 class SingleInvitationMixin(SingleObjectMixin):
     slug_field = 'key'
     slug_url_kwarg = 'key'
@@ -25,6 +26,7 @@ class SingleInvitationMixin(SingleObjectMixin):
         return Invitation.objects.filter(
             email=self.request.user.email
         )
+
 
 @method_decorator(login_required, name='dispatch')
 class AssignInvitation(SingleInvitationMixin, View):

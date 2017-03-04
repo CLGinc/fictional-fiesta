@@ -6,4 +6,5 @@ def generate_key():
         64,
         'invitations',
         'Invitation',
-        'key')
+        'key'
+    )

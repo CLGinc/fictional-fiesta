@@ -11,7 +11,7 @@ class NewProjectForm(forms.ModelForm):
 
     def save(self, researcher, commit=True):
         instance = super(NewProjectForm, self).save(commit=True)
-        new_project_role = Role.objects.create(
+        Role.objects.create(
             researcher=researcher,
             project=instance,
             role='owner')

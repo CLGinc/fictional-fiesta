@@ -254,7 +254,7 @@ class ProjectsFormsTest(TestCase):
             researcher=self.researcher1,
             selected_project=self.project1
         )
-        with self.assertRaises(AttributeError) as e:
+        with self.assertRaises(AttributeError):
             form.add_elements(self.project1)
 
     def test_add_elements_form_protocols_add_elements(self):
@@ -351,7 +351,7 @@ class ProjectsFormsTest(TestCase):
             researcher=self.researcher1,
             selected_project=self.project1
         )
-        with self.assertRaises(AttributeError) as e:
+        with self.assertRaises(AttributeError):
             form.add_elements(self.project1)
 
     def test_add_elements_form_sources_add_elements(self):

@@ -1,7 +1,6 @@
 from django import forms
 
 from .models import Invitation
-from projects.models import Project
 from researchers.models import Researcher, Role
 
 

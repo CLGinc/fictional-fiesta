@@ -9,7 +9,6 @@ from projects.models import Project
 from protocols.models import Protocol
 
 from .forms import ProjectRolesListForm
-from .models import Role
 
 
 class ResearchersTest(TestCase):

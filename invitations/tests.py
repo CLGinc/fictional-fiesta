@@ -124,7 +124,7 @@ class InvitationsTests(TestCase):
             e.exception.messages
         )
 
-    def test_invitation_invited_already_in_project(self):
+    def test_invitation_invited_already_in_protocol(self):
         invitation = Invitation(
             email='user2@gmail.com',
             inviter=self.researcher2,
@@ -138,7 +138,7 @@ class InvitationsTests(TestCase):
             e.exception.messages
         )
 
-    def test_invitation_invited_already_in_project(self):
+    def test_invitation_invited_different_email(self):
         invitation = Invitation(
             email='test@gmail.com',
             inviter=self.researcher1,
@@ -190,11 +190,6 @@ class InvitationsTests(TestCase):
         self.assertFalse(invitation.is_expired())
 
     def test_get_invitations_list(self):
-        invitation = Invitation.objects.create(
-            email='user3@gmail.com',
-            inviter=self.researcher1,
-            project=self.project1,
-        )
         self.client.login(username='user3@gmail.com', password='user3')
         url = reverse('invitations_list')
         response = self.client.get(url)
@@ -215,6 +210,7 @@ class InvitationsTests(TestCase):
             project=self.project1,
         )
         self.assertEqual(invitation.get_item_name(), 'Project 1')
+
     def test_get_item_protocol(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
@@ -238,7 +234,7 @@ class InvitationsTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'key':invitation.key})
+        url = reverse('assign_invitation', kwargs={'key': invitation.key})
         response = self.client.get(url)
         self.assertRedirects(response, reverse('invitations_list'))
         invitation.refresh_from_db()
@@ -246,9 +242,10 @@ class InvitationsTests(TestCase):
 
     def test_get_assign_invitation_404(self):
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'key':'VzdL6HFJcfvrEZTq5voFqYSJ6rTcAv1Zx86eYoSYv30jBVvlR83vdgbcPMs2VYEw'})
+        url = reverse('assign_invitation', kwargs={'key': 'VzdL6HFJcfvrEZTq5voFqYSJ6rTcAv1Zx86eYoSYv30jBVvlR83vdgbcPMs2VYEw'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
 
 class InvitationsAjaxTests(TestCase):
     fixtures = [
@@ -316,7 +313,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        url = reverse('accept_invitation', kwargs={'key': invitation.key})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 405)
 
@@ -327,7 +324,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        url = reverse('accept_invitation', kwargs={'key': invitation.key})
         response = self.client.post(
             url,
             {'key': invitation.key},
@@ -341,7 +338,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        url = reverse('accept_invitation', kwargs={'key': invitation.key})
         response = self.client.get(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
@@ -357,7 +354,7 @@ class InvitationsAjaxTests(TestCase):
         invitation.datetime_created -= timezone.timedelta(3)
         invitation.save()
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key':invitation.key})
+        url = reverse('accept_invitation', kwargs={'key': invitation.key})
         response = self.client.post(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -375,6 +372,7 @@ class InvitationsAjaxTests(TestCase):
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
+
 
 class InvitationsFormsTests(TestCase):
     fixtures = [

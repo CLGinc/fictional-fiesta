@@ -34,6 +34,7 @@ and sent!'.format(model_form.cleaned_data['email'])
                 return HttpResponseBadRequest(reason=form.errors.as_json())
         return HttpResponseForbidden()
 
+
 @method_decorator(login_required, name='dispatch')
 class AcceptInvitation(SingleInvitationMixin, View):
     def post(self, request, *args, **kwargs):
