@@ -42,14 +42,6 @@ class LoginView(BaseAuthView):
         return super(LoginView, self).form_valid(form)
 
 
-class LogoutView(RedirectView):
-    pattern_name = settings.LOGOUT_REDIRECT_URL
-
-    def get_redirect_url(self, *args, **kwargs):
-        logout(self.request)
-        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
-
-
 class RegisterView(BaseAuthView):
     redirect_url = settings.REGISTER_REDIRECT_URL
     template_name = 'register.html'
@@ -61,3 +53,11 @@ class RegisterView(BaseAuthView):
         Researcher.objects.create(user=user)
         login(self.request, user, 'django.contrib.auth.backends.ModelBackend')
         return super(RegisterView, self).form_valid(form)
+
+
+class LogoutView(RedirectView):
+    pattern_name = settings.LOGOUT_REDIRECT_URL
+
+    def get_redirect_url(self, *args, **kwargs):
+        logout(self.request)
+        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
