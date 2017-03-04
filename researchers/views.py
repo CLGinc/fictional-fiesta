@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout
 from django.views.generic.edit import FormView
+from django.views.generic.base import RedirectView
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm
 from .models import Researcher
@@ -36,9 +37,12 @@ class LoginView(FormView):
         return super(LoginView, self).get(request, *args, **kwargs)
 
 
-def logout_user(request):
-    logout(request)
-    return redirect(reverse(settings.LOGOUT_REDIRECT_URL))
+class LogoutView(RedirectView):
+    pattern_name = settings.LOGOUT_REDIRECT_URL
+
+    def get_redirect_url(self, *args, **kwargs):
+        logout(self.request)
+        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
 
 
 def register_user(request):
