@@ -29,7 +29,7 @@ class BaseAuthView(FormView):
         return super(BaseAuthView, self).get(request, *args, **kwargs)
 
 
-class LoginView(BaseAuthView):
+class Login(BaseAuthView):
     redirect_url = settings.LOGIN_REDIRECT_URL
     template_name = 'login.html'
     form_class = EmailAuthenticationForm
@@ -39,10 +39,10 @@ class LoginView(BaseAuthView):
         if user is not None:
             if user.is_active:
                 login(self.request, user, user.backend)
-        return super(LoginView, self).form_valid(form)
+        return super(Login, self).form_valid(form)
 
 
-class RegisterView(BaseAuthView):
+class Register(BaseAuthView):
     redirect_url = settings.REGISTER_REDIRECT_URL
     template_name = 'register.html'
     form_class = EmailUserCreationForm
@@ -52,12 +52,12 @@ class RegisterView(BaseAuthView):
         user = form.instance
         Researcher.objects.create(user=user)
         login(self.request, user, 'django.contrib.auth.backends.ModelBackend')
-        return super(RegisterView, self).form_valid(form)
+        return super(Register, self).form_valid(form)
 
 
-class LogoutView(RedirectView):
+class Logout(RedirectView):
     pattern_name = settings.LOGOUT_REDIRECT_URL
 
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
-        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
+        return super(Logout, self).get_redirect_url(*args, **kwargs)
