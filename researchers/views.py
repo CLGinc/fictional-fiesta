@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm
 from .models import Researcher
