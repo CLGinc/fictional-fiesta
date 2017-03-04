@@ -23,6 +23,7 @@ class ProjectsTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.researcher1 = Researcher.objects.get(id=1)
         self.project1 = Project.objects.get(id=1)
         self.project2 = Project.objects.get(id=2)
 
@@ -61,6 +62,25 @@ class ProjectsTest(TestCase):
             ['Watcher', [Role.objects.get(id=15)]],
         ]
         self.assertEqual(participants, expected_participants)
+
+    def test_create_project_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('create_project')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_create_project_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('create_project')
+        response = self.client.post(
+            url,
+            data={'name': 'name1'}
+        )
+        project = self.researcher1.roles.all().order_by('-id')[0].project
+        self.assertRedirects(
+            response,
+            reverse('project', kwargs={'project_uid': project.unique_id})
+        )
 
 
 class ProjectsAjaxTest(TestCase):
