@@ -64,8 +64,3 @@ class ProjectView(DetailView, SingleProjectMixin):
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
         return context
-
-    def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            self.template_name = 'project_results_page.html'
-        return super(ProjectView, self).get(request, *args, **kwargs)
