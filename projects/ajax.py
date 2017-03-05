@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormView
@@ -6,6 +8,7 @@ from .views import SingleProjectMixin
 from .forms import AddElementsForm
 
 
+@method_decorator(login_required, name='dispatch')
 class GetItemsToAdd(FormView, SingleProjectMixin):
     form_class = AddElementsForm
 
@@ -39,6 +42,7 @@ class GetItemsToAdd(FormView, SingleProjectMixin):
         return reverse('project', kwargs={'project_uid': self.object.unique_id})
 
 
+@method_decorator(login_required, name='dispatch')
 class GetProtocolsToAdd(GetItemsToAdd):
     template_name = 'protocols_to_add.html'
     initial = {
@@ -46,6 +50,7 @@ class GetProtocolsToAdd(GetItemsToAdd):
     }
 
 
+@method_decorator(login_required, name='dispatch')
 class GetSourcesToAdd(GetItemsToAdd):
     template_name = 'sources_to_add.html'
     initial = {
