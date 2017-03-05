@@ -100,7 +100,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_protocols_to_add',
+            'project_add_protocols',
             kwargs={'project_uid': '0f570c02'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -109,7 +109,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_protocols_to_add_non_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_protocols_to_add',
+            'project_add_protocols',
             kwargs={'project_uid': '0f570c02'}
         )
         response = self.client.get(url)
@@ -118,7 +118,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_protocols_to_add_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_protocols_to_add',
+            'project_add_protocols',
             kwargs={'project_uid': 'test1234'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -127,7 +127,7 @@ class ProjectsAjaxTest(TestCase):
     def test_post_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_protocols_to_add',
+            'project_add_protocols',
             kwargs={'project_uid': '0f570c02'}
         )
         data = {
@@ -147,7 +147,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_sources_to_add',
+            'project_add_sources',
             kwargs={'project_uid': '0f570c02'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -156,7 +156,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_sources_to_add_non_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_sources_to_add',
+            'project_add_sources',
             kwargs={'project_uid': '0f570c02'}
         )
         response = self.client.get(url)
@@ -165,7 +165,7 @@ class ProjectsAjaxTest(TestCase):
     def test_get_project_sources_to_add_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_sources_to_add',
+            'project_add_sources',
             kwargs={'project_uid': 'test1234'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -174,7 +174,7 @@ class ProjectsAjaxTest(TestCase):
     def test_post_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_get_sources_to_add',
+            'project_add_sources',
             kwargs={'project_uid': '0f570c02'}
         )
         data = {

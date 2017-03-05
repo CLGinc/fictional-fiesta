@@ -9,14 +9,14 @@ from .forms import AddElementsForm
 
 
 @method_decorator(login_required, name='dispatch')
-class GetItemsToAdd(FormView, SingleProjectMixin):
+class AddItems(FormView, SingleProjectMixin):
     form_class = AddElementsForm
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.is_ajax() and request.user.researcher.can_edit(self.object):
             return super(
-                GetItemsToAdd,
+                AddItems,
                 self
             ).get(request, *args, **kwargs)
         return HttpResponseForbidden()
@@ -24,16 +24,16 @@ class GetItemsToAdd(FormView, SingleProjectMixin):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super(
-            GetItemsToAdd,
+            AddItems,
             self
         ).post(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.add_elements(self.object)
-        return super(GetItemsToAdd, self).form_valid(form)
+        return super(AddItems, self).form_valid(form)
 
     def get_form_kwargs(self):
-        kwargs = super(GetItemsToAdd, self).get_form_kwargs()
+        kwargs = super(AddItems, self).get_form_kwargs()
         kwargs['selected_project'] = self.object
         kwargs['researcher'] = self.request.user.researcher
         return kwargs
@@ -43,7 +43,7 @@ class GetItemsToAdd(FormView, SingleProjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class GetProtocolsToAdd(GetItemsToAdd):
+class AddProtocols(AddItems):
     template_name = 'protocols_to_add.html'
     initial = {
         'element_type': 'p'
@@ -51,7 +51,7 @@ class GetProtocolsToAdd(GetItemsToAdd):
 
 
 @method_decorator(login_required, name='dispatch')
-class GetSourcesToAdd(GetItemsToAdd):
+class AddSources(AddItems):
     template_name = 'sources_to_add.html'
     initial = {
         'element_type': 's'
