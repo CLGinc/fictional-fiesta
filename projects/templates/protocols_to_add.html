@@ -1,4 +1,4 @@
-{% if protocols_to_add %}
+{% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
   <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
@@ -10,7 +10,7 @@
 <form id="form--protocols" method="post" action="">
   {% csrf_token %}
   <ul class="mdc-list padding-0">
-    {% for protocol in protocols_to_add %}
+    {% for protocol in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
         id="{{ protocol.unique_id }}"
         class="mdc-layout-grid mdc-list-item border--bottom list--link">

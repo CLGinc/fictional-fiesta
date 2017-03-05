@@ -23,12 +23,12 @@ class AddElementsForm(forms.Form):
         selected_project = kwargs.pop('selected_project')
         researcher = kwargs.pop('researcher')
         super(AddElementsForm, self).__init__(*args, **kwargs)
-        if self.data.get('element_type') == 'p':
+        if self.data.get('element_type', self.initial.get('element_type')) == 'p':
             protocols_to_add = researcher.get_protocols_to_add(
                 selected_project)
             self.fields.get('element_choices').to_field_name = 'unique_id'
             self.fields.get('element_choices').queryset = protocols_to_add
-        if self.data.get('element_type') == 's':
+        elif self.data.get('element_type', self.initial.get('element_type')) == 's':
             sources_to_add = researcher.get_sources_to_add(selected_project)
             self.fields.get('element_choices').to_field_name = 'id'
             self.fields.get('element_choices').queryset = sources_to_add

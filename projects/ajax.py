@@ -1,17 +1,13 @@
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 
 from .views import SingleProjectMixin
+from .forms import AddElementsForm
 
 
-class GetItemsToAdd(TemplateView, SingleProjectMixin):
-    context_key = ''
-
-    def get_context_data(self, **kwargs):
-        context = super(GetItemsToAdd, self).get_context_data(**kwargs)
-        context[self.context_key] = \
-            self.get_items_to_add()
-        return context
+class GetItemsToAdd(FormView, SingleProjectMixin):
+    form_class = AddElementsForm
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -22,21 +18,36 @@ class GetItemsToAdd(TemplateView, SingleProjectMixin):
             ).get(request, *args, **kwargs)
         return HttpResponseForbidden()
 
-    def get_items_to_add(self):
-        return None
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(
+            GetItemsToAdd,
+            self
+        ).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.add_elements(self.object)
+        return super(GetItemsToAdd, self).form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(GetItemsToAdd, self).get_form_kwargs()
+        kwargs['selected_project'] = self.object
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('project', kwargs={'project_uid': self.object.unique_id})
 
 
 class GetProtocolsToAdd(GetItemsToAdd):
     template_name = 'protocols_to_add.html'
-    context_key = 'protocols_to_add'
-
-    def get_items_to_add(self):
-        return self.request.user.researcher.get_protocols_to_add(self.object)
+    initial = {
+        'element_type': 'p'
+    }
 
 
 class GetSourcesToAdd(GetItemsToAdd):
     template_name = 'sources_to_add.html'
-    context_key = 'sources_to_add'
-
-    def get_items_to_add(self):
-        return self.request.user.researcher.get_sources_to_add(self.object)
+    initial = {
+        'element_type': 's'
+    }

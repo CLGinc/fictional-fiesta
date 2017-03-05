@@ -89,6 +89,7 @@ class ProjectsAjaxTest(TestCase):
         'researchers/fixtures/researchers',
         'researchers/fixtures/universities',
         'projects/fixtures/projects',
+        'researchers/fixtures/sources',
         'researchers/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
@@ -129,11 +130,19 @@ class ProjectsAjaxTest(TestCase):
             'project_get_protocols_to_add',
             kwargs={'project_uid': '0f570c02'}
         )
+        data = {
+            'element_type': 'p',
+            'element_choices': ['fba17387', '8f4a328c']
+        }
         response = self.client.post(
             url,
+            data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        self.assertEqual(response.status_code, 405)
+        self.assertRedirects(
+            response,
+            reverse('project', kwargs={'project_uid': '0f570c02'})
+        )
 
     def test_get_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -168,11 +177,19 @@ class ProjectsAjaxTest(TestCase):
             'project_get_sources_to_add',
             kwargs={'project_uid': '0f570c02'}
         )
+        data = {
+            'element_type': 's',
+            'element_choices': ['1', '2']
+        }
         response = self.client.post(
             url,
+            data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        self.assertEqual(response.status_code, 405)
+        self.assertRedirects(
+            response,
+            reverse('project', kwargs={'project_uid': '0f570c02'})
+        )
 
 
 class ProjectsFormsTest(TestCase):
