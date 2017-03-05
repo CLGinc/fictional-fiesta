@@ -42,7 +42,7 @@
           {% endif %}
         </div>
         <div class="mdl-tabs__panel is-active mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none" id="results-panel">
-          {% if results_page %}
+          {% if selected_project.results.all %}
           <ul class="mdc-list-group padding-0">
             <ul class="mdc-list">
               <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500 padding-0">
@@ -59,7 +59,7 @@
               </li>
             </ul>
             <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
-              {% for result in results_page %}
+              {% for result in selected_project.results.all %}
         		  <li class="mdc-list-item border--bottom mdc-layout-grid padding-0">
                 <a href="/resultid/" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link padding-0">
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>

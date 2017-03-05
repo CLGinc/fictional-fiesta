@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views import View
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
@@ -51,6 +51,27 @@ class ProjectList(ListView, RoleListMixin):
         if request.is_ajax():
             self.template_name = 'projects_list_page.html'
         return super(ProjectList, self).get(request, *args, **kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProjectView(DetailView, SingleProjectMixin):
+    context_object_name = 'selected_project'
+    template_name = 'project.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectView, self).get_context_data(**kwargs)
+        context['can_edit'] = self.request.user.researcher.can_edit(
+            self.object
+        )
+        context['invitation_roles'] = Role.ROLES_TO_INVITE
+        context['participants_by_role'] = \
+            self.object.get_participants_by_role()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            self.template_name = 'project_results_page.html'
+        return super(ProjectView, self).get(request, *args, **kwargs)
 
 
 @login_required
