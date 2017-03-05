@@ -8,14 +8,14 @@ class GetItemsToAdd(TemplateView, SingleProjectMixin):
     context_key = ''
 
     def get_context_data(self, **kwargs):
-        self.object = self.get_object()
         context = super(GetItemsToAdd, self).get_context_data(**kwargs)
         context[self.context_key] = \
             self.get_items_to_add()
         return context
 
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
+        self.object = self.get_object()
+        if request.is_ajax() and request.user.researcher.can_edit(self.object):
             return super(
                 GetItemsToAdd,
                 self
