@@ -1,12 +1,11 @@
 // Scroll globals
-var pageNum = 1, // The latest page loaded
+var pageNum = parseInt($('#items_list').attr('data-currentpage')), // current page
     hasNextPage = true, // Indicates whether to expect another page after this one
     viewParam = $(location).attr('href'),
     datamode = $('#items_list').attr('data-mode'),
     datalastpage = 1,
     win = $(window),
     loadmorebtn = $("#loadmorebtn");
-
 win.load(function(){
   datalastpage = $('#items_list').attr('data-pages');
   bindevent();
@@ -57,7 +56,7 @@ var loadItems = function() {
       return false;
     }
     // Update the page number
-    pageNum = pageNum + 1;
+    pageNum = ++pageNum;
     // Configure the url we're about to hit
     $.ajax({
         url: viewParam,
