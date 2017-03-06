@@ -46,7 +46,6 @@ var loadOnClick = function(){
 };
 var loadItems = function() {
     $('#loading').addClass('is-active');
-    console.log(hasNextPage);
     // If the next page doesn't exist, just quit now
     if (hasNextPage === false) {
         $('#loading').removeClass('is-active');
@@ -68,7 +67,6 @@ var loadItems = function() {
         success: function(data) {
             // Update global next page variable
             hasNextPage = true;//.hasNext;
-            console.log(data);
     				$('#items_list').append(data);
             window.mdc.autoInit(document.getElementById('items_list'), () => {});
         },
@@ -80,7 +78,6 @@ var loadItems = function() {
             // Turn the scroll monitor back on
             bindevent();
             $('#loading').removeClass('is-active');
-            console.log(data);
         }
     });
 };

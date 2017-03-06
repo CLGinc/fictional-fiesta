@@ -36,7 +36,11 @@
             <h2 class="section--title">Sources</h2>
           </a>
           {% if can_edit %}
-          <button data-mdc-auto-init="MDCRipple" data-trigger="show" data-ajax="addDataRequest" id="button-add" class="mdc-button mdl-color-text--blue-grey-600 right hidden">
+          <button data-mdc-auto-init="MDCRipple"
+                  data-trigger="show"
+                  data-ajax="addDataRequest"
+                  id="button-add"
+                  class="mdc-button mdl-color-text--blue-grey-600 right hidden">
             <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
           </button>
           {% endif %}
@@ -297,11 +301,11 @@
         </ul>
       </div>
     </div>
-    <div id="modal--protocols" class="modal mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 visible" data-request="protocols_to_add">
+    <div id="modal--protocols" class="modal mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 visible" data-request="add_protocols">
       <div class="article--modal width--full mdc-elevation--z16">
         <h1 class="article--modal-title mdl-color--blue-500 mdl-color-text--white">Add protocols</h1>
         <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full" data-type="loader"></div>
-        <div id="protocols_to_add" class="modal--content">
+        <div id="add_protocols" class="modal--content">
 
         </div>
         <div class="modal--button-container mdl-color--blue-500 mdl-shadow--8dp">
@@ -316,11 +320,11 @@
         </div>
       </div>
     </div>
-    <div id="modal--sources" class="modal mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 visible" data-request="sources_to_add">
+    <div id="modal--sources" class="modal mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 visible" data-request="add_sources">
       <div class="article--modal width--full mdc-elevation--z16">
         <h1 class="article--modal-title mdl-color--blue-500 mdl-color-text--white">Add sources</h1>
         <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full" data-type="loader"></div>
-        <div id="sources_to_add" class="modal--content">
+        <div id="add_sources" class="modal--content">
 
         </div>
         <div class="modal--button-container mdl-color--blue-500 mdl-shadow--8dp">
