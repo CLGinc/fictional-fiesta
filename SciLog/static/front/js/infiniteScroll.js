@@ -59,6 +59,8 @@ var loadItems = function() {
     // Update the page number
     pageNum = pageNum + 1;
     // Configure the url we're about to hit
+    console.log('start ajax'+Date.now());
+    var start = Date.now();
     $.ajax({
         url: viewParam,
         data: {page: pageNum},
