@@ -1,7 +1,7 @@
 var MDCTemporaryDrawer = mdc.drawer.MDCTemporaryDrawer;
 var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
 document.querySelector('.menu').addEventListener('click', function() {
-  drawer.open = true;
+  drawer.open = !drawer.open;
 });
 // scrolltop
 $('.scrollToTop-button').click(function(){
