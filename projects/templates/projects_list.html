@@ -61,7 +61,7 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ created_from|date:"Y-m-d" }}">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ created_from|date:"d M Y" }}">
               <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
                 <i class="material-icons right">arrow_drop_down</i> Created from:
               </label>
@@ -69,7 +69,7 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ created_to|date:"Y-m-d" }}">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ created_to|date:"d M Y" }}">
               <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
                 <i class="material-icons right">arrow_drop_down</i> Created to:
               </label>
@@ -131,7 +131,7 @@
             <a href="{% url 'project' project_uid=role.project.unique_id %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.project.protocols.count }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
             </a>
