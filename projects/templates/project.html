@@ -58,7 +58,7 @@
                 </div>
               </li>
             </ul>
-            <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+            <ul class="mdc-list">
               {% for result in selected_project.results.all %}
         		  <li class="mdc-list-item border--bottom mdc-layout-grid padding-0">
                 <a href="/resultid/" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link padding-0">
@@ -92,11 +92,6 @@
             </div>
           </div>
           {% endif %}
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid">
-            <div class="mdl-layout-spacer"></div>
-            <div class="mdl-spinner mdl-js-spinner is-active" id="loading"></div>
-            <div class="mdl-layout-spacer"></div>
-          </div>
         </div>
         <div class="mdl-tabs__panel mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none" id="protocols-panel">
           {% if selected_project.protocols.all %}
