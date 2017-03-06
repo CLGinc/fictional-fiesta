@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from .utils import generate_uid
 from .models import Project
-from .forms import NewProjectForm, AddElementsForm
+from .forms import BasicProjectForm, AddElementsForm
 from researchers.models import Researcher, Role, Source
 from protocols.models import Protocol
 
@@ -209,14 +209,14 @@ class ProjectsFormsTest(TestCase):
         self.project1 = Project.objects.get(id=1)
 
     def test_new_project_form_empty(self):
-        form = NewProjectForm(data={})
+        form = BasicProjectForm(data={})
         self.assertFalse(form.is_valid())
 
     def test_new_project_form_mandatory_fields(self):
         data = {
             'name': 'Project 1'
         }
-        form = NewProjectForm(data)
+        form = BasicProjectForm(data)
         self.assertTrue(form.is_valid())
         project = form.save(self.researcher1)
         self.assertIsInstance(project, Project)
@@ -231,7 +231,7 @@ class ProjectsFormsTest(TestCase):
             'name': 'Project 1',
             'description': 'Project 1 Description'
         }
-        form = NewProjectForm(data)
+        form = BasicProjectForm(data)
         self.assertTrue(form.is_valid())
         project = form.save(self.researcher1)
         self.assertIsInstance(project, Project)

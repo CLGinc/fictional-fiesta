@@ -4,17 +4,18 @@ from .models import Project
 from researchers.models import Role
 
 
-class NewProjectForm(forms.ModelForm):
+class BasicProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description']
 
-    def save(self, researcher, commit=True):
-        instance = super(NewProjectForm, self).save(commit=True)
-        Role.objects.create(
-            researcher=researcher,
-            project=instance,
-            role='owner')
+    def save(self, researcher=None, commit=True):
+        instance = super(BasicProjectForm, self).save(commit=True)
+        if researcher:
+            Role.objects.create(
+                researcher=researcher,
+                project=instance,
+                role='owner')
         return instance
 
 
