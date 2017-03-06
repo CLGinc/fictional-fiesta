@@ -22,7 +22,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding--right-16">Status</div>
           </li>
         </ul>
-        <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+        <ul class="mdc-list">
           {% for invitation in invitations_list %}
             <li class="mdc-list-item border--bottom mdc-layout-grid">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ invitation.get_item }}</div>
