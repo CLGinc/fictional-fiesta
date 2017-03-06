@@ -1,69 +1,80 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}SciLog - Login{% endblock %}
+{% block title %}SciLog - Register{% endblock %}
 {% block body %}
-<div class="mdc-layout-grid main-grid">
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 mdc-elevation--z4 center">
-    <div class="mdc-layout-grid margin--top-24">
-      <div class="mdl-layout-spacer"></div>
-      <img src="{% static "front/img/optimised.svg" %}" alt="logo">
-      <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
-      <div class="mdl-layout-spacer"></div>
-    </div>
-    <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
-      Registration
-    </h1>
-    <div class="login--form">
-      {% if next_redirect %}
-      <form method="post" action="{% url 'register_user' %}?next={{ next_redirect }}">
-        {% else %}
-        <form method="post" action="{% url 'register_user' %}">
+<div class="center mdc-elevation--z4 center padding-0 margin--top-40 login">
+  <div class="padding--top-24 mdc-layout-grid">
+    <div class="mdl-layout-spacer"></div>
+    <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+    <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+    <div class="mdl-layout-spacer"></div>
+  </div>
+  <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
+    Registration
+  </h1>
+  <div class="login--form">
+    {% if next_redirect %}
+    <form method="post" action="{% url 'register_user' %}?next={{ next_redirect }}">
+      {% else %}
+      <form method="post" action="{% url 'register_user' %}">
+        {% endif %}
+        {% csrf_token %}
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
+          <label class="mdc-textfield__label" for="id_email"><i class="material-icons login--icon">email</i>Email</label>
+          {% if form.errors.email %}
+          <div id="id_email_error" class="error-tooltip">
+            {% for error in form.errors.email %}
+            {{ error|escape }}<br>
+            {% endfor %}
+          </div>
           {% endif %}
-          {% csrf_token %}
-          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
-            <label class="mdc-textfield__label" for="id_email"><i class="material-icons login--icon">email</i>Email</label>
-            {% if form.errors.email %}
-            <div id="id_email_error" class="error-tooltip">
-              {% for error in form.errors.email %}
-              {{ error|escape }}<br>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input class="mdc-textfield__input" id="id_password1" name="password1" type="password" required />
-            <label class="mdc-textfield__label" for="id_password1"><i class="material-icons login--icon">lock_open</i>Password</label>
-            {% if form.errors.password1 %}
-            <div id="id_password1_error" class="error-tooltip">
-              {% for error in form.errors.password1 %}
-              {{ error|escape }}<br>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input class="mdc-textfield__input" id="id_password2" name="password2" type="password" required />
-            <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Repeat Password</label>
-            {% if form.errors.password2 %}
-            <div id="id_password2_error" class="error-tooltip">
-              {% for error in form.errors.password2 %}
-              {{ error|escape }}<br>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-        </form>
-        <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
-          <span data-content="open-close-text">Register</span>
-        </button>
-        {% if form.non_field_errors %}
-        <div id="non_field_errors" class="error-tooltip-non">
-          {% for error in form.non_field_errors %}
-          {{ error|escape }}<br>
-          {% endfor %}
         </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_password1" name="password1" type="password" required />
+          <label class="mdc-textfield__label" for="id_password1"><i class="material-icons login--icon">lock_open</i>Password</label>
+          {% if form.errors.password1 %}
+          <div id="id_password1_error" class="error-tooltip">
+            {% for error in form.errors.password1 %}
+            {{ error|escape }}<br>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_password2" name="password2" type="password" required />
+          <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Repeat Password</label>
+          {% if form.errors.password2 %}
+          <div id="id_password2_error" class="error-tooltip">
+            {% for error in form.errors.password2 %}
+            {{ error|escape }}<br>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </form>
+      <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
+        <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
+        <span data-content="open-close-text">Register</span>
+      </button>
+      {% if form.non_field_errors %}
+      <div id="non_field_errors" class="error-tooltip-non">
+        {% for error in form.non_field_errors %}
+        {{ error|escape }}<br>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="login--link-register mdc-typography--caption text-center">
+        {% if next_redirect %}
+        Already have an account?<br>
+        <a href="{% url 'login_user' %}?next={{ next_redirect }}">
+          <span class="mdl-color-text--blue-500">Login here!</span>
+        </a>
+        {% else %}
+        Already have an account?<br>
+        <a href="{% url 'login_user' %}?next={{ self.request.path }}">
+          <span class="mdl-color-text--blue-500">Login here!</span>
+        </a>
         {% endif %}
       </div>
     </div>
