@@ -64,6 +64,7 @@ class ProjectView(FormView, SingleProjectMixin):
             self.object
         )
         context['invitation_roles'] = Role.ROLES_TO_INVITE
+        context['default_invitation_role'] = Role.DEFAULT_INVITATION_ROLE
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
         return context

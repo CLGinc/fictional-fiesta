@@ -27,9 +27,10 @@ class Role(models.Model):
         'contributor'
     )
     ROLES_TO_INVITE = (
-        ('watcher', 'Watcher'),
         ('contributor', 'Contributor'),
+        ('watcher', 'Watcher'),
     )
+    DEFAULT_INVITATION_ROLE = ('watcher', 'Watcher')
 
     researcher = models.ForeignKey('Researcher', related_name='roles')
     project = models.ForeignKey(
