@@ -222,15 +222,14 @@
             <span class="mdc-select__selected-text">Select role</span>
             <div class="mdc-simple-menu mdc-select__menu">
               <ul class="mdc-list mdc-simple-menu__items">
-                <li class="mdc-list-item" role="option" aria-selected tabindex="0" data-value="watcher">
-                  Watcher
+                {% for role, label in invitation_roles %}
+                <li class="mdc-list-item" role="option" {% if role == default_invitation_role.0 %}aria-selected{% endif %} tabindex="0" data-value="{{ role }}">
+                  {{ label }}
                 </li>
-                <li class="mdc-list-item" role="option" tabindex="0" data-value="contributor">
-                  Contributor
-                </li>
+                {% endfor %}
               </ul>
             </div>
-            <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
+            <input class="hidden" data-content="email_input_source_role" name="role" value="{{ default_invitation_role.0 }}">
           </div>
           <select class="hidden" name="invitation_object" value="project">
             <option selected value="project">Project</option>
@@ -255,15 +254,14 @@
             <span class="mdc-select__selected-text">Select role</span>
             <div class="mdc-simple-menu mdc-select__menu">
               <ul class="mdc-list mdc-simple-menu__items">
-                <li class="mdc-list-item" role="option" aria-selected tabindex="0" data-value="watcher">
-                  Watcher
+                {% for role, label in invitation_roles %}
+                <li class="mdc-list-item" role="option" {% if role == default_invitation_role.0 %}aria-selected{% endif %} tabindex="0" data-value="{{ role }}">
+                  {{ label }}
                 </li>
-                <li class="mdc-list-item" role="option" tabindex="0" data-value="contributor">
-                  Contributor
-                </li>
+                {% endfor %}
               </ul>
             </div>
-            <input class="hidden" data-content="email_input_source_role" name="role" value="watcher">
+            <input class="hidden" data-content="email_input_source_role" name="role" value="{{ default_invitation_role.0 }}">
           </div>
           <select class="hidden" name="invitation_object" value="project">
             <option selected value="project">Project</option>

@@ -125,7 +125,10 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
           </li>
         </ul>
-        <ul class="mdc-list" id="items_list" data-mode="infinitescroll" data-pages="{{ paginator.num_pages }}">
+        <ul class="mdc-list" id="items_list"
+            data-mode="infinitescroll"
+            data-pages="{{ paginator.num_pages }}"
+            data-currentpage="{{ page_obj.number }}">
           {% for role in roles_list_page %}
           <li class="mdc-list-item border--bottom">
             <a href="{% url 'project' project_uid=role.project.unique_id %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
