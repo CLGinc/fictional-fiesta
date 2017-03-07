@@ -7,7 +7,7 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
   </li>
 </ul>
-<form id="form--protocols" method="post" action="{% url 'project_add_protocols' %}">
+<form id="form--protocols" method="post" action="{% url 'project_add_protocols' project_uid=object.unique_id %}">
   {% csrf_token %}
   <ul class="mdc-list padding-0">
     {% for protocol in form.element_choices.field.queryset %}
@@ -16,7 +16,7 @@
         class="mdc-layout-grid mdc-list-item border--bottom list--link">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
         <div class="mdc-checkbox">
-          <input type="checkbox" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
+          <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
             <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
               <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
