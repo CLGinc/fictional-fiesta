@@ -46,7 +46,6 @@ $('[data-trigger="show"]').click(function(){
 });
 // activate
 var editableInputs = function(button){
-  event.preventDefault();
   var targetElementClass = $(button).attr('data-target'),
       targets = document.getElementsByClassName(targetElementClass),
       action = $(button).attr('data-trigger'),
@@ -68,9 +67,12 @@ var editableInputs = function(button){
 $('[data-trigger="activate"]').click(function(){
   button = $(this);
   editableInputs(button);
+  return false;
 });
 $('[data-trigger="save"]').click(function(){
-  editableInputs(event);
+  button = $(this);
+  editableInputs(button);
+  return false;
 });
 
 // add data
