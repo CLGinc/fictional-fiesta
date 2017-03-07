@@ -6,24 +6,41 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-        <span id="project_name">{{ selected_project.name }}</span>
-        <button data-mdc-auto-init="MDCRipple" data-trigger="" data-ajax=""
-                id="button-modify"
-                class="mdc-button mdl-color-text--blue-grey-600 right">
-          <i class="material-icons mdl-color-text--blue-500">edit</i> Modify project
-        </button>
-        <p class="mdc-typography--caption mdl-color-text--blue-grey-500">Created on: {{ selected_project.datetime_created }}</p>
-      </h1>
-    </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <div class="article">
-        <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
-        <p id="project_desc" class="mdl-color-text--blue-grey-900">
-          {{ selected_project.description }}
-        </p>
+    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0"
+          method="post"
+          action="{% url 'project' project_uid=object.unique_id %}">
+      {% csrf_token %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+        <h1 class="subpageheader--project">
+          <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
+              <input type="text" id="project_name"
+                     class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
+                     value="{{ selected_project.name }}"
+                     disabled>
+          </div>
+          <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
+            Created on: {{ selected_project.datetime_created|date:"d M Y" }}
+          </p>
+        </h1>
       </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+        <button data-mdc-auto-init="MDCRipple" data-trigger="activate" data-target="editable"
+                id="button-modify"
+                class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
+          <i class="material-icons mdl-color-text--blue-500">edit</i> <span>Edit project<span>
+        </button>
+      </div>
+      <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+        <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+        <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
+          <input type="text" id="project_name"
+                 class="editable mdc-textfield__input mdl-color-text--blue-grey-900"
+                 value="{{ selected_project.description }}"
+                 disabled>
+        </div>
+      </div>
+    </form>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid">
         <div class="mdl-tabs__tab-bar mdc-layout-grid__cell mdc-layout-grid__cell--span-12 block">
           <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">

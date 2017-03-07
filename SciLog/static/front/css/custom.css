@@ -163,9 +163,15 @@ body {
 .mdc-textfield,.mdc-textfield__input {
   width: 100%;
 }
+.mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline).input--temp::after {
+  width: 0;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
+}
+.subpageheader--project {
+  margin: 16px auto;  
 }
 .left {
   float: left;

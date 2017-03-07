@@ -44,6 +44,36 @@ $('[data-trigger="show"]').click(function(){
   var targetElementId = $(this).attr('data-target');
   $('#'+targetElementId).toggleClass('element--show-animate');
 });
+// activate
+var editableInputs = function(button){
+  event.preventDefault();
+  var targetElementClass = $(button).attr('data-target'),
+      targets = document.getElementsByClassName(targetElementClass),
+      action = $(button).attr('data-trigger'),
+      newAction,
+      newButtonLabel;
+  if(action=='activate'){
+    newAction = 'save';
+    newButtonLabel = 'Save project';
+  } else if (action=='save') {
+    newAction = 'activate';
+    newButtonLabel = 'Edit project';
+    button.closest('form').submit();
+  }
+  $(button).attr('data-trigger', newAction).children('span').html(newButtonLabel);
+  $(targets).each(function( i ) {
+    $(this).attr('disabled', function (_, attr) { return !attr; }).parent().toggleClass('input--temp');
+  });
+};
+$('[data-trigger="activate"]').click(function(){
+  button = $(this);
+  editableInputs(button);
+});
+$('[data-trigger="save"]').click(function(){
+  editableInputs(event);
+});
+
+// add data
 $('[data-ajax="addDataRequest"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       requestTarget = $('#'+targetElementId).attr('data-request');
