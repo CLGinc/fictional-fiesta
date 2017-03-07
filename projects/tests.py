@@ -82,6 +82,20 @@ class ProjectsTest(TestCase):
             reverse('project', kwargs={'project_uid': project.unique_id})
         )
 
+    def test_update_project_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'project',
+            kwargs={'project_uid': self.project1.unique_id}
+        )
+        response = self.client.post(
+            url,
+            data={'name': 'New Project Name'}
+        )
+        self.project1.refresh_from_db()
+        self.assertRedirects(response, url)
+        self.assertEqual(self.project1.name, 'New Project Name')
+
 
 class ProjectsAjaxTest(TestCase):
     fixtures = [
