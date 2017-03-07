@@ -7,7 +7,7 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">URL</div>
   </li>
 </ul>
-<form id="form--sources" method="post" action="">
+<form id="form--sources" method="post" action="{% url 'project_add_sources' %}">
   {% csrf_token %}
   <ul class="mdc-list">
     {% for source in form.element_choices.field.queryset %}
