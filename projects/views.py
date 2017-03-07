@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import FormView
+from django.views.generic.edit import UpdateView
 from django.views import View
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
@@ -52,7 +52,7 @@ class ProjectList(ListView, RoleListMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProjectView(FormView, SingleProjectMixin):
+class ProjectView(UpdateView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project.html'
     form_class = BasicProjectForm
