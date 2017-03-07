@@ -55,7 +55,7 @@ class ProjectList(ListView, RoleListMixin):
 class ProjectView(FormView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project.html'
-    form_class = CreateProject
+    form_class = BasicProjectForm
 
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
