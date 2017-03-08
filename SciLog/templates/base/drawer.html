@@ -33,7 +33,13 @@
   <nav class="mdc-temporary-drawer__drawer">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
-        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS LIST
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS
+      </a>
+      <a class="mdc-list-item" href="{% url 'protocols_list' %}">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">assignment</i>PROTOCOLS
+      </a>
+      <a class="mdc-list-item" href="{% url 'invitations_list' %}">
+        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">drafts</i>INVITATIONS
       </a>
       <a class="mdc-list-item" href="#">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">delete</i>Trash
