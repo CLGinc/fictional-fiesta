@@ -367,7 +367,7 @@ a {
 .mdc-checkbox {
   vertical-align: middle;
 }
-.mdc-checkbox::after {
+.mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
 }
 .mdc-list-item.mdc-ripple-upgraded {
