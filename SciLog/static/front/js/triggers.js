@@ -108,25 +108,15 @@ $('[data-trigger="add-input"]').click(function(){
 		setSelectValue(event);
 	});
 });
+
 $('.mdc-select').on('MDCSelect:change', function(event) {
 	setSelectValue(event);
 });
 var setSelectValue = function(event){
-	var value = event.detail.selectedText_.innerText.toLowerCase(),
+	var value = event.detail.value,
 			target = $(event.currentTarget).children('input');
 	$(target).attr('value', value);
 };
-
-// selects
-$('[data-trigger="selectValue"]').click(function(){
-  var targetId = $(this).parent().attr('for'),
-      targetInput = $('[data-content="'+targetId+'"]'),
-      targetBtn = $('#'+targetId).children('[data-content="button--label"]'),
-      selectValue = $(this).attr('data-value'),
-      selectLabel = $(this).text();
-  targetBtn.text(selectLabel);
-  targetInput.val(selectValue);
-});
 // submit form
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),

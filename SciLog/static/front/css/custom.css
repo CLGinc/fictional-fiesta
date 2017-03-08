@@ -79,74 +79,6 @@ body {
 .mobile-button {
   visibility: hidden;
 }
-.alignment-fix--labels {
-  padding-top: 0;
-}
-.width--full {
-  width: 100%;
-}
-.margin--none {
-  margin: 0;
-}
-.margin--left-0 {
-  margin-left: 0;
-}
-.margin--right-24 {
-  margin-right: 24px;
-}
-.margin--right-48 {
-  margin-right: 48px;
-}
-.margin--bottom-16 {
-  margin-bottom: 16px;
-}
-.margin--bottom-0 {
-  margin-bottom: 0;
-}
-.margin--top-24 {
-  margin-top: 24px;
-}
-.margin--top-40 {
-  margin-top: 40px;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.padding-0 {
-  padding: 0;
-}
-.padding-8 {
-  padding: 8px;
-}
-.padding-40 {
-  padding: 25px;
-}
-.padding--top-none {
-  padding-top: 0;
-}
-.padding--top-24 {
-  padding-top: 24px;
-}
-.padding--bottom-8 {
-  padding-bottom: 8px;
-}
-.padding--bottom-16 {
-  padding-bottom: 16px;
-}
-.padding--left-none {
-  padding-left: 0;
-}
-.padding--left-16 {
-  padding-left: 16px;
-}
-.padding--right-16 {
-  padding-right: 16px;
-}
-.top-8 {
-  top:8px;
-}
 /* Input */
 .input--remove {
   position: absolute;
@@ -511,6 +443,75 @@ a {
   margin-top: 30px;
   padding-top: 15px;
   border-top: 1px solid rgba(0,0,0,.2);
+}
+/* margin and padding overrides */
+.alignment-fix--labels {
+  padding-top: 0;
+}
+.width--full {
+  width: 100%;
+}
+.margin--none {
+  margin: 0;
+}
+.margin--left-0 {
+  margin-left: 0;
+}
+.margin--right-24 {
+  margin-right: 24px;
+}
+.margin--right-48 {
+  margin-right: 48px;
+}
+.margin--bottom-16 {
+  margin-bottom: 16px;
+}
+.margin--bottom-0 {
+  margin-bottom: 0;
+}
+.margin--top-24 {
+  margin-top: 24px;
+}
+.margin--top-40 {
+  margin-top: 40px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.padding-0 {
+  padding: 0;
+}
+.padding-8 {
+  padding: 8px;
+}
+.padding-40 {
+  padding: 25px;
+}
+.padding--top-none {
+  padding-top: 0;
+}
+.padding--top-24 {
+  padding-top: 24px;
+}
+.padding--bottom-8 {
+  padding-bottom: 8px;
+}
+.padding--bottom-16 {
+  padding-bottom: 16px;
+}
+.padding--left-none {
+  padding-left: 0;
+}
+.padding--left-16 {
+  padding-left: 16px;
+}
+.padding--right-16 {
+  padding-right: 16px;
+}
+.top-8 {
+  top:8px;
 }
 /*media queries*/
 @media screen and (max-width: 1025px) {

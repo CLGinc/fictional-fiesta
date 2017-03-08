@@ -75,7 +75,7 @@
               </label>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
               <div class="mdc-form-field">
@@ -97,6 +97,57 @@
                 </div>
                 <label class="padding--right-16 label--hover" for="checkbox-{{ forloop.counter }}">{{ role_label }}</label>
               {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+              <div class="mdc-select margin--none" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+                <span class="mdc-select__selected-text">Select order by</span>
+                <div class="mdc-simple-menu mdc-select__menu">
+                  <ul class="mdc-list mdc-simple-menu__items">
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="name">
+                      Project name
+                    </li>
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="creation">
+                      Creation date
+                    </li>
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="role">
+                      User role
+                    </li>
+                  </ul>
+                </div>
+                <input class="hidden" data-content="email_input_source_role" name="order_by" value="{{ default_invitation_role.0 }}">
+              </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+              <div class="mdc-select margin--none" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+                <span class="mdc-select__selected-text">Order type (asc/desc)</span>
+                <div class="mdc-simple-menu mdc-select__menu">
+                  <ul class="mdc-list mdc-simple-menu__items">
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="asc">
+                      Ascending
+                    </li>
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="desc">
+                      Descending
+                    </li>
+                  </ul>
+                </div>
+                <input class="hidden" name="order_type" value="">
               </div>
             </div>
           </div>
