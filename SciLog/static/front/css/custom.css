@@ -117,6 +117,9 @@ body {
 .padding-0 {
   padding: 0;
 }
+.padding-8 {
+  padding: 8px;
+}
 .padding-40 {
   padding: 25px;
 }
@@ -236,7 +239,6 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 8px;
 }
 .article, .article--modal {
   font-size: 16px;
