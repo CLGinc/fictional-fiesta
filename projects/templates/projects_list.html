@@ -55,13 +55,13 @@
           <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ name_filter }}">
+              <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ form_cleaned_data.name }}">
               <label class="mdc-textfield__label" for="input-filter--name">Project name</label>
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ form_cleaned_data.created_from|date:"Y-m-d" }}">
               <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
                 <i class="material-icons right">arrow_drop_down</i> Created from:
               </label>
@@ -69,7 +69,7 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ form_cleaned_data.created_to|date:"Y-m-d" }}">
               <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
                 <i class="material-icons right">arrow_drop_down</i> Created to:
               </label>
@@ -87,7 +87,7 @@
                       name="role"
                       value="{{ role_value }}"
                       class="mdc-checkbox__native-control"
-                      {% if role_value in selected_roles %}checked{% endif %}/>
+                      {% if role_value in form_cleaned_data.role %}checked{% endif %}/>
                   <div class="mdc-checkbox__background">
                     <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                       <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
@@ -107,24 +107,16 @@
                 <span class="mdc-select__selected-text">Select order by</span>
                 <div class="mdc-simple-menu mdc-select__menu">
                   <ul class="mdc-list mdc-simple-menu__items">
+                    {% for key, value in order_by %}
                     <li class="mdc-list-item"
                         role="option" tabindex="0"
-                        id="name">
-                      Project name
+                        id="{{ key }}">
+                      {{ value }}
                     </li>
-                    <li class="mdc-list-item"
-                        role="option" tabindex="0"
-                        id="creation">
-                      Creation date
-                    </li>
-                    <li class="mdc-list-item"
-                        role="option" tabindex="0"
-                        id="role">
-                      User role
-                    </li>
+                    {% endfor %}
                   </ul>
                 </div>
-                <input class="hidden" data-content="email_input_source_role" name="order_by" value="{{ default_invitation_role.0 }}">
+                <input class="hidden" data-content="email_input_source_role" name="order_by" value="{{ form_cleaned_data.order_by }}">
               </div>
             </div>
           </div>
@@ -135,19 +127,16 @@
                 <span class="mdc-select__selected-text">Order type (asc/desc)</span>
                 <div class="mdc-simple-menu mdc-select__menu">
                   <ul class="mdc-list mdc-simple-menu__items">
+                    {% for key, value in order_type %}
                     <li class="mdc-list-item"
                         role="option" tabindex="0"
-                        id="asc">
-                      Ascending
+                        id="{{ key }}">
+                      {{ value }}
                     </li>
-                    <li class="mdc-list-item"
-                        role="option" tabindex="0"
-                        id="desc">
-                      Descending
-                    </li>
+                    {% endfor %}
                   </ul>
                 </div>
-                <input class="hidden" name="order_type" value="">
+                <input class="hidden" name="order_type" value="{{ form_cleaned_data.order_type }}">
               </div>
             </div>
           </div>

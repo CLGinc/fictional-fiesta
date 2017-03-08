@@ -72,11 +72,18 @@ class RoleListMixin(MultipleObjectMixin):
 
     def get_queryset(self):
         roles_list = None
-        form = RoleListForm(
+        self.form = RoleListForm(
             self.request.GET,
             researcher=self.request.user.researcher,
             scope=self.scope
         )
-        if form.is_valid():
-            roles_list = form.roles
+        if self.form.is_valid():
+            roles_list = self.form.roles
         return roles_list
+
+    def get_context_data(self, **kwargs):
+        context = super(RoleListMixin, self).get_context_data(**kwargs)
+        context['order_by'] = self.form.ORDER_BY_DISPLAY
+        context['order_type'] = self.form.ORDER_TYPE_DISPLAY
+        context['form_cleaned_data'] = self.form.cleaned_data
+        return context

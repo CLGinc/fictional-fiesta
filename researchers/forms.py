@@ -73,9 +73,18 @@ class RoleListForm(forms.Form):
         ['creation', 'model__datetime_created'],
         ['role', 'role']
     )
+    ORDER_BY_DISPLAY = (
+        ['name', 'Model Name'],
+        ['creation', 'Creation Date'],
+        ['role', 'User Role']
+    )
     ORDER_TYPE = (
         ('asc', ''),
         ('desc', '-'),
+    )
+    ORDER_TYPE_DISPLAY = (
+        ('asc', 'Ascending'),
+        ('desc', 'Descending'),
     )
 
     name = forms.CharField(max_length=255, required=False)
@@ -90,6 +99,8 @@ class RoleListForm(forms.Form):
         self.scope = kwargs.pop('scope')
         for item in self.ORDER_BY:
             item[1] = item[1].replace('model', self.scope)
+        for item in self.ORDER_BY_DISPLAY:
+            item[1] = item[1].replace('Model', str.capitalize(self.scope))
         super(RoleListForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
