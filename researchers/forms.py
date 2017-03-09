@@ -68,21 +68,7 @@ class EmailUserCreationForm(UserCreationForm):
 
 
 class RoleListForm(forms.Form):
-    ORDER_BY = (
-        ['name', 'model__name'],
-        ['creation', 'model__datetime_created'],
-        ['role', 'role']
-    )
-    ORDER_BY_DISPLAY = (
-        ['name', 'Model Name'],
-        ['creation', 'Creation Date'],
-        ['role', 'User Role']
-    )
     ORDER_TYPE = (
-        ('asc', ''),
-        ('desc', '-'),
-    )
-    ORDER_TYPE_DISPLAY = (
         ('asc', 'Ascending'),
         ('desc', 'Descending'),
     )
@@ -91,17 +77,21 @@ class RoleListForm(forms.Form):
     created_from = forms.DateField(required=False)
     created_to = forms.DateField(required=False)
     role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
-    order_by = forms.ChoiceField(choices=ORDER_BY, required=False)
+    order_by = forms.ChoiceField(required=False)
     order_type = forms.ChoiceField(choices=ORDER_TYPE, required=False)
 
     def __init__(self, *args, **kwargs):
         self.researcher = kwargs.pop('researcher')
         self.scope = kwargs.pop('scope')
-        for item in self.ORDER_BY:
-            item[1] = item[1].replace('model', self.scope)
-        for item in self.ORDER_BY_DISPLAY:
-            item[1] = item[1].replace('Model', str.capitalize(self.scope))
         super(RoleListForm, self).__init__(*args, **kwargs)
+        self.fields['order_by'].choices = self.get_order_by_choices()
+
+    def get_order_by_choices(self):
+        return (
+            ('name', '{} Name'.format(str.capitalize(self.scope))),
+            ('creation', 'Creation Date'),
+            ('role', 'Role')
+        )
 
     def is_valid(self):
         valid = super(RoleListForm, self).is_valid()
@@ -113,13 +103,20 @@ class RoleListForm(forms.Form):
         return valid
 
     def get_order(self):
+        order_replacement_model = {
+            'name': '{}__name'.format(self.scope),
+            'creation': '{}__datetime_created'.format(self.scope),
+            'role': 'role',
+            'asc': '',
+            'desc': '-'
+        }
         order_by = self.cleaned_data.get('order_by', 'creation')
         if order_by == 'creation':
             order_type = self.cleaned_data.get('order_type', 'desc')
         else:
             order_type = self.cleaned_data.get('order_type', 'asc')
-        order_by = dict(self.ORDER_BY)[order_by]
-        order_type = dict(self.ORDER_TYPE)[order_type]
+        order_by = order_replacement_model[order_by]
+        order_type = order_replacement_model[order_type]
         return order_type + order_by
 
     def generate_roles(self):
@@ -129,7 +126,7 @@ class RoleListForm(forms.Form):
         query counterpart. For example to filter by project name you need to
         add project__name__icontains to your filter.
         """
-        query_replacement_model = {
+        field_replacement_model = {
             'name': '{}__name__icontains'.format(self.scope),
             'created_from': '{}__datetime_created__date__gte'.format(self.scope),
             'created_to': '{}__datetime_created__date__lte'.format(self.scope),
@@ -138,7 +135,7 @@ class RoleListForm(forms.Form):
             scope=self.scope,
             roles=self.cleaned_data.get('role', Role.get_db_roles()))
         data = dict()
-        for key, value in query_replacement_model.items():
+        for key, value in field_replacement_model.items():
             if key in self.cleaned_data:
                 data[value] = self.cleaned_data[key]
         roles = roles.filter(**data)
