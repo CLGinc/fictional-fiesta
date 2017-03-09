@@ -1,0 +1,212 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - My Protocols{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+        My protocols
+      </h1>
+      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
+        <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add protocol
+      </button>
+      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+        <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter protocols
+      </button>
+      <form method="post" action="{% url 'create_project' %}" id="new-project-form" class="new-project-form mdc-elevation--z4">
+        {% csrf_token %}
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
+              <label class="mdc-textfield__label" for="input-new-project--name">Project name</label>
+            </div>
+            <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+              This name will be displayed in the protocol list and on your protocols page. Maximum of 255 characters.
+            </p>
+          </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+              <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
+              <label class="mdc-textfield__label" for="input-new-project--desc">Project description</label>
+            </div>
+            <p id="new-project-desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+              A short protocol description. Maximum length of 250 characters.
+            </p>
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 new-project--area">
+          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
+            <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
+              Create Protocol
+          </button>
+          <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
+            <i class="material-icons mdl-color-text--blue-500">close</i>
+              Close
+          </button>
+        </div>
+      </form>
+      <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ form_cleaned_data.name }}">
+              <label class="mdc-textfield__label" for="input-filter--name">Protocol name</label>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-from" name="created_from" value="{{ form_cleaned_data.created_from|date:"Y-m-d" }}">
+              <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
+                <i class="material-icons right">arrow_drop_down</i> Created from:
+              </label>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text" id="input-filter--date-to" name="created_to" value="{{ form_cleaned_data.created_to|date:"Y-m-d" }}">
+              <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
+                <i class="material-icons right">arrow_drop_down</i> Created to:
+              </label>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+              <div class="mdc-form-field">
+              {% for role_value, role_label in roles_labels %}
+                <div class="mdc-checkbox">
+                  <input
+                      type="checkbox"
+                      id="checkbox-{{ forloop.counter }}"
+                      name="role"
+                      value="{{ role_value }}"
+                      class="mdc-checkbox__native-control"
+                      {% if role_value in form_cleaned_data.role %}checked{% endif %}/>
+                  <div class="mdc-checkbox__background">
+                    <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+                      <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark"></div>
+                  </div>
+                </div>
+                <label class="padding--right-16 label--hover" for="checkbox-{{ forloop.counter }}">{{ role_label }}</label>
+              {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+              <div class="mdc-select margin--none" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+                <span class="mdc-select__selected-text">Select order by</span>
+                <div class="mdc-simple-menu mdc-select__menu">
+                  <ul class="mdc-list mdc-simple-menu__items">
+                    {% for key, value in order_by %}
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="{{ key }}">
+                      {{ value }}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <input class="hidden" data-content="email_input_source_role" name="order_by" value="{{ form_cleaned_data.order_by }}">
+              </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+              <div class="mdc-select margin--none" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+                <span class="mdc-select__selected-text">Order type (asc/desc)</span>
+                <div class="mdc-simple-menu mdc-select__menu">
+                  <ul class="mdc-list mdc-simple-menu__items">
+                    {% for key, value in order_type %}
+                    <li class="mdc-list-item"
+                        role="option" tabindex="0"
+                        id="{{ key }}">
+                      {{ value }}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <input class="hidden" name="order_type" value="{{ form_cleaned_data.order_type }}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area">
+          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
+            <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
+              Apply filter
+          </button>
+          <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+            <i class="material-icons mdl-color-text--blue-500">close</i>
+              Close
+          </button>
+        </div>
+      </form>
+    </div>
+    {% if roles_list_page %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <ul class="mdc-list-group padding-0">
+        <ul class="mdc-list">
+          <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Protocol name</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Results</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
+          </li>
+        </ul>
+        <ul class="mdc-list" id="items_list"
+            data-mode="infinitescroll"
+            data-pages="{{ paginator.num_pages }}"
+            data-currentpage="{{ page_obj.number }}">
+          {% for role in roles_list_page %}
+          <li class="mdc-list-item border--bottom">
+            <a href="{% url 'project' project_uid=role.project.unique_id %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.project.protocols.count }}</div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </ul>
+    </div>
+    {% else %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <div class="article width--full">
+        <h1 class="mdl-color-text--accent section--title">No results</h1>
+        <p class="mdl-color-text--blue-grey-900">
+          Please update your search criteria and try again or use the default filter!
+        </p>
+      </div>
+    </div>
+    {% endif %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/datepicker/js/moment.min.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/datepicker/js/mdDateTimePicker.min.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/datepicker.js" %}"></script>
+{% endblock %}
