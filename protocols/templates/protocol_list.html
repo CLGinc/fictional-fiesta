@@ -16,14 +16,14 @@
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
         <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter protocols
       </button>
-      <form method="post" action="{% url 'create_project' %}" id="new-project-form" class="new-project-form mdc-elevation--z4">
+      <form method="post" action="#" id="new-project-form" class="new-project-form mdc-elevation--z4">
         {% csrf_token %}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new protocol</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
-              <label class="mdc-textfield__label" for="input-new-project--name">Project name</label>
+              <label class="mdc-textfield__label" for="input-new-project--name">Protocol name</label>
             </div>
             <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the protocol list and on your protocols page. Maximum of 255 characters.
@@ -52,7 +52,7 @@
       </form>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
+          <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by protocol</p>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text" id="input-filter--name" name="name" value="{{ form_cleaned_data.name }}">
@@ -171,7 +171,6 @@
             data-currentpage="{{ page_obj.number }}">
           {% for role in roles_list_page %}
           <li class="mdc-list-item border--bottom">
-            <!-- <a href="{% url 'protocol' protocol_uid=role.protocol.unique_id %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0"> -->
             <a href="#" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>
