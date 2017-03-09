@@ -68,11 +68,6 @@ class EmailUserCreationForm(UserCreationForm):
 
 
 class RoleListForm(forms.Form):
-    ORDER_BY = (
-        ['name', 'Model Name'],
-        ['creation', 'Creation Date'],
-        ['role', 'Role']
-    )
     ORDER_TYPE = (
         ('asc', 'Ascending'),
         ('desc', 'Descending'),
@@ -82,19 +77,21 @@ class RoleListForm(forms.Form):
     created_from = forms.DateField(required=False)
     created_to = forms.DateField(required=False)
     role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
-    order_by = forms.ChoiceField(choices=ORDER_BY, required=False)
+    order_by = forms.ChoiceField(choices=None, required=False)
     order_type = forms.ChoiceField(choices=ORDER_TYPE, required=False)
 
     def __init__(self, *args, **kwargs):
         self.researcher = kwargs.pop('researcher')
         self.scope = kwargs.pop('scope')
         super(RoleListForm, self).__init__(*args, **kwargs)
-        self.fields['order_by'].choices = self.get_order_by()
+        self.fields['order_by'].choices = self.get_order_by_choices()
 
-    def get_order_by(self):
-        for item in self.ORDER_BY:
-            item[1] = item[1].replace('Model', str.capitalize(self.scope))
-        return self.ORDER_BY
+    def get_order_by_choices(self):
+        return (
+            ('name', '{} Name'.format(str.capitalize(self.scope))),
+            ('creation', 'Creation Date'),
+            ('role', 'Role')
+        )
 
     def is_valid(self):
         valid = super(RoleListForm, self).is_valid()
