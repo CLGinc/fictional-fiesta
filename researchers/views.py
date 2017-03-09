@@ -83,7 +83,5 @@ class RoleListMixin(MultipleObjectMixin):
 
     def get_context_data(self, **kwargs):
         context = super(RoleListMixin, self).get_context_data(**kwargs)
-        context['order_by'] = self.form.ORDER_BY_DISPLAY
-        context['order_type'] = self.form.ORDER_TYPE_DISPLAY
-        context['form_cleaned_data'] = self.form.cleaned_data
+        context['form'] = self.form
         return context
