@@ -13,5 +13,5 @@ class ProtocoltList(ListView, RoleListMixin):
 
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
-            self.template_name = 'protocol_list.html'
+            self.template_name = 'protocol_list_page.html'
         return super(ProtocoltList, self).get(request, *args, **kwargs)
