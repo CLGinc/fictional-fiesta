@@ -77,7 +77,7 @@ class RoleListForm(forms.Form):
     created_from = forms.DateField(required=False)
     created_to = forms.DateField(required=False)
     role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
-    order_by = forms.ChoiceField(choices=None, required=False)
+    order_by = forms.ChoiceField(required=False)
     order_type = forms.ChoiceField(choices=ORDER_TYPE, required=False)
 
     def __init__(self, *args, **kwargs):
