@@ -50,11 +50,6 @@ class ProjectList(ListView, RoleListMixin):
             self.template_name = 'projects_list_page.html'
         return super(ProjectList, self).get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(ProjectList, self).get_context_data(**kwargs)
-        context['roles_labels'] = Role.ROLES
-        return context
-
 
 @method_decorator(login_required, name='dispatch')
 class ProjectView(UpdateView, SingleProjectMixin):
