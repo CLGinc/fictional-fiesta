@@ -1,0 +1,11 @@
+{% for role in roles_list_page %}
+<li class="mdc-list-item border--bottom">
+  <a href="#" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.datetime_created|date:"d M Y" }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.protocol.results.count }}</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
+  </a>
+</li>
+{% endfor %}
