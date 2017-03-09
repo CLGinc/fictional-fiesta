@@ -237,21 +237,12 @@
             <label class="mdc-textfield__label">Email address</label>
           </div>
           <span class="mdc-typography--body">Participant role:</span>
-          <div class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
-            <span class="mdc-select__selected-text">Select role</span>
-            <div class="mdc-simple-menu mdc-select__menu">
-              <ul class="mdc-list mdc-simple-menu__items">
-                {% for role, label in invitation_roles %}
-                <li class="mdc-list-item"
-                    role="option" {% if role == default_invitation_role.0 %}aria-selected{% endif %} tabindex="0"
-                    id="{{ role }}">
-                  {{ label }}
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <input class="hidden" data-content="email_input_source_role" name="role" value="{{ default_invitation_role.0 }}">
-          </div>
+          <select class="mdc-select"
+                  name="role">
+            {% for role, label in invitation_roles %}
+            <option value="{{ role }}" {% if role == default_invitation_role.0 %}default selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
           <select class="hidden" name="invitation_object" value="project">
             <option selected value="project">Project</option>
           </select>
@@ -271,22 +262,12 @@
             <label class="mdc-textfield__label">Email address</label>
           </div>
           <span class="mdc-typography--body">Participant role:</span>
-          <div class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
-            <span class="mdc-select__selected-text">Select role</span>
-            <div class="mdc-simple-menu mdc-select__menu">
-              <ul class="mdc-list mdc-simple-menu__items">
-                {% for role, label in invitation_roles %}
-                <li class="mdc-list-item"
-                    role="option" {% if role == default_invitation_role.0 %}aria-selected{% endif %}
-                    tabindex="0"
-                    id="{{ role }}">
-                  {{ label }}
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <input class="hidden" data-content="email_input_source_role" name="role" value="{{ default_invitation_role.0 }}">
-          </div>
+          <select class="mdc-select"
+                  name="role">
+            {% for role, label in invitation_roles %}
+            <option value="{{ role }}" {% if role == default_invitation_role.0 %}default selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
           <select class="hidden" name="invitation_object" value="project">
             <option selected value="project">Project</option>
           </select>
