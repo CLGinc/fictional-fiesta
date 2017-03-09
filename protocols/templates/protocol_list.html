@@ -121,25 +121,10 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none"
-                      name="order_by">
-                {% if form.order_by.data %}
-                <option value=""
-                        default selected>
-                  Select order by
-                </option>
-                <option value="{{ form.order_by.data }}"
-                        default selected>
-                  {{ form.order_by.data }}
-                </option>
-                {% else %}
-                <option value=""
-                        default selected>
-                  Select order by
-                </option>
-                {% endif %}
+              <select class="mdc-select margin--none" name="order_by">
+                <option value="" default>Select order by</option>
                 {% for key, value in form.order_by.field.choices %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if form.order_by.data == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -147,25 +132,10 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none"
-                      name="order_type">
-                {% if form.order_type.data %}
-                <option value=""
-                        default selected>
-                  Select order by
-                </option>
-                <option value="{{ form.order_type.data }}"
-                        default selected>
-                  {{ form.order_type.data }}
-                </option>
-                {% else %}
-                <option value=""
-                        default selected>
-                  Order type (asc/desc)
-                </option>
-                {% endif %}
+              <select class="mdc-select margin--none" name="order_type">
+                <option value="" default>Select order type</option>
                 {% for key, value in form.order_type.field.choices %}
-                <option value="{{ key }}">{{ value }}</option>
+                <option value="{{ key }}" {% if form.order_type.data == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
