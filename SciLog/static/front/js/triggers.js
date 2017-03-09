@@ -5,7 +5,7 @@ document.querySelector('.menu').addEventListener('click', function() {
 });
 // scrolltop
 $('.scrollToTop-button').click(function(){
-	$('body').animate({scrollTop : 0},300);
+	$('body,html').animate({scrollTop : 0},300);
 });
 // profile menu
 $('[data-trigger="profile--menu"]').click(function() {
