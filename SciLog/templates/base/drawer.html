@@ -2,17 +2,14 @@
 <nav class="mdc-permanent-drawer drawer">
   <div class="mdc-list-group">
     <nav class="mdc-list">
-      <a class="mdc-list-item mdc-permanent-drawer--selected" href="{% url 'projects_list' %}">
+      <a class="mdc-list-item {% if "/project/" in request.path %}mdc-permanent-drawer--selected{% endif %}" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">list</i>PROJECTS
       </a>
-      <a class="mdc-list-item" href="{% url 'protocols_list' %}">
+      <a class="mdc-list-item {% if "/protocol/" in request.path %}mdc-permanent-drawer--selected{% endif %}" href="{% url 'protocols_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">assignment</i>PROTOCOLS
       </a>
-      <a class="mdc-list-item" href="{% url 'invitations_list' %}">
+      <a class="mdc-list-item {% if "/invitation/" in request.path %}mdc-permanent-drawer--selected{% endif %}" href="{% url 'invitations_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">drafts</i>INVITATIONS
-      </a>
-      <a class="mdc-list-item" href="#">
-        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">send</i>Drafts
       </a>
     </nav>
     <hr class="mdc-list-divider">
@@ -40,12 +37,6 @@
       </a>
       <a class="mdc-list-item" href="{% url 'invitations_list' %}">
         <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">drafts</i>INVITATIONS
-      </a>
-      <a class="mdc-list-item" href="#">
-        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">delete</i>Trash
-      </a>
-      <a class="mdc-list-item" href="#">
-        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">report</i>Spam
       </a>
   </nav>
 </aside>
