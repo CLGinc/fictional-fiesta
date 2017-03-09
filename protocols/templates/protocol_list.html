@@ -124,7 +124,7 @@
               <select class="mdc-select margin--none"
                       name="order_type">
                 <option value="" default selected>Order type (asc/desc)</option>
-                {{% for key, value in order_type %}
+                {% for key, value in order_type %}
                 <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}
               </select>
