@@ -1,4 +1,5 @@
 from adminsortable.models import SortableMixin
+from adminsortable.fields import SortableForeignKey
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
@@ -65,7 +66,7 @@ class Procedure(models.Model):
 
 class Step(SortableMixin):
     text = models.CharField(max_length=255)
-    procedure = models.ForeignKey(Procedure, related_name='steps')
+    procedure = SortableForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(
         default=0,
         editable=False,
