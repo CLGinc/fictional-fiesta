@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
+from django.views.generic import TemplateView
 
 from researchers.views import RoleListMixin
 from .models import Protocol
@@ -17,6 +18,11 @@ class SinglePrototolMixin(SingleObjectMixin):
         return Protocol.objects.filter(
             roles__researcher=self.request.user.researcher
         )
+
+
+@method_decorator(login_required, name='dispatch')
+class CreateProtocol(TemplateView):
+    template_name = 'protocol_create.html'
 
 
 @method_decorator(login_required, name='dispatch')
