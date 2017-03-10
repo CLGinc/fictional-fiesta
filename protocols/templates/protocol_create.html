@@ -6,7 +6,98 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
-
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+        Create new protocol
+      </h1>
+      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--blue-500">playlist_add_check</i> Save
+      </button>
+      <button data-mdc-auto-init="MDCRipple"
+              class="mdc-button mdl-color-text--blue-grey-600"
+              data-trigger="cancel">
+        <i class="material-icons mdl-color-text--blue-500">highlight_off</i> Cancel
+      </button>
+      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0"
+            method="post"
+            action="{% url 'create_protocol' %}">
+        {% csrf_token %}
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input class="mdc-textfield__input" type="text" name="name" maxlength="255">
+            <label class="mdc-textfield__label">Protocol name</label>
+          </div>
+          <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+            This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
+          </p>
+        </div>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0">
+          <div class="mdl-tabs__tab-bar mdc-layout-grid__cell mdc-layout-grid__cell--span-12 block">
+            <a href="#steps-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
+              <h2 class="section--title">Steps</h2>
+            </a>
+            <a href="#details-panel" data-trigger="tab" data-target="modal--details" class="mdl-tabs__tab">
+              <h2 class="section--title">Details</h2>
+            </a>
+          </div>
+          <div class="mdl-tabs__panel is-active mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none"
+               id="steps-panel">
+            <ul class="mdc-list padding-0">
+              <li class="border--bottom mdc-list-item mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+                  data-step="1">
+                <input type="text" class="hidden"
+                       data-content="step-input"
+                       name="step"
+                       value="1" >
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">
+                  <div class="mdc-typography--display1 mdl-color-text--blue-500"
+                       data-content="step-number">
+                    1
+                  </div>
+                  <div class="mdl-color-text--blue-grey-600">
+                    STEP
+                  </div>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                  <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                    <input class="mdc-textfield__input" type="text" name="name" maxlength="255">
+                    <label class="mdc-textfield__label">Step title</label>
+                  </div>
+                  <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                    add helper text
+                  </p>
+                  <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                    <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
+                    <label class="mdc-textfield__label" for="input-new-project--desc">Step description</label>
+                  </div>
+                  <p id="description-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                    A short protocol description. Maximum length of 250 characters.
+                  </p>
+                </div>
+                <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                   data-trigger="add-step">
+                  <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
+                </a>
+                <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                   data-trigger="remove-step">
+                  <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="mdl-tabs__panel mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none"
+               id="details-panel">
+            <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+              <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
+              <label class="mdc-textfield__label" for="input-new-project--desc">Protocol description</label>
+            </div>
+            <p id="description-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+             A short protocol description. Maximum length of 250 characters.
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% include "base/scroll_top.html" %}

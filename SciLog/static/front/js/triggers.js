@@ -101,10 +101,52 @@ $('[data-trigger="add-input"]').click(function(){
 			clone = sourceInput.cloneNode(true);
 			insertTarget = document.getElementById('modal--participants');
   var lastForm = $(insertTarget).children('form').last();
-  $(clone).removeClass('hidden').removeAttr('id').hide().fadeIn(300).insertAfter(lastForm);
+  $(clone).removeClass('hidden').removeAttr('id').insertAfter(lastForm);
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
 	window.mdc.autoInit(clone);
 });
+// add new step
+$('[data-trigger="add-step"]').click(function(event){
+  addStep(event);
+});
+var addStep = function(event){
+	var	sourceStep =  event.target.parentElement,
+      stepNumber = parseInt(sourceStep.querySelector('[data-content="step-number"]').innerHTML),
+			clone = sourceStep.cloneNode(true);
+  ++stepNumber;
+  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
+  clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
+  var countNext = $(sourceStep).nextAll();
+  if(countNext.length > 0) {
+    $(countNext).each(function(){
+      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
+      ++updateSteps;
+      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+    });
+  }
+  $(clone).removeClass('hidden').insertAfter(sourceStep);
+  clone.querySelector('[data-trigger="remove-step"]').addEventListener('click', removeStep);
+  clone.querySelector('[data-trigger="add-step"]').addEventListener('click', addStep);
+	window.mdc.autoInit(clone);
+};
+// remove step
+$('[data-trigger="remove-step"]').click(function(){
+  removeStep(event);
+});
+var removeStep = function(event){
+  var	sourceStep =  event.target.parentElement,
+      countNext = $(sourceStep).nextAll();
+  if(countNext.length > 0) {
+    $(countNext).each(function(){
+      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
+      --updateSteps;
+      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+    });
+  }
+  $(sourceStep).remove();
+};
 
 // submit form
 $('[data-trigger="submit"]').click(function(){
