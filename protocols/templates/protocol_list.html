@@ -10,11 +10,11 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         My protocols
       </h1>
-      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-              data-trigger="filter"
-              data-target="new-project-form">
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-600"
+         href="{% url 'create_protocol' %}">
         <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add protocol
-      </button>
+      </a>
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
               data-trigger="filter"
               data-target="filter-form">

@@ -370,6 +370,12 @@ a {
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
 }
+.mdc-list-item {
+  height: auto;
+}
+nav > .mdc-list-item {
+  height: 48px;
+}
 .mdc-list-item.mdc-ripple-upgraded {
   left: 0;
   width: 100%;
