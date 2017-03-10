@@ -77,6 +77,9 @@ class Step(SortableMixin):
     def __str__(self):
         return self.text
 
+    def __unicode__(self):
+        return self.text
+
 
 class Result(models.Model):
     STATES = (
