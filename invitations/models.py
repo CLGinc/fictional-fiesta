@@ -54,10 +54,11 @@ class Invitation(models.Model):
     def __str__(self):
         target = 'Project' if self.project else 'Protocol'
         invited = self.invited if self.invited else self.email
-        return('{} invitiation from {} to {}'.format(
-            target,
-            self.inviter,
-            invited
+        return(
+            '{} invitiation from {} to {}'.format(
+                target,
+                self.inviter,
+                invited
             )
         )
 
@@ -69,15 +70,13 @@ either project or protocol!')
             raise ValidationError('You cannot select \
 project and protocol for the same invitation!')
         if self.project and \
-            self.inviter.roles.filter(
-                project=self.project,
-                role='watcher'):
+            self.inviter.roles.filter(project=self.project).exclude(
+                role__in=Role.ROLES_CAN_EDIT):
             raise ValidationError('You cannot invite \
 researchers to this project')
         if self.protocol and \
-            self.inviter.roles.filter(
-                protocol=self.protocol,
-                role='watcher'):
+            self.inviter.roles.filter(protocol=self.protocol).exclude(
+                role__in=Role.ROLES_CAN_EDIT):
             raise ValidationError('You cannot invite \
 researchers to this protocol')
         if self.inviter == self.invited:
