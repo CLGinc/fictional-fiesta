@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - New protocol{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+<script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/datepicker/js/moment.min.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/datepicker/js/mdDateTimePicker.min.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/datepicker.js" %}"></script>
+{% endblock %}
