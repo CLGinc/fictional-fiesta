@@ -27,10 +27,11 @@ class SingleProjectMixin(SingleObjectMixin):
 @method_decorator(login_required, name='dispatch')
 class CreateProject(View):
     def post(self, request, *args, **kwargs):
-        new_project_form = BasicProjectForm(request.POST or None)
+        new_project_form = BasicProjectForm(
+            request.POST or None,
+            researcher=request.user.researcher)
         if new_project_form.is_valid():
-            new_project = new_project_form.save(
-                researcher=request.user.researcher)
+            new_project = new_project_form.save()
             return redirect(
                 reverse(
                     'project',

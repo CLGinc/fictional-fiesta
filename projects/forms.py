@@ -9,11 +9,18 @@ class BasicProjectForm(forms.ModelForm):
         model = Project
         fields = ['name', 'description']
 
-    def save(self, researcher=None, commit=True):
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('researcher'):
+            self.researcher = kwargs.pop('researcher')
+        else:
+            self.researcher = None
+        super(BasicProjectForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
         instance = super(BasicProjectForm, self).save(commit=True)
-        if researcher:
+        if self.researcher:
             Role.objects.create(
-                researcher=researcher,
+                researcher=self.researcher,
                 project=instance,
                 role='owner')
         return instance

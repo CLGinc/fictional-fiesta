@@ -230,9 +230,9 @@ class ProjectsFormsTest(TestCase):
         data = {
             'name': 'Project 1'
         }
-        form = BasicProjectForm(data)
+        form = BasicProjectForm(data, researcher=self.researcher1)
         self.assertTrue(form.is_valid())
-        project = form.save(self.researcher1)
+        project = form.save()
         self.assertIsInstance(project, Project)
         self.assertTrue(
             self.researcher1.roles.filter(
@@ -245,9 +245,9 @@ class ProjectsFormsTest(TestCase):
             'name': 'Project 1',
             'description': 'Project 1 Description'
         }
-        form = BasicProjectForm(data)
+        form = BasicProjectForm(data, researcher=self.researcher1)
         self.assertTrue(form.is_valid())
-        project = form.save(self.researcher1)
+        project = form.save()
         self.assertIsInstance(project, Project)
         self.assertTrue(
             self.researcher1.roles.filter(
