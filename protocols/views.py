@@ -3,11 +3,12 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import UpdateView
-from django.views.generic import TemplateView
+from django.views.generic.edit import UpdateView, FormView
+from django.forms.models import inlineformset_factory
 
 from researchers.views import RoleListMixin
-from .models import Protocol
+from .models import Protocol, Procedure, Step
+from .forms import BasicProtocolForm
 
 
 class SinglePrototolMixin(SingleObjectMixin):
@@ -21,8 +22,43 @@ class SinglePrototolMixin(SingleObjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocol(TemplateView):
+class CreateProtocol(FormView):
     template_name = 'protocol_create.html'
+    form_class = BasicProtocolForm
+
+    def form_valid(self, form):
+        instance = form.save()
+        StepsFormset = inlineformset_factory(
+            Procedure,
+            Step,
+            fields=('text',)
+        )
+        self.steps_formset = StepsFormset(
+            self.request.POST,
+            instance=instance.procedure
+        )
+        return super(CreateProtocol, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateProtocol, self).get_context_data(**kwargs)
+        StepsFormset = inlineformset_factory(
+            Procedure,
+            Step,
+            fields=('text',)
+        )
+        context['steps_formset'] = StepsFormset()
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateProtocol, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
+    def get_success_url(self):
+        return reverse(
+            'protocol',
+            kwargs={'protocol_uid': self.object.unique_id}
+        )
 
 
 @method_decorator(login_required, name='dispatch')
