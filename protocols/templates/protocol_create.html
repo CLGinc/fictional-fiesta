@@ -10,7 +10,10 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Create new protocol
       </h1>
-      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
+      <button data-mdc-auto-init="MDCRipple"
+              data-trigger="submit"
+              data-form="create_protocol_form"
+              class="mdc-button mdl-color-text--blue-grey-600">
         <i class="material-icons mdl-color-text--blue-500">playlist_add_check</i> Save
       </button>
       <button data-mdc-auto-init="MDCRipple"
@@ -19,6 +22,7 @@
         <i class="material-icons mdl-color-text--blue-500">highlight_off</i> Cancel
       </button>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0"
+            id="create_protocol_form"
             method="post"
             action="{% url 'create_protocol' %}">
         {% csrf_token %}
