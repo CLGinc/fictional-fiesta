@@ -3,7 +3,8 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import UpdateView, FormView
+from django.views.generic.edit import FormView
+from django.views.generic import DetailView
 from django.forms.models import inlineformset_factory
 
 from researchers.views import RoleListMixin
@@ -74,11 +75,12 @@ class ProtocoltList(ListView, RoleListMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProtocolView(UpdateView, SinglePrototolMixin):
+class ProtocolView(DetailView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'protocol.html'
 
     def get_success_url(self):
+        self.object = self.get_object()
         return reverse(
             'protocol',
             kwargs={'protocol_uid': self.object.unique_id}
