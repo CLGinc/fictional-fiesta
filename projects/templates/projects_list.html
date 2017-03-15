@@ -149,32 +149,30 @@
     </div>
     {% if roles_list_page %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <ul class="mdc-list-group padding-0">
-        <ul class="mdc-list">
-          <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Project name</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Protocols</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
-          </li>
-        </ul>
-        <ul class="mdc-list" id="items_list"
-            data-mode="infinitescroll"
-            data-pages="{{ paginator.num_pages }}"
-            data-currentpage="{{ page_obj.number }}">
-          {% for role in roles_list_page %}
-          <li class="mdc-list-item border--bottom">
-            <a href="{% url 'project' project_uid=role.project.unique_id %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.project.protocols.count }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
+      <ul class="mdc-list padding-0">
+        <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Project name</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Protocols</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
+        </li>
+      </ul>
+      <ul class="mdc-list padding-0" id="items_list"
+          data-mode="infinitescroll"
+          data-pages="{{ paginator.num_pages }}"
+          data-currentpage="{{ page_obj.number }}">
+        {% for role in roles_list_page %}
+        <li class="border--bottom">
+          <a href="{% url 'project' project_uid=role.project.unique_id %}" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.project.protocols.count }}</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
+          </a>
+        </li>
+        {% endfor %}
       </ul>
     </div>
     {% else %}
@@ -187,10 +185,8 @@
       </div>
     </div>
     {% endif %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid">
-      <div class="mdl-layout-spacer"></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid center">
       <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
-      <div class="mdl-layout-spacer"></div>
     </div>
   </div>
 </div>

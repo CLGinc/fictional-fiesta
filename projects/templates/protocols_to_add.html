@@ -1,6 +1,6 @@
 {% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
+  <li class="border--bottom mdl-color-text--blue-500 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Name</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
@@ -13,7 +13,7 @@
     {% for protocol in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
         id="{{ protocol.unique_id }}"
-        class="mdc-layout-grid mdc-list-item border--bottom list--link">
+        class="mdc-layout-grid border--bottom list--link">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
         <div class="mdc-checkbox checkbox-fix">
           <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>

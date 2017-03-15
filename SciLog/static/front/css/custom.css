@@ -74,7 +74,6 @@ body {
 .main-grid {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0;
 }
 .mobile-button {
   visibility: hidden;
@@ -370,17 +369,6 @@ a {
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
 }
-.mdc-list-item {
-  height: auto;
-}
-nav > .mdc-list-item {
-  height: 48px;
-}
-.mdc-list-item.mdc-ripple-upgraded {
-  left: 0;
-  width: 100%;
-  padding: 0;
-}
 .modal--button-container {
   position: fixed;
   z-index: 100;
@@ -491,6 +479,9 @@ nav > .mdc-list-item {
 }
 .padding-8 {
   padding: 8px;
+}
+.padding-16 {
+  padding: 16px;
 }
 .padding-40 {
   padding: 25px;
