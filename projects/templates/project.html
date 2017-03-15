@@ -3,9 +3,9 @@
 {% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<div class="mdc-layout-grid content">
+<div class="content">
 {% include "base/drawer.html" %}
-  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+  <div class="main-grid mdc-layout-grid">
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0"
           method="post"
           action="{% url 'project' project_uid=object.unique_id %}">
@@ -43,8 +43,8 @@
       </div>
     </form>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9 mdc-layout-grid padding-0">
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <div class="mdl-tabs__tab-bar mdc-layout-grid__cell mdc-layout-grid__cell--span-12 block">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+        <div class="mdl-tabs__tab-bar block">
           <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
             <h2 class="section--title">Results</h2>
           </a>
@@ -64,7 +64,7 @@
           </button>
           {% endif %}
         </div>
-        <div class="mdl-tabs__panel is-active mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none" id="results-panel">
+        <div class="mdl-tabs__panel is-active" id="results-panel">
           {% if selected_project.results.all %}
           <ul class="mdc-list padding-0">
             <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
@@ -75,15 +75,15 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">State</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Success</div>
               </div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
-                Remove
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
               </div>
             </li>
           </ul>
           <ul class="mdc-list padding-0">
             {% for result in selected_project.results.all %}
-      		  <li class="border--bottom mdc-layout-grid padding-0">
-              <a href="/resultid/" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link">
+      		  <li class="border--bottom mdc-layout-grid padding-0 margin--none">
+              <a href="/resultid/" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.datetime_created|date:"d M Y" }}</div>
@@ -94,10 +94,12 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
                 {% endif %}
               </a>
-              <button href="#" class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-button mdc-button--icon center"
-                 aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-                <i class="material-icons list--link-remove">clear</i>
-              </button>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">
+                <button href="#" class="mdc-button mdc-button--icon center"
+                   aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+                  <i class="material-icons list--link-remove">clear</i>
+                </button>
+              </div>
         		</li>
             {% endfor %}
           </ul>
@@ -112,7 +114,7 @@
           </div>
           {% endif %}
         </div>
-        <div class="mdl-tabs__panel mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none" id="protocols-panel">
+        <div class="mdl-tabs__panel" id="protocols-panel">
           {% if selected_project.protocols.all %}
           <ul class="mdc-list padding-0">
             <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
@@ -121,15 +123,15 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
               </div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center padding-0">
-                Remove
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
               </div>
             </li>
           </ul>
           <ul class="mdc-list padding-0">
             {% for protocol in selected_project.protocols.all %}
-        		<li class="border--bottom mdc-layout-grid">
-              <a href="/resultid/" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link padding-0">
+        		<li class="border--bottom mdc-layout-grid padding-0">
+              <a href="/resultid/" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">{{ protocol.name }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
@@ -154,11 +156,11 @@
           </div>
           {% endif %}
         </div>
-        <div class="mdl-tabs__panel mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none" id="sources-panel">
+        <div class="mdl-tabs__panel" id="sources-panel">
           {% if selected_project.sources.all %}
           <ul class="mdc-list padding-0">
             <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
-              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 padding-0">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">Name</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">ISBN</div>
               </div>
@@ -170,8 +172,8 @@
               </div>
             </li>
             {% for source in selected_project.sources.all %}
-        		<li class="border--bottom mdc-layout-grid">
-              <a href="/resultid/" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-9 list--link padding-0">
+        		<li class="border--bottom mdc-layout-grid padding-0">
+              <a href="/resultid/" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">{{ source.name }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.isbn }}</div>
               </a>
@@ -206,7 +208,7 @@
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <div class="article mdl-color-text--blue-500">
-        <h1 class="section--title padding-8">
+        <h1 class="section--title">
           Participants
           {% if can_edit %}
           <div class="mdl-layout-spacer"></div>

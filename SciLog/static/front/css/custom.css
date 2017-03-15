@@ -52,16 +52,8 @@
 .mdc-temporary-drawer {
   margin-top: 60px;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
-}
 .content {
-  display: flex;
+  display: block;
   height: 100%;
   box-sizing: border-box;
   padding: 0;
@@ -70,10 +62,13 @@ body {
 .drawer {
   padding-top: 40px;
   height: auto;
+  display: block;
+  position: absolute;
 }
 .main-grid {
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
+  padding-left: 280px;
 }
 .mobile-button {
   visibility: hidden;
@@ -518,7 +513,7 @@ a {
 }
 @media screen and (max-width: 1700px) {
   .main-grid {
-    max-width: 1000px;
+    max-width: auto;
   }
 }
 @media screen and (max-width: 1300px) {
@@ -529,6 +524,6 @@ a {
     visibility: visible;
   }
   .main-grid {
-    max-width: auto;
+    padding-left: 16px;
   }
 }
