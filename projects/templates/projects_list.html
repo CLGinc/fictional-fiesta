@@ -50,10 +50,10 @@
           </button>
         </div>
       </form>
-      <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
+      <form method="get" id="filter-form" class="mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input"
                      type="text"
@@ -63,7 +63,7 @@
               <label class="mdc-textfield__label" for="input-filter--name">Project name</label>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input"
                      type="text"
@@ -75,7 +75,7 @@
               </label>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input"
                      type="text"
@@ -87,7 +87,7 @@
               </label>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
               <div class="mdc-form-field">
@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
               <select class="mdc-select margin--none" name="order_by">
@@ -123,7 +123,7 @@
               </select>
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
               <select class="mdc-select margin--none" name="order_type">
@@ -135,7 +135,7 @@
             </div>
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area">
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8">
           <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
             <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
               Apply filter
@@ -165,7 +165,7 @@
         {% for role in roles_list_page %}
         <li class="border--bottom">
           <a href="{% url 'project' project_uid=role.project.unique_id %}"
-             class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
+             class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
@@ -186,8 +186,8 @@
       </div>
     </div>
     {% endif %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid">
-      <div class="mdl-spinner mdl-js-spinner center" id="loading"></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
+      <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
     </div>
   </div>
 </div>

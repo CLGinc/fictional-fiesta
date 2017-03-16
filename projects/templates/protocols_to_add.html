@@ -13,7 +13,7 @@
     {% for protocol in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
         id="{{ protocol.unique_id }}"
-        class="border--bottom mdc-layout-grid padding-8 margin--none">
+        class="border--bottom mdc-layout-grid padding-8 margin--none list--link links--wrap">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--none">
         <div class="mdc-checkbox checkbox-fix">
           <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
