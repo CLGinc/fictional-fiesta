@@ -1,6 +1,6 @@
 {% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-list-item border--bottom mdl-color-text--blue-500 mdc-layout-grid">
+  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">ISBN</div>
@@ -13,8 +13,8 @@
     {% for source in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
         id="{{ source.id }}"
-        class="mdc-layout-grid mdc-list-item border--bottom list--link">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+        class="mdc-layout-grid border--bottom list--link">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--0-8">
         <div class="mdc-checkbox checkbox-fix">
           <input type="checkbox" name="element_choices" value="{{ source.id }}" id="checkbox_{{ source.id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">

@@ -464,6 +464,9 @@ a {
 .margin--top-40 {
   margin-top: 40px;
 }
+.margin--0-8 {
+  margin: 0 8px;
+}
 .center {
   display: block;
   margin-left: auto;
