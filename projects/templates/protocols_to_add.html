@@ -1,10 +1,10 @@
 {% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Name</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
+  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-8">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Select</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-8 margin--none">Name</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">Owner</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Label</div>
   </li>
 </ul>
 <form id="form--protocols" method="post" action="{% url 'project_add_protocols' project_uid=object.unique_id %}">
@@ -13,8 +13,8 @@
     {% for protocol in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
         id="{{ protocol.unique_id }}"
-        class="mdc-layout-grid border--bottom list--link">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--0-8">
+        class="border--bottom mdc-layout-grid padding-8 margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--none">
         <div class="mdc-checkbox checkbox-fix">
           <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
@@ -25,9 +25,9 @@
           </div>
         </div>
       </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ protocol.name }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-8 margin--none">{{ protocol.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">{{ protocol.get_owner }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">{{ protocol.get_label_display }}</div>
     </li>
     {% endfor %}
   </ul>

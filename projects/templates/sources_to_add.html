@@ -1,10 +1,10 @@
 {% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Select</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">ISBN</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">URL</div>
+  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-8">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Select</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">Name</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 padding-8 margin--none">ISBN</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 padding-8 margin--none">URL</div>
   </li>
 </ul>
 <form id="form--sources" method="post" action="{% url 'project_add_sources' project_uid=object.unique_id %}">
@@ -13,8 +13,8 @@
     {% for source in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
         id="{{ source.id }}"
-        class="mdc-layout-grid border--bottom list--link">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--0-8">
+        class="border--bottom mdc-layout-grid padding-8 margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--none">
         <div class="mdc-checkbox checkbox-fix">
           <input type="checkbox" name="element_choices" value="{{ source.id }}" id="checkbox_{{ source.id }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
@@ -25,9 +25,9 @@
           </div>
         </div>
       </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.name }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ source.isbn }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">{{ source.url }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">{{ source.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 padding-8 margin--none">{{ source.isbn }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 padding-8 margin--none">{{ source.url }}</div>
     </li>
     {% endfor %}
   </ul>

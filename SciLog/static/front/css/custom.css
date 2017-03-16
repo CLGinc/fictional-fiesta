@@ -177,7 +177,7 @@
   padding-bottom: 16px;
 }
 .article--modal {
-  max-width: 1400px;
+  max-width: 1600px;
   min-height: 100%;
 }
 .section--title {
@@ -352,6 +352,7 @@ a {
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
   min-height: 100%;
+  padding-left: 260px;
 }
 .modal--content {
   width: 100%;
@@ -487,6 +488,9 @@ a {
 .padding--top-none {
   padding-top: 0;
 }
+.padding--top-8 {
+  padding-top: 8px;
+}
 .padding--top-24 {
   padding-top: 24px;
 }
@@ -527,6 +531,9 @@ a {
     visibility: visible;
   }
   .main-grid {
+    padding-left: 16px;
+  }
+  .modal {
     padding-left: 16px;
   }
 }

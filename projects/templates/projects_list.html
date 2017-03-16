@@ -164,7 +164,8 @@
           data-currentpage="{{ page_obj.number }}">
         {% for role in roles_list_page %}
         <li class="border--bottom">
-          <a href="{% url 'project' project_uid=role.project.unique_id %}" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
+          <a href="{% url 'project' project_uid=role.project.unique_id %}"
+             class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link padding-0">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
@@ -185,8 +186,8 @@
       </div>
     </div>
     {% endif %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid center">
-      <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid">
+      <div class="mdl-spinner mdl-js-spinner center" id="loading"></div>
     </div>
   </div>
 </div>

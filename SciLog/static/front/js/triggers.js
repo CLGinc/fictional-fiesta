@@ -100,7 +100,7 @@ $('[data-trigger="add-input"]').click(function(){
 			sourceInput = document.getElementById(targetForm),
 			clone = sourceInput.cloneNode(true);
 			insertTarget = document.getElementById('modal--participants');
-  var lastForm = $(insertTarget).children('form').last();
+  var lastForm = $(insertTarget).find('form').last();
   $(clone).removeClass('hidden').removeAttr('id').insertAfter(lastForm);
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
 	window.mdc.autoInit(clone);
