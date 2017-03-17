@@ -136,6 +136,7 @@
 /*login*/
 .login {
   max-width: 350px;
+  margin: 0 auto;
 }
 .login--message {
   text-align: center;

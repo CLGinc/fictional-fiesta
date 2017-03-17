@@ -14,18 +14,16 @@
     <div class="mdc-simple-menu profile--menu"
          tabindex="-1"
          style="top:60px; right: 0;">
-      <div class="mdc-layout-grid">
-        <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar">
-        <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <span class="mdl-color-text--grey-900">{{ request.user.first_name }} {{ request.user.last_name }}</span><br>
-          <span class="mdl-color-text--grey-600">{{ request.user.researcher.scientific_degree }}</span>
-        </div>
+      <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar center">
+      <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <span class="mdl-color-text--grey-900">{{ request.user.first_name }} {{ request.user.last_name }}</span><br>
+        <span class="mdl-color-text--grey-600">{{ request.user.researcher.scientific_degree }}</span>
       </div>
-      <hr class="mdc-list-divider">
+      <hr class="mdc-list-divider margin--top-8 padding-0">
       <ul class="mdc-simple-menu__items mdc-list width--full" role="menu" aria-hidden="true">
         <li class="mdc-list-item" role="menuitem" tabindex="0">
           <a href="/profile">
-            <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600 width--full">
+            <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
               <i class="material-icons mdl-color-text--blue-500">person</i> Profile
             </button>
           </a>
