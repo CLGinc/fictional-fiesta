@@ -2,88 +2,88 @@
 {% load staticfiles %}
 {% block title %}SciLog - Login{% endblock %}
 {% block body %}
-<div class="center mdc-elevation--z4 center padding-0 margin--top-40 login">
-  <div class="padding--top-24 mdc-layout-grid">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
-      <img src="{% static "front/img/optimised.svg" %}" alt="logo">
-      <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+<div class="mdc-layout-grid content">
+  <div class="mdc-elevation--z4 padding-0 margin--top-40 login">
+    <div class="padding--top-24 text-center">
+        <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+        <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
     </div>
-  </div>
-  <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
-    Welcome
-    <p class="mdc-typography--subheading1 login--message-subtitle">
-      Enter your credentials or sign in with a google account.
-    </p>
-  </h1>
-  <div class="login--form">
-    {% if next_redirect %}
-    <form id="login--form" method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
-    {% else %}
-    <form id="login--form" method="post" action="{% url 'login_user' %}">
-      {% endif %}
-      {% csrf_token %}
-      <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-        <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
-        <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
-      </div>
-      {% if form.errors.email %}
-      <div class="result error">
-        {% for error in form.errors.email %}
+    <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
+      Welcome
+      <p class="mdc-typography--subheading1 login--message-subtitle">
+        Enter your credentials or sign in with a google account.
+      </p>
+    </h1>
+    <div class="login--form">
+      {% if next_redirect %}
+      <form id="login--form" method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
+      {% else %}
+      <form id="login--form" method="post" action="{% url 'login_user' %}">
+        {% endif %}
+        {% csrf_token %}
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
+          <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
+        </div>
+        {% if form.errors.email %}
+        <div class="result error">
+          {% for error in form.errors.email %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input class="mdc-textfield__input" id="id_password" name="password" type="password" required />
+          <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Password</label>
+        </div>
+        {% if form.errors.password %}
+        <div class="result error">
+          {% for error in form.errors.password %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
+          <span data-content="open-close-text">Log In</span>
+        </button>
+        {% if next_redirect %}
+        <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_redirect }}"
+           class="mdc-button mdl-color-text--blue-grey-600"
+           data-mdc-auto-init="MDCRipple">
+           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+           Sign in with Google
+         </a>
+        {% else %}
+        <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ self.request.path }}"
+           class="mdc-button mdl-color-text--blue-grey-600"
+           data-mdc-auto-init="MDCRipple">
+           <svg version="1.1" style="padding-right:9px;" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+           Sign in with Google
+         </a>
+        {% endif %}
+      </form>
+      {% if form.non_field_errors %}
+      <div id="non_field_errors" class="error-tooltip-non">
+        {% for error in form.non_field_errors %}
         {{ error|escape }}<br>
         {% endfor %}
       </div>
       {% endif %}
-      <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-        <input class="mdc-textfield__input" id="id_password" name="password" type="password" required />
-        <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Password</label>
+      <div class="login--link-register mdc-typography--caption text-center">
+        {% if next_redirect %}
+        Don't have an account yet?<br>
+        <a href="{% url 'register_user' %}?next={{ next_redirect }}">
+          <span class="mdl-color-text--blue-500">Create one here!</span>
+        </a>
+        {% else %}
+        Don't have an account yet?<br>
+        <a href="{% url 'register_user' %}?next={{ self.request.path }}">
+          <span class="mdl-color-text--blue-500">Create one here!</span>
+        </a>
+        {% endif %}
       </div>
-      {% if form.errors.password %}
-      <div class="result error">
-        {% for error in form.errors.password %}
-        {{ error|escape }}<br>
-        {% endfor %}
-      </div>
-      {% endif %}
-      <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-        <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
-        <span data-content="open-close-text">Log In</span>
-      </button>
-      {% if next_redirect %}
-      <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_redirect }}"
-         class="mdc-button mdl-color-text--blue-grey-600"
-         data-mdc-auto-init="MDCRipple">
-         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
-         Sign in with Google
-       </a>
-      {% else %}
-      <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ self.request.path }}"
-         class="mdc-button mdl-color-text--blue-grey-600"
-         data-mdc-auto-init="MDCRipple">
-         <svg version="1.1" style="padding-right:9px;" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
-         Sign in with Google
-       </a>
-      {% endif %}
-    </form>
-    {% if form.non_field_errors %}
-    <div id="non_field_errors" class="error-tooltip-non">
-      {% for error in form.non_field_errors %}
-      {{ error|escape }}<br>
-      {% endfor %}
-    </div>
-    {% endif %}
-    <div class="login--link-register mdc-typography--caption text-center">
-      {% if next_redirect %}
-      Don't have an account yet?<br>
-      <a href="{% url 'register_user' %}?next={{ next_redirect }}">
-        <span class="mdl-color-text--blue-500">Create one here!</span>
-      </a>
-      {% else %}
-      Don't have an account yet?<br>
-      <a href="{% url 'register_user' %}?next={{ self.request.path }}">
-        <span class="mdl-color-text--blue-500">Create one here!</span>
-      </a>
-      {% endif %}
     </div>
   </div>
-</div>
+<div>
 {% endblock %}

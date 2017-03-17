@@ -2,13 +2,12 @@
 {% load staticfiles %}
 {% block title %}SciLog - Register{% endblock %}
 {% block body %}
-<div class="center mdc-elevation--z4 center padding-0 margin--top-40 login">
-  <div class="padding--top-24 mdc-layout-grid">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
-      <img src="{% static "front/img/optimised.svg" %}" alt="logo">
-      <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+<div class="mdc-layout-grid content">
+  <div class="mdc-elevation--z4 padding-0 margin--top-40 login">
+    <div class="padding--top-24 text-center">
+        <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+        <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
     </div>
-  </div>
   <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
     Registration
   </h1>
@@ -79,6 +78,7 @@
       </div>
     </div>
   </div>
+</div>
   {% endblock %}
   {% block post_load %}
   {% endblock %}

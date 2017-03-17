@@ -1,6 +1,7 @@
 .mdl-tabs {
-  display: block;
-  width: 100%; }
+  /*display: block;
+  width: 100%;*/
+}
 
 .mdl-tabs__tab-bar {
   display: -webkit-flex;

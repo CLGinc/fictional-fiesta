@@ -52,16 +52,8 @@
 .mdc-temporary-drawer {
   margin-top: 60px;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
-}
 .content {
-  display: flex;
+  display: block;
   height: 100%;
   box-sizing: border-box;
   padding: 0;
@@ -70,11 +62,13 @@ body {
 .drawer {
   padding-top: 40px;
   height: auto;
+  display: block;
+  position: absolute;
 }
 .main-grid {
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
-  padding: 0;
+  padding-left: 280px;
 }
 .mobile-button {
   visibility: hidden;
@@ -142,6 +136,7 @@ body {
 /*login*/
 .login {
   max-width: 350px;
+  margin: 0 auto;
 }
 .login--message {
   text-align: center;
@@ -183,7 +178,7 @@ body {
   padding-bottom: 16px;
 }
 .article--modal {
-  max-width: 1400px;
+  max-width: 1600px;
   min-height: 100%;
 }
 .section--title {
@@ -358,6 +353,7 @@ a {
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
   min-height: 100%;
+  padding-left: 260px;
 }
 .modal--content {
   width: 100%;
@@ -369,17 +365,6 @@ a {
 }
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
-}
-.mdc-list-item {
-  height: auto;
-}
-nav > .mdc-list-item {
-  height: 48px;
-}
-.mdc-list-item.mdc-ripple-upgraded {
-  left: 0;
-  width: 100%;
-  padding: 0;
 }
 .modal--button-container {
   position: fixed;
@@ -425,7 +410,6 @@ nav > .mdc-list-item {
 }
 .filter-button--area {
   margin-top: 30px;
-  padding-top: 15px;
   border-top: 1px solid rgba(0,0,0,.2);
 }
 .padding-fix--labels {
@@ -447,7 +431,6 @@ nav > .mdc-list-item {
 }
 .new-project--area {
   margin-top: 30px;
-  padding-top: 15px;
   border-top: 1px solid rgba(0,0,0,.2);
 }
 /* margin and padding overrides */
@@ -475,11 +458,17 @@ nav > .mdc-list-item {
 .margin--bottom-0 {
   margin-bottom: 0;
 }
+.margin--top-8 {
+  margin-top: 24px;
+}
 .margin--top-24 {
   margin-top: 24px;
 }
 .margin--top-40 {
   margin-top: 40px;
+}
+.margin--0-8 {
+  margin: 0 8px;
 }
 .center {
   display: block;
@@ -492,11 +481,17 @@ nav > .mdc-list-item {
 .padding-8 {
   padding: 8px;
 }
+.padding-16 {
+  padding: 16px;
+}
 .padding-40 {
   padding: 25px;
 }
 .padding--top-none {
   padding-top: 0;
+}
+.padding--top-8 {
+  padding-top: 8px;
 }
 .padding--top-24 {
   padding-top: 24px;
@@ -527,7 +522,7 @@ nav > .mdc-list-item {
 }
 @media screen and (max-width: 1700px) {
   .main-grid {
-    max-width: 1000px;
+    max-width: auto;
   }
 }
 @media screen and (max-width: 1300px) {
@@ -538,6 +533,9 @@ nav > .mdc-list-item {
     visibility: visible;
   }
   .main-grid {
-    max-width: auto;
+    padding-left: 16px;
+  }
+  .modal {
+    padding-left: 16px;
   }
 }
