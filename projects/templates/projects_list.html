@@ -39,18 +39,18 @@
             </p>
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 new-project--area">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 new-project--area padding-8 margin--none">
           <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
             <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
-              Create Project
+            Create project
           </button>
           <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
             <i class="material-icons mdl-color-text--blue-500">close</i>
-              Close
+            Close
           </button>
         </div>
       </form>
-      <form method="get" id="filter-form" class="mdc-elevation--z4">
+      <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
@@ -90,7 +90,7 @@
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <div class="mdc-form-field">
+              <div class="mdc-form-field margin--top-8">
               {% for role_value, role_label in form.role.field.choices %}
                 <div class="mdc-checkbox">
                   <input
@@ -115,7 +115,7 @@
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none" name="order_by">
+              <select class="mdc-select margin--none margin--top-8" name="order_by">
                 <option value="" default>Select order by</option>
                 {% for key, value in form.order_by.field.choices %}
                 <option value="{{ key }}" {% if form.order_by.data == key %}selected{% endif %}>{{ value }}</option>
@@ -124,9 +124,9 @@
             </div>
           </div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order type</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none" name="order_type">
+              <select class="mdc-select margin--none margin--top-8" name="order_type">
                 <option value="" default>Select order type</option>
                 {% for key, value in form.order_type.field.choices %}
                 <option value="{{ key }}" {% if form.order_type.data == key %}selected{% endif %}>{{ value }}</option>
@@ -135,7 +135,7 @@
             </div>
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8 margin--none">
           <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
             <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
               Apply filter
