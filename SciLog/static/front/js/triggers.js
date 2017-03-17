@@ -110,7 +110,7 @@ $('[data-trigger="add-step"]').click(function(event){
   addStep(event);
 });
 var addStep = function(event){
-	var	sourceStep =  event.target.parentElement,
+	var	sourceStep =  event.target.parentElement.parentElement,
       stepNumber = parseInt(sourceStep.querySelector('[data-content="step-number"]').innerHTML),
 			clone = sourceStep.cloneNode(true);
   ++stepNumber;
@@ -135,7 +135,7 @@ $('[data-trigger="remove-step"]').click(function(){
   removeStep(event);
 });
 var removeStep = function(event){
-  var	sourceStep =  event.target.parentElement,
+  var	sourceStep =  event.target.parentElement.parentElement,
       countNext = $(sourceStep).nextAll();
   if(countNext.length > 0) {
     $(countNext).each(function(){
