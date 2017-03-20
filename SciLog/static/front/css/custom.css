@@ -64,6 +64,8 @@
   height: auto;
   display: block;
   position: absolute;
+  top: 64px;
+  bottom: 0;
 }
 .main-grid {
   max-width: 1800px;
@@ -389,6 +391,11 @@ a {
   z-index: 1001;
   margin-left: 16px;
   width: auto!important;
+}
+.select__protocol-label {
+  height: 48px;
+  margin-top: 16px;
+  padding: 16px 0 0 0;
 }
 .mdc-select__menu {
   z-index: 1001;

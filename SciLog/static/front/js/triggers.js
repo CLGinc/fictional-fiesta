@@ -111,18 +111,26 @@ $('[data-trigger="add-step"]').click(function(event){
 });
 var addStep = function(event){
 	var	sourceStep =  event.target.parentElement.parentElement,
-      stepNumber = parseInt(sourceStep.querySelector('[data-content="step-number"]').innerHTML),
+      stepNumber = parseInt(sourceStep.getAttribute('data-step')),
 			clone = sourceStep.cloneNode(true);
-  ++stepNumber;
-  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
+  stepNumber+=1;
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
+  clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
+  clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+stepNumber+'-text');
+  clone.setAttribute('data-step',stepNumber);
+  stepNumber+=1;
+  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
   var countNext = $(sourceStep).nextAll();
   if(countNext.length > 0) {
     $(countNext).each(function(){
-      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
-      ++updateSteps;
-      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      var updateSteps = parseInt(this.getAttribute('data-step'));
+      updateSteps+=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
+      this.setAttribute('data-step',updateSteps);
+      updateSteps+=1;
+      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
     });
   }
   $(clone).removeClass('hidden').insertAfter(sourceStep);
@@ -139,10 +147,13 @@ var removeStep = function(event){
       countNext = $(sourceStep).nextAll();
   if(countNext.length > 0) {
     $(countNext).each(function(){
-      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
-      --updateSteps;
+      var updateSteps = parseInt(this.getAttribute('data-step'));
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      updateSteps-=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
+      this.setAttribute('data-step',updateSteps);
     });
   }
   $(sourceStep).remove();

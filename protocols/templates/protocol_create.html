@@ -10,32 +10,42 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Create new protocol
       </h1>
-      <button data-mdc-auto-init="MDCRipple"
-              data-trigger="submit"
-              data-form="create_protocol_form"
-              class="mdc-button mdl-color-text--blue-grey-600">
-        <i class="material-icons mdl-color-text--blue-500">playlist_add_check</i> Save
-      </button>
-      <button data-mdc-auto-init="MDCRipple"
-              class="mdc-button mdl-color-text--blue-grey-600"
-              data-trigger="cancel">
-        <i class="material-icons mdl-color-text--blue-500">close</i> Cancel
-      </button>
-      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+      <div>
+        {{ form.errors }}
+        {{ steps_formset.errors }}
+      </div>
+      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0 "
             id="create_protocol_form"
             method="post"
             action="{% url 'create_protocol' %}">
         {% csrf_token %}
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
-          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input class="mdc-textfield__input" type="text"
-                   name="name"
-                   maxlength="255">
-            <label class="mdc-textfield__label">Protocol name</label>
+        {{ steps_formset.management_form }}
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Protocol name and label</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
+            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text"
+                     name="name"
+                     maxlength="255" required>
+              <label class="mdc-textfield__label">Protocol name</label>
+            </div>
+            <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+              This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
+            </p>
           </div>
-          <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-            This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
-          </p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
+            <div class="mdc-textfield select__protocol-label">
+              <!-- <span class="mdc-typography--body">Protocol label</span> -->
+              <select class="mdc-select"
+                      name="label" required>
+                {% for key, value in form.label.field.choices %}
+                  {% if key %}
+                    <option value="{{ key }}"{% if key == form.label.data or key == form.label.value %}selected="selected"{% endif %}>{{ value }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
         </div>
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid padding-0 margin--none">
           <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
@@ -51,12 +61,12 @@
                  id="steps-panel">
               <ul class="mdc-list padding-0">
                 <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none"
-                    data-step="1">
+                    data-step="0">
                   <!-- Order input -->
                   <input type="text" class="hidden"
                          data-content="step-input"
                          name="order"
-                         value="1" >
+                         value="0">
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
                     <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
                          data-content="step-number">
@@ -70,8 +80,9 @@
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
                     <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                       <input class="mdc-textfield__input" type="text"
+                             data-content="step-title"
                              name="steps-0-title"
-                             maxlength="255">
+                             maxlength="255" required>
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
                     <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
@@ -80,9 +91,9 @@
                     <!-- Text input -->
                     <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
-                                id="input-new-step--desc"
+                                data-content="step-desc"
                                 name="steps-0-text"
-                                maxlength="1024"></textarea>
+                                maxlength="1024" required></textarea>
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
                     <p id="input-new-step--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
@@ -118,6 +129,17 @@
           </div>
         </div>
       </form>
+      <button data-mdc-auto-init="MDCRipple"
+              data-trigger="submit"
+              data-form="create_protocol_form"
+              class="mdc-button mdl-color-text--blue-grey-600 margin--top-24">
+        <i class="material-icons mdl-color-text--blue-500">playlist_add_check</i> Save protocol
+      </button>
+      <button data-mdc-auto-init="MDCRipple"
+              class="mdc-button mdl-color-text--blue-grey-600 margin--top-24"
+              data-trigger="cancel">
+        <i class="material-icons mdl-color-text--blue-500">close</i> Cancel
+      </button>
     </div>
   </div>
 </div>
