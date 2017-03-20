@@ -29,7 +29,7 @@
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
           <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
             <input class="mdc-textfield__input" type="text"
-                   name="#"
+                   name="name"
                    maxlength="255">
             <label class="mdc-textfield__label">Protocol name</label>
           </div>
@@ -52,9 +52,10 @@
               <ul class="mdc-list padding-0">
                 <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none"
                     data-step="1">
+                  <!-- Order input -->
                   <input type="text" class="hidden"
                          data-content="step-input"
-                         name="#"
+                         name="order"
                          value="1" >
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
                     <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
@@ -65,24 +66,26 @@
                       STEP
                     </div>
                   </div>
+                  <!-- Title input -->
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
                     <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                       <input class="mdc-textfield__input" type="text"
-                             name="#"
+                             name="steps-0-title"
                              maxlength="255">
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
                     <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-                      add helper text
+                      A short step title
                     </p>
+                    <!-- Text input -->
                     <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
                                 id="input-new-step--desc"
-                                name="#"
-                                maxlength="255"></textarea>
+                                name="steps-0-text"
+                                maxlength="1024"></textarea>
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
-                    <p id="description-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                    <p id="input-new-step--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                       A short protocol description. Maximum length of 250 characters.
                     </p>
                   </div>
@@ -104,12 +107,12 @@
               <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
                 <textarea class="mdc-textfield__input" rows="6" type="text"
                           id="input-new-protocol--desc"
-                          name="#"
+                          name="description"
                           maxlength="255"></textarea>
                 <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
               </div>
-              <p id="description-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-               A short protocol description. Maximum length of 250 characters.
+              <p id="nput-new-protocol--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+               A short protocol description. Maximum length of 255 characters.
               </p>
             </div>
           </div>
