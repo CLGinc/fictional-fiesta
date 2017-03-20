@@ -32,6 +32,9 @@ class CreateProtocol(FormView):
             self.request.POST,
             instance=instance.procedure
         )
+        self.object = instance
+        if self.steps_formset.is_valid():
+            self.steps_formset.save()
         return super(CreateProtocol, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
