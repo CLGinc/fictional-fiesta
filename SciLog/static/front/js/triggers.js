@@ -115,6 +115,8 @@ var addStep = function(event){
 			clone = sourceStep.cloneNode(true);
   stepNumber+=1;
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
+  clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
+  clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+stepNumber+'-text');
   clone.setAttribute('data-step',stepNumber);
   stepNumber+=1;
   clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
@@ -124,6 +126,8 @@ var addStep = function(event){
       var updateSteps = parseInt(this.getAttribute('data-step'));
       updateSteps+=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
       this.setAttribute('data-step',updateSteps);
       updateSteps+=1;
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
@@ -147,6 +151,8 @@ var removeStep = function(event){
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
       updateSteps-=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
       this.setAttribute('data-step',updateSteps);
     });
   }
