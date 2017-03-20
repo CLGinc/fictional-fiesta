@@ -44,10 +44,7 @@ class CreateProtocol(FormView):
 
     def form_invalid(self, form, steps_formset):
         return self.render_to_response(
-            self.get_context_data(
-                form=form,
-                steps_formset=steps_formset,
-            )
+            self.get_context_data(form=form, steps_formset=steps_formset)
         )
 
     def get_context_data(self, **kwargs):
