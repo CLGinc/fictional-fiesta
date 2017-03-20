@@ -10,7 +10,7 @@ class Project(models.Model):
         unique=True,
         default=generate_uid)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, blank=True)
+    description = models.TextField(max_length=1024, blank=True)
     sources = models.ManyToManyField(
         'researchers.Source',
         related_name='projects',

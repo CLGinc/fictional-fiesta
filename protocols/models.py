@@ -33,7 +33,7 @@ class Protocol(models.Model):
         unique=True,
         default=generate_uid)
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(max_length=1024)
     label = models.CharField(max_length=20, default=DEFAULT_LABEL, choices=LABELS)
     assets = models.ManyToManyField(
         Asset,
@@ -67,7 +67,7 @@ class Procedure(models.Model):
 
 class Step(SortableMixin):
     title = models.CharField(max_length=255, null=True, blank=True)
-    text = models.CharField(max_length=1024)
+    text = models.TextField(max_length=1024)
     procedure = SortableForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(
         default=0,
