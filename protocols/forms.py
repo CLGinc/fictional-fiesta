@@ -1,7 +1,15 @@
 from django import forms
+from django.forms.models import inlineformset_factory
 
 from researchers.models import Role
-from.models import Protocol, Procedure
+from.models import Protocol, Procedure, Step
+
+
+StepsFormset = inlineformset_factory(
+    Procedure,
+    Step,
+    fields=('title', 'text',)
+)
 
 
 class BasicProtocolForm(forms.ModelForm):

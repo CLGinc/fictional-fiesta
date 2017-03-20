@@ -5,11 +5,10 @@ from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 from django.views.generic import DetailView
-from django.forms.models import inlineformset_factory
 
 from researchers.views import RoleListMixin
-from .models import Protocol, Procedure, Step
-from .forms import BasicProtocolForm
+from .models import Protocol
+from .forms import BasicProtocolForm, StepsFormset
 
 
 class SinglePrototolMixin(SingleObjectMixin):
@@ -29,11 +28,6 @@ class CreateProtocol(FormView):
 
     def form_valid(self, form):
         instance = form.save()
-        StepsFormset = inlineformset_factory(
-            Procedure,
-            Step,
-            fields=('text',)
-        )
         self.steps_formset = StepsFormset(
             self.request.POST,
             instance=instance.procedure
@@ -42,11 +36,6 @@ class CreateProtocol(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CreateProtocol, self).get_context_data(**kwargs)
-        StepsFormset = inlineformset_factory(
-            Procedure,
-            Step,
-            fields=('text',)
-        )
         context['steps_formset'] = StepsFormset()
         return context
 
