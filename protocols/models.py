@@ -26,6 +26,7 @@ class Protocol(models.Model):
         ('standard', 'Standard'),
         ('modified', 'Modified'),
     )
+    DEFAULT_LABEL = 'standard'
 
     unique_id = models.CharField(
         max_length=8,
@@ -33,7 +34,7 @@ class Protocol(models.Model):
         default=generate_uid)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    label = models.CharField(max_length=20, choices=LABELS)
+    label = models.CharField(max_length=20, default=DEFAULT_LABEL, choices=LABELS)
     assets = models.ManyToManyField(
         Asset,
         related_name='protocols',
