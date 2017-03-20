@@ -65,7 +65,8 @@ class Procedure(models.Model):
 
 
 class Step(SortableMixin):
-    text = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, null=True, blank=True)
+    text = models.CharField(max_length=1024)
     procedure = SortableForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(
         default=0,
