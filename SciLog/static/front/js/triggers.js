@@ -111,18 +111,22 @@ $('[data-trigger="add-step"]').click(function(event){
 });
 var addStep = function(event){
 	var	sourceStep =  event.target.parentElement.parentElement,
-      stepNumber = parseInt(sourceStep.querySelector('[data-content="step-number"]').innerHTML),
+      stepNumber = parseInt(sourceStep.getAttribute('data-step')),
 			clone = sourceStep.cloneNode(true);
-  ++stepNumber;
-  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
+  stepNumber+=1;
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
+  clone.setAttribute('data-step',stepNumber);
+  stepNumber+=1;
+  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
   var countNext = $(sourceStep).nextAll();
   if(countNext.length > 0) {
     $(countNext).each(function(){
-      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
-      ++updateSteps;
-      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      var updateSteps = parseInt(this.getAttribute('data-step'));
+      updateSteps+=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.setAttribute('data-step',updateSteps);
+      updateSteps+=1;
+      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
     });
   }
   $(clone).removeClass('hidden').insertAfter(sourceStep);
@@ -139,10 +143,11 @@ var removeStep = function(event){
       countNext = $(sourceStep).nextAll();
   if(countNext.length > 0) {
     $(countNext).each(function(){
-      var updateSteps = parseInt(this.querySelector('[data-content="step-number"]').innerHTML);
-      --updateSteps;
+      var updateSteps = parseInt(this.getAttribute('data-step'));
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+      updateSteps-=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.setAttribute('data-step',updateSteps);
     });
   }
   $(sourceStep).remove();
