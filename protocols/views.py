@@ -26,20 +26,34 @@ class CreateProtocol(FormView):
     template_name = 'protocol_create.html'
     form_class = BasicProtocolForm
 
-    def form_valid(self, form):
-        instance = form.save()
-        self.steps_formset = StepsFormset(
-            self.request.POST,
-            instance=instance.procedure
-        )
-        self.object = instance
-        if self.steps_formset.is_valid():
-            self.steps_formset.save()
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        steps_formset = StepsFormset(request.POST)
+        if form.is_valid() and steps_formset.is_valid():
+            return self.form_valid(form, steps_formset)
+        else:
+            return self.form_invalid(form, steps_formset)
+
+    def form_valid(self, form, steps_formset):
+        self.object = form.save()
+        steps_formset.instance = self.object.procedure
+        steps_formset.save()
         return super(CreateProtocol, self).form_valid(form)
 
+    def form_invalid(self, form, steps_formset):
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                steps_formset=steps_formset,
+            )
+        )
+
     def get_context_data(self, **kwargs):
-        context = super(CreateProtocol, self).get_context_data(**kwargs)
+        context = dict()
         context['steps_formset'] = StepsFormset()
+        context.update(super(CreateProtocol, self).get_context_data(**kwargs))
         return context
 
     def get_form_kwargs(self):
