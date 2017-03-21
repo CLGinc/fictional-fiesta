@@ -134,6 +134,7 @@ var addStep = function(event){
     });
   }
   $(clone).removeClass('hidden').insertAfter(sourceStep);
+  setNumberOfTotalForms();
   clone.querySelector('[data-trigger="remove-step"]').addEventListener('click', removeStep);
   clone.querySelector('[data-trigger="add-step"]').addEventListener('click', addStep);
 	window.mdc.autoInit(clone);
@@ -157,7 +158,12 @@ var removeStep = function(event){
     });
   }
   $(sourceStep).remove();
+  setNumberOfTotalForms();
 };
+var setNumberOfTotalForms = function(){
+  var totalForms = document.getElementsByClassName('step').length;
+  document.getElementById('id_steps-TOTAL_FORMS').value = totalForms;
+}
 
 // submit form
 $('[data-trigger="submit"]').click(function(){
