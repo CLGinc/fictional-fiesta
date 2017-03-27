@@ -114,6 +114,8 @@ var addStep = function(event){
       stepNumber = parseInt(sourceStep.getAttribute('data-step')),
 			clone = sourceStep.cloneNode(true);
   stepNumber+=1;
+  $(clone).find('.mdc-textfield__label--float-above').removeClass('mdc-textfield__label--float-above');
+  $(clone).find('.mdc-textfield__input').val('');
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+stepNumber+'-text');
@@ -144,26 +146,32 @@ $('[data-trigger="remove-step"]').click(function(){
   removeStep(event);
 });
 var removeStep = function(event){
-  var	sourceStep =  event.target.parentElement.parentElement,
-      countNext = $(sourceStep).nextAll();
-  if(countNext.length > 0) {
-    $(countNext).each(function(){
-      var updateSteps = parseInt(this.getAttribute('data-step'));
-      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
-      updateSteps-=1;
-      this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
-      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
-      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
-      this.setAttribute('data-step',updateSteps);
-    });
+  var steps = document.getElementsByClassName('step').length;
+  if (steps > 1){
+    var	sourceStep =  event.target.parentElement.parentElement,
+        countNext = $(sourceStep).nextAll();
+    if(countNext.length > 0) {
+      $(countNext).each(function(){
+        var updateSteps = parseInt(this.getAttribute('data-step'));
+        this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+        updateSteps-=1;
+        this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+        this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+        this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
+        this.setAttribute('data-step',updateSteps);
+      });
+    }
+    $(sourceStep).remove();
+    setNumberOfTotalForms();
+  } else {
+    // function is initialized only in the create protocol screen (inline)
+    show(snackbar);
   }
-  $(sourceStep).remove();
-  setNumberOfTotalForms();
 };
 var setNumberOfTotalForms = function(){
   var totalForms = document.getElementsByClassName('step').length;
   document.getElementById('id_steps-TOTAL_FORMS').value = totalForms;
-}
+};
 
 // submit form
 $('[data-trigger="submit"]').click(function(){
