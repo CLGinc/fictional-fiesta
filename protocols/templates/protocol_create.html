@@ -11,8 +11,12 @@
         Create new protocol
       </h1>
       <div>
-        {{ form.errors }}
-        {{ steps_formset.errors }}
+        {% if form.nonfield_errors %}
+        {{ form.nonfield_errors }}
+        {% endif %}
+        {% if form.nonfield_errors %}
+        {{ steps_formset.nonfield_errors }}
+        {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0 "
             id="create_protocol_form"
@@ -26,13 +30,16 @@
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text"
                      name="name"
-                     maxlength="255" required>
+                     maxlength="255" required {% if form.name.data %}value="{{ form.name.data }}"{% endif %}>
               <label class="mdc-textfield__label">Protocol name</label>
             </div>
             <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
             </p>
           </div>
+          {% if form.name.errors %}
+            {{ form.name.errors.as_text }}
+          {% endif %}
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
             <div class="mdc-textfield select__protocol-label">
               <!-- <span class="mdc-typography--body">Protocol label</span> -->
@@ -60,6 +67,7 @@
             <div class="mdl-tabs__panel is-active"
                  id="steps-panel">
               <ul class="mdc-list padding-0">
+                {% for step_form in steps_formset.forms %}
                 <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
                     data-step="0">
                   <!-- Order input -->
@@ -82,23 +90,29 @@
                       <input class="mdc-textfield__input" type="text"
                              data-content="step-title"
                              name="steps-0-title"
-                             maxlength="255" required>
+                             maxlength="255" required {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}>
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
                     <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                       A short step title
                     </p>
+                    {% if step_form.title.errors %}
+                      {{ step_form.title.as_text }}
+                    {% endif %}
                     <!-- Text input -->
                     <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
                                 data-content="step-desc"
                                 name="steps-0-text"
-                                maxlength="1024" required></textarea>
+                                maxlength="1024" required>{% if step_form.text.data %}{{ step_form.text.data }}{% endif %}</textarea>
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
                     <p id="input-new-step--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                       A short protocol description. Maximum length of 250 characters.
                     </p>
+                    {% if step_form.text.errors %}
+                      {{ step_form.text.errors.as_text }}
+                    {% endif %}
                   </div>
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
                     <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
@@ -112,6 +126,7 @@
                   </div>
                 </li>
               </ul>
+              {% endfor %}
             </div>
             <div class="mdl-tabs__panel"
                  id="details-panel">
@@ -119,13 +134,16 @@
                 <textarea class="mdc-textfield__input" rows="6" type="text"
                           id="input-new-protocol--desc"
                           name="description"
-                          maxlength="255"></textarea>
+                          maxlength="255">{% if form.description.data %}{{ form.description.data }}{% endif %}</textarea>
                 <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
               </div>
               <p id="nput-new-protocol--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                A short protocol description. Maximum length of 255 characters.
               </p>
             </div>
+            {% if form.description.errors %}
+              {{ form.description.errors.as_text }}
+            {% endif %}
           </div>
         </div>
       </form>
