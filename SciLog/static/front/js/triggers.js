@@ -144,7 +144,7 @@ var addStep = function(event){
 	window.mdc.autoInit(clone);
 };
 // remove step
-$('[data-trigger="remove-step"]').click(function(){
+$('[data-trigger="remove-step"]').click(function(event){
   removeStep(event);
 });
 var removeStep = function(event){
