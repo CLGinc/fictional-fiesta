@@ -34,11 +34,11 @@
               <label class="mdc-textfield__label">Protocol name</label>
             </div>
             {% if form.name.errors %}
-            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
               {{ form.name.errors.as_text }}
             </p>
             {% else %}
-            <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+            <p class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
             </p>
             {% endif %}
@@ -64,7 +64,7 @@
                 <h2 class="section--title">Steps</h2>
               </a>
               <a href="#details-panel" data-trigger="tab" data-target="modal--details" class="mdl-tabs__tab">
-                <h2 class="section--title">Details</h2>
+                <h2 class="section--title">Details {% if form.description.errors %}<span class="mdl-color-text--red-500">*</span>{% endif %}</h2>
               </a>
             </div>
             <div class="mdl-tabs__panel is-active"
@@ -97,16 +97,16 @@
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
                     {% if step_form.title.errors %}
-                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                       {{ step_form.title.errors.as_text }}
                     </p>
                     {% else %}
-                    <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                    <p class="mdc-textfield-helptext" aria-hidden="true">
                       A short step title. Maximum of 255 characters.
                     </p>
                     {% endif %}
                     <!-- Text input -->
-                    <div class="mdc-textfield mdc-textfield--multiline {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                    <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
                                 data-content="step-desc"
                                 name="steps-0-text"
@@ -114,11 +114,11 @@
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
                     {% if step_form.text.errors %}
-                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                       {{ step_form.text.errors.as_text }}
                     </p>
                     {% else %}
-                    <p id="input-new-step--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                    <p class="mdc-textfield-helptext" aria-hidden="true">
                       A short protocol description. Maximum length of 250 characters.
                     </p>
                     {% endif %}
@@ -139,20 +139,23 @@
             </div>
             <div class="mdl-tabs__panel"
                  id="details-panel">
-              <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+              <div class="mdc-textfield mdc-textfield--multiline {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <textarea class="mdc-textfield__input" rows="6" type="text"
                           id="input-new-protocol--desc"
                           name="description"
-                          maxlength="255">{% if form.description.data %}{{ form.description.data }}{% endif %}</textarea>
+                          maxlength="2560">{% if form.description.data %}{{ form.description.data }}{% endif %}</textarea>
                 <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
               </div>
+              {% if form.description.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.description.errors.as_text }}
+              </p>
+              {% else %}
               <p id="nput-new-protocol--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                A short protocol description. Maximum length of 255 characters.
               </p>
+              {% endif %}
             </div>
-            {% if form.description.errors %}
-              {{ form.description.errors.as_text }}
-            {% endif %}
           </div>
         </div>
       </form>
