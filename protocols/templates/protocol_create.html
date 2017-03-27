@@ -27,24 +27,27 @@
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Protocol name and label</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text"
                      name="name"
                      maxlength="255" required {% if form.name.data %}value="{{ form.name.data }}"{% endif %}>
               <label class="mdc-textfield__label">Protocol name</label>
             </div>
+            {% if form.name.errors %}
+            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+              {{ form.name.errors.as_text }}
+            </p>
+            {% else %}
             <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
             </p>
+            {% endif %}
           </div>
-          {% if form.name.errors %}
-            {{ form.name.errors.as_text }}
-          {% endif %}
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
             <div class="mdc-textfield select__protocol-label">
               <!-- <span class="mdc-typography--body">Protocol label</span> -->
               <select class="mdc-select"
-                      name="label" required>
+                      name="label">
                 {% for key, value in form.label.field.choices %}
                   {% if key %}
                     <option value="{{ key }}"{% if key == form.label.data or key == form.label.value %}selected="selected"{% endif %}>{{ value }}</option>
@@ -86,32 +89,38 @@
                   </div>
                   <!-- Title input -->
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                    <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                    <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                       <input class="mdc-textfield__input" type="text"
                              data-content="step-title"
                              name="steps-0-title"
-                             maxlength="255" required {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}>
+                             maxlength="255" {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}>
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
-                    <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-                      A short step title
-                    </p>
                     {% if step_form.title.errors %}
-                      {{ step_form.title.as_text }}
+                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+                      {{ step_form.title.errors.as_text }}
+                    </p>
+                    {% else %}
+                    <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+                      A short step title. Maximum of 255 characters.
+                    </p>
                     {% endif %}
                     <!-- Text input -->
-                    <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                    <div class="mdc-textfield mdc-textfield--multiline {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
                                 data-content="step-desc"
                                 name="steps-0-text"
                                 maxlength="1024" required>{% if step_form.text.data %}{{ step_form.text.data }}{% endif %}</textarea>
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
+                    {% if step_form.text.errors %}
+                    <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" id="pw-validation-msg" role="alert">
+                      {{ step_form.text.errors.as_text }}
+                    </p>
+                    {% else %}
                     <p id="input-new-step--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
                       A short protocol description. Maximum length of 250 characters.
                     </p>
-                    {% if step_form.text.errors %}
-                      {{ step_form.text.errors.as_text }}
                     {% endif %}
                   </div>
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
