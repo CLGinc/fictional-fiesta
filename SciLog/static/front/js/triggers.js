@@ -134,6 +134,8 @@ var addStep = function(event){
       updateSteps+=1;
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
     });
+  } else {
+    $('body,html').animate({scrollTop : $('body').height()},300);
   }
   $(clone).removeClass('hidden').insertAfter(sourceStep);
   setNumberOfTotalForms();
