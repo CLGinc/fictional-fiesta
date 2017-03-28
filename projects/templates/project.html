@@ -91,7 +91,7 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.get_state_display|date:"d M Y" }}</div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">{{ result.get_state_display }}</div>
                 {% if result.is_successful == True %}
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
                 {% else %}
