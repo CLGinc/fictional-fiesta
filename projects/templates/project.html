@@ -3,10 +3,10 @@
 {% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<div class="content">
+<div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
-  <div class="main-grid mdc-layout-grid">
-    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0"
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <form class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12"
           method="post"
           action="{% url 'project' project_uid=object.unique_id %}">
       {% csrf_token %}
@@ -42,7 +42,7 @@
         </div>
       </div>
     </form>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid padding-0">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <div class="mdl-tabs__tab-bar block">
           <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
@@ -70,7 +70,7 @@
         <div class="mdl-tabs__panel is-active" id="results-panel">
           {% if selected_project.results.all %}
           <ul class="mdc-list padding-0">
-            <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none">
+            <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
               <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Protocol</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Created by</div>
@@ -78,14 +78,14 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">State</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Success</div>
               </div>
-              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
               </div>
             </li>
           </ul>
           <ul class="mdc-list padding-0">
             {% for result in selected_project.results.all %}
-      		  <li class="border--bottom mdc-layout-grid padding-0 margin--none">
+      		  <li class="border--bottom mdc-layout-grid margin--none padding-0">
               <a href="/resultid/"
                  class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
@@ -98,10 +98,10 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
                 {% endif %}
               </a>
-              <button href="#" class="mdc-button mdc-button--icon center padding-8"
+              <a href="#" class="mdc-button mdc-button--icon center padding-8"
                  aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
                 <i class="material-icons list--link-remove">clear</i>
-              </button>
+              </a>
         		</li>
             {% endfor %}
           </ul>
@@ -125,7 +125,7 @@
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
               </div>
-              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
               </div>
             </li>
