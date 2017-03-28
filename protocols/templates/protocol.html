@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - {{ selected_protocol.name }}{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="content">
+{% include "base/drawer.html" %}
+  <div class="main-grid mdc-layout-grid">
+
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}
