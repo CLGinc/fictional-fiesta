@@ -97,6 +97,9 @@
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline).input--temp::after {
   width: 0;
 }
+.mdc-textfield--multiline .mdc-textfield__input.textarea--temp {
+  border: none;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;

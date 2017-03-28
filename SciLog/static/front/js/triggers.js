@@ -49,19 +49,21 @@ var editableInputs = function(button){
   var targetElementClass = $(button).attr('data-target'),
       targets = document.getElementsByClassName(targetElementClass),
       action = $(button).attr('data-trigger'),
+      type = $(button).attr('data-type'),
       newAction,
       newButtonLabel;
   if(action=='activate'){
     newAction = 'save';
-    newButtonLabel = 'Save project';
+    newButtonLabel = 'Save '+type;
   } else if (action=='save') {
     newAction = 'activate';
-    newButtonLabel = 'Edit project';
+    newButtonLabel = 'Edit '+type;
     button.closest('form').submit();
   }
   $(button).attr('data-trigger', newAction).children('span').html(newButtonLabel);
   $(targets).each(function( i ) {
     $(this).attr('disabled', function (_, attr) { return !attr; }).parent().toggleClass('input--temp');
+    $(this).toggleClass('textarea--temp');
   });
 };
 $('[data-trigger="activate"]').click(function(){

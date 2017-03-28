@@ -8,15 +8,22 @@
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <form class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12"
           method="post"
-          action="{% url 'project' project_uid=object.unique_id %}">
+          action="{% url 'protocol' protocol_uid=object.unique_id %}">
       {% csrf_token %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-        <h1 class="subpageheader--project">
+        <h1 class="subpageheader--protocol">
           <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
-              <input type="text" id="project_name"
+              <input type="text" id="protocol_name"
                      class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
                      value="{{ selected_protocol.name }}"
                      name="name"
+                     disabled>
+          </div>
+          <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
+              <input type="text" id="protocol_label"
+                     class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
+                     value="{{ selected_protocol.get_label_display }}"
+                     name="label"
                      disabled>
           </div>
           <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
@@ -25,7 +32,7 @@
         </h1>
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-        <button data-mdc-auto-init="MDCRipple" data-trigger="activate" data-target="editable"
+        <button data-mdc-auto-init="MDCRipple" data-trigger="activate" data-target="editable" data-type="protocol"
                 id="button-modify"
                 class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
           <i class="material-icons mdl-color-text--blue-500">edit</i> <span>Edit protocol<span>
@@ -34,7 +41,7 @@
       <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
         <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
-          <input type="text" id="project_name"
+          <input type="text" id="protocol_name"
                  class="editable mdc-textfield__input mdl-color-text--blue-grey-900"
                  value="{{ selected_protocol.description }}"
                  name="description"
@@ -45,12 +52,12 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <div class="mdl-tabs__tab-bar block">
-          <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
-            <h2 class="section--title">Results</h2>
-          </a>
-          <a href="#procedure-panel" data-trigger="tab"  data-target="modal--protocols" class="mdl-tabs__tab">
+          <a href="#procedure-panel" data-trigger="tab"  data-target="modal--protocols" class="mdl-tabs__tab is-active padding--left-none">
             <h2 class="section--title">Procedure</h2>
           </a>
+            <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab">
+              <h2 class="section--title">Results</h2>
+            </a>
           <a href="#assets-panel" data-trigger="tab" data-target="modal--sources" class="mdl-tabs__tab">
             <h2 class="section--title">Assets</h2>
           </a>
@@ -67,13 +74,76 @@
           </button>
           {% endif %}
         </div>
-        <div class="mdl-tabs__panel is-active" id="results-panel">
+        <div class="mdl-tabs__panel is-active" id="procedure-panel">
+          <ul class="mdc-list padding-0">
+            {% for step in selected_protocol.procedure.steps.all %}
+            <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
+                data-step="0">
+              <!-- Order input -->
+              <input type="text" class="hidden"
+                     data-content="step-input"
+                     name="order"
+                     value="0">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+                <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
+                     data-content="step-number">
+                  {{ step.order }}
+                </div>
+                <div class="mdl-color-text--blue-grey-600 text-center">
+                  STEP
+                </div>
+              </div>
+              <!-- Title input -->
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                <div class="mdc-textfield input--temp {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input editable" type="text"
+                         data-content="step-title"
+                         name="steps-0-title"
+                         maxlength="255" {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}
+                         disabled>
+                  <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step.title }}</label>
+                </div>
+                {% if step_form.title.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ step_form.title.errors.as_text }}
+                </p>
+                {% endif %}
+                <!-- Text input -->
+                <div class="mdc-textfield mdc-textfield--multiline input--temp {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                  <textarea class="mdc-textfield__input editable textarea--temp" rows="6" type="text"
+                            data-content="step-desc"
+                            name="steps-0-text"
+                            maxlength="1024" required
+                            disabled>{% if step_form.text.data %}{{ step_form.text.data }}{% endif %}</textarea>
+                  <label class="mdc-textfield__label" for="input-new-step--desc">{{ step.text }}</label>
+                </div>
+                {% if step_form.text.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ step_form.text.errors.as_text }}
+                </p>
+                {% endif %}
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 hidden">
+                <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                   data-trigger="add-step">
+                  <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
+                </a>
+                <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                   data-trigger="remove-step">
+                  <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel" id="results-panel">
           {% if selected_protocol.results.all %}
           <ul class="mdc-list padding-0">
             <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
               <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Protocol</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Created by</div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Note</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created on</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">State</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Success</div>
@@ -88,8 +158,8 @@
       		  <li class="border--bottom mdc-layout-grid margin--none padding-0">
               <a href="/resultid/"
                  class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.owner }}</div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.note|truncatechars:45 }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">{{ result.get_state_display }}</div>
                 {% if result.is_successful == True %}
@@ -115,9 +185,6 @@
             </div>
           </div>
           {% endif %}
-        </div>
-        <div class="mdl-tabs__panel" id="procedure-panel">
-          IMPLEMENT PROCEDURE PAGE
         </div>
         <div class="mdl-tabs__panel" id="assets-panel">
           IMPLEMENT ASSETS PAGE
@@ -175,8 +242,8 @@
                     {% endfor %}
                   </select>
                 </div>
-                <select class="hidden" name="invitation_object" value="project">
-                  <option selected value="project">Project</option>
+                <select class="hidden" name="invitation_object" value="protocol">
+                  <option selected value="protocol">protocol</option>
                 </select>
                 <select class="hidden" name="object_choice" value="{{ selected_protocol.unique_id }}">
                   <option selected value="{{ selected_protocol.unique_id }}">{{ selected_protocol.unique_id }}</option>
@@ -204,8 +271,8 @@
                     {% endfor %}
                   </select>
                 </div>
-                <select class="hidden" name="invitation_object" value="project">
-                  <option selected value="project">Project</option>
+                <select class="hidden" name="invitation_object" value="protocol">
+                  <option selected value="protocol">protocol</option>
                 </select>
                 <select class="hidden" name="object_choice" value="{{ selected_protocol.unique_id }}">
                   <option selected value="{{ selected_protocol.unique_id }}">{{ selected_protocol.unique_id }}</option>
