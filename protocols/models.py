@@ -71,7 +71,6 @@ class Step(SortableMixin):
     procedure = SortableForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(
         default=0,
-        editable=False,
         db_index=True)
 
     class Meta:

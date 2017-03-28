@@ -8,7 +8,7 @@ from.models import Protocol, Procedure, Step
 StepsFormset = inlineformset_factory(
     parent_model=Procedure,
     model=Step,
-    fields=('title', 'text',),
+    fields=('title', 'text', 'order'),
     extra=0,
     max_num=64,
     min_num=1
