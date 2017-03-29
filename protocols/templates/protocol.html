@@ -196,15 +196,14 @@
         </div>
         <div class="mdl-tabs__panel" id="assets-panel">
           <div class="mdc-layout-grid padding-0">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
-              <p class="mdc-list mdl-color-text--blue-500">Materials</p>
-              {% for asset in selected_protcol.assets %}
-                {{ asset.name }}
-              {% endfor %}
-            </div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
-              <p class="mdc-list mdl-color-text--blue-500">Equipment</p>
-            </div>
+            {% for asset_category_value, assets in assets_by_category %}
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
+                <p class="mdc-list mdl-color-text--blue-500">{{ asset_category_value }}</p>
+                {% for asset in assets %}
+                  {{ asset.name }}
+                {% endfor %}
+              </div>
+            {% endfor %}
           </div>
         </div>
         <div class="mdl-tabs__panel" id="participants-panel">

@@ -51,6 +51,18 @@ class Protocol(models.Model):
     def get_owner(self):
         return self.roles.get(role='owner').researcher
 
+    def get_assets_by_category(self):
+        assets_by_category = list()
+        for category_value, category_label in Asset.CATEGORIES:
+            if self.assets.filter(category=category_value).exists():
+                assets_by_category.append(
+                    (
+                        category_label,
+                        self.assets.filter(category=category_value)
+                    )
+                )
+        return assets_by_category
+
 
 class Procedure(models.Model):
     protocol = models.OneToOneField(Protocol, related_name='procedure')

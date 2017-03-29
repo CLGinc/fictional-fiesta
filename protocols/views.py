@@ -83,8 +83,13 @@ class ProtocolView(DetailView, SinglePrototolMixin):
     template_name = 'protocol.html'
 
     def get_success_url(self):
-        self.object = self.get_object()
         return reverse(
             'protocol',
             kwargs={'protocol_uid': self.object.unique_id}
         )
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object()
+        context = super(ProtocolView, self).get_context_data(**kwargs)
+        context['assets_by_category'] = self.object.get_assets_by_category()
+        return context
