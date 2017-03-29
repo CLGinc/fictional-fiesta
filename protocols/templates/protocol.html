@@ -76,14 +76,15 @@
         </div>
         <div class="mdl-tabs__panel is-active" id="procedure-panel">
           <ul class="mdc-list padding-0">
+            {{ steps_formset.management_form }}
             {% for step in selected_protocol.procedure.steps.all %}
             <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-                data-step="0">
+                data-step="{{ step.order }}">
               <!-- Order input -->
               <input type="text" class="hidden"
                      data-content="step-input"
-                     name="order"
-                     value="0">
+                     name="steps-{{ step.order }}-order"
+                     value="{{ step.order }}">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
                 <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
                      data-content="step-number">
@@ -123,7 +124,7 @@
                 </p>
                 {% endif %}
               </div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 hidden">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 hidden step__button">
                 <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
                    data-trigger="add-step">
                   <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step

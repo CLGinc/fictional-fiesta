@@ -50,6 +50,7 @@ var editableInputs = function(button){
       targets = document.getElementsByClassName(targetElementClass),
       action = $(button).attr('data-trigger'),
       type = $(button).attr('data-type'),
+      buttons = document.getElementsByClassName('step__button'),
       newAction,
       newButtonLabel;
   if(action=='activate'){
@@ -64,6 +65,10 @@ var editableInputs = function(button){
   $(targets).each(function( i ) {
     $(this).attr('disabled', function (_, attr) { return !attr; }).parent().toggleClass('input--temp');
     $(this).toggleClass('textarea--temp');
+  });
+  $(buttons).each(function(){
+    $(this).toggleClass('hidden');
+    console.log(this);
   });
 };
 $('[data-trigger="activate"]').click(function(){
@@ -119,6 +124,7 @@ var addStep = function(event){
   $(clone).find('.mdc-textfield__label--float-above').removeClass('mdc-textfield__label--float-above');
   $(clone).find('.mdc-textfield__input').val('');
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
+  clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+stepNumber+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+stepNumber+'-text');
   clone.setAttribute('data-step',stepNumber);
