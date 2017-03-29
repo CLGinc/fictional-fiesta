@@ -195,7 +195,17 @@
           {% endif %}
         </div>
         <div class="mdl-tabs__panel" id="assets-panel">
-          IMPLEMENT ASSETS PAGE
+          <div class="mdc-layout-grid padding-0">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
+              <p class="mdc-list mdl-color-text--blue-500">Materials</p>
+              {% for asset in selected_protcol.assets %}
+                {{ asset.name }}
+              {% endfor %}
+            </div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
+              <p class="mdc-list mdl-color-text--blue-500">Equipment</p>
+            </div>
+          </div>
         </div>
         <div class="mdl-tabs__panel" id="participants-panel">
           <div class="mdc-layout-grid padding-0">
