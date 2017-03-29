@@ -6,25 +6,18 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
-    <form class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12"
+    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           method="post"
           action="{% url 'protocol' protocol_uid=object.unique_id %}">
       {% csrf_token %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <h1 class="subpageheader--protocol">
           <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
-              <input type="text" id="protocol_name"
-                     class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
-                     value="{{ selected_protocol.name }}"
-                     name="name"
-                     disabled>
-          </div>
-          <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0" data-mdc-auto-init="MDCTextfield">
-              <input type="text" id="protocol_label"
-                     class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
-                     value="{{ selected_protocol.get_label_display }}"
-                     name="label"
-                     disabled>
+            <input type="text" id="protocol_name"
+                   class="editable mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
+                   value="{{ selected_protocol.name }}"
+                   name="name"
+                   disabled>
           </div>
           <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
             Created on: {{ selected_protocol.datetime_created|date:"d M Y" }}
@@ -46,6 +39,20 @@
                  value="{{ selected_protocol.description }}"
                  name="description"
                  disabled>
+        </div>
+      </div>
+      <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+        <h1 class="mdl-color-text--blue-500 section--title">Label</h1>
+        <div class="mdc-textfield select-protocol input--temp">
+          <select class="mdc-select editable mdl-color-text--blue-grey-900"
+                 name="label" disabled>
+           <option value="selected_protocol.label" selected>{{ selected_protocol.get_label_display }}</option>
+            {% for key, value in form.label.field.choices %}
+              {% if key %}
+              <option value="{{ key }}"{% if key == form.label.data or key == form.label.value %}selected="selected"{% endif %}>{{ value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
         </div>
       </div>
     </form>

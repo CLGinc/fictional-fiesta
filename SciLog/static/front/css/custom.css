@@ -97,6 +97,10 @@
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline).input--temp::after {
   width: 0;
 }
+.input--temp > .mdc-select {
+  background: none;
+  border-bottom: none;
+}
 .mdc-textfield--multiline .mdc-textfield__input.textarea--temp {
   border: none;
 }
@@ -394,6 +398,21 @@ a {
   z-index: 1001;
   margin-left: 16px;
   width: auto!important;
+}
+.select-protocol {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    margin-top: 16px;
+    height: 48px;
+}
+.select-protocol > select {
+  margin-left: 0;
 }
 .select__protocol-label {
   height: 48px;
