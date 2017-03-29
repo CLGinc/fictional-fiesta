@@ -68,7 +68,6 @@ var editableInputs = function(button){
   });
   $(buttons).each(function(){
     $(this).toggleClass('hidden');
-    console.log(this);
   });
 };
 $('[data-trigger="activate"]').click(function(){
