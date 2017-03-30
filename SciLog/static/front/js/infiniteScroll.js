@@ -1,7 +1,7 @@
 // Scroll globals
 var pageNum = parseInt($('#items_list').attr('data-currentpage')), // current page
     hasNextPage = true, // Indicates whether to expect another page after this one
-    viewParam = $(location).attr('href'),
+    viewParam = window.location.origin+window.location.pathname,
     datamode = $('#items_list').attr('data-mode'),
     datalastpage = 1,
     win = $(window),

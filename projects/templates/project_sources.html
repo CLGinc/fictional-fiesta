@@ -1,0 +1,62 @@
+<div class="border--bottom-blue padding--bottom-16">
+  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+    Sources
+  </span>
+  {% if can_edit %}
+  <button data-mdc-auto-init="MDCRipple"
+          data-trigger="show"
+          data-target="modal--sources"
+          data-ajax="addDataRequest"
+          id="button-add"
+          class="mdc-button mdl-color-text--blue-grey-600 right">
+    <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
+  </button>
+  {% endif %}
+</div>
+{% if selected_project.sources.all %}
+<ul class="mdc-list padding-0">
+  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none">
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">Name</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">ISBN</div>
+    </div>
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">Url</div>
+    </div>
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Remove</div>
+    </div>
+  </li>
+  {% for source in selected_project.sources.all %}
+	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
+    <a href="/resultid/"
+       class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">{{ source.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.isbn }}</div>
+    </a>
+    <div class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2 list--link padding-0">
+      <a href="{{ source.url }}" target="_blank" class="links--wrap mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        {% if source.url %}
+        Visit site
+        {% endif %}
+      </a>
+    </div>
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
+      <button href="#" class="mdc-button mdc-button--icon center"
+         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-remove">clear</i>
+      </button>
+    </div>
+	</li>
+{% endfor %}
+</ul>
+{% else %}
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+  <div class="article width--full margin--top-16">
+    <h1 class="mdl-color-text--accent section--title">No sources</h1>
+    <p class="mdl-color-text--blue-grey-900">
+      There are no sources yet. Use the '+ ADD' button to add more.
+    </p>
+  </div>
+</div>
+{% endif %}

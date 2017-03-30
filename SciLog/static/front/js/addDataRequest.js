@@ -21,6 +21,7 @@ var addDataRequest = function(requestTarget) {
     // remove # from vieparam in case of inactive link is clicked
     viewParam = viewParam.replace('#','');
     var dataTarget = viewParam+requestTarget;
+    console.log(dataTarget);
     $.ajax({
         url: dataTarget,
         type: "GET",

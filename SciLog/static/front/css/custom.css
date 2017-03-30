@@ -103,9 +103,18 @@ html {
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline).input--temp::after {
   width: 0;
 }
+.mdc-textfield--upgraded:not(.mdc-textfield--fullwidth).margin--none {
+  margin: 0;
+}
+.mdc-textfield+.mdc-textfield-helptext.margin--none {
+  margin: 0;
+}
 .input--temp > .mdc-select {
   background: none;
   border-bottom: none;
+}
+.mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline).input--temp {
+  height: auto;
 }
 .mdc-textfield--multiline .mdc-textfield__input.textarea--temp {
   border: none;
@@ -500,6 +509,9 @@ a {
 }
 .margin--top-8 {
   margin-top: 24px;
+}
+.margin--top-16 {
+  margin-top: 16px;
 }
 .margin--top-24 {
   margin-top: 24px;

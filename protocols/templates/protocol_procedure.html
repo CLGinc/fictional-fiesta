@@ -1,4 +1,8 @@
-<h1 class="mdl-color-text--blue-500 section--title border--bottom-blue padding--bottom-16">Procedure</h1>
+<div class="border--bottom-blue padding--bottom-16">
+  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+    Procedure
+  </span>
+</div>
 <ul class="mdc-list padding-0">
   {{ steps_formset.management_form }}
   {% for step in selected_protocol.procedure.steps.all %}

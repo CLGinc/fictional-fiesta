@@ -1,4 +1,8 @@
-<h1 class="mdl-color-text--blue-500 section--title border--bottom-blue padding--bottom-16">Results</h1>
+<div class="border--bottom-blue padding--bottom-16">
+  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+    Results
+  </span>
+</div>
 {% if selected_protocol.results.all %}
 <ul class="mdc-list padding-0">
   <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
@@ -38,7 +42,7 @@
 </ul>
 {% else %}
 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-  <div class="article width--full">
+  <div class="article width--full margin--top-16">
     <h1 class="mdl-color-text--accent section--title">No results</h1>
     <p class="mdl-color-text--blue-grey-900">
       There are no results yet. Use the '+ ADD' button to add more.
