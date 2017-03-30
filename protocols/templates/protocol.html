@@ -3,7 +3,7 @@
 {% block title %}Sci Log - {{ selected_protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<div class="mdc-layout-grid content">
+<div class="content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
@@ -30,226 +30,24 @@
       </div>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <div class="mdl-tabs__tab-bar block">
-          <a href="#procedure-panel" data-trigger="tab"  data-target="modal--protocols" class="mdl-tabs__tab is-active padding--left-none">
-            <h2 class="section--title">Procedure</h2>
-          </a>
-            <a href="#results-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab">
-              <h2 class="section--title">Results</h2>
-            </a>
-          <a href="#assets-panel" data-trigger="tab" data-target="modal--sources" class="mdl-tabs__tab">
-            <h2 class="section--title">Assets</h2>
-          </a>
-          <a href="#participants-panel" data-trigger="tab" data-target="none" class="mdl-tabs__tab">
-            <h2 class="section--title">Participants</h2>
-          </a>
-          <button data-mdc-auto-init="MDCRipple"
-                  data-trigger="show"
-                  data-ajax="addDataRequest"
-                  id="button-add"
-                  class="mdc-button mdl-color-text--blue-grey-600 right">
-            <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
-          </button>
-        </div>
-        <div class="mdl-tabs__panel is-active" id="procedure-panel">
-          <ul class="mdc-list padding-0">
-            {{ steps_formset.management_form }}
-            {% for step in selected_protocol.procedure.steps.all %}
-            <li class="mdc-layout-grid border--bottom padding-0 margin--none">
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-                <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center">
-                  {{ step.order }}
-                </div>
-                <div class="mdl-color-text--blue-grey-600 text-center">
-                  STEP
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                <p class="mdl-color-text--blue-500">
-                  {{ step.title }}
-                </p>
-                <p>
-                  {{ step.text }}
-                </p>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="mdl-tabs__panel" id="results-panel">
-          {% if selected_protocol.results.all %}
-          <ul class="mdc-list padding-0">
-            <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
-              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Note</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created on</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">State</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Success</div>
-              </div>
-              <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
-              </div>
-            </li>
-          </ul>
-          <ul class="mdc-list padding-0">
-            {% for result in selected_protocol.results.all %}
-      		  <li class="border--bottom mdc-layout-grid margin--none padding-0">
-              <a href="/resultid/"
-                 class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.owner }}</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.note|truncatechars:45 }}</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">{{ result.get_state_display }}</div>
-                {% if result.is_successful == True %}
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
-                {% else %}
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
-                {% endif %}
-              </a>
-              <a href="#" class="mdc-button mdc-button--icon center padding-8"
-                 aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-                <i class="material-icons list--link-remove">clear</i>
-              </a>
-        		</li>
-            {% endfor %}
-          </ul>
-          {% else %}
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="article width--full">
-              <h1 class="mdl-color-text--accent section--title">No results</h1>
-              <p class="mdl-color-text--blue-grey-900">
-                There are no results yet. Use the '+ ADD' button to add more.
-              </p>
-            </div>
-          </div>
-          {% endif %}
-        </div>
-        <div class="mdl-tabs__panel" id="assets-panel">
-          <div class="mdc-layout-grid padding-0">
-            {% for asset_category_value, assets in assets_by_category %}
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
-                <p class="mdc-list mdl-color-text--blue-500">{{ asset_category_value }}</p>
-                {% for asset in assets %}
-                  {{ asset.name }}
-                {% endfor %}
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="mdl-tabs__panel" id="participants-panel">
-          <div class="mdc-layout-grid padding-0">
-            <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
-                <p>Role</p>
-              </div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-list mdl-color-text--blue-500">
-                <p>Email</p>
-              </div>
-              {% for role_value, roles in participants_by_role %}
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list">
-                <p>{{ role_value }}</p>
-              </div>
-              <ul class="mdc-list mdc-list--avatar-list mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
-                {% for role in roles %}
-                <li class="mdc-list-item">
-                  <a class="links--wrap participant-list--link" href="/userid/">
-                    <img class="mdc-list-item__start-detail" src="/static/front/img/ninja.png"
-                      width="56" height="56" alt="Avatar of {{ role.researcher }}">
-                    {{ role.researcher }}
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-              {% endfor %}
-            </div>
-            <div id="modal--participants"
-                 class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
-                <p>Invite participants</p>
-              </div>
-              <form method="post"
-                    action="{% url 'create_invitation' %}"
-                    id="email_input_source"
-                    class="hidden mdc-list">
-                {% csrf_token %}
-                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                  <a data-trigger="remove-input" class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600 input--remove" data-mdc-auto-init="MDCRipple">
-                    <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
-                  </a>
-                  <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
-                  <input type="text" name="email" class="mdc-textfield__input">
-                  <label class="mdc-textfield__label">Email address</label>
-                </div>
-                <div class="padding--top-8">
-                  <span class="mdc-typography--body mdl-color-text--blue-grey-600">Participant role:</span>
-                  <select class="mdc-select"
-                          name="role">
-                    {% for role, label in invitation_roles %}
-                    <option value="{{ role }}" {% if role == default_invitation_role.0 %}default selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <select class="hidden" name="invitation_object" value="protocol">
-                  <option selected value="protocol">protocol</option>
-                </select>
-                <select class="hidden" name="object_choice" value="{{ selected_protocol.unique_id }}">
-                  <option selected value="{{ selected_protocol.unique_id }}">{{ selected_protocol.unique_id }}</option>
-                </select>
-                <div data-content="result" class="mdc-typography--caption result"></div>
-              </form>
-              <form method="post"
-                    action="{% url 'create_invitation' %}"
-                    class="mdc-list">
-                {% csrf_token %}
-                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                  <a data-trigger="remove-input" class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600 input--remove" data-mdc-auto-init="MDCRipple">
-                    <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
-                  </a>
-                  <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
-                  <input type="text" name="email" class="mdc-textfield__input">
-                  <label class="mdc-textfield__label">Email address</label>
-                </div>
-                <div class="padding--top-8">
-                  <span class="mdc-typography--body">Participant role:</span>
-                  <select class="mdc-select"
-                          name="role">
-                    {% for role, label in invitation_roles %}
-                    <option value="{{ role }}" {% if role == default_invitation_role.0 %}default selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <select class="hidden" name="invitation_object" value="protocol">
-                  <option selected value="protocol">protocol</option>
-                </select>
-                <select class="hidden" name="object_choice" value="{{ selected_protocol.unique_id }}">
-                  <option selected value="{{ selected_protocol.unique_id }}">{{ selected_protocol.unique_id }}</option>
-                </select>
-                <div data-content="result" class="mdc-typography--caption result"></div>
-              </form>
-              <div class="padding--top-24">
-                <a data-mdc-auto-init="MDCRipple"
-                   data-trigger="submit-ajax"
-                   data-target="modal--participants"
-                   data-form="participant_invite_form"
-                   class="mdc-button mdl-color-text--blue-grey-600">
-                  <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
-                  Send
-                </a>
-                <a data-mdc-auto-init="MDCRipple"
-                   data-trigger="add-input"
-                   data-currentid="1"
-                   data-form="email_input_source"
-                   class="mdc-button mdl-color-text--blue-grey-600">
-                  <i class="material-icons mdl-color-text--blue-500">add</i>
-                  More
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% if 'section' in request.GET %}
+        {% with section=request.GET.section %}
+        {% ifequal section 'procedure' %}
+          {% include "protocol_procedure.html" %}
+        {% endifequal %}
+        {% ifequal section 'results' %}
+          {% include "protocol_results.html" %}
+        {% endifequal %}
+        {% ifequal section 'assets' %}
+          {% include "protocol_assets.html" %}
+        {% endifequal %}
+        {% ifequal section 'participants' %}
+          {% include "protocol_participants.html" %}
+        {% endifequal %}
+      {% endwith %}
+    {% else %}
+      {% include "protocol_procedure.html" %}
+    {% endif %}
     </div>
   </div>
 </div>
