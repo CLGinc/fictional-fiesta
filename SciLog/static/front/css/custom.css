@@ -60,7 +60,6 @@ html {
   margin-top: 60px;
 }
 .content {
-  display: block;
   height: 100%;
   box-sizing: border-box;
   padding: 0;
@@ -77,6 +76,7 @@ html {
 .main-grid {
   margin-left: 240px;
   border-left: 1px solid #e4e4e4;
+  box-sizing: border-box;
 }
 .mobile-button {
   visibility: hidden;
