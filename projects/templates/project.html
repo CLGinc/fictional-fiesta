@@ -6,7 +6,7 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
-    <form class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12"
+    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           method="post"
           action="{% url 'project' project_uid=object.unique_id %}">
       {% csrf_token %}
