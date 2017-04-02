@@ -1,5 +1,6 @@
 from adminsortable.models import SortableMixin
 from adminsortable.fields import SortableForeignKey
+from django.apps import apps
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
@@ -62,6 +63,21 @@ class Protocol(models.Model):
                     )
                 )
         return assets_by_category
+
+    def get_participants_by_role(self):
+        participants_by_role = list()
+        RoleModel = apps.get_model('researchers', 'Role')
+        for role_value, role_label in RoleModel.ROLES:
+            if self.roles.filter(role=role_value).exists():
+                participants_by_role.append(
+                    (
+                        role_label,
+                        self.roles.filter(
+                            role=role_value).order_by('researcher')
+                    )
+                )
+        return participants_by_role
+
 
 
 class Procedure(models.Model):

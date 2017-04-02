@@ -92,4 +92,6 @@ class ProtocolView(DetailView, SinglePrototolMixin):
         self.object = self.get_object()
         context = super(ProtocolView, self).get_context_data(**kwargs)
         context['assets_by_category'] = self.object.get_assets_by_category()
+        context['participants_by_role'] = \
+            self.object.get_participants_by_role()
         return context
