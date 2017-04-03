@@ -82,12 +82,6 @@ class ProtocolView(DetailView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'protocol.html'
 
-    def get_success_url(self):
-        return reverse(
-            'protocol',
-            kwargs={'protocol_uid': self.object.unique_id}
-        )
-
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
         context = super(ProtocolView, self).get_context_data(**kwargs)
