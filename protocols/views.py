@@ -95,3 +95,15 @@ class ProtocolView(DetailView, SinglePrototolMixin):
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class EditProtocol(DetailView, SinglePrototolMixin):
+    context_object_name = 'selected_protocol'
+    template_name = 'protocol_edit.html'
+
+    def get_success_url(self):
+        return reverse(
+            'protocol',
+            kwargs={'protocol_uid': self.object.unique_id}
+        )
