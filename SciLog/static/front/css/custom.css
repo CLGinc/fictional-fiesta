@@ -97,6 +97,9 @@ html {
 .input--remove-spinner .mdl-spinner__layer-4,.input--remove-spinner .mdl-spinner__layer-3,.input--remove-spinner .mdl-spinner__layer-2,.input--remove-spinner .mdl-spinner__layer-1 {
   border-color: #2196f3;
 }
+.mdc-textfield--focused .mdc-textfield__label.mdc-textfield__label--float-above {
+  color: #2196f3;
+}
 .mdc-textfield,.mdc-textfield__input {
   width: 100%;
 }

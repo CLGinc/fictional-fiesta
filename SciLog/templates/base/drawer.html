@@ -74,6 +74,18 @@
           </a>
         </div>
           {% endwith %}
+        {% elif 'edit' in request.path %}
+        <div class="mdc-list">
+          <a class="mdc-list-item mdl-color-text--blue-500"
+             href="#"
+             data-trigger="submit"
+             data-form="form--protocol-edit">
+            <span class="margin--left-72">Save</span>
+          </a>
+          <a class="mdc-list-item" href="{% url 'protocol' protocol_uid=selected_protocol.unique_id %}">
+            <span class="margin--left-72">Cancel</span>
+          </a>
+        </div>
         {% else %}
         <div class="mdc-list">
           <a class="mdc-list-item mdl-color-text--blue-500" href="?section=procedure">
