@@ -41,6 +41,18 @@ class CreateProject(View):
 
 
 @method_decorator(login_required, name='dispatch')
+class EditProject(View, SingleProjectMixin):
+    context_object_name = 'selected_project'
+    template_name = 'project_edit.html'
+
+    def get_success_url(self):
+        return reverse(
+            'project',
+            kwargs={'project_uid': self.object.unique_id}
+        )
+
+
+@method_decorator(login_required, name='dispatch')
 class ProjectList(ListView, RoleListMixin):
     context_object_name = 'roles_list_page'
     template_name = 'projects_list.html'

@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - {{ selected_protocol.name }}{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+          id="form--protocol-edit"
+          method="post"
+          action="{% url 'protocol' protocol_uid=object.unique_id %}">
+      {% csrf_token %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <h1 class="subpageheader--protocol">
+          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" id="project_name"
+                   class="mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
+                   value="{{ selected_project.name }}"
+                   name="name">
+            <label class="mdc-textfield__label">Protocol name</label>
+          </div>
+          <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
+            Created on: {{ selected_project.datetime_created|date:"d M Y" }}
+          </p>
+        </h1>
+      </div>
+      <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+        <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+        <div class="mdc-textfield mdc-textfield--upgraded padding-0" data-mdc-auto-init="MDCTextfield">
+          <input type="text" id="project_desc"
+                 class="mdc-textfield__input mdl-color-text--blue-grey-900"
+                 value="{{ selected_project.description }}"
+                 name="description">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+<script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}
