@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 
 
@@ -41,7 +41,7 @@ class CreateProject(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditProject(View, SingleProjectMixin):
+class EditProject(DetailView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project_edit.html'
 
