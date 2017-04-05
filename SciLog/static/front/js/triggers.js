@@ -188,6 +188,7 @@ $('[data-trigger="submit"]').click(function(){
       targetForm = $(this).attr('data-form');
   $('#'+targetElementId).removeClass('element--show-animate');
   $('#'+targetForm).submit();
+  return false;
 });
 
 $('[data-trigger="submit-ajax"]').click(function(){
