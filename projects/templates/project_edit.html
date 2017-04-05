@@ -6,24 +6,24 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+        Edit project
+      </h1>
+    </div>
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--project-edit"
           method="post"
           action="{% url 'project' project_uid=object.unique_id %}">
       {% csrf_token %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <h1 class="subpageheader--protocol">
-          <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" id="project_name"
-                   class="mdc-textfield__input mdc-typography--headline mdl-color-text--blue-500"
-                   value="{{ selected_project.name }}"
-                   name="name">
-            <label class="mdc-textfield__label">Project name</label>
-          </div>
-          <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
-            Created on: {{ selected_project.datetime_created|date:"d M Y" }}
-          </p>
-        </h1>
+        <h1 class="mdl-color-text--blue-500 section--title">Project name</h1>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input type="text" id="project_name"
+                 class="mdc-textfield__input mdl-color-text--blue-grey-900"
+                 value="{{ selected_project.name }}"
+                 name="name">
+        </div>
       </div>
       <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
