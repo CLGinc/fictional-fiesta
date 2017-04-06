@@ -22,8 +22,7 @@ class SinglePrototolMixin(SingleObjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocol(FormView):
-    template_name = 'protocol_create.html'
+class BaseProtocolFormView(FormView):
     form_class = BasicProtocolForm
 
     def post(self, request, *args, **kwargs):
@@ -40,7 +39,7 @@ class CreateProtocol(FormView):
         self.object = form.save()
         steps_formset.instance = self.object.procedure
         steps_formset.save()
-        return super(CreateProtocol, self).form_valid(form)
+        return super(BaseProtocolFormView, self).form_valid(form)
 
     def form_invalid(self, form, steps_formset):
         return self.render_to_response(
@@ -49,12 +48,17 @@ class CreateProtocol(FormView):
 
     def get_context_data(self, **kwargs):
         context = dict()
-        context['steps_formset'] = StepsFormset()
-        context.update(super(CreateProtocol, self).get_context_data(**kwargs))
+        if hasattr(self, 'object'):
+            context['steps_formset'] = StepsFormset(
+                instance=self.object.procedure
+            )
+        else:
+            context['steps_formset'] = StepsFormset()
+        context.update(super(BaseProtocolFormView, self).get_context_data(**kwargs))
         return context
 
     def get_form_kwargs(self):
-        kwargs = super(CreateProtocol, self).get_form_kwargs()
+        kwargs = super(BaseProtocolFormView, self).get_form_kwargs()
         kwargs['researcher'] = self.request.user.researcher
         return kwargs
 
@@ -63,6 +67,11 @@ class CreateProtocol(FormView):
             'protocol',
             kwargs={'protocol_uid': self.object.unique_id}
         )
+
+
+@method_decorator(login_required, name='dispatch')
+class CreateProtocol(BaseProtocolFormView):
+    template_name = 'protocol_create.html'
 
 
 @method_decorator(login_required, name='dispatch')
@@ -83,7 +92,6 @@ class ProtocolView(DetailView, SinglePrototolMixin):
     template_name = 'protocol.html'
 
     def get_context_data(self, **kwargs):
-        self.object = self.get_object()
         context = super(ProtocolView, self).get_context_data(**kwargs)
         context['assets_by_category'] = self.object.get_assets_by_category()
         context['participants_by_role'] = \
@@ -92,12 +100,6 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditProtocol(DetailView, SinglePrototolMixin):
+class EditProtocol(BaseProtocolFormView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'protocol_edit.html'
-
-    def get_success_url(self):
-        return reverse(
-            'protocol',
-            kwargs={'protocol_uid': self.object.unique_id}
-        )
