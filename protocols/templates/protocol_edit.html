@@ -16,30 +16,38 @@
           method="post"
           action="{% url 'protocol' protocol_uid=object.unique_id %}edit/">
       {% csrf_token %}
+      {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+      {% endif %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <h1 class="mdl-color-text--blue-500 section--title">Protocol name</h1>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_name"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
-                 value="{{ selected_protocol.name }}"
+                 value="{{ form.name.value }}"
                  name="name">
         </div>
+        {% if form.name.errors %}
+          {{ form.name.errors }}
+        {% endif %}
       </div>
       <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
         <div class="mdc-textfield mdc-textfield--upgraded padding-0" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_desc"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
-                 value="{{ selected_protocol.description }}"
+                 value="{{ form.description.value }}"
                  name="description">
         </div>
+        {% if form.description.errors %}
+          {{ form.description.errors }}
+        {% endif %}
       </div>
       <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
         <h1 class="mdl-color-text--blue-500 section--title">Label</h1>
         <div class="mdc-textfield select-protocol">
           <select class="mdc-select mdl-color-text--blue-grey-900"
                  name="label">
-           <option value="selected_protocol.label" selected>{{ selected_protocol.get_label_display }}</option>
             {% for key, value in form.label.field.choices %}
               {% if key %}
               <option value="{{ key }}"{% if key == form.label.data or key == form.label.value %}selected="selected"{% endif %}>{{ value }}</option>
@@ -57,18 +65,18 @@
       </div>
       <ul class="mdc-list padding-0">
         {{ steps_formset.management_form }}
-        {% for step in selected_protocol.procedure.steps.all %}
+        {% for step_form in steps_formset.forms %}
         <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
             data-step="{{ step.order }}">
           <!-- Order input -->
           <input type="text" class="hidden"
                  data-content="step-input"
-                 name="steps-{{ step.order }}-order"
-                 value="{{ step.order }}">
+                 name="steps-{{ step_form.order.value }}-order"
+                 value="{{ step_form.order.value }}">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
             <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
                  data-content="step-number">
-              {{ step.order }}
+              {{ step_form.order.value }}
             </div>
             <div class="mdl-color-text--blue-grey-600 text-center">
               STEP
@@ -80,8 +88,8 @@
               <input class="mdc-textfield__input" type="text"
                      data-content="step-title"
                      name="steps-0-title"
-                     maxlength="255" {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}>
-              <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step.title }}</label>
+                     maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
+              <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step_form.title.value }}</label>
             </div>
             {% if step_form.title.errors %}
             <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -92,9 +100,9 @@
             <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
               <textarea class="mdc-textfield__input" rows="6" type="text"
                         data-content="step-desc"
-                        name="steps-0-text"
-                        maxlength="1024" required>{% if step_form.text.data %}{{ step_form.text.data }}{% endif %}</textarea>
-              <label class="mdc-textfield__label" for="input-new-step--desc">{{ step.text }}</label>
+                        name="steps-{{ step_form.order.value }}-text"
+                        maxlength="1024" required>{% if step_form.text.value %}{{ step_form.text.value }}{% endif %}</textarea>
+              <label class="mdc-textfield__label" for="input-new-step--desc">{{ step_form.text.value }}</label>
             </div>
             {% if step_form.text.errors %}
             <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
