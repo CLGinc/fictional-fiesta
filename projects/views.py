@@ -41,9 +41,10 @@ class CreateProject(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditProject(DetailView, SingleProjectMixin):
+class EditProject(UpdateView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project_edit.html'
+    form_class = BasicProjectForm
 
     def get_success_url(self):
         return reverse(
@@ -65,7 +66,7 @@ class ProjectList(ListView, RoleListMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProjectView(UpdateView, SingleProjectMixin):
+class ProjectView(DetailView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project.html'
     form_class = BasicProjectForm
