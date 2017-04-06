@@ -46,20 +46,11 @@ class BaseProtocolFormView(FormView):
             self.get_context_data(form=form, steps_formset=steps_formset)
         )
 
-    def get_context_data(self, **kwargs):
-        context = dict()
-        if hasattr(self, 'object'):
-            context['steps_formset'] = StepsFormset(
-                instance=self.object.procedure
-            )
-        else:
-            context['steps_formset'] = StepsFormset()
-        context.update(super(BaseProtocolFormView, self).get_context_data(**kwargs))
-        return context
-
     def get_form_kwargs(self):
         kwargs = super(BaseProtocolFormView, self).get_form_kwargs()
         kwargs['researcher'] = self.request.user.researcher
+        if hasattr(self, 'object'):
+            kwargs.update({'instance': self.object})
         return kwargs
 
     def get_success_url(self):
@@ -73,11 +64,24 @@ class BaseProtocolFormView(FormView):
 class CreateProtocol(BaseProtocolFormView):
     template_name = 'protocol_create.html'
 
+    def get_context_data(self, **kwargs):
+        context = dict()
+        context['steps_formset'] = StepsFormset()
+        context.update(super(BaseProtocolFormView, self).get_context_data(**kwargs))
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class EditProtocol(BaseProtocolFormView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'protocol_edit.html'
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object()
+        context = dict()
+        context['steps_formset'] = StepsFormset(instance=self.object.procedure)
+        context.update(super(BaseProtocolFormView, self).get_context_data(**kwargs))
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
