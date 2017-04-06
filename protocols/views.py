@@ -75,6 +75,12 @@ class CreateProtocol(BaseProtocolFormView):
 
 
 @method_decorator(login_required, name='dispatch')
+class EditProtocol(BaseProtocolFormView, SinglePrototolMixin):
+    context_object_name = 'selected_protocol'
+    template_name = 'protocol_edit.html'
+
+
+@method_decorator(login_required, name='dispatch')
 class ProtocoltList(ListView, RoleListMixin):
     context_object_name = 'roles_list_page'
     template_name = 'protocol_list.html'
@@ -97,9 +103,3 @@ class ProtocolView(DetailView, SinglePrototolMixin):
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
         return context
-
-
-@method_decorator(login_required, name='dispatch')
-class EditProtocol(BaseProtocolFormView, SinglePrototolMixin):
-    context_object_name = 'selected_protocol'
-    template_name = 'protocol_edit.html'
