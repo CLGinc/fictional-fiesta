@@ -31,15 +31,9 @@
           {% endwith %}
           {% elif 'edit' in request.path %}
           <div class="mdc-list">
-            <a class="mdc-list-item mdl-color-text--blue-500"
-               href="{% url 'project' project_uid=selected_project.unique_id %}"
-               data-trigger="submit"
-               data-form="form--project-edit">
-              <span class="margin--left-72">Save</span>
-            </a>
-            <a class="mdc-list-item" href="{% url 'project' project_uid=selected_project.unique_id %}">
-              <span class="margin--left-72">Cancel</span>
-            </a>
+            <span class="mdc-list-item">
+              <span class="margin--left-72 mdl-color-text--blue-500">Edit project</span>
+            </span>
           </div>
         {% else %}
         <div class="mdc-list">
@@ -88,15 +82,9 @@
           {% endwith %}
         {% elif 'edit' in request.path %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--blue-500"
-             href="{% url 'protocol' protocol_uid=selected_protocol.unique_id %}"
-             data-trigger="submit"
-             data-form="form--protocol-edit">
-            <span class="margin--left-72">Save</span>
-          </a>
-          <a class="mdc-list-item" href="{% url 'protocol' protocol_uid=selected_protocol.unique_id %}">
-            <span class="margin--left-72">Cancel</span>
-          </a>
+          <span class="mdc-list-item">
+            <span class="margin--left-72 mdl-color-text--blue-500">Edit protocol</span>
+          </span>
         </div>
         {% else %}
         <div class="mdc-list">

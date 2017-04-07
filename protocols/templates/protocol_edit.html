@@ -3,6 +3,31 @@
 {% block title %}Sci Log - {{ selected_protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
+<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+  <div class="mdc-toolbar__row padding-16">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--white"
+         href="{% url 'protocol' protocol_uid=selected_protocol.unique_id %}">
+        <i class="material-icons">close</i>
+        Cancel
+      </a>
+    </section>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title">{{ selected_protocol.name }}</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <button data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--white"
+         href="{% url 'edit_protocol' protocol_uid=object.unique_id %}"
+         data-trigger="submit"
+         data-form="form--protocol-edit">
+        <i class="material-icons">check</i>
+        Save
+      </button>
+    </section>
+  </div>
+</header>
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
@@ -56,74 +81,74 @@
           </select>
         </div>
       </div>
-    </form>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
-      <div class="border--bottom-blue padding--bottom-16">
-        <span class="mdl-color-text--blue-500 article--modal-title padding-0">
-          Procedure
-        </span>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
+        <div class="border--bottom-blue padding--bottom-16">
+          <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+            Procedure
+          </span>
+        </div>
+        <ul class="mdc-list padding-0">
+          {{ steps_formset.management_form }}
+          {% for step_form in steps_formset.forms %}
+          <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
+              data-step="{{ step.order }}">
+            <!-- Order input -->
+            <input type="text" class="hidden"
+                   data-content="step-input"
+                   name="steps-{{ step_form.order.value }}-order"
+                   value="{{ step_form.order.value }}">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+              <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
+                   data-content="step-number">
+                {{ step_form.order.value }}
+              </div>
+              <div class="mdl-color-text--blue-grey-600 text-center">
+                STEP
+              </div>
+            </div>
+            <!-- Title input -->
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+              <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       data-content="step-title"
+                       name="steps-0-title"
+                       maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
+                <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step_form.title.value }}</label>
+              </div>
+              {% if step_form.title.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ step_form.title.errors.as_text }}
+              </p>
+              {% endif %}
+              <!-- Text input -->
+              <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <textarea class="mdc-textfield__input" rows="6" type="text"
+                          data-content="step-desc"
+                          name="steps-{{ step_form.order.value }}-text"
+                          maxlength="1024" required>{% if step_form.text.value %}{{ step_form.text.value }}{% endif %}</textarea>
+                <label class="mdc-textfield__label" for="input-new-step--desc">{{ step_form.text.value }}</label>
+              </div>
+              {% if step_form.text.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ step_form.text.errors.as_text }}
+              </p>
+              {% endif %}
+            </div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 step__button">
+              <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                 data-trigger="add-step">
+                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
+              </a>
+              <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                 data-trigger="remove-step">
+                <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
+              </a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
-      <ul class="mdc-list padding-0">
-        {{ steps_formset.management_form }}
-        {% for step_form in steps_formset.forms %}
-        <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-            data-step="{{ step.order }}">
-          <!-- Order input -->
-          <input type="text" class="hidden"
-                 data-content="step-input"
-                 name="steps-{{ step_form.order.value }}-order"
-                 value="{{ step_form.order.value }}">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-            <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
-                 data-content="step-number">
-              {{ step_form.order.value }}
-            </div>
-            <div class="mdl-color-text--blue-grey-600 text-center">
-              STEP
-            </div>
-          </div>
-          <!-- Title input -->
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-            <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text"
-                     data-content="step-title"
-                     name="steps-0-title"
-                     maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
-              <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step_form.title.value }}</label>
-            </div>
-            {% if step_form.title.errors %}
-            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-              {{ step_form.title.errors.as_text }}
-            </p>
-            {% endif %}
-            <!-- Text input -->
-            <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-              <textarea class="mdc-textfield__input" rows="6" type="text"
-                        data-content="step-desc"
-                        name="steps-{{ step_form.order.value }}-text"
-                        maxlength="1024" required>{% if step_form.text.value %}{{ step_form.text.value }}{% endif %}</textarea>
-              <label class="mdc-textfield__label" for="input-new-step--desc">{{ step_form.text.value }}</label>
-            </div>
-            {% if step_form.text.errors %}
-            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-              {{ step_form.text.errors.as_text }}
-            </p>
-            {% endif %}
-          </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 step__button">
-            <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-               data-trigger="add-step">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
-            </a>
-            <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-               data-trigger="remove-step">
-              <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
-            </a>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+    </form>
   </div>
 </div>
 {% include "base/scroll_top.html" %}

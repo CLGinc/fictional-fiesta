@@ -186,8 +186,8 @@ var setNumberOfTotalForms = function(){
 $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
-  $('#'+targetElementId).removeClass('element--show-animate');
   $('#'+targetForm).submit();
+  $('#'+targetElementId).removeClass('element--show-animate');
   return false;
 });
 

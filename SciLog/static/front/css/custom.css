@@ -53,6 +53,9 @@ html {
 .mdc-toolbar {
   height: 64px;
 }
+.mdc-toolbar__title {
+  line-height: 2rem;
+}
 .mdc-temporary-drawer__header::before {
   padding-top: 70%;
 }
@@ -402,6 +405,17 @@ a {
   left: 0;
   bottom: 0;
   display: block;
+}
+.form--control-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 240px;
+  height: 64px;
+  position: fixed;
+  z-index: 100;
+  width: calc(100% - 240px);
+  left: 0;
+  top: 0;
 }
 .modal--button {
   margin-left: 280px;
