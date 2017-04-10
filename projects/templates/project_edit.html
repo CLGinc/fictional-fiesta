@@ -19,7 +19,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'edit_project' project_uid=object.unique_id %}"
+         href="{% url 'update_project' project_uid=object.unique_id %}"
          data-trigger="submit"
          data-form="form--project-edit">
         <i class="material-icons">check</i>
@@ -39,7 +39,7 @@
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--project-edit"
           method="post"
-          action="{% url 'edit_project' project_uid=object.unique_id %}">
+          action="{% url 'update_project' project_uid=object.unique_id %}">
       {% csrf_token %}
       {% if form.non_field_errors %}
         {{ form.non_field_errors }}

@@ -40,7 +40,7 @@ class CreateProject(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditProject(UpdateView, SingleProjectMixin):
+class UpdateProject(UpdateView, SingleProjectMixin):
     context_object_name = 'selected_project'
     template_name = 'project_edit.html'
     form_class = BasicProjectForm
