@@ -29,7 +29,6 @@ class BaseProtocolFormView(FormView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        import ipdb; ipdb.set_trace()
         steps_formset = StepsFormset(request.POST)
         if form.is_valid() and steps_formset.is_valid():
             return self.form_valid(form, steps_formset)
