@@ -26,6 +26,8 @@ class SingleProjectMixin(SingleObjectMixin):
 
 @method_decorator(login_required, name='dispatch')
 class CreateProject(View):
+    template_name = 'project_create.html'
+
     def post(self, request, *args, **kwargs):
         new_project_form = BasicProjectForm(
             request.POST or None,
