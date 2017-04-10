@@ -90,6 +90,7 @@
         <ul class="mdc-list padding-0">
           {{ steps_formset.management_form }}
           {% for step_form in steps_formset.forms %}
+          {{ step_form.id }}
           <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
               data-step="{{ step.order }}">
             <!-- Order input -->

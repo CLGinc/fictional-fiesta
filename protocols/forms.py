@@ -30,13 +30,20 @@ class BasicProtocolForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super(BasicProtocolForm, self).save(commit=commit)
-        Role.objects.create(
-            researcher=self.researcher,
-            protocol=instance,
-            role='owner'
-        )
-        Procedure.objects.create(
-            protocol=instance,
-            last_modified_by=self.researcher
-        )
+        if not(
+                Role.objects.filter(
+                    role='owner',
+                    researcher=self.researcher,
+                    protocol=instance
+                ).exists()):
+            Role.objects.create(
+                researcher=self.researcher,
+                protocol=instance,
+                role='owner'
+            )
+        if not(Procedure.objects.filter(protocol=instance).exists()):
+            Procedure.objects.create(
+                protocol=instance,
+                last_modified_by=self.researcher
+            )
         return instance
