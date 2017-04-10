@@ -111,7 +111,7 @@
               <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        data-content="step-title"
-                       name="steps-0-title"
+                       name="steps-{{ step_form.order.value }}-title"
                        maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
                 <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step_form.title.value }}</label>
               </div>
