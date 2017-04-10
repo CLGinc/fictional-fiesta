@@ -1,5 +1,3 @@
-from adminsortable.models import SortableMixin
-from adminsortable.fields import SortableForeignKey
 from django.apps import apps
 
 from django.contrib.postgres.fields import JSONField
@@ -79,7 +77,6 @@ class Protocol(models.Model):
         return participants_by_role
 
 
-
 class Procedure(models.Model):
     protocol = models.OneToOneField(Protocol, related_name='procedure')
     datetime_last_modified = models.DateTimeField(auto_now=True)
@@ -93,13 +90,13 @@ class Procedure(models.Model):
             self.last_modified_by)
 
 
-class Step(SortableMixin):
+class Step(models.Model):
     title = models.CharField(max_length=255, blank=True)
     text = models.TextField(max_length=1024)
-    procedure = SortableForeignKey(Procedure, related_name='steps')
+    procedure = models.ForeignKey(Procedure, related_name='steps')
     order = models.PositiveIntegerField(
-        default=0,
-        db_index=True)
+        default=0
+    )
 
     class Meta:
         ordering = ['order']
