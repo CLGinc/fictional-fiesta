@@ -10,46 +10,14 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         My projects
       </h1>
-      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
+      <a  data-mdc-auto-init="MDCRipple"
+          class="mdc-button mdl-color-text--blue-grey-600"
+          href="{% url 'create_project' %}">
         <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add project
-      </button>
+      </a>
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
         <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter projects
       </button>
-      <form method="post" action="{% url 'create_project' %}" id="new-project-form" class="new-project-form mdc-elevation--z4">
-        {% csrf_token %}
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
-              <label class="mdc-textfield__label" for="input-new-project--name">Project name</label>
-            </div>
-            <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-              This name will be displayed in the project list and on your project page. Maximum of 255 characters.
-            </p>
-          </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
-              <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
-              <label class="mdc-textfield__label" for="input-new-project--desc">Project description</label>
-            </div>
-            <p id="new-project-desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-              A short project description. Maximum length of 250 characters.
-            </p>
-          </div>
-        </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 new-project--area padding-8 margin--none">
-          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
-            <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
-            Create project
-          </button>
-          <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
-            <i class="material-icons mdl-color-text--blue-500">close</i>
-            Close
-          </button>
-        </div>
-      </form>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
