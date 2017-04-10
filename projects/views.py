@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
