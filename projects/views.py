@@ -3,8 +3,7 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
-from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.utils.decorators import method_decorator
 
 
@@ -25,21 +24,20 @@ class SingleProjectMixin(SingleObjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProject(View):
+class CreateProject(CreateView):
     template_name = 'project_create.html'
+    form_class = BasicProjectForm
 
-    def post(self, request, *args, **kwargs):
-        new_project_form = BasicProjectForm(
-            request.POST or None,
-            researcher=request.user.researcher)
-        if new_project_form.is_valid():
-            new_project = new_project_form.save()
-            return redirect(
-                reverse(
-                    'project',
-                    kwargs={'project_uid': new_project.unique_id}
-                )
-            )
+    def get_form_kwargs(self):
+        kwargs = super(CreateProject, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
+    def get_success_url(self):
+        return reverse(
+            'project',
+            kwargs={'project_uid': self.object.unique_id}
+        )
 
 
 @method_decorator(login_required, name='dispatch')
