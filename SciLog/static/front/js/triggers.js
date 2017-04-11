@@ -122,6 +122,12 @@ var addStep = function(event){
   stepNumber+=1;
   $(clone).find('.mdc-textfield__label--float-above').removeClass('mdc-textfield__label--float-above');
   $(clone).find('.mdc-textfield__input').val('');
+  if(clone.querySelector('[data-content="form-id"]')) {
+    clone.querySelector('[data-content="form-id"]').remove();
+  }
+  if(clone.querySelector('[data-content="delete-step"]')) {
+    clone.querySelector('[data-content="delete-step"]').remove();
+  }
   clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
   clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+stepNumber+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
@@ -135,18 +141,23 @@ var addStep = function(event){
       var updateSteps = parseInt(this.getAttribute('data-step'));
       updateSteps+=1;
       this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+      this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+updateSteps+'-order');
       this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
       this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
       this.setAttribute('data-step',updateSteps);
       updateSteps+=1;
       this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
-    });
+    }).not('.hidden');
   } else {
     $('body,html').animate({scrollTop : $('body').height()},300);
   }
   $(clone).removeClass('hidden').insertAfter(sourceStep);
   setNumberOfTotalForms();
-  clone.querySelector('[data-trigger="remove-step"]').addEventListener('click', removeStep);
+  if(clone.querySelector('[data-trigger="remove-step"]')) {
+    clone.querySelector('[data-trigger="remove-step"]').addEventListener('click', removeStep);
+  } else if (clone.querySelector('[data-trigger="delete-step"]')) {
+    clone.querySelector('[data-trigger="delete-step"]').addEventListener('click', removeStep);
+  }
   clone.querySelector('[data-trigger="add-step"]').addEventListener('click', addStep);
 	window.mdc.autoInit(clone);
 };
@@ -165,6 +176,7 @@ var removeStep = function(event){
         this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
         updateSteps-=1;
         this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+        this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+updateSteps+'-order');
         this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
         this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
         this.setAttribute('data-step',updateSteps);
@@ -177,9 +189,39 @@ var removeStep = function(event){
     show(snackbar);
   }
 };
+// delete step
+$('[data-trigger="delete-step"]').click(function(event){
+  deleteStep(event);
+});
+var deleteStep = function(event){
+  var steps = $('.step').not('.hidden').length;
+  if (steps > 1){
+    var	sourceStep =  event.target.parentElement.parentElement,
+        countNext = $(sourceStep).nextAll();
+    $(sourceStep).children('[data-content="delete-step"]').prop('checked', true);
+    $(sourceStep).addClass('hidden');
+    if(countNext.length > 0) {
+      $(countNext).each(function(){
+        var updateSteps = parseInt(this.getAttribute('data-step'));
+        this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
+        updateSteps-=1;
+        this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
+        this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+updateSteps+'-order');
+        this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
+        this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
+        this.setAttribute('data-step',updateSteps);
+      }).not('.hidden');
+    }
+    setNumberOfTotalForms();
+  } else {
+    // function is initialized only in the create protocol screen (inline)
+    show(snackbar);
+  }
+};
+// set number of total forms (steps)
 var setNumberOfTotalForms = function(){
-  var totalForms = document.getElementsByClassName('step').length;
-  document.getElementById('id_steps-TOTAL_FORMS').value = totalForms;
+  var totalForms = $('.step').not('.hidden').length;
+  $('#id_steps-TOTAL_FORMS').val(totalForms);
 };
 
 // submit form
