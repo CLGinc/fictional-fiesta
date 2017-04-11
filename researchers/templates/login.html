@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}SciLog - Login{% endblock %}
 {% block body %}
-<div class="mdc-layout-grid content">
+<div class="content">
   <div class="mdc-elevation--z4 padding-0 margin--top-40 login">
     <div class="padding--top-24 text-center">
         <img src="{% static "front/img/optimised.svg" %}" alt="logo">
@@ -44,7 +44,7 @@
         </div>
         {% endif %}
         <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">playlist_add</i>
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
           <span data-content="open-close-text">Log In</span>
         </button>
         {% if next_redirect %}
