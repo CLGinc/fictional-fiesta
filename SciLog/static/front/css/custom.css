@@ -125,6 +125,9 @@ html {
 .mdc-textfield--multiline .mdc-textfield__input.textarea--temp {
   border: none;
 }
+.mdc-textfield.mdc-textfield--multiline.mdc-textfield--upgraded {
+  margin-top: 24px;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
@@ -485,15 +488,6 @@ a {
 }
 .padding--top-15 {
   padding-top: 5px;
-}
-/* New Project */
-.new-project-form {
-  display: none;
-  padding-top: 20px;
-}
-.new-project--area {
-  margin-top: 30px;
-  border-top: 1px solid rgba(0,0,0,.2);
 }
 /* margin and padding overrides */
 .alignment-fix--labels {

@@ -114,7 +114,7 @@
                        data-content="step-title"
                        name="steps-{{ step_form.order.value }}-title"
                        maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
-                <label class="mdc-textfield__label mdl-color-text--blue-500">{{ step_form.title.value }}</label>
+                <label class="mdc-textfield__label mdl-color-text--blue-500">Step title</label>
               </div>
               {% if step_form.title.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -127,7 +127,7 @@
                           data-content="step-desc"
                           name="steps-{{ step_form.order.value }}-text"
                           maxlength="1024" required>{% if step_form.text.value %}{{ step_form.text.value }}{% endif %}</textarea>
-                <label class="mdc-textfield__label" for="input-new-step--desc">{{ step_form.text.value }}</label>
+                <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
               </div>
               {% if step_form.text.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">

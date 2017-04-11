@@ -42,13 +42,15 @@
         {{ steps_formset.nonfield_errors }}
       </div>
       {% endif %}
-      <form method="post"
+      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
+            method="post"
             action="{% url 'create_project' %}"
-            id="new-project-form"
-            class="new-project-form mdc-elevation--z4">
+            id="new-project-form">
         {% csrf_token %}
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Add new project</p>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
+            Name and description
+          </p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
@@ -67,16 +69,6 @@
               A short project description. Maximum length of 250 characters.
             </p>
           </div>
-        </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 new-project--area padding-8 margin--none">
-          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
-            <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
-            Create project
-          </button>
-          <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="new-project-form">
-            <i class="material-icons mdl-color-text--blue-500">close</i>
-            Close
-          </button>
         </div>
       </form>
     </div>
