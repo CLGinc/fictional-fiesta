@@ -92,7 +92,7 @@
           {% for step_form in steps_formset.forms %}
           {{ step_form.id }}
           <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-              data-step="{{ step.order }}">
+              data-step="{{ step_form.order.value }}">
             <!-- Order input -->
             <input type="text" class="hidden"
                    data-content="step-input"
@@ -101,7 +101,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
               <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
                    data-content="step-number">
-                {{ step_form.order.value }}
+                {{ step_form.order.value|add:"1" }}
               </div>
               <div class="mdl-color-text--blue-grey-600 text-center">
                 STEP
