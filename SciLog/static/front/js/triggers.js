@@ -154,6 +154,7 @@ var addStepInit = function(event){
   $(clone).find('[data-content="form-id"]').remove();
   $(clone).find('[data-content="delete-step"]').remove();
 };
+// update name values for the new inserted step
 var addStepEditOrder = function(){
   var newStepOrder = $('.step').length+1;
   console.log(newStepOrder);
