@@ -111,92 +111,125 @@ $('[data-trigger="add-input"]').click(function(){
   clone.querySelector('[data-trigger="remove-input"]').addEventListener('click', removeInput);
 	window.mdc.autoInit(clone);
 });
-// add new step
-$('[data-trigger="add-step"]').click(function(event){
-  addStep(event);
+// add new step trigger for protocol create
+$('[data-trigger="add-step-create"]').click(function(event){
+  addStepCreate();
 });
-var addStep = function(event){
-	var	sourceStep =  event.target.parentElement.parentElement,
-      stepNumber = parseInt(sourceStep.getAttribute('data-step')),
-			clone = sourceStep.cloneNode(true);
-  stepNumber+=1;
+// add new step trigger for protocol update
+$('[data-trigger="add-step-edit"]').click(function(event){
+  addStepEdit();
+});
+// main function to add steps in protocol create
+var addStepCreate = function() {
+  var clone;
+  var sourceStep;
+  addStepInit(event);
+  addStepInsert();
+  updateStepsCreate();
+  addStepInitMDCelements();
+  setNumberOfTotalForms();
+  addStepCreateEvents();
+  addStepEventsRemoveBtn();
+};
+// main function to add steps in protocol update
+var addStepEdit = function() {
+  var clone;
+  var sourceStep;
+  addStepInit(event);
+  addStepEditOrder();
+  addStepInsert();
+  updateStepsEdit();
+  addStepInitMDCelements();
+  setNumberOfTotalForms();
+  addStepEditEvents();
+  addStepEventsRemoveBtn();
+};
+// add new step: find the source step, clone it and remvoe input values (visible)
+var addStepInit = function(event){
+	sourceStep =  event.target.parentElement.parentElement;
+  var stepNumber = parseInt(sourceStep.getAttribute('data-step'));
+	clone = sourceStep.cloneNode(true);
   $(clone).find('.mdc-textfield__label--float-above').removeClass('mdc-textfield__label--float-above');
   $(clone).find('.mdc-textfield__input').val('');
-  if(clone.querySelector('[data-content="form-id"]')) {
-    clone.querySelector('[data-content="form-id"]').remove();
-  }
-  if(clone.querySelector('[data-content="delete-step"]')) {
-    clone.querySelector('[data-content="delete-step"]').remove();
-  }
-  clone.querySelector('[data-content="step-input"]').setAttribute('value',stepNumber);
-  clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+stepNumber+'-order');
-  clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+stepNumber+'-title');
-  clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+stepNumber+'-text');
-  clone.setAttribute('data-step',stepNumber);
-  stepNumber+=1;
-  clone.querySelector('[data-content="step-number"]').innerHTML = stepNumber;
-  var countNext = $(sourceStep).nextAll();
-  if(countNext.length > 0) {
-    $(countNext).each(function(){
-      var updateSteps = parseInt(this.getAttribute('data-step'));
-      updateSteps+=1;
-      this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
-      this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+updateSteps+'-order');
-      this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
-      this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
-      this.setAttribute('data-step',updateSteps);
-      updateSteps+=1;
-      this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
-    }).not('.hidden');
-  } else {
-    $('body,html').animate({scrollTop : $('body').height()},300);
-  }
+  $(clone).find('[data-content="form-id"]').remove();
+  $(clone).find('[data-content="delete-step"]').remove();
+};
+var addStepEditOrder = function(){
+  var newStepOrder = $('.step').length+1;
+  console.log(newStepOrder);
+  clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+newStepOrder+'-order');
+  clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+newStepOrder+'-title');
+  clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+newStepOrder+'-text');
+};
+// add new step: insert the copied step
+var addStepInsert = function(){
   $(clone).removeClass('hidden').insertAfter(sourceStep);
-  setNumberOfTotalForms();
+};
+// add new step: initialize the mdc elements
+var addStepInitMDCelements = function(){
+  window.mdc.autoInit(clone);
+};
+// add new step: add insert event listener for protocol create
+var addStepCreateEvents = function(){
+  clone.querySelector('[data-trigger="add-step-create"]').addEventListener('click', addStepCreate);
+};
+// add new step: add insert event listener for protocol update
+var addStepEditEvents = function(){
+  clone.querySelector('[data-trigger="add-step-edit"]').addEventListener('click', addStepEdit);
+};
+// add new step: add remove event listener
+var addStepEventsRemoveBtn = function(){
   if(clone.querySelector('[data-trigger="remove-step"]')) {
     clone.querySelector('[data-trigger="remove-step"]').addEventListener('click', removeStep);
   } else if (clone.querySelector('[data-trigger="delete-step"]')) {
-    clone.querySelector('[data-trigger="delete-step"]').addEventListener('click', removeStep);
+    clone.querySelector('[data-trigger="delete-step"]').addEventListener('click', removeStepEdit);
   }
-  clone.querySelector('[data-trigger="add-step"]').addEventListener('click', addStep);
-	window.mdc.autoInit(clone);
 };
 // remove step
 $('[data-trigger="remove-step"]').click(function(event){
   removeStep(event);
 });
 var removeStep = function(event){
-  var steps = document.getElementsByClassName('step').length;
-  if (steps > 1){
-    var	sourceStep =  event.target.parentElement.parentElement,
-        countNext = $(sourceStep).nextAll();
-    if(countNext.length > 0) {
-      $(countNext).each(function(){
-        var updateSteps = parseInt(this.getAttribute('data-step'));
-        this.querySelector('[data-content="step-number"]').innerHTML = updateSteps;
-        updateSteps-=1;
-        this.querySelector('[data-content="step-input"]').setAttribute('value',updateSteps);
-        this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+updateSteps+'-order');
-        this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+updateSteps+'-title');
-        this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+updateSteps+'-text');
-        this.setAttribute('data-step',updateSteps);
-      });
-    }
+  // do not execute the function if there is only 1 step
+  if ($('.step').not('.hidden').length > 1){
+    // find the container of the removed step
+    var	sourceStep =  event.target.parentElement.parentElement;
+    // remove the step
     $(sourceStep).remove();
-    setNumberOfTotalForms();
+    // update steps if needed
+    if($(sourceStep).next()) {
+      updateStepsCreate();
+    }
+    setNumberOfTotalForms(); // update number of total forms
   } else {
     // function is initialized only in the create protocol screen (inline)
     show(snackbar);
   }
 };
-// delete step
+// remove step edit: used in protocol update, when the step was added by the user and has not been submitted yet
+var removeStepEdit = function(){
+  if ($('.step').not('.hidden').length > 1){
+    // find the container of the removed step
+    var	sourceStep =  event.target.parentElement.parentElement;
+    // remove the step
+    $(sourceStep).remove();
+    // update steps if needed
+    if($(sourceStep).next()) {
+      updateStepsEdit();
+    }
+    setNumberOfTotalForms(); // update number of total forms
+  } else {
+    // function is initialized only in the create protocol screen (inline)
+    show(snackbar);
+  }
+};
+// delete step: used in protocol update, when the step was loaded from database
 $('[data-trigger="delete-step"]').click(function(event){
   deleteStep(event);
 });
 var deleteStep = function(event){
-  var steps = $('.step').not('.hidden').length;
   // do not execute the function if there is only 1 step
-  if (steps > 1){
+  if ($('.step').not('.hidden').length > 1){
     var	sourceStep =  event.target.parentElement.parentElement,
         countNext = $(sourceStep).nextAll().not('.hidden');
     // mark the step for deletion and hide it from view
@@ -209,6 +242,22 @@ var deleteStep = function(event){
     show(snackbar);
   }
 };
+// function to update steps during protocol create
+var updateStepsCreate = function(){
+  var steps = $('.step');
+  var number = 0;
+  $(steps).each(function(){
+    var updateSteps = parseInt(this.getAttribute('data-step'));
+    this.querySelector('[data-content="step-number"]').innerHTML = number+1;
+    this.querySelector('[data-content="step-input"]').setAttribute('value',number);
+    this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+number+'-order');
+    this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+number+'-title');
+    this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+number+'-text');
+    this.setAttribute('data-step',number);
+    number++;
+  });
+};
+// function to update steps during protocol update
 var updateStepsEdit = function(){
   // find all steps eligable for update (ignore deleted steps)
   var steps = $('.step').not('.hidden'),
@@ -233,7 +282,9 @@ $('[data-trigger="submit"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
   $('#'+targetForm).submit();
-  $('#'+targetElementId).removeClass('element--show-animate');
+  if($('#'+targetElementId).hasClass('element--show-animate')){
+    $('#'+targetElementId).removeClass('element--show-animate');
+  }
   return false;
 });
 
