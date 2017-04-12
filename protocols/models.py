@@ -98,6 +98,9 @@ class Step(models.Model):
         default=0
     )
 
+    class Meta:
+        ordering = ['order', ]
+
     def __str__(self):
         return self.text
 
