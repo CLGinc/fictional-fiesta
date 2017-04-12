@@ -208,14 +208,17 @@ var deleteStep = function(event){
   }
 };
 var updateStepsEdit = function(sourceStep,countNext){
+  // find all steps eligable for update (ignore deleted steps)
   var steps = $('.step').not('.hidden'),
       number = 0;
+  // update each step order and display with the new value
   $(steps).each(function(){
-    this.querySelector('[data-content="step-number"]').innerHTML = number+1;
+    this.querySelector('[data-content="step-number"]').innerHTML = number+1; // display number is +1 of order
     this.querySelector('[data-content="step-input"]').setAttribute('value',number);
     this.setAttribute('data-step',number);
+    // increment number for next loop
     number++;
-  }).not('.hidden');
+  });
 };
 // set number of total forms (steps)
 var setNumberOfTotalForms = function(){
