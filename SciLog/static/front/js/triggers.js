@@ -195,19 +195,21 @@ $('[data-trigger="delete-step"]').click(function(event){
 });
 var deleteStep = function(event){
   var steps = $('.step').not('.hidden').length;
+  // do not execute the function if there is only 1 step
   if (steps > 1){
     var	sourceStep =  event.target.parentElement.parentElement,
         countNext = $(sourceStep).nextAll().not('.hidden');
+    // mark the step for deletion and hide it from view
     $(sourceStep).children('[data-content="delete-step"]').prop('checked', true);
     $(sourceStep).addClass('hidden');
-    updateStepsEdit(sourceStep,countNext);
-    setNumberOfTotalForms();
+    updateStepsEdit(); // update step order
+    setNumberOfTotalForms(); // update number of total forms
   } else {
-    // function is initialized only in the create protocol screen (inline)
+    // function is initialized only in the create/edit protocol screens (inline)
     show(snackbar);
   }
 };
-var updateStepsEdit = function(sourceStep,countNext){
+var updateStepsEdit = function(){
   // find all steps eligable for update (ignore deleted steps)
   var steps = $('.step').not('.hidden'),
       number = 0;
