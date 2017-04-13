@@ -157,7 +157,7 @@ var addStepInit = function(event){
 // update name values for the new inserted step
 var addStepEditOrder = function(){
   // the new step html order id is last so it does not override existing esteps
-  var newStepOrder = $('.step').length+1;
+  var newStepOrder = $('.step').length;
   clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+newStepOrder+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+newStepOrder+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+newStepOrder+'-text');
