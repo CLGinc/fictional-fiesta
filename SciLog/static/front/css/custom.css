@@ -76,6 +76,9 @@ html {
   bottom: 0;
   border: none;
 }
+.mdc-permanent-drawer .mdc-list-item:hover, .mdc-temporary-drawer .mdc-list-item:hover {
+  background-color: #EEEEEE;
+}
 .main-grid {
   margin-left: 240px;
   border-left: 1px solid #e4e4e4;
