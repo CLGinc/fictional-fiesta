@@ -10,7 +10,7 @@
          class="mdc-button mdl-color-text--white"
          href="{% url 'project' project_uid=selected_project.unique_id %}">
         <i class="material-icons">close</i>
-        Cancel
+        <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
@@ -23,7 +23,7 @@
          data-trigger="submit"
          data-form="form--project-edit">
         <i class="material-icons">check</i>
-        Save
+        <span class="toolbar__button-label">Save</span>
       </button>
     </section>
   </div>

@@ -54,7 +54,10 @@ html {
   height: 64px;
 }
 .mdc-toolbar__title {
+  display: flex;
+  height: 100%;
   line-height: 2rem;
+  overflow: hidden;
 }
 .mdc-temporary-drawer__header::before {
   padding-top: 70%;
@@ -565,7 +568,16 @@ a {
 .left-24 {
   left: 24px;
 }
+/*Wrap*/
+.wrap--checkboxes {
+  flex-wrap: wrap;
+}
 /*media queries*/
+@media screen and (max-width: 600px) {
+  .toolbar__button-label {
+    display: none;
+  }
+}
 @media screen and (max-width: 1025px) {
   .modal--button {
     margin-left: 45px;
