@@ -156,8 +156,8 @@ var addStepInit = function(event){
 };
 // update name values for the new inserted step
 var addStepEditOrder = function(){
+  // the new step html order id is last so it does not override existing esteps
   var newStepOrder = $('.step').length+1;
-  console.log(newStepOrder);
   clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+newStepOrder+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+newStepOrder+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+newStepOrder+'-text');
@@ -245,8 +245,10 @@ var deleteStep = function(event){
 };
 // function to update steps during protocol create
 var updateStepsCreate = function(){
+  // find all steps to update and start counting from 0
   var steps = $('.step');
   var number = 0;
+  // update each step according to their order
   $(steps).each(function(){
     var updateSteps = parseInt(this.getAttribute('data-step'));
     this.querySelector('[data-content="step-number"]').innerHTML = number+1;
@@ -278,8 +280,10 @@ var setNumberOfTotalForms = function(){
   $('#id_steps-TOTAL_FORMS').val(totalForms);
 };
 
-// submit form
+// submit form (standard submit)
 $('[data-trigger="submit"]').click(function(){
+  // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
+  // target form is the form to submit
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
   $('#'+targetForm).submit();
@@ -288,13 +292,16 @@ $('[data-trigger="submit"]').click(function(){
   }
   return false;
 });
-
+// submit ajax data
 $('[data-trigger="submit-ajax"]').click(function(){
+  // store the target form and submit button element in vars
   var targetForm = $('#modal--participants').children('form');
   var sendBtn = this;
+  // find all "email" inputs in the norm
 	$(targetForm).each(function(){
 		var emailInput = $(this).find("input[name='email']"),
 				url = $(this).attr('action');
+    // submit only if the input has value
 		if($(emailInput).val()){
 			var currentForm = $(this),
 					formData = currentForm.serialize(),
@@ -302,6 +309,7 @@ $('[data-trigger="submit-ajax"]').click(function(){
 					button = currentForm.find('a[data-trigger="remove-input"]'),
 					resultHolder = currentForm.children('div[data-content="result"]'),
 					buttonIcon = button.children('i');
+      // some bling
 			button.toggleClass('hidden');
 			loader.toggleClass('is-active');
       $(sendBtn).addClass('disabled');
@@ -336,19 +344,4 @@ $('[data-trigger="submit-ajax"]').click(function(){
       });
 		}
 	});
-});
-
-// update active tab and display add new button
-$('[data-trigger="tab"]').click(function() {
-  var activeTab = $(this).attr('data-target');
-  if(activeTab=='none'){
-    if(!$('#button-add').hasClass('hidden')){
-      $('#button-add').addClass('hidden');
-    }
-  } else {
-    if($('#button-add').hasClass('hidden')){
-      $('#button-add').removeClass('hidden');
-    }
-  }
-  $('#button-add').attr('data-target', activeTab);
 });
