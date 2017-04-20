@@ -8,7 +8,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'protocols_list' %}">
+         href="change to selected_protocol url">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -45,7 +45,7 @@
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_result_form"
             method="post"
-            action="">
+            action="change to the proper url when implemented">
         {% csrf_token %}
         {{ steps_formset.management_form }}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
