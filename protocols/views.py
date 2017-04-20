@@ -129,6 +129,9 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProtocolView, self).get_context_data(**kwargs)
+        context['can_edit'] = self.request.user.researcher.can_edit(
+            self.object
+        )
         context['assets_by_category'] = self.object.get_assets_by_category()
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
