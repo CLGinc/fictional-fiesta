@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, CreateView
 
 from researchers.views import RoleListMixin
-from .models import Protocol
+from .models import Protocol, Result
 from .forms import BasicProtocolForm, StepsFormset
 
 
@@ -133,3 +133,10 @@ class ProtocolView(DetailView, SinglePrototolMixin):
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class CreateProtocolResult(CreateView):
+    template_name = 'protocol_create_result.html'
+    model = Result
+    fields = ['note']
