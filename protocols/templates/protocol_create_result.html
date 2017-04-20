@@ -1,0 +1,123 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - New result{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+  <div class="mdc-toolbar__row padding-16">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--white"
+         href="{% url 'protocols_list' %}">
+        <i class="material-icons">close</i>
+        <span class="toolbar__button-label">Cancel</span>
+      </a>
+    </section>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title">Result for protocol {{ selected_protocol.name }}</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <button data-mdc-auto-init="MDCRipple"
+              data-trigger="submit"
+              data-form="create_protocol_result_form"
+              class="mdc-button mdl-color-text--white">
+        <i class="material-icons">check</i>
+        <span class="toolbar__button-label">Save</span>
+      </button>
+    </section>
+  </div>
+</header>
+<div class="content">
+{% include "base/drawer.html" %}
+  <div class="main-grid mdc-layout-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+        Result details
+      </h1>
+      {% if form.nonfield_errors %}
+      <div>
+        {{ form.nonfield_errors }}
+        {% endif %}
+        {% if form.nonfield_errors %}
+        {{ steps_formset.nonfield_errors }}
+      </div>
+      {% endif %}
+      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
+            id="create_protocol_result_form"
+            method="post"
+            action="">
+        {% csrf_token %}
+        {{ steps_formset.management_form }}
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-form-field">
+                <div class="mdc-checkbox">
+                  <input type="checkbox"
+                         id="success-checkbox"
+                         class="mdc-checkbox__native-control"/>
+                  <div class="mdc-checkbox__background">
+                    <svg class="mdc-checkbox__checkmark"
+                         viewBox="0 0 24 24">
+                      <path class="mdc-checkbox__checkmark__path"
+                            fill="none"
+                            stroke="white"
+                            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark"></div>
+                  </div>
+                </div>
+                <label for="success-checkbox">Success</label>
+              </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <select class="mdc-select margin--none">
+                <option value="" default selected>Select state</option>
+                <option value="created">Created</option>
+                <option value="finished">Finished</option>
+              </select>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              selected_protocol.name
+            </div>
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding--top-24 padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="note"
+                       maxlength="255" required {% if form.name.data %}value="{{ form.note.data }}"{% endif %}>
+                <label class="mdc-textfield__label">Result note</label>
+              </div>
+              {% if form.name.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.name.errors.as_text }}
+              </p>
+              {% else %}
+              <p class="mdc-textfield-helptext" aria-hidden="true">
+                This note will be displayed on your protocol page. Maximum of 255 characters.
+              </p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+<script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}

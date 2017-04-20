@@ -90,6 +90,23 @@ html {
 .mobile-button {
   visibility: hidden;
 }
+/*Tabs*/
+.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+  background: #2196f3;
+}
+.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active {
+  color: #2196f3;
+}
+.mdl-tabs__tab-bar {
+  border: none;
+  margin-bottom: 24px;
+}
+.mdl-tabs__tab {
+  color: #2196f3;
+  text-transform: none;
+  font-size: 24px;
+  font-weight: 300;
+}
 /* Input */
 .input--remove {
   position: absolute;
@@ -388,6 +405,13 @@ a {
 }
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
+}
+.mdc-checkbox__background:before {
+  background: #2196f3;
+}
+.mdc-checkbox__native-control:checked~.mdc-checkbox__background {
+  background-color: #2196f3;
+  border-color: #2196f3;
 }
 .modal--button-container {
   position: fixed;
