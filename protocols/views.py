@@ -6,6 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, CreateView
 
 from researchers.views import RoleListMixin
+from researchers.models import Role
 from .models import Protocol, Result
 from .forms import BasicProtocolForm, StepsFormset
 
@@ -132,6 +133,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
         context['can_edit'] = self.request.user.researcher.can_edit(
             self.object
         )
+        context['invitation_roles'] = Role.ROLES_TO_INVITE
         context['assets_by_category'] = self.object.get_assets_by_category()
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
