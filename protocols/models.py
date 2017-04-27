@@ -171,6 +171,9 @@ class DataColumn(models.Model):
     result = models.ForeignKey(Result, related_name='data_columns')
     data = JSONField()
     is_independent = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(
+        default=0
+    )
     measurement = models.CharField(max_length=255)
     unit = models.CharField(max_length=255)
 
