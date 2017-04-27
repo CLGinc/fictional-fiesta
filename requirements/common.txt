@@ -1,7 +1,5 @@
-Django==1.10.5
+Django==1.11
 
-django-admin-sortable==2.0.21
+psycopg2==2.7.1
 
-psycopg2==2.6.2
-
-social-auth-app-django==1.0.1
+social-auth-app-django==1.1.0
