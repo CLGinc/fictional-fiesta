@@ -114,6 +114,10 @@ class Result(models.Model):
         ('finished', 'Finished'),
     )
 
+    unique_id = models.CharField(
+        max_length=8,
+        unique=True,
+        default=generate_uid)
     note = models.CharField(max_length=255, null=True, blank=True)
     owner = models.ForeignKey('researchers.Researcher', related_name='results')
     state = models.CharField(
