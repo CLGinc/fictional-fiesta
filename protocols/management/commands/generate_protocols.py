@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from protocols.models import Protocol, Procedure
-from protocols.models import Step, Result, DataColumn, Protocol
+from protocols.models import Step, Result, DataColumn
 from projects.models import Project
 from researchers.models import Researcher, Role
 
