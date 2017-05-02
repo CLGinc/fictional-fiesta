@@ -21,6 +21,23 @@ class SinglePrototolMixin(SingleObjectMixin):
         )
 
 
+class SinglePrototolResultMixin(SingleObjectMixin):
+    slug_field = 'unique_id'
+    slug_url_kwarg = 'result_uid'
+
+    def get_queryset(self):
+        try:
+            selected_protocol = Protocol.objects.get(
+                unique_id=self.kwargs['protocol_uid'],
+                roles__researcher=self.request.user.researcher
+            )
+        except Protocol.DoesNotExist:
+            selected_protocol = None
+        return Result.objects.filter(
+            protocol=selected_protocol
+        )
+
+
 @method_decorator(login_required, name='dispatch')
 class CreateProtocol(CreateView):
     template_name = 'protocol_create.html'
@@ -145,3 +162,13 @@ class CreateProtocolResult(CreateView):
     template_name = 'protocol_create_result.html'
     model = Result
     fields = ['note']
+
+
+@method_decorator(login_required, name='dispatch')
+class ProtocolResultView(DetailView, SinglePrototolResultMixin):
+    context_object_name = 'selected_protocol_result'
+    template_name = 'protocol_result.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProtocolResultView, self).get_context_data(**kwargs)
+        return context
