@@ -4,11 +4,13 @@ from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, CreateView
+from django.http import Http404
 
 from researchers.views import RoleListMixin
 from researchers.models import Role
 from .models import Protocol, Result
 from .forms import BasicProtocolForm, StepsFormset
+from .forms import BasicResultForm, DataColumnsFormset
 
 
 class SinglePrototolMixin(SingleObjectMixin):
@@ -158,10 +160,77 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocolResult(CreateView):
+class CreateProtocolResult(CreateView, SinglePrototolMixin):
     template_name = 'protocol_create_result.html'
-    model = Result
-    fields = ['note']
+    form_class = BasicResultForm
+    slug_field = 'unique_id'
+    slug_url_kwarg = 'protocol_uid'
+
+    def get(self, request, *args, **kwargs):
+        self.protocol = self.get_protocol()
+        return super(CreateProtocolResult, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.protocol = self.get_protocol()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        data_columns_formset = DataColumnsFormset(request.POST)
+        if form.is_valid() and data_columns_formset.is_valid():
+            return self.form_valid(form, data_columns_formset)
+        else:
+            return self.form_invalid(form, data_columns_formset)
+
+    def form_valid(self, form, data_columns_formset):
+        self.object = form.save()
+        data_columns_formset.instance = self.object.procedure
+        data_columns_formset.save()
+        return super(CreateProtocolResult, self).form_valid(form)
+
+    def form_invalid(self, form, data_columns_formset):
+        return self.render_to_response(
+            self.get_context_data(
+                form=form, data_columns_formset=data_columns_formset
+            )
+        )
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateProtocolResult, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
+    def get_success_url(self):
+        return reverse(
+            'protocol',
+            kwargs={'protocol_uid': self.object.unique_id}
+        )
+
+    def get_context_data(self, **kwargs):
+        context = dict()
+        context['data_columns_formset'] = DataColumnsFormset()
+        context.update(
+            super(CreateProtocolResult, self).get_context_data(**kwargs)
+        )
+        return context
+
+    def get_protocol(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None:
+            queryset = queryset.filter(pk=pk)
+        if slug is not None and (pk is None or self.query_pk_and_slug):
+            slug_field = self.get_slug_field()
+            queryset = queryset.filter(**{slug_field: slug})
+
+        try:
+            protocol = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404(
+                ("No %(verbose_name)s found matching the query") %
+                {'verbose_name': queryset.model._meta.verbose_name}
+            )
+        return protocol
 
 
 @method_decorator(login_required, name='dispatch')

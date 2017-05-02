@@ -56,3 +56,20 @@ class BasicProtocolForm(forms.ModelForm):
                 last_modified_by=self.researcher
             )
         return instance
+
+
+class BasicResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = [
+            'note',
+            'owner',
+            'state',
+            'is_successful',
+            'protocol',
+            'project'
+        ]
+
+    def __init__(self, *args, **kwargs):
+        self.researcher = kwargs.pop('researcher')
+        super(BasicResultForm, self).__init__(*args, **kwargs)
