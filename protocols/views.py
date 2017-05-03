@@ -203,8 +203,11 @@ class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
 
     def get_success_url(self):
         return reverse(
-            'protocol',
-            kwargs={'protocol_uid': self.object.unique_id}
+            'protocol_result',
+            kwargs={
+                'protocol_uid': self.object.protocol.unique_id,
+                'result_uid': self.object.unique_id,
+            }
         )
 
     def get_protocol(self, queryset=None):
@@ -226,6 +229,33 @@ class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
                 {'verbose_name': queryset.model._meta.verbose_name}
             )
         return protocol
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
+    context_object_name = 'selected_protocol_result'
+    template_name = 'protocol_result_edit.html'
+    form_class = BasicResultForm
+    formset_class = DataColumnsFormset
+    formset_name = 'data_columns_formset'
+    formset_instance = None
+
+    def get_success_url(self):
+        return reverse(
+            'protocol_result',
+            kwargs={
+                'protocol_uid': self.object.protocol.unique_id,
+                'result_uid': self.object.unique_id,
+            }
+        )
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object()
+        self.formset_instance = self.get_formset_instance()
+        return super(UpdateProtocol, self).get_context_data(**kwargs)
+
+    def get_formset_instance(self):
+        return self.object
 
 
 @method_decorator(login_required, name='dispatch')
