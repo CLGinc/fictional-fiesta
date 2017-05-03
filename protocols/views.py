@@ -78,6 +78,46 @@ class CreateViewWithFormset(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
+class UpdateViewWithFormset(UpdateView):
+    formset_class = None
+    formset_name = ''
+    formset_instance = None
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = self.formset_class(
+            instance=self.object.procedure,
+            data=request.POST
+        )
+        if form.is_valid() and formset.is_valid():
+            return self.form_valid(form, formset)
+        else:
+            return self.form_invalid(form, formset)
+
+    def form_valid(self, form, formset):
+        formset.save()
+        return super(UpdateViewWithFormset, self).form_valid(form)
+
+    def form_invalid(self, form, formset):
+        return self.render_to_response(
+            self.get_context_data(form=form, formset=formset)
+        )
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateViewWithFormset, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = dict()
+        context[self.formset_name] = self.formset_class(instance=self.formset_instance)
+        context.update(super(UpdateViewWithFormset, self).get_context_data(**kwargs))
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
 class CreateProtocol(CreateViewWithFormset):
     template_name = 'protocol_create.html'
     form_class = BasicProtocolForm
@@ -92,37 +132,13 @@ class CreateProtocol(CreateViewWithFormset):
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProtocol(UpdateView, SinglePrototolMixin):
+class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'protocol_edit.html'
     form_class = BasicProtocolForm
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        steps_formset = StepsFormset(
-            instance=self.object.procedure,
-            data=request.POST
-        )
-        if form.is_valid() and steps_formset.is_valid():
-            return self.form_valid(form, steps_formset)
-        else:
-            return self.form_invalid(form, steps_formset)
-
-    def form_valid(self, form, steps_formset):
-        steps_formset.save()
-        return super(UpdateProtocol, self).form_valid(form)
-
-    def form_invalid(self, form, steps_formset):
-        return self.render_to_response(
-            self.get_context_data(form=form, steps_formset=steps_formset)
-        )
-
-    def get_form_kwargs(self):
-        kwargs = super(UpdateProtocol, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
-        return kwargs
+    formset_class = StepsFormset
+    formset_name = 'steps_formset'
+    formset_instance = None
 
     def get_success_url(self):
         return reverse(
@@ -132,10 +148,11 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
-        context = dict()
-        context['steps_formset'] = StepsFormset(instance=self.object.procedure)
-        context.update(super(UpdateProtocol, self).get_context_data(**kwargs))
-        return context
+        self.formset_instance = self.get_formset_instance()
+        return super(UpdateProtocol, self).get_context_data(**kwargs)
+
+    def get_formset_instance(self):
+        return self.object.procedure
 
 
 @method_decorator(login_required, name='dispatch')
