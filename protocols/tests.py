@@ -22,8 +22,8 @@ class ProtocolsTest(TestCase):
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.protocol1 = Protocol.objects.get(id=1)
-        self.project0 = Project.objects.get(id=1)
-        self.project1 = Project.objects.get(id=2)
+        self.project1 = Project.objects.get(id=1)
+        self.project2 = Project.objects.get(id=2)
 
     def test_create_result_when_not_owner_contributor_of_protocol(self):
         result = Result(
@@ -42,7 +42,7 @@ class ProtocolsTest(TestCase):
             owner=self.researcher2,
             state='created',
             protocol=self.protocol1,
-            project=self.project0
+            project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
@@ -68,7 +68,7 @@ class ProtocolsTest(TestCase):
             owner=self.researcher2,
             state='created',
             protocol=self.protocol1,
-            project=self.project0
+            project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
