@@ -67,7 +67,7 @@ class ProjectsTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse('create_project')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 200)
 
     def test_create_project_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -82,9 +82,22 @@ class ProjectsTest(TestCase):
             reverse('project', kwargs={'project_uid': project.unique_id})
         )
 
+    def test_update_project_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'update_project',
+            kwargs={'project_uid': self.project1.unique_id}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
     def test_update_project_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
+            'update_project',
+            kwargs={'project_uid': self.project1.unique_id}
+        )
+        redirect_url = reverse(
             'project',
             kwargs={'project_uid': self.project1.unique_id}
         )
@@ -93,7 +106,7 @@ class ProjectsTest(TestCase):
             data={'name': 'New Project Name'}
         )
         self.project1.refresh_from_db()
-        self.assertRedirects(response, url)
+        self.assertRedirects(response, redirect_url)
         self.assertEqual(self.project1.name, 'New Project Name')
 
 
