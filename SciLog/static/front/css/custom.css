@@ -151,6 +151,9 @@ html {
 .mdc-textfield.mdc-textfield--multiline.mdc-textfield--upgraded {
   margin-top: 24px;
 }
+.file_input {
+  float: left;
+}
 /* Text */
 .subpageheader {
   margin: 40px auto;
@@ -280,6 +283,37 @@ a {
 .wrap--text {
   overflow-wrap: break-word;
 }
+/*Attachments to top*/
+.button--attachments {
+  position: fixed;
+  right: 30px;
+  bottom: 100px;
+  z-index: 9000;
+}
+.button--attachments > label {
+  cursor: pointer;
+}
+.dropzone {
+  height: 100%;
+}
+.dz-default {
+  border: 3px dashed #BBDEFB;
+  padding: 40px;
+  text-align: center;
+  color: #cccccc;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.dz-default:hover {
+  color: #BBDEFB;
+}
+.dz-default span {
+  font-size: 2rem;
+}
+.dz-default i {
+  display: block;
+  font-size: 5rem;
+}
 /*Scroll to top*/
 .scrollToTop-container {
   position: fixed;
@@ -393,6 +427,7 @@ a {
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
   min-height: 100%;
+  min-height: calc(100% - 67px);
   padding-left: 260px;
 }
 .modal--content {

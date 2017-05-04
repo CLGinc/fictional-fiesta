@@ -110,12 +110,6 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Attachments</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              TODO
-            </div>
-          </div>
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data table</p>
@@ -127,9 +121,53 @@
     </div>
   </div>
 </div>
+<div id="modal--attachments" class="modal visible mdc-layout-grid">
+  <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+    <header class="mdc-toolbar mdl-color--blue-500 mdc-elevation--z2">
+      <div class="mdc-toolbar__row padding-16">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+          <a data-mdc-auto-init="MDCRipple"
+
+             data-target="modal--attachments"
+             class="mdc-button mdl-color-text--white">
+            <i class="material-icons">close</i>
+            <span class="toolbar__button-label">Cancel</span>
+          </a>
+        </section>
+        <section class="mdc-toolbar__section">
+          <span class="mdc-toolbar__title">Select files to attach</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+          <button data-mdc-auto-init="MDCRipple"
+
+                  data-form="create_protocol_result_form"
+                  class="mdc-button mdl-color-text--white">
+            <i class="material-icons">check</i>
+            <span class="toolbar__button-label">Done</span>
+          </button>
+        </section>
+      </div>
+    </header>
+    <div id="add_attachments" class="modal--content">
+      <form action="/file-upload" class="dropzone">
+        <div class="fallback">
+          <input name="file" type="file" multiple />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button data-mdc-auto-init="MDCRipple"
+        data-trigger="show"
+        data-target="modal--attachments"
+        id="button-add"
+        class="button--attachments mdc-fab mdc-fab--mini material-icons mdl-color--blue-500">
+  <span  class="mdc-fab__icon">cloud_upload</span>
+</button>
 {% include "base/scroll_top.html" %}
 {% endblock %}
 {% block post_load %}
 <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
 <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/dropzone.js" %}"></script>
 {% endblock %}
