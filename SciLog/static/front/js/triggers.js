@@ -9,7 +9,13 @@ $('.scrollToTop-button').click(function(){
 });
 // profile menu
 $('[data-trigger="profile--menu"]').click(function() {
-  var menuEl = document.querySelector('.mdc-simple-menu');
+  var menuEl = document.querySelector('.profile--menu');
+  var menu = new mdc.menu.MDCSimpleMenu(menuEl);
+  menu.open = !menu.open;
+});
+// table menu
+$('[data-trigger="table--menu"]').click(function() {
+  var menuEl = document.querySelector('.table--menu');
   var menu = new mdc.menu.MDCSimpleMenu(menuEl);
   menu.open = !menu.open;
 });

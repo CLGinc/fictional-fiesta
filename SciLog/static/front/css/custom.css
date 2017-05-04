@@ -92,17 +92,17 @@ html {
 }
 /*Tabs*/
 .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
-  background: #2196f3;
+  background: #03A9F4;
 }
 .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active {
-  color: #2196f3;
+  color: #03A9F4;
 }
 .mdl-tabs__tab-bar {
   border: none;
   margin-bottom: 24px;
 }
 .mdl-tabs__tab {
-  color: #2196f3;
+  color: #03A9F4;
   text-transform: none;
   font-size: 24px;
   font-weight: 300;
@@ -118,13 +118,16 @@ html {
   right: 7px;
   width: 20px;
   height: 20px;
-  border-color: #2196f3;
+  border-color: #03A9F4;
 }
 .input--remove-spinner .mdl-spinner__layer-4,.input--remove-spinner .mdl-spinner__layer-3,.input--remove-spinner .mdl-spinner__layer-2,.input--remove-spinner .mdl-spinner__layer-1 {
-  border-color: #2196f3;
+  border-color: #03A9F4;
 }
 .mdc-textfield--focused .mdc-textfield__label.mdc-textfield__label--float-above {
-  color: #2196f3;
+  color: #03A9F4;
+}
+.mdc-textfield--upgraded.mdc-textfield--focused:not(.mdc-textfield--fullwidth):not(.mdc-textfield--multiline):after {
+  background-color: #03A9F4;
 }
 .mdc-textfield,.mdc-textfield__input {
   width: 100%;
@@ -301,11 +304,12 @@ a {
   padding: 40px;
   text-align: center;
   color: #cccccc;
-  cursor: pointer;
-  transition: color 0.3s;
+  cursor: copy;
+  transition: color, background-color 0.2s;
 }
 .dz-default:hover {
   color: #BBDEFB;
+  background-color: #efefef;
 }
 .dz-default span {
   font-size: 2rem;
@@ -367,7 +371,7 @@ a {
   cursor: pointer;
 }
 .participant-list--link:hover {
-  color: #2196f3 !important;
+  color: #03A9F4 !important;
 }
 /*Participants invite*/
 .invite--result-text {
@@ -389,7 +393,7 @@ a {
   cursor: pointer;
 }
 .list--link:hover {
-  color: #2196f3;
+  color: #03A9F4;
 }
 .list--link-edit,.list--link-remove {
   font-size: 18px;
@@ -442,11 +446,11 @@ a {
   pointer-events:auto; /*fix required for custom click handling*/
 }
 .mdc-checkbox__background:before {
-  background: #2196f3;
+  background: #03A9F4;
 }
 .mdc-checkbox__native-control:checked~.mdc-checkbox__background {
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #03A9F4;
+  border-color: #03A9F4;
 }
 .modal--button-container {
   position: fixed;

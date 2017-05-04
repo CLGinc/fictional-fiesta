@@ -113,8 +113,43 @@
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data table</p>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-            TODO
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none">
+            <ul class="mdc-list">
+              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                <input type="text" id="data_1" class="mdc-textfield__input" value="">
+                <label class="mdc-textfield__label" for="data_1">Data</label>
+              </li>
+              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                <input type="text" id="measurement_1" class="mdc-textfield__input" value="">
+                <label class="mdc-textfield__label" for="measurement_1">Measurement</label>
+              </li>
+              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                <input type="text" id="unit_1" class="mdc-textfield__input" class="mdc-textfield__input" value="">
+                <label class="mdc-textfield__label" for="unit_1">Unit</label>
+              </li>
+              <li class="mdc-list-item mdc-textfield">Independant
+                <div class="mdc-checkbox">
+                  <input type="checkbox"
+                         class="mdc-checkbox__native-control"/>
+                  <div class="mdc-checkbox__background">
+                    <svg class="mdc-checkbox__checkmark"
+                         viewBox="0 0 24 24">
+                      <path class="mdc-checkbox__checkmark__path"
+                            fill="none"
+                            stroke="white"
+                            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark"></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <ul class="mdc-list">
+              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="33"></li>
+              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="123"></li>
+              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="2"></li>
+              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="3"></li>
+            </ul>
           </div>
         </div>
       </form>
