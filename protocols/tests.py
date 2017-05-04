@@ -21,7 +21,9 @@ class ProtocolsTest(TestCase):
         self.client = Client()
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
+        self.researcher3 = Researcher.objects.get(id=3)
         self.protocol1 = Protocol.objects.get(id=1)
+        self.protocol2 = Protocol.objects.get(id=2)
         self.project1 = Project.objects.get(id=1)
         self.project2 = Project.objects.get(id=2)
 
@@ -65,13 +67,13 @@ class ProtocolsTest(TestCase):
 
     def test_create_result_where_protocol_does_not_belong_to_project(self):
         result = Result(
-            owner=self.researcher2,
+            owner=self.researcher3,
             state='created',
-            protocol=self.protocol1,
+            protocol=self.protocol2,
             project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
         self.assertEqual(
-            ['The selected researcher cannot add results to this project!'],
+            ['The selected protocol does not belong to the selected project!'],
             e.exception.messages)
