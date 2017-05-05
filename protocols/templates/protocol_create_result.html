@@ -112,44 +112,85 @@
           </div>
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data table</p>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none mdc-elevation--z2">
-            <ul class="mdc-list">
-              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                <input type="text" id="data_1" class="mdc-textfield__input" value="">
-                <label class="mdc-textfield__label" for="data_1">Data</label>
-              </li>
-              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                <input type="text" id="measurement_1" class="mdc-textfield__input" value="">
-                <label class="mdc-textfield__label" for="measurement_1">Measurement</label>
-              </li>
-              <li class="mdc-list-item mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                <input type="text" id="unit_1" class="mdc-textfield__input" class="mdc-textfield__input" value="">
-                <label class="mdc-textfield__label" for="unit_1">Unit</label>
-              </li>
-              <li class="mdc-list-item mdc-textfield">Independant
-                <div class="mdc-checkbox">
-                  <input type="checkbox"
-                         class="mdc-checkbox__native-control"/>
-                  <div class="mdc-checkbox__background">
-                    <svg class="mdc-checkbox__checkmark"
-                         viewBox="0 0 24 24">
-                      <path class="mdc-checkbox__checkmark__path"
-                            fill="none"
-                            stroke="white"
-                            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                    </svg>
-                    <div class="mdc-checkbox__mixedmark"></div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <ul class="mdc-list">
-              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="33"></li>
-              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="123"></li>
-              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="2"></li>
-              <li class="mdc-list-item mdc-textfield"><input type="text" class="mdc-textfield__input" value="3"></li>
-            </ul>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
+            <span>Data tables</span>
+            <div data-mdc-auto-init="MDCRipple"
+               href="#"
+               data-trigger="addDataColumn"
+               class="mdc-button mdl-color-text--blue-grey-600 right">
+              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add data column
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                  <tr>
+                    <div class="mdc-simple-menu table--menu dataColumn-0-menu"
+                         tabindex="-1"
+                         style="top:60px; right: 0; z-index:9999;">
+                      <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Copy data column
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Edit
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Delete
+                        </li>
+                      </ul>
+                    </div>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
+                    <th><i class="material-icons list--link-options" data-trigger="table--menu" data-target="dataColumn-0-menu">more_vert</i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
+                      <input type="text" class="width--full">
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Measurement</th>
+                    <th class="mdl-data-table__cell--non-numeric">Unit</th>
+                    <th class="mdl-data-table__cell--non-numeric"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <input type="text" class="width--full">
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <input type="text" class="width--full">
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Resultset</th>
+                    <th>
+                      <i class="material-icons list--link-add">add</i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
+                      <input type="text" class="width--full">
+                    </td>
+                    <td>
+                      <i class="material-icons list--link-remove">clear</i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </form>
@@ -204,5 +245,6 @@
 {% block post_load %}
 <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
 <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/datacolumns.js" %}"></script>
 <script type = "text/javascript" src="{% static "front/js/dropzone.js" %}"></script>
 {% endblock %}

@@ -15,8 +15,9 @@ $('[data-trigger="profile--menu"]').click(function() {
 });
 // table menu
 $('[data-trigger="table--menu"]').click(function() {
-  var menuEl = document.querySelector('.table--menu');
-  var menu = new mdc.menu.MDCSimpleMenu(menuEl);
+  var targetClass = $(this).attr('data-target'),
+      menuEl = document.querySelector('.'+targetClass),
+      menu = new mdc.menu.MDCSimpleMenu(menuEl);
   menu.open = !menu.open;
 });
 // filters

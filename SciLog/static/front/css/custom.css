@@ -395,8 +395,12 @@ a {
 .list--link:hover {
   color: #03A9F4;
 }
-.list--link-edit,.list--link-remove {
+.list--link-edit,.list--link-remove,.list--link-add {
   font-size: 18px;
+}
+.list--link-add:hover,.list--link-options:hover {
+  color: #03A9F4!important;
+  cursor: pointer;
 }
 .list--link-edit:hover {
   color: #ff9800!important;
@@ -405,6 +409,9 @@ a {
 .list--link-remove:hover {
   color: #ff1744!important;
   cursor: pointer;
+}
+td > .list--link-remove {
+  color: rgba(0, 0, 0, 0.54);
 }
 .list--alternative {
   padding-top: 10px;
@@ -630,6 +637,10 @@ a {
 }
 .left-24 {
   left: 24px;
+}
+/*Data tables*/
+.dataTable--column {
+  position: relative;
 }
 /*Wrap*/
 .wrap--checkboxes {
