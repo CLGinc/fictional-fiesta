@@ -13,13 +13,6 @@ $('[data-trigger="profile--menu"]').click(function() {
   var menu = new mdc.menu.MDCSimpleMenu(menuEl);
   menu.open = !menu.open;
 });
-// table menu
-$('[data-trigger="table--menu"]').click(function() {
-  var targetClass = $(this).attr('data-target'),
-      menuEl = document.querySelector('.'+targetClass),
-      menu = new mdc.menu.MDCSimpleMenu(menuEl);
-  menu.open = !menu.open;
-});
 // filters
 $('[data-trigger="filter"]').click(function() {
   var targetElementId = $(this).attr('data-target');
