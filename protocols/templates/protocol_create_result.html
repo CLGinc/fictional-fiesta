@@ -14,11 +14,11 @@
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Result for protocol {{ selected_protocol.name }}</span>
+      <span class="mdc-toolbar__title">Adding result for protocol {{ selected_protocol.name }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
-              data-trigger="submit"
+              data-trigger="submit-result"
               data-form="create_protocol_result_form"
               class="mdc-button mdl-color-text--white">
         <i class="material-icons">check</i>
@@ -47,7 +47,7 @@
             method="post"
             action="change to the proper url when implemented">
         {% csrf_token %}
-        {{ steps_formset.management_form }}
+        {{ data_columns_formset.management_form }}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
@@ -123,6 +123,16 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
+              <input type="text"
+                     name="data_columns-0-order"
+                     value="0"
+                     data-content="order"
+                     class="hidden">
+              <input type="text"
+                     name="data_columns-0-data"
+                     value="0"
+                     data-content="data-merged"
+                     class="hidden">
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                   <tr>
@@ -142,7 +152,7 @@
                         </li>
                       </ul>
                     </div>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Label</th>
                     <th>
                       <i class="material-icons list--link-options"
                          data-trigger="table--menu"
@@ -152,48 +162,39 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input type="text" class="width--full">
+                    <td class="mdl-data-table__cell--non-numeric" colspan="3">
+                      <input type="text"
+                             class="width--full"
+                             name="data_columns-0-label"
+                             data-content="label">
                     </td>
-                    <td></td>
                   </tr>
                 </tbody>
                 <thead>
                   <tr>
-                    <th class="mdl-data-table__cell--non-numeric">Measurement</th>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Measurement</th>
                     <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                    <th class="mdl-data-table__cell--non-numeric">Independant</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      <input type="text" class="width--full">
+                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
+                      <input type="text"
+                             class="width--full"
+                             name="data_columns-0-measurement"
+                             data-content="measurement">
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
-                      <input type="text" class="width--full">
-                    </td>
-                    <td>
-                      <div class="mdc-checkbox center">
-                        <input type="checkbox"
-                               class="mdc-checkbox__native-control"/>
-                        <div class="mdc-checkbox__background">
-                          <svg class="mdc-checkbox__checkmark"
-                               viewBox="0 0 24 24">
-                            <path class="mdc-checkbox__checkmark__path"
-                                  fill="none"
-                                  stroke="white"
-                                  d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                          </svg>
-                          <div class="mdc-checkbox__mixedmark"></div>
-                        </div>
-                      </div>
+                      <input type="text"
+                             class="width--full"
+                             name="data_columns-0-unit"
+                             data-content="unit">
                     </td>
                   </tr>
                 </tbody>
                 <thead>
                   <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Resultset</th>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
                     <th>
                       remove / add
                     </th>
@@ -202,7 +203,9 @@
                 <tbody>
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input type="text" class="width--full">
+                      <input type="text"
+                             class="width--full"
+                             data-content="data">
                     </td>
                     <td>
                       <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>

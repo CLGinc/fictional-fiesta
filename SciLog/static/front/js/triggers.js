@@ -292,6 +292,24 @@ $('[data-trigger="submit"]').click(function(){
   }
   return false;
 });
+// submit form (result submit)
+$('[data-trigger="submit-result"]').click(function(){
+  // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
+  // target form is the form to submit
+  var targetElementId = $(this).attr('data-target'),
+      targetForm = $(this).attr('data-form');
+      $('.dataTable--column').each(function(){
+        var data = new Array();
+        $('[data-content="data"]').each(function(){
+          var value = $(this).val();
+          data.push(value);
+        });
+        $(this).find('[data-content="data-merged"]').val(data);
+        console.log(data);
+      });
+// var test = $('#'+targetForm).serialize();
+// console.log(test);
+});
 // submit ajax data
 $('[data-trigger="submit-ajax"]').click(function(){
   // store the target form and submit button element in vars
