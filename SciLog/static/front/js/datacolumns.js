@@ -8,6 +8,8 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove-table
        $(this).remove();
        updateDataColumns();
      });
+  } else {
+    show(snackbar);
   }
 });
 
