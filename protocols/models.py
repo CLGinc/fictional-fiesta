@@ -170,7 +170,6 @@ class Attachment(models.Model):
 class DataColumn(models.Model):
     result = models.ForeignKey(Result, related_name='data_columns')
     data = JSONField()
-    is_independent = models.BooleanField(default=False)
     order = models.PositiveIntegerField(
         default=0
     )
@@ -178,5 +177,9 @@ class DataColumn(models.Model):
     unit = models.CharField(max_length=255)
 
     def __str__(self):
-        independent_label = '[independent] ' if self.is_independent else ''
-        return '{}{}'.format(independent_label, self.measurement)
+        return 'Data column {} ({}) for protocol "{}" owned by {}'.format(
+            self.order,
+            self.measurement,
+            self.result.protocol,
+            self.result.owner
+        )
