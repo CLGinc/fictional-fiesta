@@ -136,10 +136,27 @@
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                   <tr>
+                    <div class="mdc-simple-menu table--menu"
+                         data-content="dataColumn-0-menu"
+                         tabindex="-1"
+                         style="top:60px; right: 0; z-index:9999;">
+                      <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Copy data column
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Edit
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                          Delete
+                        </li>
+                      </ul>
+                    </div>
                     <th class="mdl-data-table__cell--non-numeric" colspan="2">Label</th>
                     <th>
-                      <i class="material-icons list--link-remove"
-                        data-trigger="remove-table">clear</i>
+                      <i class="material-icons list--link-options"
+                         data-trigger="table--menu"
+                         data-target="dataColumn-0-menu">more_vert</i>
                     </th>
                   </tr>
                 </thead>
@@ -272,5 +289,5 @@
     };
     sb.show(data);
   };
-  </script>
+</script>
 {% endblock %}
