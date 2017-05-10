@@ -69,7 +69,3 @@ class BasicResultForm(forms.ModelForm):
             'protocol',
             'project'
         ]
-
-    def __init__(self, *args, **kwargs):
-        self.researcher = kwargs.pop('researcher')
-        super(BasicResultForm, self).__init__(*args, **kwargs)
