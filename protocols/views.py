@@ -65,10 +65,6 @@ class CreateViewWithFormset(CreateView):
             self.get_context_data(form=form, formset=formset)
         )
 
-    def get_form_kwargs(self):
-        kwargs = super(CreateViewWithFormset, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
-        return kwargs
 
     def get_context_data(self, **kwargs):
         context = dict()
@@ -105,10 +101,6 @@ class UpdateViewWithFormset(UpdateView):
             self.get_context_data(form=form, formset=formset)
         )
 
-    def get_form_kwargs(self):
-        kwargs = super(UpdateViewWithFormset, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
-        return kwargs
 
     def get_context_data(self, **kwargs):
         context = dict()
@@ -130,6 +122,11 @@ class CreateProtocol(CreateViewWithFormset):
             kwargs={'protocol_uid': self.object.unique_id}
         )
 
+    def get_form_kwargs(self):
+        kwargs = super(CreateProtocol, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
+
 
 @method_decorator(login_required, name='dispatch')
 class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
@@ -150,6 +147,11 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
         self.object = self.get_object()
         self.formset_instance = self.get_formset_instance()
         return super(UpdateProtocol, self).get_context_data(**kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateProtocol, self).get_form_kwargs()
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
 
     def get_formset_instance(self):
         return self.object.procedure
