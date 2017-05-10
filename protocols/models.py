@@ -174,8 +174,8 @@ class DataColumn(models.Model):
     order = models.PositiveIntegerField(
         default=0
     )
-    measurement = models.CharField(max_length=255)
-    unit = models.CharField(max_length=255)
+    measurement = models.CharField(max_length=32)
+    unit = models.CharField(max_length=32)
 
     def __str__(self):
         return 'Data column {} ({}) for protocol "{}" owned by {}'.format(
