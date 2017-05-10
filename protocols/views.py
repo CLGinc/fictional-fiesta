@@ -185,13 +185,13 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
+class CreateProtocolResult(CreateView):
     template_name = 'protocol_create_result.html'
     form_class = BasicResultForm
-    slug_field = 'unique_id'
-    slug_url_kwarg = 'protocol_uid'
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'
+    protocol_slug_field = 'unique_id'
+    protocol_slug_url_kwarg = 'protocol_uid'
 
     def get(self, request, *args, **kwargs):
         return super(CreateProtocolResult, self).get(request, *args, **kwargs)
@@ -217,15 +217,17 @@ class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
         )
         return context
 
+    def get_protocol_queryset(self):
+        return Protocol.objects.filter(
+            roles__researcher=self.request.user.researcher
+        )
+
     def get_protocol(self, queryset=None):
         if queryset is None:
-            queryset = self.get_queryset()
-        pk = self.kwargs.get(self.pk_url_kwarg)
-        slug = self.kwargs.get(self.slug_url_kwarg)
-        if pk is not None:
-            queryset = queryset.filter(pk=pk)
-        if slug is not None and (pk is None or self.query_pk_and_slug):
-            slug_field = self.get_slug_field()
+            queryset = self.get_protocol_queryset()
+        slug = self.kwargs.get(self.protocol_slug_url_kwarg)
+        if slug is not None:
+            slug_field = self.protocol_slug_field
             queryset = queryset.filter(**{slug_field: slug})
 
         try:
