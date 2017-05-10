@@ -299,16 +299,15 @@ $('[data-trigger="submit-result"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
       $('.dataTable--column').each(function(){
-        var data = new Array();
-        $('[data-content="data"]').each(function(){
+        var data = [];
+        $(this).find('[data-content="data"]').each(function(){
           var value = $(this).val();
           data.push(value);
         });
-        $(this).find('[data-content="data-merged"]').val(data);
-        console.log(data);
+        data = { 'Data': data };
+        $(this).find('[data-content="data-merged"]').val(encodeURIComponent(JSON.stringify( data )));
       });
-// var test = $('#'+targetForm).serialize();
-// console.log(test);
+  $('#'+targetForm).submit();
 });
 // submit ajax data
 $('[data-trigger="submit-ajax"]').click(function(){
