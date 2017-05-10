@@ -140,7 +140,7 @@ class Result(models.Model):
         return 'Result {}'.format(self.id)
 
     def clean(self):
-        if self.owner:
+        if hasattr(self, 'owner'):
             if not(self.protocol.roles.filter(
                     researcher=self.owner).exclude(role='watcher').exists()):
                 raise ValidationError({'owner': 'The selected \
