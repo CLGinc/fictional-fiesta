@@ -168,6 +168,7 @@ class Attachment(models.Model):
 
 
 class DataColumn(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True)
     result = models.ForeignKey(Result, related_name='data_columns')
     data = JSONField()
     order = models.PositiveIntegerField(
