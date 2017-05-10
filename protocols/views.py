@@ -194,11 +194,9 @@ class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
     formset_name = 'data_columns_formset'
 
     def get(self, request, *args, **kwargs):
-        self.protocol = self.get_protocol()
         return super(CreateProtocolResult, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.protocol = self.get_protocol()
         return super(CreateProtocolResult, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -209,6 +207,15 @@ class CreateProtocolResult(CreateViewWithFormset, SinglePrototolMixin):
                 'result_uid': self.object.unique_id,
             }
         )
+
+    def get_context_data(self, **kwargs):
+        self.protocol = self.get_protocol()
+        context = dict()
+        context['selected_protocol'] = self.get_protocol()
+        context.update(
+            super(CreateProtocolResult, self).get_context_data(**kwargs)
+        )
+        return context
 
     def get_protocol(self, queryset=None):
         if queryset is None:
