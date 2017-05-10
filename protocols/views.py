@@ -65,7 +65,6 @@ class CreateViewWithFormset(CreateView):
             self.get_context_data(form=form, formset=formset)
         )
 
-
     def get_context_data(self, **kwargs):
         context = dict()
         context[self.formset_name] = self.formset_class()
@@ -100,7 +99,6 @@ class UpdateViewWithFormset(UpdateView):
         return self.render_to_response(
             self.get_context_data(form=form, formset=formset)
         )
-
 
     def get_context_data(self, **kwargs):
         context = dict()
