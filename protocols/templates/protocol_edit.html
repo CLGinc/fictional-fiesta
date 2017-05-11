@@ -8,7 +8,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'protocol' protocol_uid=selected_protocol.unique_id %}">
+         href="{% url 'protocol' protocol_uuid=selected_protocol.uuid %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -19,7 +19,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'update_protocol' protocol_uid=object.unique_id %}"
+         href="{% url 'update_protocol' protocol_uuid=object.uuid %}"
          data-trigger="submit"
          data-form="form--protocol-edit">
         <i class="material-icons">check</i>
@@ -39,7 +39,7 @@
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--protocol-edit"
           method="post"
-          action="{% url 'update_protocol' protocol_uid=object.unique_id %}">
+          action="{% url 'update_protocol' protocol_uuid=object.uuid %}">
       {% csrf_token %}
       {% if form.non_field_errors %}
         {{ form.non_field_errors }}

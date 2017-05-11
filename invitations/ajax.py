@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-from .forms import CreateInvitationForm, CreateInvitationModelForm
+from .forms import CreateInvitationModelForm
 from .views import SingleInvitationMixin
 
 
@@ -13,25 +13,18 @@ from .views import SingleInvitationMixin
 class CreateInvitation(View):
     def post(self, request, *args, **kwargs):
         if self.request.is_ajax():
-            form = CreateInvitationForm(
-                request.POST or None,
-                inviter=request.user.researcher
-            )
-            if form.is_valid():
-                model_form = CreateInvitationModelForm(
-                    form.get_data_for_model_form(request.user.researcher)
+            post = request.POST.copy()
+            post['inviter'] = str(request.user.researcher.pk)
+            model_form = CreateInvitationModelForm(post or None)
+            if model_form.is_valid():
+                model_form.save()
+                return HttpResponse('Invitation to {} created and sent!'.format(
+                    model_form.cleaned_data['email'])
                 )
-                if model_form.is_valid():
-                    model_form.save()
-                    return HttpResponse('Invitation to {} created \
-and sent!'.format(model_form.cleaned_data['email'])
-                    )
-                else:
-                    return HttpResponseBadRequest(
-                        reason=model_form.errors.as_json()
-                    )
             else:
-                return HttpResponseBadRequest(reason=form.errors.as_json())
+                return HttpResponseBadRequest(
+                    reason=model_form.errors.as_json()
+                )
         return HttpResponseForbidden()
 
 

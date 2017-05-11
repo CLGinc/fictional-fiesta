@@ -130,7 +130,6 @@ class Command(BaseCommand):
                 data_column = DataColumn.objects.create(
                     result=result,
                     data=json.dumps(data),
-                    is_independent=random.choice((True, False)),
                     measurement=measurement[0],
                     unit=measurement[1],
                 )

@@ -24,14 +24,14 @@ class ResearchersTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.project1 = Project.objects.get(id=1)
-        self.project2 = Project.objects.get(id=2)
-        self.project3 = Project.objects.get(id=3)
+        self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
+        self.project3 = Project.objects.get(name='Project 3')
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
         self.tempuser = Researcher.objects.get(id=1001)
-        self.protocol1 = Protocol.objects.get(id=1)
+        self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.roles_per_projects = {
             self.researcher1: {
                 'owner': [self.project1, self.project2],
@@ -188,9 +188,9 @@ class ResearchersTest(TestCase):
     def test_get_protocols_to_add(self):
         protocols = list(self.researcher1.get_protocols_to_add(self.project1))
         expected_protocols = [
-            Protocol.objects.get(unique_id='fba17387'),
-            Protocol.objects.get(unique_id='8f4a328c'),
-            Protocol.objects.get(unique_id='52944cc7')
+            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7'),
+            Protocol.objects.get(uuid='a08eda6a-5a34-42f7-bf06-7392201849fa'),
+            Protocol.objects.get(uuid='fe53a689-5a9f-4492-abad-92bbf51994a4')
         ]
         self.assertEqual(protocols, expected_protocols)
 
@@ -210,15 +210,15 @@ class ResearchersTest(TestCase):
     def test_get_projects_to_edit(self):
         projects = list(self.researcher2.get_projects_to_edit())
         expected_projects = [
-            Project.objects.get(id=2),
-            Project.objects.get(id=3)
+            self.project3,
+            self.project2
         ]
         self.assertEqual(projects, expected_projects)
 
     def test_get_protocols_to_edit(self):
         protocols = list(self.researcher2.get_protocols_to_edit())
         expected_protocols = [
-            Protocol.objects.get(id=1)
+            self.protocol1
         ]
         self.assertEqual(protocols, expected_protocols)
 
@@ -237,13 +237,13 @@ class ResearchersTest(TestCase):
         self.assertRedirects(response, '/project/list/')
 
     def test_post_login_redirect_to_project(self):
-        url = reverse('login_user') + '?next=/project/0f570c02/'
+        url = reverse('login_user') + '?next=/project/808d85c6-8fdb-478d-994a-aab8496ef4cb/'
         data = {
             'email': 'user1@gmail.com',
             'password': 'user1'
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/project/0f570c02/')
+        self.assertRedirects(response, '/project/808d85c6-8fdb-478d-994a-aab8496ef4cb/')
 
     def test_get_logout(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -279,6 +279,9 @@ class ResearchersFormsTest(TestCase):
 
     def setUp(self):
         self.researcher1 = Researcher.objects.get(id=1)
+        self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
+        self.project3 = Project.objects.get(name='Project 3')
 
     def test_project_roles_list_form_empty(self):
         form = RoleListForm(
@@ -315,7 +318,7 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=1, researcher=self.researcher1)
+            Role.objects.get(project=self.project1, researcher=self.researcher1)
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -331,7 +334,7 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=3, researcher=self.researcher1)
+            Role.objects.get(project=self.project3, researcher=self.researcher1)
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -347,8 +350,8 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=2, researcher=self.researcher1),
-            Role.objects.get(project__id=1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, researcher=self.researcher1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -364,8 +367,8 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=2, researcher=self.researcher1),
-            Role.objects.get(project__id=1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, researcher=self.researcher1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -378,9 +381,9 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=3, researcher=self.researcher1),
-            Role.objects.get(project__id=2, researcher=self.researcher1),
-            Role.objects.get(project__id=1, researcher=self.researcher1),
+            Role.objects.get(project=self.project3, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, researcher=self.researcher1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -396,9 +399,9 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=1, researcher=self.researcher1),
-            Role.objects.get(project__id=2, researcher=self.researcher1),
-            Role.objects.get(project__id=3, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, researcher=self.researcher1),
+            Role.objects.get(project=self.project3, researcher=self.researcher1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -415,9 +418,9 @@ class ResearchersFormsTest(TestCase):
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project__id=1, researcher=self.researcher1),
-            Role.objects.get(project__id=2, researcher=self.researcher1),
-            Role.objects.get(project__id=3, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, researcher=self.researcher1),
+            Role.objects.get(project=self.project3, researcher=self.researcher1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)

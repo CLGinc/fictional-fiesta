@@ -34,7 +34,7 @@ class AddElementsForm(forms.Form):
         if self.data.get('element_type', self.initial.get('element_type')) == 'p':
             protocols_to_add = researcher.get_protocols_to_add(
                 selected_project)
-            self.fields.get('element_choices').to_field_name = 'unique_id'
+            self.fields.get('element_choices').to_field_name = 'uuid'
             self.fields.get('element_choices').queryset = protocols_to_add
         elif self.data.get('element_type', self.initial.get('element_type')) == 's':
             sources_to_add = researcher.get_sources_to_add(selected_project)

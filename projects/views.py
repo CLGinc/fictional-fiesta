@@ -13,8 +13,8 @@ from .models import Project
 
 
 class SingleProjectMixin(SingleObjectMixin):
-    slug_field = 'unique_id'
-    slug_url_kwarg = 'project_uid'
+    slug_field = 'uuid'
+    slug_url_kwarg = 'project_uuid'
 
     def get_queryset(self):
         return Project.objects.filter(
@@ -35,7 +35,7 @@ class CreateProject(CreateView):
     def get_success_url(self):
         return reverse(
             'project',
-            kwargs={'project_uid': self.object.unique_id}
+            kwargs={'project_uuid': self.object.uuid}
         )
 
 
@@ -48,7 +48,7 @@ class UpdateProject(UpdateView, SingleProjectMixin):
     def get_success_url(self):
         return reverse(
             'project',
-            kwargs={'project_uid': self.object.unique_id}
+            kwargs={'project_uuid': self.object.uuid}
         )
 
 
@@ -85,5 +85,5 @@ class ProjectView(DetailView, SingleProjectMixin):
     def get_success_url(self):
         return reverse(
             'project',
-            kwargs={'project_uid': self.object.unique_id}
+            kwargs={'project_uuid': self.object.uuid}
         )

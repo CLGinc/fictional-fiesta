@@ -5,13 +5,13 @@
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--blue-500{% endif %}"
            aria-hidden="true">list</i>
-           {% if selected_project.unique_id in request.path %}
-           Project<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_project.unique_id}}</span>
+           {% if selected_project.uuid|stringformat:"s" in request.path %}
+           Project<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_project.uuid}}</span>
            {% else %}
            Projects
            {% endif %}
       </a>
-      {% if selected_project.unique_id in request.path %}
+      {% if selected_project.uuid|stringformat:"s" in request.path %}
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
@@ -56,13 +56,13 @@
          href="{% url 'protocols_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--blue-500{% endif %}"
            aria-hidden="true">assignment</i>
-           {% if selected_protocol.unique_id in request.path %}
-            Protocol<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_protocol.unique_id}}</span>
+           {% if selected_protocol.uuid|stringformat:"s" in request.path %}
+            Protocol<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_protocol.uuid}}</span>
            {% else %}
            Protocols
            {% endif %}
       </a>
-      {% if selected_protocol.unique_id in request.path %}
+      {% if selected_protocol.uuid|stringformat:"s" in request.path %}
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
@@ -116,13 +116,13 @@
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--blue-500{% endif %}"
            aria-hidden="true">list</i>
-           {% if selected_project.unique_id in request.path %}
-           Project<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_project.unique_id}}</span>
+           {% if selected_project.uuid|stringformat:"s" in request.path %}
+           Project<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_project.uuid}}</span>
            {% else %}
            Projects
            {% endif %}
       </a>
-      {% if selected_project.unique_id in request.path %}
+      {% if selected_project.uuid|stringformat:"s" in request.path %}
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
@@ -167,13 +167,13 @@
          href="{% url 'protocols_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--blue-500{% endif %}"
            aria-hidden="true">assignment</i>
-           {% if selected_protocol.unique_id in request.path %}
-            Protocol<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_protocol.unique_id}}</span>
+           {% if selected_protocol.uuid|stringformat:"s" in request.path %}
+            Protocol<span class="mdl-color-text--blue-grey-300 mdc-typography--caption">#{{selected_protocol.uuid}}</span>
            {% else %}
            Protocols
            {% endif %}
       </a>
-      {% if selected_protocol.unique_id in request.path %}
+      {% if selected_protocol.uuid|stringformat:"s" in request.path %}
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">

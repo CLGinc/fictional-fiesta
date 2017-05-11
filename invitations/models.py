@@ -1,8 +1,9 @@
+import uuid
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-
-from .utils import generate_key
+from django.apps import apps
 
 from researchers.models import Role
 
@@ -10,6 +11,11 @@ from researchers.models import Role
 class Invitation(models.Model):
     DEFAULT_ROLE = 'watcher'
 
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
@@ -37,11 +43,6 @@ class Invitation(models.Model):
         max_length=255,
         choices=Role.ROLES_TO_INVITE,
         default=DEFAULT_ROLE)
-    key = models.CharField(
-        unique=True,
-        default=generate_key,
-        max_length=64,
-        editable=False)
     accepted = models.BooleanField(default=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -64,39 +65,39 @@ class Invitation(models.Model):
 
     def clean(self):
         if not(self.project or self.protocol):
-            raise ValidationError('You must choose \
-either project or protocol!')
+            raise ValidationError('You must choose either project or protocol!')
         if self.project and self.protocol:
-            raise ValidationError('You cannot select \
-project and protocol for the same invitation!')
-        if self.project and \
-            self.inviter.roles.filter(project=self.project).exclude(
-                role__in=Role.ROLES_CAN_EDIT):
-            raise ValidationError('You cannot invite \
-researchers to this project')
-        if self.protocol and \
-            self.inviter.roles.filter(protocol=self.protocol).exclude(
-                role__in=Role.ROLES_CAN_EDIT):
-            raise ValidationError('You cannot invite \
-researchers to this protocol')
-        if self.inviter == self.invited:
-            raise ValidationError('Inviter \
-and invited cannot be the same')
+            raise ValidationError('You cannot select project and protocol for the same invitation!')
+        if hasattr(self, 'inviter'):
+            if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_EDIT).exists()):
+                raise ValidationError('You cannot invite researchers to this project')
+            if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
+                raise ValidationError('You cannot invite researchers to this protocol')
+        if hasattr(self, 'inviter') and hasattr(self, 'invited'):
+            if self.inviter == self.invited:
+                raise ValidationError('Inviter and invited cannot be the same')
         if self.accepted and not(self.invited):
-            raise ValidationError('Invited \
-cannot be present for invitation that is not accepted')
-        if self.invited and self.project:
-            if self.project.roles.filter(researcher=self.invited):
-                raise ValidationError('Invited is already a participant \
-for the selected project')
-        if self.invited and self.protocol:
-            if self.protocol.roles.filter(researcher=self.invited):
-                raise ValidationError('Invited is already a participant \
-for the selected protocol')
+            raise ValidationError('Invited cannot be present for invitation that is not accepted')
         if self.invited:
+            if self.project:
+                if self.project.roles.filter(researcher=self.invited).exists():
+                    raise ValidationError('Invited is already a participant for the selected project')
+            if self.protocol:
+                if self.protocol.roles.filter(researcher=self.invited).exists():
+                    raise ValidationError('Invited is already a participant for the selected protocol')
             if self.invited.user.email != self.email:
-                raise ValidationError('Selected email address and the \
-email address of the invited cannot be different')
+                raise ValidationError('Selected email address and the email address of the invited cannot be different')
+
+    def save(self, *args, **kwargs):
+        if self.get_invited():
+            setattr(self, 'invited', self.get_invited())
+        super(Invitation, self).save(*args, **kwargs)
+
+    def get_invited(self):
+        ResearcherModel = apps.get_model('researchers', 'Researcher')
+        if ResearcherModel.objects.filter(user__email=self.email).exists():
+            return ResearcherModel.objects.get(user__email=self.email)
+        return None
 
     def send(self):
         # To develop seinding via MJ send API
