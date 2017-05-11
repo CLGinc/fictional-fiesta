@@ -5,7 +5,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from .models import Invitation
-from .forms import CreateInvitationForm
+from .forms import CreateInvitationModelForm
 from researchers.models import Researcher, Role
 from projects.models import Project
 from protocols.models import Protocol
@@ -290,8 +290,8 @@ class InvitationsAjaxTests(TestCase):
         url = reverse('create_invitation')
         data = {
             'email': 'user3@gmail.com',
-            'invitation_object': 'project',
-            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
+            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
+            'role': 'watcher'
         }
         response = self.client.post(
             url,
@@ -390,6 +390,8 @@ class InvitationsFormsTests(TestCase):
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
         self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
+        self.project3 = Project.objects.get(name='Project 3')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
         self.protocol6 = Protocol.objects.get(name='Protocol 6')
@@ -397,45 +399,45 @@ class InvitationsFormsTests(TestCase):
         self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_create_invitation_form_empty(self):
-        form = CreateInvitationForm(data={}, inviter=self.researcher1)
+        form = CreateInvitationModelForm(data={})
         self.assertFalse(form.is_valid())
 
     def test_create_invitation_form_all_fields(self):
         data = {
             'email': 'user3@gmail.com',
-            'invitation_object': 'project',
-            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
+            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
+            'inviter': self.researcher1.pk
         }
-        form = CreateInvitationForm(data=data, inviter=self.researcher1)
+        form = CreateInvitationModelForm(data=data)
         self.assertTrue(form.is_valid())
 
     def test_create_invitation_form_projects_queryset(self):
         data = {
             'email': 'user3@gmail.com',
-            'invitation_object': 'project',
-            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
+            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
+            'inviter': self.researcher1.pk
         }
-        form = CreateInvitationForm(data=data, inviter=self.researcher1)
+        form = CreateInvitationModelForm(data=data)
         expected_projects = [
             self.project1,
             self.project2,
             self.project3,
         ]
-        projects = list(form.fields['object_choice'].queryset)
+        projects = list(form.fields['project'].queryset)
         self.assertEqual(projects, expected_projects)
 
     def test_create_invitation_form_protocols_queryset(self):
         data = {
             'email': 'user3@gmail.com',
-            'invitation_object': 'protocol',
-            'object_choice': '7e453405-5bfe-4ef7-86ba-121ae89c6510'
+            'protocol': '7e453405-5bfe-4ef7-86ba-121ae89c6510',
+            'inviter': self.researcher1.pk
         }
-        form = CreateInvitationForm(data=data, inviter=self.researcher1)
+        form = CreateInvitationModelForm(data=data)
         expected_protocols = [
             self.protocol3,
             self.protocol6,
             self.protocol8,
             self.protocol10,
         ]
-        protocols = list(form.fields['object_choice'].queryset)
+        protocols = list(form.fields['protocol'].queryset)
         self.assertEqual(protocols, expected_protocols)
