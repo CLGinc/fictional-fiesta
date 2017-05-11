@@ -46,6 +46,7 @@ class CreateViewWithFormset(CreateView):
     formset_name = ''
 
     def post(self, request, *args, **kwargs):
+        self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         formset = self.formset_class(request.POST)
@@ -56,7 +57,7 @@ class CreateViewWithFormset(CreateView):
 
     def form_valid(self, form, formset):
         self.object = form.save()
-        formset.instance = self.object.procedure
+        formset.instance = self.formset_instance
         formset.save()
         return super(CreateViewWithFormset, self).form_valid(form)
 
@@ -133,7 +134,6 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
     form_class = BasicProtocolForm
     formset_class = StepsFormset
     formset_name = 'steps_formset'
-    formset_instance = None
 
     def get_success_url(self):
         return reverse(
@@ -185,7 +185,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocolResult(CreateView):
+class CreateProtocolResult(CreateViewWithFormset):
     template_name = 'protocol_create_result.html'
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
@@ -211,7 +211,7 @@ class CreateProtocolResult(CreateView):
     def get_context_data(self, **kwargs):
         self.protocol = self.get_protocol()
         context = dict()
-        context['selected_protocol'] = self.get_protocol()
+        context['selected_protocol'] = self.protocol
         context.update(
             super(CreateProtocolResult, self).get_context_data(**kwargs)
         )
@@ -238,6 +238,9 @@ class CreateProtocolResult(CreateView):
                 {'verbose_name': queryset.model._meta.verbose_name}
             )
         return protocol
+
+    def get_formset_instance(self):
+        return self.object
 
 
 @method_decorator(login_required, name='dispatch')
