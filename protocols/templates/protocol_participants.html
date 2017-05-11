@@ -55,10 +55,7 @@
           {% endfor %}
         </select>
       </div>
-      <select class="hidden" name="invitation_object" value="protocol">
-        <option selected value="protocol">protocol</option>
-      </select>
-      <select class="hidden" name="object_choice" value="{{ selected_protocol.uuid }}">
+      <select class="hidden" name="protocol" value="{{ selected_protocol.uuid }}">
         <option selected value="{{ selected_protocol.uuid }}">{{ selected_protocol.uuid }}</option>
       </select>
       <div data-content="result" class="mdc-typography--caption result"></div>
@@ -84,10 +81,7 @@
           {% endfor %}
         </select>
       </div>
-      <select class="hidden" name="invitation_object" value="protocol">
-        <option selected value="protocol">protocol</option>
-      </select>
-      <select class="hidden" name="object_choice" value="{{ selected_protocol.uuid }}">
+      <select class="hidden" name="protocol" value="{{ selected_protocol.uuid }}">
         <option selected value="{{ selected_protocol.uuid }}">{{ selected_protocol.uuid }}</option>
       </select>
       <div data-content="result" class="mdc-typography--caption result"></div>
