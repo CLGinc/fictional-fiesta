@@ -405,39 +405,37 @@ class InvitationsFormsTests(TestCase):
     def test_create_invitation_form_all_fields(self):
         data = {
             'email': 'user3@gmail.com',
-            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
-            'inviter': self.researcher1.pk
+            'project': self.project1.pk,
+            'inviter': str(self.researcher1.pk),
+            'role': 'watcher'
         }
         form = CreateInvitationModelForm(data=data)
         self.assertTrue(form.is_valid())
 
-    def test_create_invitation_form_projects_queryset(self):
+    def test_cannot_create_project_invitation_form(self):
         data = {
-            'email': 'user3@gmail.com',
-            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
-            'inviter': self.researcher1.pk
+            'email': 'test@gmail.com',
+            'project': self.project1.pk,
+            'inviter': str(self.researcher3.pk),
+            'role': 'watcher'
         }
         form = CreateInvitationModelForm(data=data)
-        expected_projects = [
-            self.project1,
-            self.project2,
-            self.project3,
-        ]
-        projects = list(form.fields['project'].queryset)
-        self.assertEqual(projects, expected_projects)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors,
+            {'__all__': ['You cannot invite researchers to this project']}
+        )
 
-    def test_create_invitation_form_protocols_queryset(self):
+    def test_cannot_create_protocol_invitation_form(self):
         data = {
-            'email': 'user3@gmail.com',
-            'protocol': '7e453405-5bfe-4ef7-86ba-121ae89c6510',
-            'inviter': self.researcher1.pk
+            'email': 'test@gmail.com',
+            'protocol': self.protocol1.pk,
+            'inviter': str(self.researcher1.pk),
+            'role': 'watcher'
         }
         form = CreateInvitationModelForm(data=data)
-        expected_protocols = [
-            self.protocol3,
-            self.protocol6,
-            self.protocol8,
-            self.protocol10,
-        ]
-        protocols = list(form.fields['protocol'].queryset)
-        self.assertEqual(protocols, expected_protocols)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors,
+            {'__all__': ['You cannot invite researchers to this protocol']}
+        )
