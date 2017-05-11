@@ -16,7 +16,7 @@ class CreateInvitationModelForm(forms.ModelForm):
             'protocol',
             'project',
             'role',
-            ]
+        ]
 
 
 class CreateInvitationForm(forms.Form):
@@ -29,7 +29,7 @@ class CreateInvitationForm(forms.Form):
     invitation_object = forms.ChoiceField(choices=INVITATION_FOR)
     object_choice = forms.ModelChoiceField(
         queryset=None,
-        to_field_name='unique_id')
+        to_field_name='uuid')
 
     def __init__(self, *args, **kwargs):
         self.inviter = kwargs.pop('inviter')

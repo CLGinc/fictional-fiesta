@@ -1,50 +1,47 @@
 [
-{
-  "model": "projects.project",
-  "pk": 1,
-  "fields": {
-    "unique_id": "0f570c02",
-    "name": "Project 1",
-    "description": "A project to create liquid fart",
-    "datetime_created": "2016-11-21T09:46:31.099Z",
-    "sources": [],
-    "protocols": [
-      1,
-      3,
-      7
-    ]
+  {
+    "model": "projects.project",
+    "pk": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
+    "fields": {
+      "name": "Project 1",
+      "description": "A project to create liquid fart",
+      "datetime_created": "2016-11-21T09:46:31.099Z",
+      "sources": [],
+      "protocols": [
+        "76be5b8b-2bde-4f19-a472-044213a037e3",
+        "7e453405-5bfe-4ef7-86ba-121ae89c6510",
+        "197762a9-31ab-4fae-b202-0a3ab93ee9be"
+      ]
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": "bc155dad-5694-482d-9bf6-37f3a84825de",
+    "fields": {
+      "name": "Project 2",
+      "description": "Molding plates in sauce",
+      "datetime_created": "2016-11-22T09:46:31.099Z",
+      "sources": [],
+      "protocols": [
+        "6e4d02b7-52e4-43e4-9201-b3a20395442b",
+        "64f11865-ddfe-4d44-ace8-c9e60a281595",
+        "fe53a689-5a9f-4492-abad-92bbf51994a4"
+      ]
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": "b710deae-8650-492b-92f3-3bf5b973295d",
+    "fields": {
+      "name": "Project 3",
+      "description": "Melting keyboards in water",
+      "datetime_created": "2016-11-23T09:46:31.099Z",
+      "sources": [],
+      "protocols": [
+        "7e453405-5bfe-4ef7-86ba-121ae89c6510",
+        "6e4d02b7-52e4-43e4-9201-b3a20395442b",
+        "fe53a689-5a9f-4492-abad-92bbf51994a4"
+      ]
+    }
   }
-},
-{
-  "model": "projects.project",
-  "pk": 2,
-  "fields": {
-    "unique_id": "0f570c01",
-    "name": "Project 2",
-    "description": "Molding plates in sauce",
-    "datetime_created": "2016-11-22T09:46:31.099Z",
-    "sources": [],
-    "protocols": [
-      5,
-      9,
-      10
-    ]
-  }
-},
-{
-  "model": "projects.project",
-  "pk": 3,
-  "fields": {
-    "unique_id": "0f570c03",
-    "name": "Project 3",
-    "description": "Melting keyboards in water",
-    "datetime_created": "2016-11-23T09:46:31.099Z",
-    "sources": [],
-    "protocols": [
-      3,
-      5,
-      10
-    ]
-  }
-}
 ]

@@ -136,7 +136,7 @@
           data-currentpage="{{ page_obj.number }}">
         {% for role in roles_list_page %}
         <li class="border--bottom">
-          <a href="{% url 'protocol' protocol_uid=role.protocol.unique_id %}"
+          <a href="{% url 'protocol' protocol_uuid=role.protocol.uuid %}"
              class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>

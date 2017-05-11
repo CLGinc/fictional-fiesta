@@ -127,7 +127,7 @@ class Researcher(models.Model):
             protocols = Protocol.objects.filter(
                 roles__researcher=self,
                 roles__project=None
-            ).exclude(id__in=[o.id for o in project.protocols.all()])
+            ).exclude(uuid__in=project.protocols.all())
             return protocols
         else:
             return Protocol.objects.none()
@@ -135,7 +135,7 @@ class Researcher(models.Model):
     def get_sources_to_add(self, project):
         if self.can_edit(project):
             sources = self.sources.all().exclude(
-                id__in=[o.id for o in project.sources.all()]
+                id__in=project.sources.all()
             )
             return sources
         else:

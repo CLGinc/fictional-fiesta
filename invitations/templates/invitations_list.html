@@ -36,9 +36,9 @@
                 {% elif invitation.is_expired %}
                 <button class="mdc-button center" disabled>Expired</button>
                 {% else %}
-                  <form method="post" action="{% url 'accept_invitation' key=invitation.key %}">
+                  <form method="post" action="{% url 'accept_invitation' uuid=invitation.uuid %}">
                     {% csrf_token %}
-                    <input class="hidden" name="key" value="{{ invitation.key }}" type="text" required />
+                    <input class="hidden" name="uuid" value="{{ invitation.uuid }}" type="text" required />
                     <button class="mdc-button center mdl-color-text--blue-500"
                     data-mdc-auto-init="MDCRipple">
                     Accept

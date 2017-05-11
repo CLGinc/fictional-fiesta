@@ -1,10 +1,10 @@
+import uuid
+
 from django.apps import apps
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.core.exceptions import ValidationError
-
-from .utils import generate_uid
 
 
 class Asset(models.Model):
@@ -27,10 +27,11 @@ class Protocol(models.Model):
     )
     DEFAULT_LABEL = 'standard'
 
-    unique_id = models.CharField(
-        max_length=8,
-        unique=True,
-        default=generate_uid)
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=1024, blank=True)
     label = models.CharField(max_length=20, default=DEFAULT_LABEL, choices=LABELS)
@@ -114,10 +115,11 @@ class Result(models.Model):
         ('finished', 'Finished'),
     )
 
-    unique_id = models.CharField(
-        max_length=8,
-        unique=True,
-        default=generate_uid)
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     note = models.CharField(max_length=255, null=True, blank=True)
     owner = models.ForeignKey('researchers.Researcher', related_name='results')
     state = models.CharField(

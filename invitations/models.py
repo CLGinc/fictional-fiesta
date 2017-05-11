@@ -1,8 +1,8 @@
+import uuid
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-
-from .utils import generate_key
 
 from researchers.models import Role
 
@@ -10,6 +10,11 @@ from researchers.models import Role
 class Invitation(models.Model):
     DEFAULT_ROLE = 'watcher'
 
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
         'researchers.Researcher',
@@ -37,11 +42,6 @@ class Invitation(models.Model):
         max_length=255,
         choices=Role.ROLES_TO_INVITE,
         default=DEFAULT_ROLE)
-    key = models.CharField(
-        unique=True,
-        default=generate_key,
-        max_length=64,
-        editable=False)
     accepted = models.BooleanField(default=False)
     expiration_days = models.PositiveSmallIntegerField(default=3)
     datetime_created = models.DateTimeField(auto_now_add=True)

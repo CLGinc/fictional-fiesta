@@ -7,16 +7,16 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Label</div>
   </li>
 </ul>
-<form id="form--protocols" method="post" action="{% url 'project_add_protocols' project_uid=object.unique_id %}">
+<form id="form--protocols" method="post" action="{% url 'project_add_protocols' project_uuid=object.uuid %}">
   {% csrf_token %}
   <ul class="mdc-list padding-0">
     {% for protocol in form.element_choices.field.queryset %}
-    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.unique_id }}"
-        id="{{ protocol.unique_id }}"
+    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.uuid }}"
+        id="{{ protocol.uuid }}"
         class="border--bottom mdc-layout-grid padding-8 margin--none list--link links--wrap">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--none">
         <div class="mdc-checkbox checkbox-fix">
-          <input type="checkbox" name="element_choices" value="{{ protocol.unique_id }}" id="checkbox_{{ protocol.unique_id }}" class="mdc-checkbox__native-control"/>
+          <input type="checkbox" name="element_choices" value="{{ protocol.uuid }}" id="checkbox_{{ protocol.uuid }}" class="mdc-checkbox__native-control"/>
           <div class="mdc-checkbox__background">
             <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
               <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>

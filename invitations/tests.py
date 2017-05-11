@@ -27,8 +27,8 @@ class InvitationsTests(TestCase):
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
-        self.project1 = Project.objects.get(id=1)
-        self.protocol1 = Protocol.objects.get(id=1)
+        self.project1 = Project.objects.get(name='Project 1')
+        self.protocol1 = Protocol.objects.get(name='Protocol 1')
 
     def test_invitation_without_project_or_protocol(self):
         invitation = Invitation(
@@ -234,7 +234,7 @@ class InvitationsTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'key': invitation.key})
+        url = reverse('assign_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.get(url)
         self.assertRedirects(response, reverse('invitations_list'))
         invitation.refresh_from_db()
@@ -242,7 +242,7 @@ class InvitationsTests(TestCase):
 
     def test_get_assign_invitation_404(self):
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'key': 'VzdL6HFJcfvrEZTq5voFqYSJ6rTcAv1Zx86eYoSYv30jBVvlR83vdgbcPMs2VYEw'})
+        url = reverse('assign_invitation', kwargs={'uuid': '74369692-6844-430d-bff2-90904fc3094e'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -261,7 +261,7 @@ class InvitationsAjaxTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.researcher1 = Researcher.objects.get(id=1)
-        self.project1 = Project.objects.get(id=1)
+        self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_create_invitation_no_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -291,7 +291,7 @@ class InvitationsAjaxTests(TestCase):
         data = {
             'email': 'user3@gmail.com',
             'invitation_object': 'project',
-            'object_choice': '0f570c02'
+            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
         }
         response = self.client.post(
             url,
@@ -313,7 +313,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 405)
 
@@ -324,10 +324,10 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.post(
             url,
-            {'key': invitation.key},
+            {'uuid': invitation.uuid},
         )
         self.assertEqual(response.status_code, 403)
 
@@ -338,7 +338,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.get(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
@@ -354,7 +354,7 @@ class InvitationsAjaxTests(TestCase):
         invitation.datetime_created -= timezone.timedelta(3)
         invitation.save()
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.post(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -367,7 +367,7 @@ class InvitationsAjaxTests(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'key': invitation.key})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
         response = self.client.post(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -389,8 +389,12 @@ class InvitationsFormsTests(TestCase):
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
-        self.project1 = Project.objects.get(id=1)
-        self.protocol1 = Protocol.objects.get(id=1)
+        self.project1 = Project.objects.get(name='Project 1')
+        self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
+        self.protocol8 = Protocol.objects.get(name='Protocol 8')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_create_invitation_form_empty(self):
         form = CreateInvitationForm(data={}, inviter=self.researcher1)
@@ -400,7 +404,7 @@ class InvitationsFormsTests(TestCase):
         data = {
             'email': 'user3@gmail.com',
             'invitation_object': 'project',
-            'object_choice': '0f570c02'
+            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
         }
         form = CreateInvitationForm(data=data, inviter=self.researcher1)
         self.assertTrue(form.is_valid())
@@ -409,13 +413,13 @@ class InvitationsFormsTests(TestCase):
         data = {
             'email': 'user3@gmail.com',
             'invitation_object': 'project',
-            'object_choice': '0f570c02'
+            'object_choice': '808d85c6-8fdb-478d-994a-aab8496ef4cb'
         }
         form = CreateInvitationForm(data=data, inviter=self.researcher1)
         expected_projects = [
-            Project.objects.get(id=1),
-            Project.objects.get(id=2),
-            Project.objects.get(id=3),
+            self.project1,
+            self.project2,
+            self.project3,
         ]
         projects = list(form.fields['object_choice'].queryset)
         self.assertEqual(projects, expected_projects)
@@ -424,14 +428,14 @@ class InvitationsFormsTests(TestCase):
         data = {
             'email': 'user3@gmail.com',
             'invitation_object': 'protocol',
-            'object_choice': '3e39fed1'
+            'object_choice': '7e453405-5bfe-4ef7-86ba-121ae89c6510'
         }
         form = CreateInvitationForm(data=data, inviter=self.researcher1)
         expected_protocols = [
-            Protocol.objects.get(id=3),
-            Protocol.objects.get(id=6),
-            Protocol.objects.get(id=8),
-            Protocol.objects.get(id=10),
+            self.protocol3,
+            self.protocol6,
+            self.protocol8,
+            self.protocol10,
         ]
         protocols = list(form.fields['object_choice'].queryset)
         self.assertEqual(protocols, expected_protocols)

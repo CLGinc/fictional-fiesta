@@ -4,7 +4,7 @@
   </span>
   {% if can_edit %}
   <a data-mdc-auto-init="MDCRipple"
-     href="{% url 'create_protocol_result' protocol_uid=selected_protocol.unique_id %}"
+     href="{% url 'create_protocol_result' protocol_uuid=selected_protocol.uuid %}"
      class="mdc-button mdl-color-text--blue-grey-600 right">
     <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add result
   </a>
@@ -28,7 +28,7 @@
 <ul class="mdc-list padding-0">
   {% for result in selected_protocol.results.all %}
   <li class="border--bottom mdc-layout-grid margin--none padding-0">
-    <a href="{% url 'protocol_result' protocol_uid=selected_protocol.unique_id result_uid=result.unique_id %}"
+    <a href="{% url 'protocol_result' protocol_uuid=selected_protocol.uuid result_uuid=result.uuid %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.note|truncatechars:45 }}</div>

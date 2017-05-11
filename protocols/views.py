@@ -14,8 +14,8 @@ from .forms import BasicResultForm, DataColumnsFormset
 
 
 class SinglePrototolMixin(SingleObjectMixin):
-    slug_field = 'unique_id'
-    slug_url_kwarg = 'protocol_uid'
+    slug_field = 'uuid'
+    slug_url_kwarg = 'protocol_uuid'
 
     def get_queryset(self):
         return Protocol.objects.filter(
@@ -24,13 +24,13 @@ class SinglePrototolMixin(SingleObjectMixin):
 
 
 class SinglePrototolResultMixin(SingleObjectMixin):
-    slug_field = 'unique_id'
-    slug_url_kwarg = 'result_uid'
+    slug_field = 'uuid'
+    slug_url_kwarg = 'result_uuid'
 
     def get_queryset(self):
         try:
             selected_protocol = Protocol.objects.get(
-                unique_id=self.kwargs['protocol_uid'],
+                uuid=self.kwargs['protocol_uuid'],
                 roles__researcher=self.request.user.researcher
             )
         except Protocol.DoesNotExist:
@@ -117,7 +117,7 @@ class CreateProtocol(CreateViewWithFormset):
     def get_success_url(self):
         return reverse(
             'protocol',
-            kwargs={'protocol_uid': self.object.unique_id}
+            kwargs={'protocol_uuid': self.object.uuid}
         )
 
     def get_form_kwargs(self):
@@ -138,7 +138,7 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
     def get_success_url(self):
         return reverse(
             'protocol',
-            kwargs={'protocol_uid': self.object.unique_id}
+            kwargs={'protocol_uuid': self.object.uuid}
         )
 
     def get_context_data(self, **kwargs):
@@ -190,8 +190,8 @@ class CreateProtocolResult(CreateView):
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'
-    protocol_slug_field = 'unique_id'
-    protocol_slug_url_kwarg = 'protocol_uid'
+    protocol_slug_field = 'uuid'
+    protocol_slug_url_kwarg = 'protocol_uuid'
 
     def get(self, request, *args, **kwargs):
         return super(CreateProtocolResult, self).get(request, *args, **kwargs)
@@ -203,8 +203,8 @@ class CreateProtocolResult(CreateView):
         return reverse(
             'protocol_result',
             kwargs={
-                'protocol_uid': self.object.protocol.unique_id,
-                'result_uid': self.object.unique_id,
+                'protocol_uuid': self.object.protocol.uuid,
+                'result_uuid': self.object.uuid,
             }
         )
 
@@ -253,8 +253,8 @@ class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
         return reverse(
             'protocol_result',
             kwargs={
-                'protocol_uid': self.object.protocol.unique_id,
-                'result_uid': self.object.unique_id,
+                'protocol_uuid': self.object.protocol.uuid,
+                'result_uuid': self.object.uuid,
             }
         )
 

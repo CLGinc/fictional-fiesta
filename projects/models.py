@@ -1,14 +1,15 @@
+import uuid
+
 from django.db import models
 from django.apps import apps
 
-from .utils import generate_uid
-
 
 class Project(models.Model):
-    unique_id = models.CharField(
-        max_length=8,
-        unique=True,
-        default=generate_uid)
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=1024, blank=True)
     sources = models.ManyToManyField(
