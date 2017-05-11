@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.apps import apps
 
 from researchers.models import Role
 
@@ -86,6 +87,17 @@ class Invitation(models.Model):
                     raise ValidationError('Invited is already a participant for the selected protocol')
             if self.invited.user.email != self.email:
                 raise ValidationError('Selected email address and the email address of the invited cannot be different')
+
+    def save(self, *args, **kwargs):
+        if self.get_invited():
+            setattr(self, 'invited', self.get_invited())
+        super(Invitation, self).save(*args, **kwargs)
+
+    def get_invited(self):
+        ResearcherModel = apps.get_model('researchers', 'Researcher')
+        if ResearcherModel.objects.filter(user__email=self.email).exists():
+            return ResearcherModel.objects.get(user__email=self.email)
+        return None
 
     def send(self):
         # To develop seinding via MJ send API
