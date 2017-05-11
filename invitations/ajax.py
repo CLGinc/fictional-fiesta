@@ -14,7 +14,7 @@ class CreateInvitation(View):
     def post(self, request, *args, **kwargs):
         if self.request.is_ajax():
             post = request.POST.copy()
-            post['inviter'] = request.user.researcher.pk
+            post['inviter'] = str(request.user.researcher.pk)
             model_form = CreateInvitationModelForm(post or None)
             if model_form.is_valid():
                 model_form.save()
