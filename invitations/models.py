@@ -64,39 +64,28 @@ class Invitation(models.Model):
 
     def clean(self):
         if not(self.project or self.protocol):
-            raise ValidationError('You must choose \
-either project or protocol!')
+            raise ValidationError('You must choose either project or protocol!')
         if self.project and self.protocol:
-            raise ValidationError('You cannot select \
-project and protocol for the same invitation!')
-        if self.project and \
-            self.inviter.roles.filter(project=self.project).exclude(
-                role__in=Role.ROLES_CAN_EDIT):
-            raise ValidationError('You cannot invite \
-researchers to this project')
-        if self.protocol and \
-            self.inviter.roles.filter(protocol=self.protocol).exclude(
-                role__in=Role.ROLES_CAN_EDIT):
-            raise ValidationError('You cannot invite \
-researchers to this protocol')
-        if self.inviter == self.invited:
-            raise ValidationError('Inviter \
-and invited cannot be the same')
-        if self.accepted and not(self.invited):
-            raise ValidationError('Invited \
-cannot be present for invitation that is not accepted')
-        if self.invited and self.project:
-            if self.project.roles.filter(researcher=self.invited):
-                raise ValidationError('Invited is already a participant \
-for the selected project')
-        if self.invited and self.protocol:
-            if self.protocol.roles.filter(researcher=self.invited):
-                raise ValidationError('Invited is already a participant \
-for the selected protocol')
+            raise ValidationError('You cannot select project and protocol for the same invitation!')
+        if hasattr(self, 'inviter'):
+            if self.project and self.inviter.roles.filter(project=self.project).exclude(role__in=Role.ROLES_CAN_EDIT):
+                raise ValidationError('You cannot invite researchers to this project')
+            if self.protocol and self.inviter.roles.filter(protocol=self.protocol).exclude(role__in=Role.ROLES_CAN_EDIT):
+                    raise ValidationError('You cannot invite researchers to this protocol')
+        if hasattr(self, 'inviter') and hasattr(self, 'invited'):
+            if self.inviter == self.invited:
+                raise ValidationError('Inviter and invited cannot be the same')
+        if self.accepted and not(hasattr(self, 'invited')):
+            raise ValidationError('Invited cannot be present for invitation that is not accepted')
         if self.invited:
+            if self.project:
+                if self.project.roles.filter(researcher=self.invited):
+                    raise ValidationError('Invited is already a participant for the selected project')
+            if self.protocol:
+                if self.protocol.roles.filter(researcher=self.invited):
+                    raise ValidationError('Invited is already a participant for the selected protocol')
             if self.invited.user.email != self.email:
-                raise ValidationError('Selected email address and the \
-email address of the invited cannot be different')
+                raise ValidationError('Selected email address and the email address of the invited cannot be different')
 
     def send(self):
         # To develop seinding via MJ send API
