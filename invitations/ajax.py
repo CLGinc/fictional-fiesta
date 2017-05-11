@@ -1,31 +1,60 @@
 from django.http import HttpResponseForbidden, HttpResponse
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.core.urlresolvers import reverse
+from django.views.generic.edit import CreateView
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-from .forms import CreateInvitationModelForm
+from .models import Invitation
 from .views import SingleInvitationMixin
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateInvitation(View):
-    def post(self, request, *args, **kwargs):
+class CreateInvitation(CreateView):
+    model = Invitation
+    fields = [
+        'email',
+        'inviter',
+        'invited',
+        'protocol',
+        'project',
+        'role',
+    ]
+    http_method_names = ['post']
+
+    def form_invalid(self, form):
+        super(CreateInvitation, self).form_invalid(form)
         if self.request.is_ajax():
-            post = request.POST.copy()
-            post['inviter'] = str(request.user.researcher.pk)
-            model_form = CreateInvitationModelForm(post or None)
-            if model_form.is_valid():
-                model_form.save()
-                return HttpResponse('Invitation to {} created and sent!'.format(
-                    model_form.cleaned_data['email'])
-                )
-            else:
-                return HttpResponseBadRequest(
-                    reason=model_form.errors.as_json()
-                )
-        return HttpResponseForbidden()
+            return HttpResponseBadRequest(
+                reason=form.errors.as_json()
+            )
+            # return JsonResponse(form.errors, status=400)
+        else:
+            return HttpResponseForbidden()
+
+    def form_valid(self, form):
+        super(CreateInvitation, self).form_valid(form)
+        if self.request.is_ajax():
+            return HttpResponse('Invitation to {} created and sent!'.format(
+                form.cleaned_data['email'])
+            )
+            # data = {
+            #     'pk': self.object.pk,
+            # }
+            # return JsonResponse(data)
+        else:
+            return HttpResponseForbidden()
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateInvitation, self).get_form_kwargs()
+        kwargs['data'] = kwargs['data'].copy()
+        kwargs['data']['inviter'] = str(self.request.user.researcher.pk)
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('invitations_list')
 
 
 @method_decorator(login_required, name='dispatch')

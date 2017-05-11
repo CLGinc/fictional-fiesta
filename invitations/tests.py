@@ -5,7 +5,6 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from .models import Invitation
-from .forms import CreateInvitationModelForm
 from researchers.models import Researcher, Role
 from projects.models import Project
 from protocols.models import Protocol
@@ -372,70 +371,3 @@ class InvitationsAjaxTests(TestCase):
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-
-
-class InvitationsFormsTests(TestCase):
-    fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
-        'projects/fixtures/projects',
-        'protocols/fixtures/protocols',
-    ]
-
-    def setUp(self):
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher2 = Researcher.objects.get(id=2)
-        self.researcher3 = Researcher.objects.get(id=3)
-        self.project1 = Project.objects.get(name='Project 1')
-        self.project2 = Project.objects.get(name='Project 2')
-        self.project3 = Project.objects.get(name='Project 3')
-        self.protocol1 = Protocol.objects.get(name='Protocol 1')
-        self.protocol3 = Protocol.objects.get(name='Protocol 3')
-        self.protocol6 = Protocol.objects.get(name='Protocol 6')
-        self.protocol8 = Protocol.objects.get(name='Protocol 8')
-        self.protocol10 = Protocol.objects.get(name='Protocol 10')
-
-    def test_create_invitation_form_empty(self):
-        form = CreateInvitationModelForm(data={})
-        self.assertFalse(form.is_valid())
-
-    def test_create_invitation_form_all_fields(self):
-        data = {
-            'email': 'user3@gmail.com',
-            'project': self.project1.pk,
-            'inviter': str(self.researcher1.pk),
-            'role': 'watcher'
-        }
-        form = CreateInvitationModelForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_cannot_create_project_invitation_form(self):
-        data = {
-            'email': 'test@gmail.com',
-            'project': self.project1.pk,
-            'inviter': str(self.researcher3.pk),
-            'role': 'watcher'
-        }
-        form = CreateInvitationModelForm(data=data)
-        self.assertFalse(form.is_valid())
-        self.assertEqual(
-            form.errors,
-            {'__all__': ['You cannot invite researchers to this project']}
-        )
-
-    def test_cannot_create_protocol_invitation_form(self):
-        data = {
-            'email': 'test@gmail.com',
-            'protocol': self.protocol1.pk,
-            'inviter': str(self.researcher1.pk),
-            'role': 'watcher'
-        }
-        form = CreateInvitationModelForm(data=data)
-        self.assertFalse(form.is_valid())
-        self.assertEqual(
-            form.errors,
-            {'__all__': ['You cannot invite researchers to this protocol']}
-        )
