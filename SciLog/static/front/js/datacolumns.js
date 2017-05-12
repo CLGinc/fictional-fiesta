@@ -21,7 +21,7 @@ var updateDataColumns = function(){
   $('#id_data_columns-TOTAL_FORMS').val(totalForms);
   $(dataColumns).each(function(){
     $(this).attr('data-order', index);
-    $(this).children('[data-content="order"]').attr('name', prefix+index+'-order');
+    $(this).children('[data-content="order"]').attr('name', prefix+index+'-order').attr('value', index).val(index);
     $(this).children('[data-content="data-merged"]').attr('name', prefix+index+'-data');
     $(this).find('[data-content="label"]').attr('name', prefix+index+'-label');
     $(this).find('[data-content="measurement"]').attr('name', prefix+index+'-measurement');
