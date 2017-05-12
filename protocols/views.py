@@ -57,6 +57,7 @@ class CreateViewWithFormset(CreateView):
 
     def form_valid(self, form, formset):
         self.object = form.save()
+        self.formset_instance = self.get_formset_instance()
         formset.instance = self.formset_instance
         formset.save()
         return super(CreateViewWithFormset, self).form_valid(form)
@@ -128,6 +129,9 @@ class CreateProtocol(CreateViewWithFormset):
         kwargs = super(CreateProtocol, self).get_form_kwargs()
         kwargs['researcher'] = self.request.user.researcher
         return kwargs
+
+    def get_formset_instance(self):
+        return self.object.procedure
 
 
 @method_decorator(login_required, name='dispatch')
