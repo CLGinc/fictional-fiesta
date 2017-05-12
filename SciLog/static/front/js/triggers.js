@@ -304,8 +304,7 @@ $('[data-trigger="submit-result"]').click(function(){
           var value = $(this).val();
           data.push(value);
         });
-        data = { 'Data': data };
-        $(this).find('[data-content="data-merged"]').val(encodeURIComponent(JSON.stringify( data )));
+        $(this).find('[data-content="data-merged"]').html(JSON.stringify({Data: data}));
       });
   $('#'+targetForm).submit();
 });
