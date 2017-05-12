@@ -99,11 +99,7 @@
                   <!-- Order input -->
                   <input type="text" class="hidden"
                          data-content="step-input"
-                         {% if step_form.order.data %}
-                          name="steps-{{ step_form.order.data }}-order"
-                          value="{{ step_form.order.data }}"
-                         {% else %}
-                          name="steps-0-order"
+                          name="steps-{% if step_form.order.data %}{{ step_form.order.data }}{% else %}0{% endif %}-order"
                           value="0"
                          {% endif %}>
                   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
