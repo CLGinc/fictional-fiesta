@@ -176,11 +176,13 @@
                 <tbody>
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input type="text"
-                             class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
-                             data-content="measurement"
-                             {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
+                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
+                        <input type="text"
+                               class="width--full"
+                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
+                               data-content="measurement"
+                               {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
+                      </div>
                       {% if data_column_form.measurement.errors %}
                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                          {{ data_column_form.measurement.errors.as_text }}
@@ -188,11 +190,13 @@
                       {% endif %}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
-                      <input type="text"
-                             class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
-                             data-content="unit"
-                             {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
+                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
+                        <input type="text"
+                               class="width--full"
+                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
+                               data-content="unit"
+                               {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
+                      </div>
                       {% if data_column_form.unit.errors %}
                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                           {{ data_column_form.unit.errors.as_text }}
@@ -213,7 +217,7 @@
                   {% for data in data_column_form.data %}
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input type="text"
+                      <input
                              class="width--full"
                              data-content="data"
                              value="{{ data_column_form.data.data }}">
