@@ -124,7 +124,7 @@
                     <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                       <input class="mdc-textfield__input" type="text"
                              data-content="step-title"
-                             name="steps-0-title"
+                             name="steps-{% if step_form.order.data %}{{ step_form.order.data }}{% else %}0{% endif %}-title"
                              maxlength="255" {% if step_form.title.data %}value="{{ step_form.title.data }}"{% endif %}>
                       <label class="mdc-textfield__label">Step title</label>
                     </div>
@@ -141,7 +141,7 @@
                     <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                       <textarea class="mdc-textfield__input" rows="6" type="text"
                                 data-content="step-desc"
-                                name="steps-0-text"
+                                name="steps-{% if step_form.order.data %}{{ step_form.order.data }}{% else %}0{% endif %}-text"
                                 maxlength="1024" required>{% if step_form.text.data %}{{ step_form.text.data }}{% endif %}</textarea>
                       <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                     </div>
