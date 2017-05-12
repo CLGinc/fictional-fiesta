@@ -226,6 +226,16 @@ class ProjectsFormsTest(TestCase):
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.project1 = Project.objects.get(name='Project 1')
+        self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol2 = Protocol.objects.get(name='Protocol 2')
+        self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol4 = Protocol.objects.get(name='Protocol 4')
+        self.protocol5 = Protocol.objects.get(name='Protocol 5')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
+        self.protocol7 = Protocol.objects.get(name='Protocol 7')
+        self.protocol8 = Protocol.objects.get(name='Protocol 8')
+        self.protocol9 = Protocol.objects.get(name='Protocol 9')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_new_project_form_empty(self):
         form = BasicProjectForm(data={})
@@ -291,9 +301,9 @@ class ProjectsFormsTest(TestCase):
             selected_project=self.project1
         )
         protocols_to_add = [
-            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7'),
-            Protocol.objects.get(uuid='a08eda6a-5a34-42f7-bf06-7392201849fa'),
-            Protocol.objects.get(uuid='fe53a689-5a9f-4492-abad-92bbf51994a4')
+            self.protocol10,
+            self.protocol8,
+            self.protocol6
         ]
         self.assertEqual(
             list(form.fields['element_choices'].queryset),
@@ -326,11 +336,11 @@ class ProjectsFormsTest(TestCase):
         form.is_valid()
         form.add_elements(self.project1)
         expected_protocols = [
-            Protocol.objects.get(uuid='76be5b8b-2bde-4f19-a472-044213a037e3'),
-            Protocol.objects.get(uuid='7e453405-5bfe-4ef7-86ba-121ae89c6510'),
-            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7'),
-            Protocol.objects.get(uuid='197762a9-31ab-4fae-b202-0a3ab93ee9be'),
-            Protocol.objects.get(uuid='a08eda6a-5a34-42f7-bf06-7392201849fa')
+            self.protocol8,
+            self.protocol7,
+            self.protocol6,
+            self.protocol3,
+            self.protocol1
         ]
         self.assertEqual(
             list(self.project1.protocols.all()),

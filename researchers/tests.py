@@ -188,9 +188,9 @@ class ResearchersTest(TestCase):
     def test_get_protocols_to_add(self):
         protocols = list(self.researcher1.get_protocols_to_add(self.project1))
         expected_protocols = [
-            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7'),
+            Protocol.objects.get(uuid='fe53a689-5a9f-4492-abad-92bbf51994a4'),
             Protocol.objects.get(uuid='a08eda6a-5a34-42f7-bf06-7392201849fa'),
-            Protocol.objects.get(uuid='fe53a689-5a9f-4492-abad-92bbf51994a4')
+            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7')
         ]
         self.assertEqual(protocols, expected_protocols)
 
