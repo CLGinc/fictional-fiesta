@@ -242,6 +242,13 @@ class CreateProtocolResult(CreateViewWithFormset):
     def get_formset_instance(self):
         return self.object
 
+    def get_form_kwargs(self):
+        kwargs = super(CreateProtocolResult, self).get_form_kwargs()
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+        return kwargs
+
 
 @method_decorator(login_required, name='dispatch')
 class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
