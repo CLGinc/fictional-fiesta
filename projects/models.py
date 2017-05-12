@@ -22,6 +22,9 @@ class Project(models.Model):
         blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-datetime_created']
+
     def __str__(self):
         return self.name
 
