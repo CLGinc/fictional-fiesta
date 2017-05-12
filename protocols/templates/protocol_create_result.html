@@ -34,20 +34,21 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Result details
       </h1>
-      {% if form.nonfield_errors %}
       <div>
-        {{ form.nonfield_errors }}
-        {% endif %}
         {% if form.nonfield_errors %}
-        {{ steps_formset.nonfield_errors }}
+          {{ form.nonfield_errors }}
+        {% endif %}
+        {% if data_columns_formset.nonfield_errors %}
+          {{ data_columns_formset.nonfield_errors }}
+        {% endif %}
       </div>
-      {% endif %}
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_result_form"
             method="post"
             action="">
         {% csrf_token %}
         {{ data_columns_formset.management_form }}
+        <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
@@ -56,6 +57,8 @@
                 <div class="mdc-checkbox">
                   <input type="checkbox"
                          id="success-checkbox"
+                         name="is_successful"
+                         {% if form.is_successful.data %}checked{% endif %}
                          class="mdc-checkbox__native-control"/>
                   <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark"
@@ -70,17 +73,27 @@
                 </div>
                 <label for="success-checkbox">Success</label>
               </div>
+              {% if form.is_successful.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.is_successful.errors.as_text }}
+                </p>
+              {% endif %}
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <select class="mdc-select margin--none">
-                <option value="" default selected>Select state</option>
-                <option value="created">Created</option>
-                <option value="finished">Finished</option>
+              <select class="mdc-select margin--none" name="state">
+                {% for key, value in form.state.field.choices %}
+                <option value="{{ key }}" {% if form.state.data == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
               </select>
             </div>
+            {% if form.state.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.state.errors.as_text }}
+              </p>
+            {% endif %}
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
@@ -96,17 +109,13 @@
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="note"
-                       maxlength="255" required {% if form.name.data %}value="{{ form.note.data }}"{% endif %}>
+                       maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
                 <label class="mdc-textfield__label">Result note</label>
               </div>
-              {% if form.name.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ form.name.errors.as_text }}
-              </p>
-              {% else %}
-              <p class="mdc-textfield-helptext" aria-hidden="true">
-                This note will be displayed on your protocol page. Maximum of 255 characters.
-              </p>
+              {% if form.note.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.note.errors.as_text }}
+                </p>
               {% endif %}
             </div>
           </div>
@@ -121,22 +130,24 @@
               <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add data column
             </div>
           </div>
+          {% for data_column_form in data_columns_formset.forms %}
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
               <input type="text"
-                     name="data_columns-0-order"
-                     value="0"
+                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
+                     value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
                      data-content="order"
                      class="hidden">
               <input type="text"
-                     name="data_columns-0-data"
+                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-data"
                      value="0"
                      data-content="data-merged"
-                     class="hidden">
+                     class="hidden"
+                     {% if data_column_form.data.data %}value="{{ data_column_form.data.data }}"{% endif %}>
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                   <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Label</th>
+                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
                     <th>
                       <i class="material-icons list--link-remove"
                         data-trigger="remove-table">clear</i>
@@ -148,8 +159,14 @@
                     <td class="mdl-data-table__cell--non-numeric" colspan="3">
                       <input type="text"
                              class="width--full"
-                             name="data_columns-0-label"
-                             data-content="label">
+                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-title"
+                             data-content="title"
+                             {% if data_column_form.title.data %}value="{{ data_column_form.title.data }}"{% endif %}>
+                       {% if data_column_form.title.errors %}
+                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                           {{ data_column_form.title.errors.as_text }}
+                         </p>
+                       {% endif %}
                     </td>
                   </tr>
                 </tbody>
@@ -164,14 +181,26 @@
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
                       <input type="text"
                              class="width--full"
-                             name="data_columns-0-measurement"
-                             data-content="measurement">
+                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
+                             data-content="measurement"
+                             {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
+                      {% if data_column_form.measurement.errors %}
+                       <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                         {{ data_column_form.measurement.errors.as_text }}
+                       </p>
+                      {% endif %}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                       <input type="text"
                              class="width--full"
-                             name="data_columns-0-unit"
-                             data-content="unit">
+                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
+                             data-content="unit"
+                             {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
+                      {% if data_column_form.unit.errors %}
+                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                          {{ data_column_form.unit.errors.as_text }}
+                        </p>
+                      {% endif %}
                     </td>
                   </tr>
                 </tbody>
@@ -189,6 +218,11 @@
                       <input type="text"
                              class="width--full"
                              data-content="data">
+                      {% if data_column_form.data.errors %}
+                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                          {{ data_column_form.data.errors.as_text }}
+                        </p>
+                      {% endif %}
                     </td>
                     <td>
                       <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
@@ -199,6 +233,7 @@
               </table>
             </div>
           </div>
+          {% endfor %}
         </div>
       </form>
     </div>
