@@ -49,8 +49,9 @@ class CreateInvitation(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(CreateInvitation, self).get_form_kwargs()
-        kwargs['data'] = kwargs['data'].copy()
-        kwargs['data']['inviter'] = str(self.request.user.researcher.pk)
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['inviter'] = str(self.request.user.researcher.pk)
         return kwargs
 
     def get_success_url(self):
