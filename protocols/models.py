@@ -139,25 +139,19 @@ class Result(models.Model):
             ordering = ['-datetime_created', 'owner']
 
     def __str__(self):
-        return 'Result {}'.format(self.id)
+        return 'Result for protocol {} owned by {}'.format(self.protocol, self.owner)
 
     def clean(self):
-        if hasattr(self, 'owner'):
-            if not(self.protocol.roles.filter(
-                    researcher=self.owner).exclude(role='watcher').exists()):
-                raise ValidationError({'owner': 'The selected \
-researcher cannot add results to this protocol!'})
+        if hasattr(self, 'owner') and hasattr(self, 'protocol'):
+            if not(self.protocol.roles.filter(researcher=self.owner).exclude(role='watcher').exists()):
+                raise ValidationError({'owner': 'The selected researcher cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
-            raise ValidationError({'is_successful': 'Unfinished \
-result cannot be marked successful!'})
+            raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
-                raise ValidationError('The selected protocol \
-does not belong to the selected project!')
-            if not(self.project.roles.filter(
-                    researcher=self.owner).exclude(role='watcher').exists()):
-                raise ValidationError({'owner': 'The selected researcher \
-cannot add results to this project!'})
+                raise ValidationError('The selected protocol does not belong to the selected project!')
+            if not(self.project.roles.filter(researcher=self.owner).exclude(role='watcher').exists()):
+                raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
 
 
 class Attachment(models.Model):
