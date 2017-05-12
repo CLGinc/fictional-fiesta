@@ -85,12 +85,18 @@ class UpdateViewWithFormset(UpdateView):
     formset_name = ''
     formset_instance = None
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.formset_instance = self.get_formset_instance()
+        return super(UpdateViewWithFormset, self).get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        self.formset_instance = self.get_formset_instance()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         formset = self.formset_class(
-            instance=self.object.procedure,
+            instance=self.formset_instance,
             data=request.POST
         )
         if form.is_valid() and formset.is_valid():
@@ -112,6 +118,7 @@ class UpdateViewWithFormset(UpdateView):
         if 'formset' in kwargs:
             context[self.formset_name] = kwargs['formset']
         else:
+            print(self.formset_instance)
             context[self.formset_name] = self.formset_class(
                 instance=self.formset_instance
             )
@@ -156,11 +163,6 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
             'protocol',
             kwargs={'protocol_uuid': self.object.uuid}
         )
-
-    def get_context_data(self, **kwargs):
-        self.object = self.get_object()
-        self.formset_instance = self.get_formset_instance()
-        return super(UpdateProtocol, self).get_context_data(**kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocol, self).get_form_kwargs()
