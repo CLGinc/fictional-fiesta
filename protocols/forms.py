@@ -42,6 +42,9 @@ class BasicProtocolForm(forms.ModelForm):
         if not(
                 Role.objects.filter(
                     role='owner',
+                    protocol=instance
+                ).exists() or
+                Role.objects.filter(
                     researcher=self.researcher,
                     protocol=instance
                 ).exists()):
