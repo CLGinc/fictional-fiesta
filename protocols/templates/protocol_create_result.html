@@ -8,7 +8,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="change to selected_protocol url">
+         href="{% url 'protocol' protocol_uuid=selected_protocol.uuid %}?section=results">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
