@@ -3,7 +3,7 @@ from django.test.client import Client
 from django.core.exceptions import ValidationError
 
 from .models import Protocol, Result, Asset
-from researchers.models import Researcher
+from researchers.models import Researcher, Role
 from projects.models import Project
 
 
@@ -92,3 +92,17 @@ class ProtocolsTest(TestCase):
         equipment = [a for a in assets[1][1]]
         expected_equipment = [self.asset4, self.asset6]
         self.assertEqual(equipment, expected_equipment)
+
+    def test_get_owner(self):
+        owner = self.protocol1.get_owner()
+        self.assertEqual(owner, self.researcher2)
+
+    def test_get_participants_by_role(self):
+        participants_by_role = list()
+        for role in self.protocol1.get_participants_by_role():
+            participants_by_role.append([role[0], list(role[1])])
+        expected_participants = [
+            ['Owner', [Role.objects.get(protocol=self.protocol1, researcher=self.researcher2)]],
+            ['Watcher', [Role.objects.get(protocol=self.protocol1, researcher=self.researcher1)]]
+        ]
+        self.assertEqual(participants_by_role, expected_participants)
