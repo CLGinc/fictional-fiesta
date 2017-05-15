@@ -1,13 +1,14 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 
 from .models import Protocol, Result, Asset
 from researchers.models import Researcher, Role
 from projects.models import Project
 
 
-class ProtocolsTest(TestCase):
+class ProtocolModelTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -18,7 +19,6 @@ class ProtocolsTest(TestCase):
     ]
 
     def setUp(self):
-        self.client = Client()
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
@@ -106,3 +106,109 @@ class ProtocolsTest(TestCase):
             ['Watcher', [Role.objects.get(protocol=self.protocol1, researcher=self.researcher1)]]
         ]
         self.assertEqual(participants_by_role, expected_participants)
+
+
+class ProtocolViewTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'projects/fixtures/projects',
+        'researchers/fixtures/roles',
+        'protocols/fixtures/protocols'
+    ]
+
+    def setUp(self):
+        self.client = Client()
+        self.researcher1 = Researcher.objects.get(pk=1)
+        self.protocol3 = Protocol.objects.get(name='Protocol 3')
+
+    def test_get_protocols_list(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('protocols_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_protocol(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('protocol', kwargs={'protocol_uuid': '76be5b8b-2bde-4f19-a472-044213a037e3'})  # Protocol 1
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_protocol_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('create_protocol')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_protocol_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('create_protocol')
+        response = self.client.post(
+            url,
+            data={
+                'steps-TOTAL_FORMS': '3',
+                'steps-INITIAL_FORMS': '0',
+                'steps-MIN_NUM_FORMS': '1',
+                'steps-MAX_NUM_FORMS': '64',
+                'name': 'New Protocol',
+                'label': 'modified',
+                'steps-0-order': '0',
+                'steps-0-title': 'Step 1',
+                'steps-0-text': 'Step 1 desc',
+                'steps-1-order': '1',
+                'steps-1-title': 'Step 2',
+                'steps-1-text': 'Step 2 desc',
+                'steps-2-order': '2',
+                'steps-2-title': 'Step 3',
+                'steps-2-text': 'Step 3 desc',
+            }
+        )
+        protocol = self.researcher1.roles.all().order_by('-id')[0].protocol
+        self.assertRedirects(
+            response,
+            reverse('protocol', kwargs={'protocol_uuid': protocol.uuid})
+        )
+
+    def test_update_protocol_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'update_protocol',
+            kwargs={'protocol_uuid': self.protocol3.uuid}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_protocol_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'update_protocol',
+            kwargs={'protocol_uuid': self.protocol3.uuid}
+        )
+        redirect_url = reverse(
+            'protocol',
+            kwargs={'protocol_uuid': self.protocol3.uuid}
+        )
+        response = self.client.post(
+            url,
+            data={
+                'steps-TOTAL_FORMS': '3',
+                'steps-INITIAL_FORMS': '0',
+                'steps-MIN_NUM_FORMS': '1',
+                'steps-MAX_NUM_FORMS': '64',
+                'name': 'New Protocol Name',
+                'label': 'modified',
+                'steps-0-order': '0',
+                'steps-0-title': 'Step 1',
+                'steps-0-text': 'Step 1 desc',
+                'steps-1-order': '1',
+                'steps-1-title': 'Step 2',
+                'steps-1-text': 'Step 2 desc',
+                'steps-2-order': '2',
+                'steps-2-title': 'Step 3',
+                'steps-2-text': 'Step 3 desc',
+            }
+        )
+        self.protocol3.refresh_from_db()
+        self.assertRedirects(response, redirect_url)
+        self.assertEqual(self.protocol3.name, 'New Protocol Name')
