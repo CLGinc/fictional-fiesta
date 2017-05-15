@@ -217,10 +217,8 @@
                   {% for data in data_column_form.data %}
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input
-                             class="width--full"
-                             data-content="data"
-                             value="{{ data_column_form.data.data }}">
+                      <input class="width--full"
+                             data-content="data">
                       {% if data_column_form.data.errors %}
                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                           {{ data_column_form.data.errors.as_text }}
@@ -261,7 +259,6 @@
         </section>
         <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
           <button data-mdc-auto-init="MDCRipple"
-
                   data-form="create_protocol_result_form"
                   class="mdc-button mdl-color-text--white">
             <i class="material-icons">check</i>
@@ -305,9 +302,9 @@
 <script>
   var MDCSnackbar = mdc.snackbar.MDCSnackbar;
   var snackbar = new MDCSnackbar(document.getElementById('mdc-js-snackbar'));
-  var show = function(sb) {
+  var show = function(sb,notif) {
     var data =  {
-      message: 'At least one data column is required'
+      message: notif
     };
     sb.show(data);
   };

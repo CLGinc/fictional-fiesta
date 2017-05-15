@@ -15,16 +15,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'protocols' %}mdl-color-text--blue-500{% endifequal %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'sources' %}mdl-color-text--blue-500{% endifequal %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -40,13 +40,13 @@
           <a class="mdc-list-item mdl-color-text--blue-500" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'protocols' %}mdl-color-text--blue-500{% endifequal %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'sources' %}mdl-color-text--blue-500{% endifequal %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -63,19 +63,19 @@
            {% endif %}
       </a>
       {% if selected_protocol.uuid|stringformat:"s" in request.path %}
-        {% if 'section' in request.GET %}
+        {% if 'section' in request.GET or '/result/' in request.path %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% ifequal section 'procedure' %}mdl-color-text--blue-500{% endifequal %}" href="?section=procedure">
+          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="?section=procedure">
             <span class="margin--left-72">Procedures</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'assets' %}mdl-color-text--blue-500{% endifequal %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -91,13 +91,13 @@
           <a class="mdc-list-item mdl-color-text--blue-500" href="?section=procedure">
             <span class="margin--left-72">Procedures</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'assets' %}mdl-color-text--blue-500{% endifequal %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -126,16 +126,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'protocols' %}mdl-color-text--blue-500{% endifequal %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'sources' %}mdl-color-text--blue-500{% endifequal %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -151,13 +151,13 @@
           <a class="mdc-list-item mdl-color-text--blue-500" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'protocols' %}mdl-color-text--blue-500{% endifequal %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'sources' %}mdl-color-text--blue-500{% endifequal %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -177,16 +177,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% ifequal section 'procedure' %}mdl-color-text--blue-500{% endifequal %}" href="?section=procedure">
+          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="?section=procedure">
             <span class="margin--left-72">Procedures</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'assets' %}mdl-color-text--blue-500{% endifequal %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -202,13 +202,13 @@
           <a class="mdc-list-item mdl-color-text--blue-500" href="?section=procedure">
             <span class="margin--left-72">Procedures</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'results' %}mdl-color-text--blue-500{% endifequal %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'assets' %}mdl-color-text--blue-500{% endifequal %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% ifequal section 'participants' %}mdl-color-text--blue-500{% endifequal %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>

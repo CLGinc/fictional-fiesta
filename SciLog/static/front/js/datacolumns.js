@@ -9,7 +9,8 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove-table
        updateDataColumns();
      });
   } else {
-    show(snackbar);
+    var notif = 'At least one data column is required';
+    show(snackbar,notif);
   }
 });
 
@@ -43,6 +44,9 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove--data
   var dataRows = $(event.target).closest('tbody').children().length;
   if(dataRows > 1){
     $(event.target).closest('tr').remove();
+  } else {
+    var notif = 'At least one data row is required';
+    show(snackbar, notif);
   }
 });
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="add--datarow"]', function() {
