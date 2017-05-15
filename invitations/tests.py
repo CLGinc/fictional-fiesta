@@ -10,7 +10,7 @@ from projects.models import Project
 from protocols.models import Protocol
 
 
-class InvitationsTests(TestCase):
+class InvitationModelTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -22,7 +22,6 @@ class InvitationsTests(TestCase):
     ]
 
     def setUp(self):
-        self.client = Client()
         self.researcher1 = Researcher.objects.get(id=1)
         self.researcher2 = Researcher.objects.get(id=2)
         self.researcher3 = Researcher.objects.get(id=3)
@@ -188,12 +187,6 @@ class InvitationsTests(TestCase):
         invitation.save()
         self.assertFalse(invitation.is_expired())
 
-    def test_get_invitations_list(self):
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('invitations_list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
     def test_get_item_project(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
@@ -226,6 +219,30 @@ class InvitationsTests(TestCase):
         )
         self.assertEqual(invitation.get_item_name(), 'Protocol 1')
 
+
+class InvitationViewTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
+        'researchers/fixtures/roles',
+        'projects/fixtures/projects',
+        'protocols/fixtures/protocols',
+    ]
+
+    def setUp(self):
+        self.client = Client()
+        self.researcher1 = Researcher.objects.get(id=1)
+        self.researcher3 = Researcher.objects.get(id=3)
+        self.project1 = Project.objects.get(name='Project 1')
+
+    def test_get_invitations_list(self):
+        self.client.login(username='user3@gmail.com', password='user3')
+        url = reverse('invitations_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_assign_invitation(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
@@ -246,7 +263,7 @@ class InvitationsTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class InvitationsAjaxTests(TestCase):
+class InvitationAjaxTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -289,7 +306,7 @@ class InvitationsAjaxTests(TestCase):
         url = reverse('create_invitation')
         data = {
             'email': 'user3@gmail.com',
-            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',
+            'project': '808d85c6-8fdb-478d-994a-aab8496ef4cb',  # Project 1
             'role': 'watcher'
         }
         response = self.client.post(

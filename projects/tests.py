@@ -8,7 +8,7 @@ from researchers.models import Researcher, Role, Source
 from protocols.models import Protocol
 
 
-class ProjectsTest(TestCase):
+class ProjectModelTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -19,22 +19,8 @@ class ProjectsTest(TestCase):
     ]
 
     def setUp(self):
-        self.client = Client()
-        self.researcher1 = Researcher.objects.get(id=1)
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
-
-    def test_get_projects_list(self):
-        self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('projects_list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_get_project(self):
-        self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
 
     def test_get_participants_by_role_all(self):
         participants = self.project2.get_participants_by_role()
@@ -54,6 +40,34 @@ class ProjectsTest(TestCase):
             ['Watcher', [Role.objects.get(id=15)]],
         ]
         self.assertEqual(participants, expected_participants)
+
+
+class ProjectViewTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'projects/fixtures/projects',
+        'researchers/fixtures/roles',
+        'protocols/fixtures/protocols'
+    ]
+
+    def setUp(self):
+        self.client = Client()
+        self.researcher1 = Researcher.objects.get(id=1)
+        self.project1 = Project.objects.get(name='Project 1')
+
+    def test_get_projects_list(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('projects_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_project(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
 
     def test_create_project_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -102,7 +116,7 @@ class ProjectsTest(TestCase):
         self.assertEqual(self.project1.name, 'New Project Name')
 
 
-class ProjectsAjaxTest(TestCase):
+class ProjectAjaxTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -120,7 +134,7 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_add_protocols',
-            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}
+            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}  # Project 1
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
@@ -129,7 +143,7 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_add_protocols',
-            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}
+            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}  # Project 1
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 403)
@@ -147,11 +161,11 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_add_protocols',
-            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}
+            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}  # Project 1
         )
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 1, Protocol 8]
         }
         response = self.client.post(
             url,
@@ -160,14 +174,14 @@ class ProjectsAjaxTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})
+            reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})  # Project 1
         )
 
     def test_get_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_add_sources',
-            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}
+            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}  # Project 1
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
@@ -194,7 +208,7 @@ class ProjectsAjaxTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'project_add_sources',
-            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}
+            kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'}  # Project 1
         )
         data = {
             'element_type': 's',
@@ -207,11 +221,11 @@ class ProjectsAjaxTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})
+            reverse('project', kwargs={'project_uuid': '808d85c6-8fdb-478d-994a-aab8496ef4cb'})  # Project 1
         )
 
 
-class ProjectsFormsTest(TestCase):
+class ProjectFormTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -236,6 +250,9 @@ class ProjectsFormsTest(TestCase):
         self.protocol8 = Protocol.objects.get(name='Protocol 8')
         self.protocol9 = Protocol.objects.get(name='Protocol 9')
         self.protocol10 = Protocol.objects.get(name='Protocol 10')
+        self.source1 = Source.objects.get(name='Source 1')
+        self.source2 = Source.objects.get(name='Source 2')
+        self.source3 = Source.objects.get(name='Source 3')
 
     def test_new_project_form_empty(self):
         form = BasicProjectForm(data={})
@@ -281,7 +298,7 @@ class ProjectsFormsTest(TestCase):
     def test_add_elements_form_protocols_all_fields(self):
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 6, Protocol 8]
         }
         form = AddElementsForm(
             data,
@@ -293,7 +310,7 @@ class ProjectsFormsTest(TestCase):
     def test_add_elements_form_protocols_queryset(self):
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 6, Protocol 8]
         }
         form = AddElementsForm(
             data,
@@ -313,7 +330,7 @@ class ProjectsFormsTest(TestCase):
     def test_add_elements_form_protocols_before_validation(self):
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 6, Protocol 8]
         }
         form = AddElementsForm(
             data,
@@ -326,7 +343,7 @@ class ProjectsFormsTest(TestCase):
     def test_add_elements_form_protocols_add_elements(self):
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 6, Protocol 8]
         }
         form = AddElementsForm(
             data,
@@ -350,7 +367,7 @@ class ProjectsFormsTest(TestCase):
     def test_add_elements_form_protocols_watcher(self):
         data = {
             'element_type': 'p',
-            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']
+            'element_choices': ['4cf42792-7802-4958-bcd6-ae27b0ea5aa7', 'a08eda6a-5a34-42f7-bf06-7392201849fa']  # [Protocol 6, Protocol 8]
         }
         form = AddElementsForm(
             data,
@@ -398,9 +415,9 @@ class ProjectsFormsTest(TestCase):
             selected_project=self.project1
         )
         sources_to_add = [
-            Source.objects.get(id=3),
-            Source.objects.get(id=2),
-            Source.objects.get(id=1)
+            self.source3,
+            self.source2,
+            self.source1
         ]
         self.assertEqual(
             list(form.fields['element_choices'].queryset),
@@ -433,8 +450,8 @@ class ProjectsFormsTest(TestCase):
         form.is_valid()
         form.add_elements(self.project1)
         expected_sourcess = [
-            Source.objects.get(id=1),
-            Source.objects.get(id=2),
+            self.source1,
+            self.source2,
         ]
         self.assertEqual(
             list(self.project1.sources.all()),

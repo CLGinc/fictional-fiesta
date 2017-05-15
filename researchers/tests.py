@@ -11,7 +11,7 @@ from protocols.models import Protocol
 from .forms import RoleListForm
 
 
-class ResearchersTest(TestCase):
+class ResearcherModelTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
@@ -23,7 +23,6 @@ class ResearchersTest(TestCase):
     ]
 
     def setUp(self):
-        self.client = Client()
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
         self.project3 = Project.objects.get(name='Project 3')
@@ -32,6 +31,9 @@ class ResearchersTest(TestCase):
         self.researcher3 = Researcher.objects.get(id=3)
         self.tempuser = Researcher.objects.get(id=1001)
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
+        self.protocol8 = Protocol.objects.get(name='Protocol 8')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
         self.roles_per_projects = {
             self.researcher1: {
                 'owner': [self.project1, self.project2],
@@ -188,9 +190,9 @@ class ResearchersTest(TestCase):
     def test_get_protocols_to_add(self):
         protocols = list(self.researcher1.get_protocols_to_add(self.project1))
         expected_protocols = [
-            Protocol.objects.get(uuid='fe53a689-5a9f-4492-abad-92bbf51994a4'),
-            Protocol.objects.get(uuid='a08eda6a-5a34-42f7-bf06-7392201849fa'),
-            Protocol.objects.get(uuid='4cf42792-7802-4958-bcd6-ae27b0ea5aa7')
+            self.protocol10,
+            self.protocol8,
+            self.protocol6
         ]
         self.assertEqual(protocols, expected_protocols)
 
@@ -221,6 +223,21 @@ class ResearchersTest(TestCase):
             self.protocol1
         ]
         self.assertEqual(protocols, expected_protocols)
+
+
+class ResearcherViewTest(TestCase):
+    fixtures = [
+        'researchers/fixtures/users',
+        'researchers/fixtures/researchers',
+        'researchers/fixtures/universities',
+        'researchers/fixtures/sources',
+        'researchers/fixtures/roles',
+        'projects/fixtures/projects',
+        'protocols/fixtures/protocols'
+    ]
+
+    def setUp(self):
+        self.client = Client()
 
     def test_get_login(self):
         url = reverse('login_user')
@@ -267,7 +284,7 @@ class ResearchersTest(TestCase):
         self.assertRedirects(response, '/project/list/')
 
 
-class ResearchersFormsTest(TestCase):
+class ResearcherFormTest(TestCase):
     fixtures = [
         'researchers/fixtures/users',
         'researchers/fixtures/researchers',
