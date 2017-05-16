@@ -3,6 +3,7 @@
 {% block title %}Sci Log - New result{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
+{% load protocol_extras %}
 <header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
@@ -214,27 +215,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for data in data_column_form.data %}
+                  {% if data_column_form.data.data %}
+                    {% with data_dict=data_column_form.data.data|json_to_dict %}
+                      {% for data_value in data_dict.Data %}
+                        <tr>
+                          <td class="mdl-data-table__cell--non-numeric" colspan="2">
+                            <input class="width--full"
+                                   data-content="data"
+                                   value="{{ data_value }}">
+                          </td>
+                          <td>
+                            <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
+                            <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                    {% endwith %}
+                  {% else %}
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric" colspan="2">
                       <input class="width--full"
                              data-content="data">
-                      {% if data_column_form.data.errors %}
-                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                          {{ data_column_form.data.errors.as_text }}
-                        </p>
-                      {% endif %}
                     </td>
                     <td>
                       <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
                       <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
                     </td>
                   </tr>
-                  {% endfor %}
+                  {% endif %}
                 </tbody>
               </table>
             </div>
             {% endfor %}
+            {% if data_column_form.data.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ data_column_form.data.errors.as_text }}
+              </p>
+            {% endif %}
           </div>
         </div>
       </form>
