@@ -108,6 +108,10 @@ html {
   font-weight: 300;
 }
 /* Input */
+.mdc-textfield.input--simple.mdc-textfield--upgraded {
+  margin: 0;
+  height: auto;
+}
 .input--remove {
   position: absolute;
   right: 0;

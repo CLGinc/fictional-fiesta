@@ -9,7 +9,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="change to selected_protocol url">
+         href="{% url 'protocol' protocol_uuid=selected_protocol.uuid %}?section=results">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -51,7 +51,7 @@
         {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-form-field">
@@ -81,7 +81,7 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <select class="mdc-select margin--none" name="state">
@@ -96,7 +96,30 @@
               </p>
             {% endif %}
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Link to project</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.project.errors %}mdc-textfield--invalid{% endif %} input--simple" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input"
+                       id="link_result_to_project_input"
+                       type="text"
+                       name="note"
+                       maxlength="255" {% if form.note.data %}value="{{ form.project.data }}"{% endif %}>
+                 <label class="mdc-textfield__label">Start typing project name</label>
+              </div>
+              {% if form.project.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.project.errors.as_text }}
+                </p>
+              {% endif %}
+            </div>
+            {% if form.state.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.state.errors.as_text }}
+              </p>
+            {% endif %}
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               {{ selected_protocol.name }}
@@ -111,7 +134,7 @@
                 <input class="mdc-textfield__input" type="text"
                        name="note"
                        maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
-                <label class="mdc-textfield__label">Result note</label>
+                <label class="mdc-textfield__label">Add a note for this result</label>
               </div>
               {% if form.note.errors %}
                 <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -238,7 +261,7 @@
                              data-content="data">
                     </td>
                     <td>
-                      <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
+                      <i class="material-icons list--link-remove" data-trigger="remove--datarow">clear</i>
                       <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
                     </td>
                   </tr>

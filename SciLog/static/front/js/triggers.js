@@ -1,3 +1,8 @@
+(function(global) {
+  [].forEach.call(document.querySelectorAll('.mdc-ripple-surface:not([data-demo-no-js])'), function(surface) {
+    mdc.ripple.MDCRipple.attachTo(surface);
+  });
+})(this);
 var MDCTemporaryDrawer = mdc.drawer.MDCTemporaryDrawer;
 var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
 document.querySelector('.menu').addEventListener('click', function() {
