@@ -14,10 +14,20 @@ class ProcedureAdmin(admin.ModelAdmin):
     ]
 
 
+class DataColumnInline(admin.StackedInline):
+    model = DataColumn
+
+
+class ResultAdmin(admin.ModelAdmin):
+    inlines = [
+        DataColumnInline,
+    ]
+
+
 admin.site.register(Protocol)
 admin.site.register(Asset)
 admin.site.register(Procedure, ProcedureAdmin)
 admin.site.register(Step)
-admin.site.register(Result)
+admin.site.register(Result, ResultAdmin)
 admin.site.register(Attachment)
 admin.site.register(DataColumn)
