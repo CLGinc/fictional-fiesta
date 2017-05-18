@@ -265,6 +265,8 @@ class CreateProtocolResult(CreateViewWithFormset):
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
             kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+        kwargs['protocol'] = self.protocol
+        kwargs['researcher'] = self.request.user.researcher
         return kwargs
 
 

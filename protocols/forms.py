@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 from researchers.models import Role
+from projects.models import Project
 from.models import Protocol, Procedure, Step, Result, DataColumn
 
 
@@ -72,3 +73,13 @@ class BasicResultForm(forms.ModelForm):
             'protocol',
             'project'
         ]
+
+    def __init__(self, *args, **kwargs):
+        researcher = kwargs.pop('researcher')
+        protocol = kwargs.pop('protocol')
+        super(BasicResultForm, self).__init__(*args, **kwargs)
+        self.fields['project'].queryset = Project.objects.filter(
+            protocols__in=[protocol],
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__researcher=researcher
+        )
