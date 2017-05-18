@@ -28,6 +28,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_owner(self):
+        return self.roles.get(role='owner').researcher
+
     def get_participants_by_role(self):
         participants_by_role = list()
         RoleModel = apps.get_model('researchers', 'Role')
