@@ -211,9 +211,11 @@ class CreateProtocolResult(CreateViewWithFormset):
     protocol_slug_url_kwarg = 'protocol_uuid'
 
     def get(self, request, *args, **kwargs):
+        self.protocol = self.get_protocol()
         return super(CreateProtocolResult, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        self.protocol = self.get_protocol()
         return super(CreateProtocolResult, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -226,7 +228,6 @@ class CreateProtocolResult(CreateViewWithFormset):
         )
 
     def get_context_data(self, **kwargs):
-        self.protocol = self.get_protocol()
         context = dict()
         context['selected_protocol'] = self.protocol
         context.update(
