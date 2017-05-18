@@ -118,7 +118,6 @@ class UpdateViewWithFormset(UpdateView):
         if 'formset' in kwargs:
             context[self.formset_name] = kwargs['formset']
         else:
-            print(self.formset_instance)
             context[self.formset_name] = self.formset_class(
                 instance=self.formset_instance
             )
