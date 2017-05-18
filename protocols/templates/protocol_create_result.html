@@ -101,11 +101,15 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.project.errors %}mdc-textfield--invalid{% endif %} input--simple" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input"
-                       id="link_result_to_project_input"
+                       id="link_result_to_project_input_name"
                        type="text"
-                       name="project"
+                       autocomplete="off"
                        maxlength="255" {% if form.note.data %}value="{{ form.project.data }}"{% endif %}>
-                 <label class="mdc-textfield__label">Start typing project name</label>
+                <label class="mdc-textfield__label">Start typing project name</label>
+                <input type="text"
+                       name="project"
+                       class="hidden"
+                       id="link_result_to_project_input_uuid">
               </div>
               {% if form.project.errors %}
                 <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -332,15 +336,6 @@
     <button type="button" class="mdc-button mdc-snackbar__action-button"></button>
   </div>
 </div>
-<div class="autocomplete-suggestions " style="left: 1080px; top: 265px; width: 395px; display: none;">
-  {% for project_uuid, project_name in form.project.field.choices %}
-	<div class="autocomplete-suggestion" data-langname="{{ project_name }}" data-lang="{{ project_uuid }}" data-val="">
-		<b/>A<b/>u<b/>s<b/>t<b/>r<b/>a<b/>l<b/>i<b/>a<b/>
-	</div>
-  {% endfor %}
-</div>
-
-  {{ project_uuid }} - {{ project_name }}
 {% include "base/scroll_top.html" %}
 {% endblock %}
 {% block post_load %}
@@ -358,26 +353,24 @@
     };
     sb.show(data);
   };
-
-  var autoSuggest = new autoComplete({
-      selector: '#link_result_to_project_input',
+  $('#link_result_to_project_input_name').autoComplete({
       minChars: 0,
       source: function(term, suggest){
           term = term.toLowerCase();
-          var choices = [['Australia', 'au'], ['Austria', 'at'], ['Brasil', 'br'], ['Bulgaria', 'bg'], ['Canada', 'ca'], ['China', 'cn'], ['Czech Republic', 'cz'], ['Denmark', 'dk'], ['Finland', 'fi'], ['France', 'fr'], ['Germany', 'de'], ['Hungary', 'hu'], ['India', 'in'], ['Italy', 'it'], ['Japan', 'ja'], ['Netherlands', 'nl'], ['Norway', 'no'], ['Portugal', 'pt'], ['Romania', 'ro'], ['Russia', 'ru'], ['Spain', 'es'], ['Swiss', 'ch'], ['Turkey', 'tr'], ['USA', 'us']];
+          var choices = [{% for project_uuid, project_name in form.project.field.choices %}['{{ project_name }}', '{{ project_uuid }}']{% if not forloop.last %},{% endif %}{% endfor %}];
           var suggestions = [];
           for (i=0;i<choices.length;i++)
               if (~(choices[i][0]+' '+choices[i][1]).toLowerCase().indexOf(term)) suggestions.push(choices[i]);
           suggest(suggestions);
       },
       renderItem: function (item, search){
-          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&amp;');
+          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
           var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-          return '<div class="autocomplete-suggestion" data-langname="'+item[0]+'" data-lang="'+item[1]+'" data-val="'+search+'">'+item[0].replace(re, "<b>$1</b>")+'</div>';
+          return '<div class="autocomplete-suggestion" data-pname="'+item[0]+'" data-puuid="'+item[1]+'" data-val="'+search+'">'+item[0].replace(re, "<b>$1</b>")+'</div>';
       },
       onSelect: function(e, term, item){
-          console.log('Item "'+item.getAttribute('data-langname')+' ('+item.getAttribute('data-lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter' : 'mouse click')+'.');
-          document.getElementById('link_result_to_project_input').value = item.getAttribute('data-langname')+' ('+item.getAttribute('data-lang')+')';
+          $('#link_result_to_project_input_name').val(item.data('pname'));
+          $('#link_result_to_project_input_uuid').val(item.data('puuid'));
       }
   });
   </script>
