@@ -238,6 +238,7 @@ class ResearcherViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_login(self):
         url = reverse('login_user')
@@ -254,13 +255,13 @@ class ResearcherViewTest(TestCase):
         self.assertRedirects(response, '/project/list/')
 
     def test_post_login_redirect_to_project(self):
-        url = reverse('login_user') + '?next=/project/808d85c6-8fdb-478d-994a-aab8496ef4cb/'
+        url = reverse('login_user') + '?next=/project/{}/'.format(self.project1.pk)
         data = {
             'email': 'user1@gmail.com',
             'password': 'user1'
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/project/808d85c6-8fdb-478d-994a-aab8496ef4cb/')
+        self.assertRedirects(response, '/project/{}/'.format(self.project1.pk))
 
     def test_get_logout(self):
         self.client.login(username='user1@gmail.com', password='user1')

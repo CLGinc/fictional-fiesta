@@ -121,6 +121,7 @@ class ProtocolViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.researcher1 = Researcher.objects.get(pk=1)
+        self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
         self.protocol3_result = Result.objects.get(pk='833eaf8d-4154-45b9-b96a-2d9ee27f704a')
 
@@ -132,7 +133,7 @@ class ProtocolViewTest(TestCase):
 
     def test_get_protocol(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('protocol', kwargs={'protocol_uuid': '76be5b8b-2bde-4f19-a472-044213a037e3'})  # Protocol 1
+        url = reverse('protocol', kwargs={'protocol_uuid': str(self.protocol1.pk)})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -168,14 +169,14 @@ class ProtocolViewTest(TestCase):
         protocol = self.researcher1.roles.all().order_by('-id')[0].protocol
         self.assertRedirects(
             response,
-            reverse('protocol', kwargs={'protocol_uuid': protocol.uuid})
+            reverse('protocol', kwargs={'protocol_uuid': protocol.pk})
         )
 
     def test_update_protocol_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.uuid}
+            kwargs={'protocol_uuid': self.protocol3.pk}
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -184,11 +185,11 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.uuid}
+            kwargs={'protocol_uuid': self.protocol3.pk}
         )
         redirect_url = reverse(
             'protocol',
-            kwargs={'protocol_uuid': self.protocol3.uuid}
+            kwargs={'protocol_uuid': self.protocol3.pk}
         )
         response = self.client.post(
             url,
@@ -218,7 +219,7 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'create_protocol_result',
-            kwargs={'protocol_uuid': self.protocol3.uuid}
+            kwargs={'protocol_uuid': self.protocol3.pk}
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -227,7 +228,7 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'create_protocol_result',
-            kwargs={'protocol_uuid': str(self.protocol3.uuid)}
+            kwargs={'protocol_uuid': str(self.protocol3.pk)}
         )
         response = self.client.post(
             url,
@@ -236,7 +237,7 @@ class ProtocolViewTest(TestCase):
                 'data_columns-INITIAL_FORMS': '0',
                 'data_columns-MIN_NUM_FORMS': '1',
                 'data_columns-MAX_NUM_FORMS': '64',
-                'protocol': str(self.protocol3.uuid),
+                'protocol': str(self.protocol3.pk),
                 'state': 'created',
                 'data_columns-0-order': '0',
                 'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
@@ -256,8 +257,8 @@ class ProtocolViewTest(TestCase):
             reverse(
                 'protocol_result',
                 kwargs={
-                    'protocol_uuid': self.protocol3.uuid,
-                    'result_uuid': result.uuid
+                    'protocol_uuid': self.protocol3.pk,
+                    'result_uuid': result.pk
                 }
             )
         )
@@ -267,8 +268,8 @@ class ProtocolViewTest(TestCase):
         url = reverse(
             'update_protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
-                'result_uuid': str(self.protocol3_result.uuid)
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': str(self.protocol3_result.pk)
             }
         )
         response = self.client.get(url)
@@ -279,15 +280,15 @@ class ProtocolViewTest(TestCase):
         url = reverse(
             'update_protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
-                'result_uuid': str(self.protocol3_result.uuid)
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': str(self.protocol3_result.pk)
             }
         )
         redirect_url = reverse(
             'protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
-                'result_uuid': str(self.protocol3_result.uuid)
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': str(self.protocol3_result.pk)
             }
         )
         response = self.client.post(
@@ -297,7 +298,7 @@ class ProtocolViewTest(TestCase):
                 'data_columns-INITIAL_FORMS': '0',
                 'data_columns-MIN_NUM_FORMS': '1',
                 'data_columns-MAX_NUM_FORMS': '64',
-                'protocol': str(self.protocol3.uuid),
+                'protocol': str(self.protocol3.pk),
                 'note': 'New Note',
                 'state': 'created',
                 'data_columns-0-order': '0',
@@ -321,8 +322,8 @@ class ProtocolViewTest(TestCase):
         url = reverse(
             'protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
-                'result_uuid': str(self.protocol3_result.uuid)
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': str(self.protocol3_result.pk)
             }
         )
         response = self.client.get(url)
@@ -333,7 +334,7 @@ class ProtocolViewTest(TestCase):
         url = reverse(
             'protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
+                'protocol_uuid': self.protocol3.pk,
                 'result_uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
             }
         )
@@ -345,8 +346,8 @@ class ProtocolViewTest(TestCase):
         url = reverse(
             'protocol_result',
             kwargs={
-                'protocol_uuid': self.protocol3.uuid,
-                'result_uuid': str(self.protocol3_result.uuid)
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': str(self.protocol3_result.pk)
             }
         )
         response = self.client.post(url)

@@ -250,7 +250,7 @@ class InvitationViewTest(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('assign_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.get(url)
         self.assertRedirects(response, reverse('invitations_list'))
         invitation.refresh_from_db()
@@ -258,7 +258,7 @@ class InvitationViewTest(TestCase):
 
     def test_get_assign_invitation_404(self):
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': '74369692-6844-430d-bff2-90904fc3094e'})
+        url = reverse('assign_invitation', kwargs={'uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -329,7 +329,7 @@ class InvitationAjaxTest(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 405)
 
@@ -340,10 +340,10 @@ class InvitationAjaxTest(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.post(
             url,
-            {'uuid': invitation.uuid},
+            {'uuid': invitation.pk},
         )
         self.assertEqual(response.status_code, 403)
 
@@ -354,7 +354,7 @@ class InvitationAjaxTest(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.get(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
@@ -370,7 +370,7 @@ class InvitationAjaxTest(TestCase):
         invitation.datetime_created -= timezone.timedelta(3)
         invitation.save()
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.post(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -383,7 +383,7 @@ class InvitationAjaxTest(TestCase):
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('accept_invitation', kwargs={'uuid': invitation.uuid})
+        url = reverse('accept_invitation', kwargs={'uuid': invitation.pk})
         response = self.client.post(
             url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
