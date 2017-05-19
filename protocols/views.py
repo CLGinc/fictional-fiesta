@@ -203,7 +203,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 @method_decorator(login_required, name='dispatch')
 class CreateProtocolResult(CreateViewWithFormset):
-    template_name = 'protocol_create_result.html'
+    template_name = 'protocol_result_create.html'
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'
