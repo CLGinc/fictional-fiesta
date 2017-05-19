@@ -122,6 +122,7 @@ class ProtocolViewTest(TestCase):
         self.client = Client()
         self.researcher1 = Researcher.objects.get(pk=1)
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol3_result = Result.objects.get(pk='833eaf8d-4154-45b9-b96a-2d9ee27f704a')
 
     def test_get_protocols_list(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -212,3 +213,105 @@ class ProtocolViewTest(TestCase):
         self.protocol3.refresh_from_db()
         self.assertRedirects(response, redirect_url)
         self.assertEqual(self.protocol3.name, 'New Protocol Name')
+
+    def test_create_protocol_result_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'create_protocol_result',
+            kwargs={'protocol_uuid': self.protocol3.uuid}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_protocol_result_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'create_protocol_result',
+            kwargs={'protocol_uuid': str(self.protocol3.uuid)}
+        )
+        response = self.client.post(
+            url,
+            data={
+                'data_columns-TOTAL_FORMS': '2',
+                'data_columns-INITIAL_FORMS': '0',
+                'data_columns-MIN_NUM_FORMS': '1',
+                'data_columns-MAX_NUM_FORMS': '64',
+                'protocol': str(self.protocol3.uuid),
+                'state': 'created',
+                'data_columns-0-order': '0',
+                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
+                'data_columns-0-title': 'Column 1 Title',
+                'data_columns-0-measurement': 'Mass',
+                'data_columns-0-unit': 'kg',
+                'data_columns-1-order': '1',
+                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
+                'data_columns-1-title': 'Column 1 Title',
+                'data_columns-1-measurement': 'Speed',
+                'data_columns-1-unit': 'm/s'
+            }
+        )
+        result = self.protocol3.results.all().order_by('-datetime_created')[0]
+        self.assertRedirects(
+            response,
+            reverse(
+                'protocol_result',
+                kwargs={
+                    'protocol_uuid': self.protocol3.uuid,
+                    'result_uuid': result.uuid
+                }
+            )
+        )
+
+    def test_update_protocol_result_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'update_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': str(self.protocol3_result.uuid)
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_protocol_result_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'update_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': str(self.protocol3_result.uuid)
+            }
+        )
+        redirect_url = reverse(
+            'protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': str(self.protocol3_result.uuid)
+            }
+        )
+        response = self.client.post(
+            url,
+            data={
+                'data_columns-TOTAL_FORMS': '2',
+                'data_columns-INITIAL_FORMS': '0',
+                'data_columns-MIN_NUM_FORMS': '1',
+                'data_columns-MAX_NUM_FORMS': '64',
+                'protocol': str(self.protocol3.uuid),
+                'note': 'New Note',
+                'state': 'created',
+                'data_columns-0-order': '0',
+                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
+                'data_columns-0-title': 'Column 1 Title',
+                'data_columns-0-measurement': 'Mass',
+                'data_columns-0-unit': 'kg',
+                'data_columns-1-order': '1',
+                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
+                'data_columns-1-title': 'Column 1 Title',
+                'data_columns-1-measurement': 'Speed',
+                'data_columns-1-unit': 'm/s'
+            }
+        )
+        self.protocol3_result.refresh_from_db()
+        self.assertRedirects(response, redirect_url)
+        self.assertEqual(self.protocol3_result.note, 'New Note')
