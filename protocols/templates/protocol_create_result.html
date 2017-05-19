@@ -104,8 +104,8 @@
                        id="link_result_to_project_input_name"
                        type="text"
                        autocomplete="off"
-                       maxlength="255" {% if form.project.data %}value="{{ form.project.data }}"{% endif %}>
-                <label class="mdc-textfield__label">Start typing project name</label>
+                       maxlength="255">
+                <label class="mdc-textfield__label{% if form.project.data %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
                 <input type="text"
                        name="project"
                        class="hidden"
@@ -354,20 +354,25 @@
     };
     sb.show(data);
   };
+  $(window).load(function(){
+    var projectInErroruuid = $('#link_result_to_project_input_uuid').val();
+    $('#link_result_to_project_input_name').val(choices[projectInErroruuid]);
+  });
+  var choices = { {% for project_uuid, project_name in form.project.field.choices %}"{{ project_uuid }}":"{{ project_name }}"{% if not forloop.last %},{% endif %}{% endfor %} };
   $('#link_result_to_project_input_name').autoComplete({
       minChars: 0,
       source: function(term, suggest){
           term = term.toLowerCase();
-          var choices = [{% for project_uuid, project_name in form.project.field.choices %}['{{ project_name }}', '{{ project_uuid }}']{% if not forloop.last %},{% endif %}{% endfor %}];
           var suggestions = [];
-          for (i=0;i<choices.length;i++)
-              if (~(choices[i][0]+' '+choices[i][1]).toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+          $.each(choices, function(key, value){
+            suggestions.push([key, value]);
+          });
           suggest(suggestions);
       },
       renderItem: function (item, search){
           search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
           var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-          return '<div class="autocomplete-suggestion" data-pname="'+item[0]+'" data-puuid="'+item[1]+'" data-val="'+search+'">'+item[0].replace(re, "<b>$1</b>")+'</div>';
+          return '<div class="autocomplete-suggestion" data-pname="'+item[1]+'" data-puuid="'+item[0]+'" data-val="'+search+'">'+item[1].replace(re, "<b>$1</b>")+'</div>';
       },
       onSelect: function(e, term, item){
           $('#link_result_to_project_input_name').val(item.data('pname'));
