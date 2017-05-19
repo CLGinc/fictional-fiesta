@@ -315,3 +315,39 @@ class ProtocolViewTest(TestCase):
         self.protocol3_result.refresh_from_db()
         self.assertRedirects(response, redirect_url)
         self.assertEqual(self.protocol3_result.note, 'New Note')
+
+    def test_protocol_result_get(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': str(self.protocol3_result.uuid)
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_protocol_result_get_404(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_protocol_result_post(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.uuid,
+                'result_uuid': str(self.protocol3_result.uuid)
+            }
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 405)
