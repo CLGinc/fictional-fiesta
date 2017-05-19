@@ -104,11 +104,12 @@
                        id="link_result_to_project_input_name"
                        type="text"
                        autocomplete="off"
-                       maxlength="255" {% if form.note.data %}value="{{ form.project.data }}"{% endif %}>
+                       maxlength="255" {% if form.project.data %}value="{{ form.project.data }}"{% endif %}>
                 <label class="mdc-textfield__label">Start typing project name</label>
                 <input type="text"
                        name="project"
                        class="hidden"
+                       {% if form.project.data %}value="{{ form.project.data }}"{% endif %}
                        id="link_result_to_project_input_uuid">
               </div>
               {% if form.project.errors %}
