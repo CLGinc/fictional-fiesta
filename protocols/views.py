@@ -273,7 +273,7 @@ class CreateProtocolResult(CreateViewWithFormset):
 @method_decorator(login_required, name='dispatch')
 class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
-    template_name = 'protocol_result_edit.html'
+    template_name = 'protocol_result.html'
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'
@@ -289,12 +289,20 @@ class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
         )
 
     def get_context_data(self, **kwargs):
-        self.object = self.get_object()
         self.formset_instance = self.get_formset_instance()
-        return super(UpdateProtocol, self).get_context_data(**kwargs)
+        return super(UpdateProtocolResult, self).get_context_data(**kwargs)
 
     def get_formset_instance(self):
         return self.object
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateProtocolResult, self).get_form_kwargs()
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+        kwargs['protocol'] = self.object.protocol
+        kwargs['researcher'] = self.request.user.researcher
+        return kwargs
 
 
 @method_decorator(login_required, name='dispatch')
