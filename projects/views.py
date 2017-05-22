@@ -24,7 +24,7 @@ class SingleProjectMixin(SingleObjectMixin):
 
 @method_decorator(login_required, name='dispatch')
 class CreateProject(CreateView):
-    template_name = 'project_create.html'
+    template_name = 'create_project.html'
     form_class = BasicProjectForm
 
     def get_form_kwargs(self):
@@ -42,7 +42,7 @@ class CreateProject(CreateView):
 @method_decorator(login_required, name='dispatch')
 class UpdateProject(UpdateView, SingleProjectMixin):
     context_object_name = 'selected_project'
-    template_name = 'project_edit.html'
+    template_name = 'update_project.html'
     form_class = BasicProjectForm
 
     def get_success_url(self):

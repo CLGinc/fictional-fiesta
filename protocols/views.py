@@ -129,7 +129,7 @@ class UpdateViewWithFormset(UpdateView):
 
 @method_decorator(login_required, name='dispatch')
 class CreateProtocol(CreateViewWithFormset):
-    template_name = 'protocol_create.html'
+    template_name = 'create_protocol.html'
     form_class = BasicProtocolForm
     formset_class = StepsFormset
     formset_name = 'steps_formset'
@@ -152,7 +152,7 @@ class CreateProtocol(CreateViewWithFormset):
 @method_decorator(login_required, name='dispatch')
 class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
-    template_name = 'protocol_edit.html'
+    template_name = 'update_protocol.html'
     form_class = BasicProtocolForm
     formset_class = StepsFormset
     formset_name = 'steps_formset'
@@ -203,7 +203,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 @method_decorator(login_required, name='dispatch')
 class CreateProtocolResult(CreateViewWithFormset):
-    template_name = 'protocol_result_create.html'
+    template_name = 'create_protocol_result.html'
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'

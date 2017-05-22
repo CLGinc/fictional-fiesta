@@ -136,7 +136,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_protocols',
+            'add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -145,7 +145,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add_non_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_protocols',
+            'add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url)
@@ -154,7 +154,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_protocols',
+            'add_protocols_to_project',
             kwargs={'project_uuid': '74369692-6844-430d-bff2-90904fc3094e'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -163,7 +163,7 @@ class ProjectAjaxTest(TestCase):
     def test_post_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_protocols',
+            'add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         data = {

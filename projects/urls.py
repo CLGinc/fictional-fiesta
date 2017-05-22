@@ -29,7 +29,7 @@ urlpatterns = [
     url(
         r'^(?P<project_uuid>{})/add_protocols/$'.format(uuid_pattern),
         AddProtocols.as_view(),
-        name='project_add_protocols'
+        name='add_protocols_to_project'
     ),
     url(
         r'^(?P<project_uuid>{})/add_sources/$'.format(uuid_pattern),
