@@ -574,6 +574,9 @@ td > .list--link-remove, td > .list--link-add {
 .width--full {
   width: 100%;
 }
+.margin--8 {
+  margin: 8px;
+}
 .margin--none {
   margin: 0;
 }
@@ -582,6 +585,9 @@ td > .list--link-remove, td > .list--link-add {
 }
 .margin--left-72 {
   margin-left: 72px;
+}
+.margin--right-16 {
+  margin-right: 16px;
 }
 .margin--right-24 {
   margin-right: 24px;

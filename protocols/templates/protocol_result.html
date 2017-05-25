@@ -35,194 +35,112 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Result details
       </h1>
-      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
-            id="create_protocol_result_form"
-            method="post"
-            action="">
-        <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.is_successful }}
-            </div>
-          </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.state }}
-            </div>
-          </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Link to project</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.project.name }}
-            </div>
-            {% if form.state.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ form.state.errors.as_text }}
-              </p>
-            {% endif %}
-          </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.protocol.name }}
-            </div>
-          </div>
-        </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                <input class="mdc-textfield__input" type="text"
-                       name="note"
-                       maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
-                <label class="mdc-textfield__label">Add a note for this result</label>
-              </div>
-              {% if form.note.errors %}
-                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                  {{ form.note.errors.as_text }}
-                </p>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
-            <span>Data tables</span>
-            <div data-mdc-auto-init="MDCRipple"
-               href="#"
-               data-trigger="addDataColumn"
-               class="mdc-button mdl-color-text--blue-grey-600 right">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add data column
-            </div>
-          </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
-            {% for data_column_form in data_columns_formset.forms %}
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
-              <input type="text"
-                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
-                     value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
-                     data-content="order"
-                     class="hidden">
-              <textarea name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-data"
-                        data-content="data-merged"
-                        class="hidden">{% if data_column_form.data.data %}value="{{ data_column_form.data.data }}"{% endif %}</textarea>
-              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
-                    <th>
-                      <i class="material-icons list--link-remove"
-                        data-trigger="remove-table">clear</i>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="3">
-                      <input type="text"
-                             class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-title"
-                             data-content="title"
-                             {% if data_column_form.title.data %}value="{{ data_column_form.title.data }}"{% endif %}>
-                       {% if data_column_form.title.errors %}
-                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                           {{ data_column_form.title.errors.as_text }}
-                         </p>
-                       {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Measurement</th>
-                    <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
-                               data-content="measurement"
-                               {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.measurement.errors %}
-                       <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                         {{ data_column_form.measurement.errors.as_text }}
-                       </p>
-                      {% endif %}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
-                               data-content="unit"
-                               {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.unit.errors %}
-                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                          {{ data_column_form.unit.errors.as_text }}
-                        </p>
-                      {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
-                    <th>
-                      remove / add
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% if data_column_form.data.data %}
-                    {% with data_dict=data_column_form.data.data|json_to_dict %}
-                      {% for data_value in data_dict.Data %}
-                        <tr>
-                          <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                            <input class="width--full"
-                                   data-content="data"
-                                   value="{{ data_value }}">
-                          </td>
-                          <td>
-                            <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
-                            <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                    {% endwith %}
-                  {% else %}
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input class="width--full"
-                             data-content="data">
-                    </td>
-                    <td>
-                      <i class="material-icons list--link-remove" data-trigger="remove--datarow">clear</i>
-                      <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                    </td>
-                  </tr>
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-            {% endfor %}
-            {% if data_column_form.data.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ data_column_form.data.errors.as_text }}
-              </p>
+      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Success</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {% if selected_protocol_result.is_successful %}
+            Yes
+            {% else %}
+            No
             {% endif %}
           </div>
         </div>
-      </form>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.get_state_display }}
+          </div>
+        </div>
+        {% if selected_protocol_result.project.name %}
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked to project</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.project.name }}
+          </div>
+        </div>
+        {% endif %}
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.protocol.name }}
+          </div>
+        </div>
+      </div>
+      {% if selected_protocol_result.note %}
+      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.note }}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
+          <span>Data tables</span>
+          <a data-mdc-auto-init="MDCRipple"
+             href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
+             class="mdc-button mdl-color-text--blue-grey-600 right">
+            <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Edit result
+          </a>
+        </div>
+      </div>
+      {% for data_column in selected_protocol_result.data_columns.all %}
+      <div class="left margin--8">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          {% if data_column.title %}
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric" colspan="2">
+                {{ data_column.title }}
+              </td>
+            </tr>
+          </tbody>
+          {% endif %}
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Measurement</th>
+              <th class="mdl-data-table__cell--non-numeric">Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">
+                {{ data_column.measurement }}
+              </td>
+              <td class="mdl-data-table__cell--non-numeric">
+                {{ data_column.unit }}
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th {% if data_column.data.Type != 'Number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">Data ({{ data_column.data.Type }})</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data_column.data.Data %}
+              {% with data_dict=data_column.data.Data %}
+                {% for data_value in data_dict %}
+                  <tr>
+                    <td {% if data_column.data.Type != 'Number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">
+                      {{ data_value }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+              {% endwith %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
     </div>
   </div>
 </div>
