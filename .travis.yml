@@ -27,3 +27,6 @@ before_script:
 script:
   - python ./manage.py migrate
   - python ./manage.py test
+
+ notifications:
+    slack: scilog:nYS7BLN8w4XOibTuo41tVi7I
