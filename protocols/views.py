@@ -273,7 +273,7 @@ class CreateProtocolResult(CreateViewWithFormset):
 @method_decorator(login_required, name='dispatch')
 class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
-    template_name = 'protocol_result.html'
+    template_name = 'update_protocol_result.html'
     form_class = BasicResultForm
     formset_class = DataColumnsFormset
     formset_name = 'data_columns_formset'

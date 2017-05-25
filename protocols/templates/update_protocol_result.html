@@ -9,13 +9,13 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-        href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=results">
+         href="{% url 'protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Result {{ selected_protocol_result.pk }}</span>
+      <span class="mdc-toolbar__title">Updating result {{ selected_protocol_result.pk }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
@@ -35,28 +35,88 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Result details
       </h1>
+      <div>
+        {% if form.nonfield_errors %}
+          {{ form.nonfield_errors }}
+        {% endif %}
+        {% if data_columns_formset.nonfield_errors %}
+          {{ data_columns_formset.nonfield_errors }}
+        {% endif %}
+      </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_result_form"
             method="post"
             action="">
+        {% csrf_token %}
+        {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.is_successful }}
+              <div class="mdc-form-field">
+                <div class="mdc-checkbox">
+                  <input type="checkbox"
+                         id="success-checkbox"
+                         name="is_successful"
+                         {% if form.is_successful.data %}checked{% endif %}
+                         class="mdc-checkbox__native-control"/>
+                  <div class="mdc-checkbox__background">
+                    <svg class="mdc-checkbox__checkmark"
+                         viewBox="0 0 24 24">
+                      <path class="mdc-checkbox__checkmark__path"
+                            fill="none"
+                            stroke="white"
+                            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark"></div>
+                  </div>
+                </div>
+                <label for="success-checkbox">Success</label>
+              </div>
+              {% if form.is_successful.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.is_successful.errors.as_text }}
+                </p>
+              {% endif %}
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.state }}
+              <select class="mdc-select margin--none" name="state">
+                {% for key, value in form.state.field.choices %}
+                <option value="{{ key }}" {% if form.state.data == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
             </div>
+            {% if form.state.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.state.errors.as_text }}
+              </p>
+            {% endif %}
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Link to project</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {{ selected_protocol_result.project.name }}
+              <div class="mdc-textfield {% if form.project.errors %}mdc-textfield--invalid{% endif %} input--simple" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input"
+                       id="link_result_to_project_input_name"
+                       type="text"
+                       autocomplete="off"
+                       maxlength="255">
+                <label class="mdc-textfield__label{% if form.project.data %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
+                <input type="text"
+                       name="project"
+                       class="hidden"
+                       {% if form.project.data %}value="{{ form.project.data }}"{% endif %}
+                       id="link_result_to_project_input_uuid">
+              </div>
+              {% if form.project.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.project.errors.as_text }}
+                </p>
+              {% endif %}
             </div>
             {% if form.state.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -282,4 +342,42 @@
 {% block post_load %}
 <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
 <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/datacolumns.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/dropzone.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/jquery.auto-complete.min.js" %}"></script>
+<script>
+  var MDCSnackbar = mdc.snackbar.MDCSnackbar;
+  var snackbar = new MDCSnackbar(document.getElementById('mdc-js-snackbar'));
+  var show = function(sb,notif) {
+    var data =  {
+      message: notif
+    };
+    sb.show(data);
+  };
+  $(window).load(function(){
+    var projectInErroruuid = $('#link_result_to_project_input_uuid').val();
+    $('#link_result_to_project_input_name').val(choices[projectInErroruuid]);
+  });
+  var choices = { {% for project_uuid, project_name in form.project.field.choices %}"{{ project_uuid }}":"{{ project_name }}"{% if not forloop.last %},{% endif %}{% endfor %} };
+  $('#link_result_to_project_input_name').autoComplete({
+      minChars: 0,
+      source: function(term, suggest){
+          term = term.toLowerCase();
+          var suggestions = [];
+          $.each(choices, function(key, value){
+            suggestions.push([key, value]);
+          });
+          suggest(suggestions);
+      },
+      renderItem: function (item, search){
+          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+          var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+          return '<div class="autocomplete-suggestion" data-pname="'+item[1]+'" data-puuid="'+item[0]+'" data-val="'+search+'">'+item[1].replace(re, "<b>$1</b>")+'</div>';
+      },
+      onSelect: function(e, term, item){
+          $('#link_result_to_project_input_name').val(item.data('pname'));
+          $('#link_result_to_project_input_uuid').val(item.data('puuid'));
+      }
+  });
+  </script>
 {% endblock %}
