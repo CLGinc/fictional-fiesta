@@ -9,9 +9,6 @@ services:
 addons:
   postgresql: "9.5"
 
-env:
-  - DJANGO=1.11.1
-
 before_install:
   - export DJANGO_SETTINGS_MODULE=SciLog.settings
   - export PYTHONPATH=$HOME/builds/CLGinc/SciLog
