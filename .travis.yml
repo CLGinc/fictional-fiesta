@@ -9,7 +9,7 @@ env:
   - DJANGO=1.11.1
 
 before_install:
-  - export DJANGO_SETTINGS_MODULE=scilog.settings
+  - export DJANGO_SETTINGS_MODULE=SciLog.settings
   - export PYTHONPATH=$HOME/builds/CLGinc/SciLog
   - export PIP_USE_MIRRORS=true
 
