@@ -6,7 +6,7 @@ services:
   - postgresql
 
 addons:
-  postgresql: "9.6"
+  postgresql: "9.5"
 
 env:
   - DJANGO=1.11.1
