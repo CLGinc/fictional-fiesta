@@ -49,7 +49,7 @@
             action="">
         {% csrf_token %}
         {{ data_columns_formset.management_form }}
-        <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
+        <input class="hidden" name="protocol" value="{{ form.protocol.value }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
@@ -59,7 +59,7 @@
                   <input type="checkbox"
                          id="success-checkbox"
                          name="is_successful"
-                         {% if form.is_successful.data %}checked{% endif %}
+                         {% if form.is_successful.value %}checked{% endif %}
                          class="mdc-checkbox__native-control"/>
                   <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark"
@@ -86,7 +86,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <select class="mdc-select margin--none" name="state">
                 {% for key, value in form.state.field.choices %}
-                <option value="{{ key }}" {% if form.state.data == key %}selected{% endif %}>{{ value }}</option>
+                <option value="{{ key }}" {% if form.state.value == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -105,11 +105,11 @@
                        type="text"
                        autocomplete="off"
                        maxlength="255">
-                <label class="mdc-textfield__label{% if form.project.data %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
+                <label class="mdc-textfield__label{% if form.project.value %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
                 <input type="text"
                        name="project"
                        class="hidden"
-                       {% if form.project.data %}value="{{ form.project.data }}"{% endif %}
+                       {% if form.project.value %}value="{{ form.project.value }}"{% endif %}
                        id="link_result_to_project_input_uuid">
               </div>
               {% if form.project.errors %}
@@ -138,7 +138,7 @@
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="note"
-                       maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
+                       maxlength="255" {% if form.note.value %}value="{{ form.note.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a note for this result</label>
               </div>
               {% if form.note.errors %}
@@ -161,15 +161,18 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
             {% for data_column_form in data_columns_formset.forms %}
+            <input class="hidden" name="data_columns-{{ data_column_form.order.value }}-result" value="{{ data_column_form.result.value }}" id="id_data_columns-{{ data_column_form.order.value }}-result">
+            <input class="hidden" name="data_columns-{{ data_column_form.order.value }}-id" value="{{ data_column_form.id.value }}" id="id_data_columns-{{ data_column_form.order.value }}-id">
+            <input type="checkbox" class="hidden" name="data_columns-{{ data_column_form.order.value }}-DELETE" id="id_data_columns-{{ data_column_form.order.value }}-DELETE">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
               <input type="text"
-                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
-                     value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
+                     name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-order"
+                     value="{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}"
                      data-content="order"
                      class="hidden">
-              <textarea name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-data"
+              <textarea name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-data"
                         data-content="data-merged"
-                        class="hidden">{% if data_column_form.data.data %}value="{{ data_column_form.data.data }}"{% endif %}</textarea>
+                        class="hidden">{% if data_column_form.data.value %}value="{{ data_column_form.data.value }}"{% endif %}</textarea>
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                   <tr>
@@ -185,9 +188,9 @@
                     <td class="mdl-data-table__cell--non-numeric" colspan="3">
                       <input type="text"
                              class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-title"
+                             name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-title"
                              data-content="title"
-                             {% if data_column_form.title.data %}value="{{ data_column_form.title.data }}"{% endif %}>
+                             {% if data_column_form.title.value %}value="{{ data_column_form.title.value }}"{% endif %}>
                        {% if data_column_form.title.errors %}
                          <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                            {{ data_column_form.title.errors.as_text }}
@@ -208,9 +211,9 @@
                       <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
                         <input type="text"
                                class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
+                               name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-measurement"
                                data-content="measurement"
-                               {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
+                               {% if data_column_form.measurement.value %}value="{{ data_column_form.measurement.value }}"{% endif %}>
                       </div>
                       {% if data_column_form.measurement.errors %}
                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -222,9 +225,9 @@
                       <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
                         <input type="text"
                                class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
+                               name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-unit"
                                data-content="unit"
-                               {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
+                               {% if data_column_form.unit.value %}value="{{ data_column_form.unit.value }}"{% endif %}>
                       </div>
                       {% if data_column_form.unit.errors %}
                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -243,8 +246,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% if data_column_form.data.data %}
-                    {% with data_dict=data_column_form.data.data|json_to_dict %}
+                  {% if data_column_form.data.value %}
+                    {% with data_dict=data_column_form.data.value|json_to_dict %}
                       {% for data_value in data_dict.Data %}
                         <tr>
                           <td class="mdl-data-table__cell--non-numeric" colspan="2">
@@ -275,9 +278,9 @@
               </table>
             </div>
             {% endfor %}
-            {% if data_column_form.data.errors %}
+            {% if data_column_form.value.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ data_column_form.data.errors.as_text }}
+                {{ data_column_form.value.errors.as_text }}
               </p>
             {% endif %}
           </div>
@@ -375,8 +378,8 @@
           return '<div class="autocomplete-suggestion" data-pname="'+item[1]+'" data-puuid="'+item[0]+'" data-val="'+search+'">'+item[1].replace(re, "<b>$1</b>")+'</div>';
       },
       onSelect: function(e, term, item){
-          $('#link_result_to_project_input_name').val(item.data('pname'));
-          $('#link_result_to_project_input_uuid').val(item.data('puuid'));
+          $('#link_result_to_project_input_name').val(item.value('pname'));
+          $('#link_result_to_project_input_uuid').val(item.value('puuid'));
       }
   });
   </script>
