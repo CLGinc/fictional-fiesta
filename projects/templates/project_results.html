@@ -21,7 +21,7 @@
 <ul class="mdc-list padding-0">
   {% for result in selected_project.results.all %}
   <li class="border--bottom mdc-layout-grid margin--none padding-0">
-    <a href="/resultid/"
+    <a href="{% url 'protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>

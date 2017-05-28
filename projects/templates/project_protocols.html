@@ -29,7 +29,7 @@
 <ul class="mdc-list padding-0">
   {% for protocol in selected_project.protocols.all %}
 	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
-    <a href="/resultid/"
+    <a href="{% url 'protocol' protocol_uuid=protocol.pk %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">{{ protocol.name }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
