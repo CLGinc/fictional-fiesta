@@ -7,7 +7,10 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 def json_to_dict(value):
-    converted_value = literal_eval(value)
-    if isinstance(converted_value, dict):
-        return converted_value
+    try:
+        converted_value = literal_eval(value)
+        if isinstance(converted_value, dict):
+            return converted_value
+    except ValueError:
+        return value
     return value
