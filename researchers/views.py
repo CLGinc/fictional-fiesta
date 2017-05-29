@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.list import MultipleObjectMixin
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
-from .models import Researcher
 
 
 class BaseAuthView(FormView):
