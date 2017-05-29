@@ -9,7 +9,7 @@ from django.http import Http404
 from researchers.views import RoleListMixin
 from researchers.models import Role
 from .models import Protocol, Result
-from .forms import BasicProtocolForm, StepsFormset
+from .forms import BasicProtocolForm
 from .forms import BasicResultForm
 
 
@@ -128,11 +128,9 @@ class UpdateViewWithFormset(UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocol(CreateViewWithFormset):
+class CreateProtocol(CreateView):
     template_name = 'create_protocol.html'
     form_class = BasicProtocolForm
-    formset_class = StepsFormset
-    formset_name = 'steps_formset'
 
     def get_success_url(self):
         return reverse(
@@ -143,19 +141,17 @@ class CreateProtocol(CreateViewWithFormset):
     def get_form_kwargs(self):
         kwargs = super(CreateProtocol, self).get_form_kwargs()
         kwargs['researcher'] = self.request.user.researcher
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['last_modified_by'] = str(self.request.user.researcher.pk)
         return kwargs
-
-    def get_formset_instance(self):
-        return self.object.procedure
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
+class UpdateProtocol(UpdateView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'update_protocol.html'
     form_class = BasicProtocolForm
-    formset_class = StepsFormset
-    formset_name = 'steps_formset'
 
     def get_success_url(self):
         return reverse(
@@ -166,10 +162,10 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocol, self).get_form_kwargs()
         kwargs['researcher'] = self.request.user.researcher
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['last_modified_by'] = str(self.request.user.researcher.pk)
         return kwargs
-
-    def get_formset_instance(self):
-        return self.object.procedure
 
 
 @method_decorator(login_required, name='dispatch')

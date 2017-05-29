@@ -1,19 +1,11 @@
 from django.contrib import admin
 
-from .models import Protocol, Asset, Procedure
-from .models import Step, Result, Attachment
+from .models import Protocol, Asset, Result, Attachment
 
 from researchers.models import Role
 
 
-class StepInline(admin.StackedInline):
-    model = Step
-
-
 class ProcedureAdmin(admin.ModelAdmin):
-    inlines = [
-        StepInline,
-    ]
     list_display = ('last_modified_by', 'protocol', 'datetime_last_modified')
 
 
@@ -47,7 +39,5 @@ class StepAdmin(admin.ModelAdmin):
 
 admin.site.register(Protocol, ProtocolAdmin)
 admin.site.register(Asset)
-admin.site.register(Procedure, ProcedureAdmin)
-admin.site.register(Step, StepAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(Attachment)

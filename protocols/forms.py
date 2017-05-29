@@ -1,19 +1,8 @@
 from django import forms
-from django.forms.models import inlineformset_factory
 
 from researchers.models import Role
 from projects.models import Project
-from.models import Protocol, Procedure, Step, Result
-
-
-StepsFormset = inlineformset_factory(
-    parent_model=Procedure,
-    model=Step,
-    fields=('title', 'text', 'order'),
-    extra=0,
-    max_num=64,
-    min_num=1
-)
+from.models import Protocol, Result
 
 
 class BasicProtocolForm(forms.ModelForm):
@@ -22,7 +11,9 @@ class BasicProtocolForm(forms.ModelForm):
         fields = [
             'name',
             'description',
-            'label'
+            'label',
+            'procedure',
+            'last_modified_by',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -44,11 +35,6 @@ class BasicProtocolForm(forms.ModelForm):
                 researcher=self.researcher,
                 protocol=instance,
                 role='owner'
-            )
-        if not(Procedure.objects.filter(protocol=instance).exists()):
-            Procedure.objects.create(
-                protocol=instance,
-                last_modified_by=self.researcher
             )
         return instance
 

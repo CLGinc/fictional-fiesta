@@ -43,7 +43,12 @@ class Protocol(models.Model):
         'researchers.Source',
         related_name='protocols',
         blank=True)
+    procedure = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey(
+        'researchers.Researcher',
+        related_name='procedures')
 
     class Meta:
             ordering = ['-datetime_created']
@@ -79,37 +84,6 @@ class Protocol(models.Model):
                     )
                 )
         return participants_by_role
-
-
-class Procedure(models.Model):
-    protocol = models.OneToOneField(Protocol, related_name='procedure')
-    datetime_last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by = models.ForeignKey(
-        'researchers.Researcher',
-        related_name='procedures')
-
-    def __str__(self):
-        return 'Procedure {} created by {}'.format(
-            self.id,
-            self.last_modified_by)
-
-
-class Step(models.Model):
-    title = models.CharField(max_length=255, blank=True)
-    text = models.TextField(max_length=1024)
-    procedure = models.ForeignKey(Procedure, related_name='steps')
-    order = models.PositiveIntegerField(
-        default=0
-    )
-
-    class Meta:
-        ordering = ['order', ]
-
-    def __str__(self):
-        return self.text
-
-    def __unicode__(self):
-        return self.text
 
 
 class Result(models.Model):

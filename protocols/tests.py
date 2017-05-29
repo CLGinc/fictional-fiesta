@@ -149,21 +149,9 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'steps-TOTAL_FORMS': '3',
-                'steps-INITIAL_FORMS': '0',
-                'steps-MIN_NUM_FORMS': '1',
-                'steps-MAX_NUM_FORMS': '64',
                 'name': 'New Protocol',
                 'label': 'modified',
-                'steps-0-order': '0',
-                'steps-0-title': 'Step 1',
-                'steps-0-text': 'Step 1 desc',
-                'steps-1-order': '1',
-                'steps-1-title': 'Step 2',
-                'steps-1-text': 'Step 2 desc',
-                'steps-2-order': '2',
-                'steps-2-title': 'Step 3',
-                'steps-2-text': 'Step 3 desc',
+                'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
         protocol = self.researcher1.roles.all().order_by('-id')[0].protocol
@@ -194,21 +182,9 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'steps-TOTAL_FORMS': '3',
-                'steps-INITIAL_FORMS': '0',
-                'steps-MIN_NUM_FORMS': '1',
-                'steps-MAX_NUM_FORMS': '64',
                 'name': 'New Protocol Name',
                 'label': 'modified',
-                'steps-0-order': '0',
-                'steps-0-title': 'Step 1',
-                'steps-0-text': 'Step 1 desc',
-                'steps-1-order': '1',
-                'steps-1-title': 'Step 2',
-                'steps-1-text': 'Step 2 desc',
-                'steps-2-order': '2',
-                'steps-2-title': 'Step 3',
-                'steps-2-text': 'Step 3 desc',
+                'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
         self.protocol3.refresh_from_db()
