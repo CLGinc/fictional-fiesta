@@ -156,162 +156,41 @@
                href="#"
                data-trigger="addDataColumn"
                class="mdc-button mdl-color-text--blue-grey-600 right">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add data column
+              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add column
+            </div>
+            <div data-mdc-auto-init="MDCRipple"
+               href="#"
+               data-trigger="addDataColumn"
+               class="mdc-button mdl-color-text--blue-grey-600 right">
+              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add row
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <table class="mdl-data-table mdl-js-data-table">
               <thead>
                 <tr>
                   <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
-                  <th class="mdl-data-table__cell--non-numeric">Dependant variable</th>
+                  <th>Dependant variables</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="mdl-data-table__cell--non-numeric">
-                    <input type="text"
-                           name="independant-variable"
-                           data-content="title">
-                  </td>
-                  <td class="mdl-data-table__cell--non-numeric">
-                    <input type="text"
-                           name="dependant-variable"
-                           data-content="title">
-                  </td>
-                  <td class="mdl-data-table__cell--non-numeric">
-                    <input type="text"
-                           name="dependant-variable"
-                           data-content="title">
-                  </td>
-                  <td class="mdl-data-table__cell--non-numeric">
-                    <input type="text"
-                           name="dependant-variable"
-                           data-content="title">
-                  </td>
-                  <td class="mdl-data-table__cell--non-numeric">
-                    <input type="text"
-                           name="dependant-variable"
-                           data-content="title">
-                  </td>
+                  <td></td>
+                  <td><input type="text" placeholder="Add title" class="text-right"></td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value"></td>
+                  <td><input type="text" placeholder="Add value" class="text-right"></td>
                 </tr>
               </tbody>
             </table>
 
             {% for data_column_form in data_columns_formset.forms %}
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
-            <!-- <input type="text"
-                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
-                     value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
-                     data-content="order"
-                     class="hidden">
-              <textarea name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-data"
-                        data-content="data-merged"
-                        class="hidden">{% if data_column_form.data.data %}value="{{ data_column_form.data.data }}"{% endif %}</textarea>
-              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
-                    <th>
-                      <i class="material-icons list--link-remove"
-                        data-trigger="remove-table">clear</i>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="3">
-                      <input type="text"
-                             class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-title"
-                             data-content="title"
-                             {% if data_column_form.title.data %}value="{{ data_column_form.title.data }}"{% endif %}>
-                       {% if data_column_form.title.errors %}
-                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                           {{ data_column_form.title.errors.as_text }}
-                         </p>
-                       {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Measurement</th>
-                    <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
-                               data-content="measurement"
-                               {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.measurement.errors %}
-                       <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                         {{ data_column_form.measurement.errors.as_text }}
-                       </p>
-                      {% endif %}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
-                               data-content="unit"
-                               {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.unit.errors %}
-                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                          {{ data_column_form.unit.errors.as_text }}
-                        </p>
-                      {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
-                    <th>
-                      remove / add
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% if data_column_form.data.data %}
-                    {% with data_dict=data_column_form.data.data|json_to_dict %}
-                      {% for data_value in data_dict.Data %}
-                        <tr>
-                          <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                            <input class="width--full"
-                                   data-content="data"
-                                   value="{{ data_value }}">
-                          </td>
-                          <td>
-                            <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
-                            <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                    {% endwith %}
-                  {% else %}
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input class="width--full"
-                             data-content="data">
-                    </td>
-                    <td>
-                      <i class="material-icons list--link-remove" data-trigger="remove--datarow">clear</i>
-                      <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                    </td>
-                  </tr>
-                  {% endif %}
-                </tbody>
-              </table> -->
+
+
+
             </div>
             {% endfor %}
             {% if data_column_form.data.errors %}

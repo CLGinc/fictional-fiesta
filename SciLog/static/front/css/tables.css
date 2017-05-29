@@ -83,18 +83,32 @@
 .mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
   text-align: left; }
 
-table input {
+/*table input {
   border: none;
   outline: none;
   border-bottom: 2px solid #efefef;
   padding-bottom: 8px;
   background-color: transparent;
   transition: border-bottom 0.2s;
-}
-table input:focus {
+}*/
+/*table input:focus {
   border: none;
   outline: none;
   border-bottom: 2px solid #03A9F4;
+}*/
+
+.mdl-data-table tbody tr input {
+padding: 8px;
+transition-duration: 0.28s;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-property: background-color; }
+.mdl-data-table tbody tr:hover input {
+background-color: #eeeeee; }
+
+table input {
+  height: 100%;
+  outline: none;
+  border: none;
 }
 .button--table {
   padding: 0;
