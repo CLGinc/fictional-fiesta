@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.list import MultipleObjectMixin
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
-from .models import Researcher
 
 
 class BaseAuthView(FormView):
@@ -53,7 +52,6 @@ class Register(BaseAuthView):
     def form_valid(self, form):
         form.save()
         user = form.instance
-        Researcher.objects.create(user=user)
         login(self.request, user, 'django.contrib.auth.backends.ModelBackend')
         return super(Register, self).form_valid(form)
 
