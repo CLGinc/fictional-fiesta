@@ -151,7 +151,7 @@
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
-            <span>Data tables</span>
+            <span>Data table</span>
             <div data-mdc-auto-init="MDCRipple"
                href="#"
                data-trigger="addDataColumn"
@@ -160,9 +160,48 @@
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
+
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
+                  <th class="mdl-data-table__cell--non-numeric">Dependant variable</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <input type="text"
+                           name="independant-variable"
+                           data-content="title">
+                  </td>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <input type="text"
+                           name="dependant-variable"
+                           data-content="title">
+                  </td>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <input type="text"
+                           name="dependant-variable"
+                           data-content="title">
+                  </td>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <input type="text"
+                           name="dependant-variable"
+                           data-content="title">
+                  </td>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <input type="text"
+                           name="dependant-variable"
+                           data-content="title">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
             {% for data_column_form in data_columns_formset.forms %}
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
-              <input type="text"
+            <!-- <input type="text"
                      name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
                      value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
                      data-content="order"
@@ -272,7 +311,7 @@
                   </tr>
                   {% endif %}
                 </tbody>
-              </table>
+              </table> -->
             </div>
             {% endfor %}
             {% if data_column_form.data.errors %}
