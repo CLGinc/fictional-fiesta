@@ -24,7 +24,7 @@ var updateDataColumns = function(){
     $(this).attr('data-order', index);
     $(this).children('[data-content="order"]').attr('name', prefix+index+'-order').attr('value', index).val(index);
     $(this).children('[data-content="data-merged"]').attr('name', prefix+index+'-data');
-    $(this).find('[data-content="label"]').attr('name', prefix+index+'-label');
+    $(this).find('[data-content="title"]').attr('name', prefix+index+'-title');
     $(this).find('[data-content="measurement"]').attr('name', prefix+index+'-measurement');
     $(this).find('[data-content="unit"]').attr('name', prefix+index+'-unit');
     $(this).find('.table--menu').attr('data-content', 'dataColumn-'+index+'-menu');
