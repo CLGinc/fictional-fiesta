@@ -21,21 +21,8 @@ class BasicProtocolForm(forms.ModelForm):
         super(BasicProtocolForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
+        self.instance._researcher = self.researcher
         instance = super(BasicProtocolForm, self).save(commit=commit)
-        if not(
-                Role.objects.filter(
-                    role='owner',
-                    protocol=instance
-                ).exists() or
-                Role.objects.filter(
-                    researcher=self.researcher,
-                    protocol=instance
-                ).exists()):
-            Role.objects.create(
-                researcher=self.researcher,
-                protocol=instance,
-                role='owner'
-            )
         return instance
 
 
