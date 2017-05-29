@@ -69,9 +69,15 @@
           <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="?section=procedure">
             <span class="margin--left-72">Procedures</span>
           </a>
+          {% if selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
+          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=results">
+            <span class="margin--left-72">Results</span>
+          </a>
+          {% else %}
           <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--blue-500{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
+          {% endif %}
           <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
