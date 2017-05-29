@@ -236,8 +236,7 @@ $('[data-trigger="delete-step"]').click(function(event){
 var deleteStep = function(event){
   // do not execute the function if there is only 1 step
   if ($('.step').not('.hidden').length > 1){
-    var	sourceStep =  event.target.parentElement.parentElement,
-        countNext = $(sourceStep).nextAll().not('.hidden');
+    var	sourceStep =  event.target.parentElement.parentElement;
     // mark the step for deletion and hide it from view
     $(sourceStep).children('[data-content="delete-step"]').prop('checked', true);
     $(sourceStep).addClass('hidden');

@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - New result{% endblock %}
+{% block title %}Sci Log - Update result{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
@@ -161,10 +161,18 @@
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
             {% for data_column_form in data_columns_formset.forms %}
-            <input class="hidden" name="data_columns-{{ data_column_form.order.value }}-result" value="{{ data_column_form.result.value }}" id="id_data_columns-{{ data_column_form.order.value }}-result">
-            <input class="hidden" name="data_columns-{{ data_column_form.order.value }}-id" value="{{ data_column_form.id.value }}" id="id_data_columns-{{ data_column_form.order.value }}-id">
-            <input type="checkbox" class="hidden" name="data_columns-{{ data_column_form.order.value }}-DELETE" id="id_data_columns-{{ data_column_form.order.value }}-DELETE">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="{{ data_column_form.order.value }}">
+              <input class="hidden" name="data_columns-{{ data_column_form.order.value }}-result" value="{{ data_column_form.result.value }}" id="id_data_columns-{{ data_column_form.order.value }}-result">
+              <input class="hidden"
+                     name="data_columns-{{ data_column_form.order.value }}-id"
+                     data-content="id"
+                     value="{{ data_column_form.id.value }}"
+                     id="id_data_columns-{{ data_column_form.order.value }}-id">
+              <input type="checkbox"
+                     class="hidden"
+                     data-content="delete-table"
+                     name="data_columns-{{ data_column_form.order.value }}-DELETE"
+                     id="id_data_columns-{{ data_column_form.order.value }}-DELETE">
               <input type="text"
                      name="data_columns-{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}-order"
                      value="{% if data_column_form.order.value %}{{ data_column_form.order.value }}{% else %}0{% endif %}"
@@ -179,7 +187,7 @@
                     <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
                     <th>
                       <i class="material-icons list--link-remove"
-                        data-trigger="remove-table">clear</i>
+                        data-trigger="delete-table">clear</i>
                     </th>
                   </tr>
                 </thead>

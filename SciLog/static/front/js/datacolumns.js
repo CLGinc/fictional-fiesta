@@ -3,10 +3,22 @@ $('[data-trigger="addDataColumn"]').click(function() {
   updateDataColumns();
 });
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove-table"]', function() {
-  if($('.dataTable--column').length > 1){
+  if($('.dataTable--column').not('.hidden').length > 1){
 	   $(event.target).closest('.dataTable--column').fadeOut(200, function() {
        $(this).remove();
        updateDataColumns();
+     });
+  } else {
+    var notif = 'At least one data column is required';
+    show(snackbar,notif);
+  }
+});
+$('[data-content="dataTable--parent"]').on('click', '[data-trigger="delete-table"]', function() {
+  if($('.dataTable--column').not('.hidden').length > 1){
+	   $(event.target).closest('.dataTable--column').fadeOut(200, function() {
+       $(this).children('[data-content="delete-table"]').prop('checked', true);
+       $(this).addClass('hidden');
+       updateDataColumnsEdit();
      });
   } else {
     var notif = 'At least one data column is required';
@@ -24,11 +36,28 @@ var updateDataColumns = function(){
     $(this).attr('data-order', index);
     $(this).children('[data-content="order"]').attr('name', prefix+index+'-order').attr('value', index).val(index);
     $(this).children('[data-content="data-merged"]').attr('name', prefix+index+'-data');
+    $(this).find('[data-content="id"]').attr('name', prefix+index+'-id');
     $(this).find('[data-content="title"]').attr('name', prefix+index+'-title');
     $(this).find('[data-content="measurement"]').attr('name', prefix+index+'-measurement');
     $(this).find('[data-content="unit"]').attr('name', prefix+index+'-unit');
     $(this).find('.table--menu').attr('data-content', 'dataColumn-'+index+'-menu');
     $(this).find('[data-trigger="table--menu"]').attr('data-target', 'dataColumn-'+index+'-menu');
+    index++;
+  });
+};
+
+var updateDataColumnsEdit = function(){
+  var dataColumns = $('.dataTable--column'),
+      prefix = 'data_columns-',
+      totalForms = dataColumns.length,
+      index = 0;
+  $('#id_data_columns-TOTAL_FORMS').val(totalForms);
+    $(dataColumns).not('.hidden').each(function(){
+    $(this).attr('data-order', index);
+    $(this).children('[data-content="order"]').attr('value', index).val(index);
+    // this.querySelector('[data-content="step-input"]').setAttribute('value',number);
+    // this.setAttribute('data-step',number);
+    // increment number for next loop
     index++;
   });
 };
