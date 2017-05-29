@@ -6,6 +6,6 @@ from .models import Researcher
 
 
 @receiver(post_save, sender=User)
-def set_created_users_inactive(sender, instance, created, **kwargs):
+def create_researcher(sender, instance, created, **kwargs):
     if created and not(kwargs.get('raw', False)):
         Researcher.objects.create(user=instance)
