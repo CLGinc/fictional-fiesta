@@ -123,6 +123,7 @@ class Result(models.Model):
         default=uuid.uuid4,
         editable=False
     )
+    title = models.CharField(max_length=255)
     note = models.CharField(max_length=255, null=True, blank=True)
     owner = models.ForeignKey('researchers.Researcher', related_name='results')
     state = models.CharField(
@@ -136,6 +137,9 @@ class Result(models.Model):
         related_name='results',
         null=True,
         blank=True)
+    independent_variable = models.CharField(max_length=255)
+    dependent_variable = models.CharField(max_length=255)
+    data_columns = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -165,25 +169,3 @@ class Attachment(models.Model):
 
     def __str__(self):
         return self.file.filename
-
-
-class DataColumn(models.Model):
-    title = models.CharField(max_length=255, null=True, blank=True)
-    result = models.ForeignKey(Result, related_name='data_columns')
-    data = JSONField()
-    order = models.PositiveIntegerField(
-        default=0
-    )
-    measurement = models.CharField(max_length=32)
-    unit = models.CharField(max_length=32)
-
-    class Meta:
-        ordering = ['order', ]
-
-    def __str__(self):
-        return 'Data column {} ({}) for protocol "{}" owned by {}'.format(
-            self.order,
-            self.measurement,
-            self.result.protocol,
-            self.result.owner
-        )

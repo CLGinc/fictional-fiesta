@@ -3,22 +3,13 @@ from django.forms.models import inlineformset_factory
 
 from researchers.models import Role
 from projects.models import Project
-from.models import Protocol, Procedure, Step, Result, DataColumn
+from.models import Protocol, Procedure, Step, Result
 
 
 StepsFormset = inlineformset_factory(
     parent_model=Procedure,
     model=Step,
     fields=('title', 'text', 'order'),
-    extra=0,
-    max_num=64,
-    min_num=1
-)
-
-DataColumnsFormset = inlineformset_factory(
-    parent_model=Result,
-    model=DataColumn,
-    fields=('title', 'data', 'order', 'measurement', 'unit'),
     extra=0,
     max_num=64,
     min_num=1
@@ -66,12 +57,16 @@ class BasicResultForm(forms.ModelForm):
     class Meta:
         model = Result
         fields = [
+            'title',
             'note',
             'owner',
             'state',
             'is_successful',
+            'independent_variable',
+            'dependent_variable',
             'protocol',
-            'project'
+            'data_columns',
+            'project',
         ]
 
     def __init__(self, *args, **kwargs):

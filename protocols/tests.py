@@ -233,21 +233,13 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'data_columns-TOTAL_FORMS': '2',
-                'data_columns-INITIAL_FORMS': '0',
-                'data_columns-MIN_NUM_FORMS': '1',
-                'data_columns-MAX_NUM_FORMS': '64',
+                'title': 'Result title',
                 'protocol': str(self.protocol3.pk),
+                'note': 'New Note',
                 'state': 'created',
-                'data_columns-0-order': '0',
-                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
-                'data_columns-0-title': 'Column 1 Title',
-                'data_columns-0-measurement': 'Mass',
-                'data_columns-0-unit': 'kg',
-                'data_columns-1-order': '1',
-                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
-                'data_columns-1-title': 'Column 1 Title',
-                'data_columns-1-measurement': 'Speed',
+                'independent_variable': 'Salt Concentration (%)',
+                'dependent_variable': 'Light Transmittance (%T)',
+                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"data_type":"independent_variable","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","data_type":"dependent_variable"},{"data":[5,4,3,2,1],"title":"Trial 2","data_type":"dependent_variable"}]}',
                 'data_columns-1-unit': 'm/s'
             }
         )
@@ -294,28 +286,20 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'data_columns-TOTAL_FORMS': '2',
-                'data_columns-INITIAL_FORMS': '0',
-                'data_columns-MIN_NUM_FORMS': '1',
-                'data_columns-MAX_NUM_FORMS': '64',
+                'title': 'Result title',
                 'protocol': str(self.protocol3.pk),
                 'note': 'New Note',
                 'state': 'created',
-                'data_columns-0-order': '0',
-                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
-                'data_columns-0-title': 'Column 1 Title',
-                'data_columns-0-measurement': 'Mass',
-                'data_columns-0-unit': 'kg',
-                'data_columns-1-order': '1',
-                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
-                'data_columns-1-title': 'Column 1 Title',
-                'data_columns-1-measurement': 'Speed',
+                'independent_variable': 'Salt Concentration (%)',
+                'dependent_variable': 'Light Transmittance (%T)',
+                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"data_type":"independent_variable","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","data_type":"dependent_variable"},{"data":[5,4,3,2,1],"title":"Trial 2","data_type":"dependent_variable"}]}',
                 'data_columns-1-unit': 'm/s'
             }
         )
         self.protocol3_result.refresh_from_db()
         self.assertRedirects(response, redirect_url)
         self.assertEqual(self.protocol3_result.note, 'New Note')
+        self.assertEqual(self.protocol3_result.title, 'Result title')
 
     def test_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')

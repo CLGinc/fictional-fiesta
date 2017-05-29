@@ -10,7 +10,7 @@ from researchers.views import RoleListMixin
 from researchers.models import Role
 from .models import Protocol, Result
 from .forms import BasicProtocolForm, StepsFormset
-from .forms import BasicResultForm, DataColumnsFormset
+from .forms import BasicResultForm
 
 
 class SinglePrototolMixin(SingleObjectMixin):
@@ -202,11 +202,9 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocolResult(CreateViewWithFormset):
+class CreateProtocolResult(CreateView):
     template_name = 'create_protocol_result.html'
     form_class = BasicResultForm
-    formset_class = DataColumnsFormset
-    formset_name = 'data_columns_formset'
     protocol_slug_field = 'uuid'
     protocol_slug_url_kwarg = 'protocol_uuid'
 
@@ -257,9 +255,6 @@ class CreateProtocolResult(CreateViewWithFormset):
             )
         return protocol
 
-    def get_formset_instance(self):
-        return self.object
-
     def get_form_kwargs(self):
         kwargs = super(CreateProtocolResult, self).get_form_kwargs()
         if 'data' in kwargs:
@@ -271,13 +266,10 @@ class CreateProtocolResult(CreateViewWithFormset):
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
+class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
-    template_name = 'update_protocol_result.html'
     form_class = BasicResultForm
-    formset_class = DataColumnsFormset
-    formset_name = 'data_columns_formset'
-    formset_instance = None
+    template_name = 'update_protocol_result.html'
 
     def get_success_url(self):
         return reverse(
@@ -287,13 +279,6 @@ class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
                 'result_uuid': self.object.uuid,
             }
         )
-
-    def get_context_data(self, **kwargs):
-        self.formset_instance = self.get_formset_instance()
-        return super(UpdateProtocolResult, self).get_context_data(**kwargs)
-
-    def get_formset_instance(self):
-        return self.object
 
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocolResult, self).get_form_kwargs()
