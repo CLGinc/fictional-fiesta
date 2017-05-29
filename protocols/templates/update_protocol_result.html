@@ -54,7 +54,7 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-form-field">
+              <div class="mdc-form-field {% if form.is_successful.errors %}mdc-textfield--invalid{% endif %}">
                 <div class="mdc-checkbox">
                   <input type="checkbox"
                          id="success-checkbox"
@@ -75,9 +75,9 @@
                 <label for="success-checkbox">Success</label>
               </div>
               {% if form.is_successful.errors %}
-                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                  {{ form.is_successful.errors.as_text }}
-                </p>
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.is_successful.errors.as_text }}
+              </p>
               {% endif %}
             </div>
           </div>
@@ -135,16 +135,16 @@
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <div class="mdc-textfield {% if form.note.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="note"
                        maxlength="255" {% if form.note.value %}value="{{ form.note.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a note for this result</label>
               </div>
               {% if form.note.errors %}
-                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                  {{ form.note.errors.as_text }}
-                </p>
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.note.errors.as_text }}
+              </p>
               {% endif %}
             </div>
           </div>
