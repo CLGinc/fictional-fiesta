@@ -1,13 +1,10 @@
 import random
-import json
 import time
 import logging
 
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 
-from protocols.models import Protocol, Procedure
-from protocols.models import Step, Result, DataColumn
+from protocols.models import Protocol, Result
 from projects.models import Project
 from researchers.models import Researcher, Role
 
@@ -43,15 +40,6 @@ class Command(BaseCommand):
         start_time = time.time()
         logger = logging.getLogger('django')
         logger.info('Start generating protocols')
-        MEASUREMENTS = (
-            ('Volume', 'litre'),
-            ('Mass', 'kg'),
-            ('Mass', 'mg'),
-            ('Mass', 'g'),
-            ('Speed' 'km/h'),
-            ('Speed' 'm/s'),
-            ('Speed' 'm/s'),
-        )
         for protocol_idx in range(options['protocols']):
             # Preparations for connecting
             # protocol with projects and researchers
@@ -69,14 +57,25 @@ class Command(BaseCommand):
                     number_of_projects)
             else:
                 projects = list()
+            # Generate steps
+            procedure = {'steps': []}
+            for step_idx in range(options['protocols']):
+                procedure['steps'].append(
+                    {
+                        'description': 'Step {} description'.format(step_idx),
+                        'title': 'Step {}'.format(step_idx)
+                    }
+                )
             # Create protocol
             protocol = Protocol.objects.create(
                 name='Protocol {}'.format(protocol_idx),
                 description='Description for protocol {}'.format(protocol_idx),
-                label=random.choice(Protocol.LABELS)[0]
+                label=random.choice(Protocol.LABELS)[0],
+                last_modified_by=researcher,
+                procedure=procedure
             )
             # Create random role between protocol and researcher
-            protocol_role = Role.objects.create(
+            Role.objects.create(
                 researcher=researcher,
                 protocol=protocol,
                 role=random.choice(Role.ROLES[:2])[0]
@@ -86,24 +85,40 @@ class Command(BaseCommand):
                 for project in projects:
                     project.protocols.add(protocol)
                     if not(project.roles.filter(researcher=researcher)):
-                        project_role = Role.objects.create(
+                        Role.objects.create(
                             researcher=researcher,
                             project=project,
                             role=random.choice(Role.ROLES[1:])[0]
                         )
-            procedure = Procedure.objects.create(
-                protocol=protocol,
-                datetime_last_modified=timezone.now(),
-                last_modified_by=researcher
-            )
-            # Create steps for procedure
-            for step_idx in range(options['steps']):
-                step = Step.objects.create(
-                    text='Step {} for protocol {}'.format(
-                        step_idx,
-                        protocol_idx),
-                    procedure=procedure,
-                    order=step_idx
+            # Generate data columns
+            data_columns = {
+                'data_columns': [
+                    {
+                        'data': [
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048)
+                        ],
+                        "variable":"independent",
+                        "title":"Independent Variable"
+                    }
+                ]
+            }
+            for column_idx in range(options['protocols']):
+                data_columns['data_columns'].append(
+                    {
+                        'data': [
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048),
+                            random.randint(0, 2048)
+                        ],
+                        'title': 'Trial {}'.format(column_idx + 1),
+                        'variable': 'dependent'
+                    }
                 )
             # Create randomly generated results for the selected protocol
             for result_idx in range(options['results']):
@@ -111,28 +126,22 @@ class Command(BaseCommand):
                 state = random.choice(Result.STATES)[0]
                 if state == 'finished':
                     is_successful = random.choice((True, False))
-                result = Result.objects.create(
+                Result.objects.create(
                     note='Note for result {}'.format(result_idx),
                     owner=researcher,
                     state=state,
                     is_successful=is_successful,
                     protocol=protocol,
                     project=random.choice(
-                        projects) if add_to_projects else None
-                )
-            # Create data columnd constructed from random data
-            for data_idx in range(options['data_columns']):
-                data = {
-                    "title": "Column {}".format(data_idx),
-                    "Data": random.sample(list(range(100)), 10)
-                }
-                measurement = random.choice(MEASUREMENTS)
-                data_column = DataColumn.objects.create(
-                    result=result,
-                    data=json.dumps(data),
-                    measurement=measurement[0],
-                    unit=measurement[1],
+                        projects) if add_to_projects else None,
+                    data_columns=data_columns,
+                    data_type='number',
+                    independent_variable='Salt Concentration (%)',
+                    dependent_variable='Light Transmittance (%T)'
                 )
         execution_time = time.time() - start_time
-        logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
-                execution_time))
+        logger.info(
+            "Finished! Execution time: {0:0.2f} seconds!".format(
+                execution_time
+            )
+        )
