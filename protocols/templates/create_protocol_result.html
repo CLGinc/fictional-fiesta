@@ -174,16 +174,15 @@
                 <col/>
               </colgroup>
               <thead>
-                <tr data-content="table--dependant-variable">
-                  <th></th>
+                <tr data-content="table--labels">
+                  <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
                   <th>Dependant variables</th>
                   <th></th>
                 </tr>
-                <tr>
-                  <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
-                  <th>
+                <tr data-content="table--controls-column">
+                  <th></th>
+                  <th data-content="table--controls-remove_col">
                     <div data-mdc-auto-init="MDCRipple"
-                       href="#"
                        data-trigger="removeDataColumn"
                        class="mdc-button table--button">
                       Remove col
@@ -203,7 +202,6 @@
                   <td><input type="text" placeholder="Add value" class="text-right"></td>
                   <td>
                     <div data-mdc-auto-init="MDCRipple"
-                       href="#"
                        data-trigger="removeDataRow"
                        class="mdc-button table--button">
                       Remove row
