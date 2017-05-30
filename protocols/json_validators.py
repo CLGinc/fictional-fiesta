@@ -1,10 +1,8 @@
 from jsonschema import validate
 import jsonschema
 
-from django.core.exceptions import ValidationError
 
-
-def vaidate_result_data_columns(value, data_type, field_name):
+def vaidate_result_data_columns(value, data_type):
     data_columns_schema = {
         'type': 'object',
         'properties': {
@@ -46,16 +44,19 @@ def vaidate_result_data_columns(value, data_type, field_name):
             }
         }
     }
+    error_message = None
     try:
         validate(value, data_columns_schema)
+        for idx, column in enumerate(value['data_columns']):
+            if (idx == 0 and column['variable'] != 'independent') or \
+                    (idx != 0 and column['variable'] == 'independent'):
+                error_message = '"variable" must be "independent" only in the first column and "dependent" in the rest!'
     except jsonschema.exceptions.ValidationError as e:
-        raise ValidationError(
-            {field_name: 'The input JSON is not valid: {}!'.format(e.message)}
-        )
-    return True
+        error_message = e.message
+    return error_message
 
 
-def vaidate_protocol_procedure(value, field_name):
+def vaidate_protocol_procedure(value):
     procedure_schema = {
         'type': 'object',
         'properties': {
@@ -86,10 +87,9 @@ def vaidate_protocol_procedure(value, field_name):
             }
         }
     }
+    error_message = None
     try:
         validate(value, procedure_schema)
     except jsonschema.exceptions.ValidationError as e:
-        raise ValidationError(
-            {field_name: 'The input JSON is not valid: {}!'.format(e.message)}
-        )
-    return True
+        error_message = e.message
+    return error_message

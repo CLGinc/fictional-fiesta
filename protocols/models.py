@@ -61,10 +61,9 @@ class Protocol(models.Model):
 
     def clean(self):
         if hasattr(self, 'procedure'):
-            vaidate_protocol_procedure(
-                value=self.procedure,
-                field_name='procedure'
-            )
+            error_message = vaidate_protocol_procedure(value=self.procedure)
+            if error_message:
+                raise ValidationError({'procedure': 'Invalid JSON content: {}!'.format(error_message)})
 
     def get_owner(self):
         return self.roles.get(role='owner').researcher
@@ -157,11 +156,12 @@ class Result(models.Model):
             if not(self.project.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
                 raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
         if hasattr(self, 'data_columns') and hasattr(self, 'data_type'):
-            vaidate_result_data_columns(
+            error_message = vaidate_result_data_columns(
                 value=self.data_columns,
-                data_type=self.data_type,
-                field_name='data_columns'
+                data_type=self.data_type
             )
+            if error_message:
+                raise ValidationError({'data_columns': 'Invalid JSON content: {}!'.format(error_message)})
 
 
 class Attachment(models.Model):
