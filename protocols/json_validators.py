@@ -84,7 +84,7 @@ def vaidate_protocol_procedure(value):
                     },
                     'description': {
                         'type': 'string',
-                        'maxLength': 255,
+                        'maxLength': 1024,
                     }
                 },
                 'required': ['title', 'description'],
