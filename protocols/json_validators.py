@@ -47,7 +47,11 @@ def vaidate_result_data_columns(value, data_type):
     error_message = None
     try:
         validate(value, data_columns_schema)
+        # Number of rows for the first column
+        column_size = len(value['data_columns'][0]['data'])
         for idx, column in enumerate(value['data_columns']):
+            if column_size != len(column['data']):
+                error_message = 'All columns must have the same number of rows!'
             if (idx == 0 and column['variable'] != 'independent') or \
                     (idx != 0 and column['variable'] == 'independent'):
                 error_message = '"variable" must be "independent" only in the first column and "dependent" in the rest!'

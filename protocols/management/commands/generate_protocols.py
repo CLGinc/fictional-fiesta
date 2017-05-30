@@ -106,7 +106,7 @@ class Command(BaseCommand):
                     }
                 ]
             }
-            for column_idx in range(options['protocols']):
+            for column_idx in range(options['data_columns']):
                 data_columns['data_columns'].append(
                     {
                         'data': [
