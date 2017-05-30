@@ -6,6 +6,9 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from .json_validators import vaidate_result_data_columns
+from .json_validators import vaidate_protocol_procedure
+
 
 class Asset(models.Model):
     CATEGORIES = (
@@ -56,6 +59,13 @@ class Protocol(models.Model):
     def __str__(self):
         return self.name
 
+    def clean(self):
+        if hasattr(self, 'procedure'):
+            vaidate_protocol_procedure(
+                value=self.procedure,
+                field_name='procedure'
+            )
+
     def get_owner(self):
         return self.roles.get(role='owner').researcher
 
@@ -91,6 +101,11 @@ class Result(models.Model):
         ('created', 'Created'),
         ('finished', 'Finished'),
     )
+    DATA_TYPES = (
+        ('number', 'Number'),
+        ('string', 'Text'),
+        ('boolean', 'Yes/No'),
+    )
 
     uuid = models.UUIDField(
         primary_key=True,
@@ -103,16 +118,23 @@ class Result(models.Model):
     state = models.CharField(
         max_length=20,
         choices=STATES,
-        default=STATES[0][0])
+        default=STATES[0][0]
+    )
     is_successful = models.BooleanField(default=False)
     protocol = models.ForeignKey(Protocol, related_name='results')
     project = models.ForeignKey(
         'projects.Project',
         related_name='results',
         null=True,
-        blank=True)
+        blank=True
+    )
     independent_variable = models.CharField(max_length=255)
     dependent_variable = models.CharField(max_length=255)
+    data_type = models.CharField(
+        max_length=20,
+        choices=DATA_TYPES,
+        default=DATA_TYPES[0][0]
+    )
     data_columns = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
 
@@ -134,6 +156,12 @@ class Result(models.Model):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
             if not(self.project.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
                 raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
+        if hasattr(self, 'data_columns') and hasattr(self, 'data_type'):
+            vaidate_result_data_columns(
+                value=self.data_columns,
+                data_type=self.data_type,
+                field_name='data_columns'
+            )
 
 
 class Attachment(models.Model):

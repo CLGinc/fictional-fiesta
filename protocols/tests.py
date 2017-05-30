@@ -215,8 +215,8 @@ class ProtocolViewTest(TestCase):
                 'state': 'created',
                 'independent_variable': 'Salt Concentration (%)',
                 'dependent_variable': 'Light Transmittance (%T)',
-                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"data_type":"independent_variable","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","data_type":"dependent_variable"},{"data":[5,4,3,2,1],"title":"Trial 2","data_type":"dependent_variable"}]}',
-                'data_columns-1-unit': 'm/s'
+                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"variable":"independent","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","variable":"dependent"},{"data":[5,4,3,2,1],"title":"Trial 2","variable":"dependent"}]}',
+                'data_type': 'number'
             }
         )
         result = self.protocol3.results.all().order_by('-datetime_created')[0]
@@ -268,8 +268,8 @@ class ProtocolViewTest(TestCase):
                 'state': 'created',
                 'independent_variable': 'Salt Concentration (%)',
                 'dependent_variable': 'Light Transmittance (%T)',
-                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"data_type":"independent_variable","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","data_type":"dependent_variable"},{"data":[5,4,3,2,1],"title":"Trial 2","data_type":"dependent_variable"}]}',
-                'data_columns-1-unit': 'm/s'
+                'data_columns': '{"data_columns":[{"data":[0,2,4,6,8],"variable":"independent","title":"Independent Variable"},{"data":[5,4,3,2,1],"title":"Trial 1","variable":"dependent"},{"data":[5,4,3,2,1],"title":"Trial 2","variable":"dependent"}]}',
+                'data_type': 'number'
             }
         )
         self.protocol3_result.refresh_from_db()
