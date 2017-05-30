@@ -127,6 +127,7 @@ class Command(BaseCommand):
                 if state == 'finished':
                     is_successful = random.choice((True, False))
                 Result.objects.create(
+                    title='Result {}'.format(result_idx),
                     note='Note for result {}'.format(result_idx),
                     owner=researcher,
                     state=state,
