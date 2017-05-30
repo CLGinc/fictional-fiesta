@@ -290,7 +290,3 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
 class ProtocolResultView(DetailView, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
     template_name = 'protocol_result.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ProtocolResultView, self).get_context_data(**kwargs)
-        return context
