@@ -160,28 +160,55 @@
             </div>
             <div data-mdc-auto-init="MDCRipple"
                href="#"
-               data-trigger="addDataColumn"
+               data-trigger="addDataRow"
                class="mdc-button mdl-color-text--blue-grey-600 right">
               <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add row
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
+          <div class="" data-content="dataTable--parent" style="display:table;">
 
             <table class="mdl-data-table mdl-js-data-table">
+              <colgroup>
+                <col class="table--border-right"/>
+                <col data-content="table--column"/>
+                <col/>
+              </colgroup>
               <thead>
+                <tr data-content="table--dependant-variable">
+                  <th></th>
+                  <th>Dependant variables</th>
+                  <th></th>
+                </tr>
                 <tr>
                   <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
-                  <th>Dependant variables</th>
+                  <th>
+                    <div data-mdc-auto-init="MDCRipple"
+                       href="#"
+                       data-trigger="removeDataColumn"
+                       class="mdc-button table--button">
+                      Remove col
+                    </div>
+                  </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td></td>
                   <td><input type="text" placeholder="Add title" class="text-right"></td>
+                  <td></td>
                 </tr>
-                <tr>
+                <tr data-content="table--row">
                   <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value"></td>
                   <td><input type="text" placeholder="Add value" class="text-right"></td>
+                  <td>
+                    <div data-mdc-auto-init="MDCRipple"
+                       href="#"
+                       data-trigger="removeDataRow"
+                       class="mdc-button table--button">
+                      Remove row
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
