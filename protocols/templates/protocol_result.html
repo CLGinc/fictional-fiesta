@@ -67,7 +67,7 @@
           <span>Data tables</span>
         </div>
       </div>
-      {% for data_column in selected_protocol_result.data_columns.all %}
+      {% for data_column in selected_protocol_result.data_columns.data_columns %}
       <div class="left margin--8">
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
           {% if data_column.title %}
@@ -106,17 +106,13 @@
             </tr>
           </thead>
           <tbody>
-            {% if data_column.data.Data %}
-              {% with data_dict=data_column.data.Data %}
-                {% for data_value in data_dict %}
-                  <tr>
-                    <td {% if data_column.data.Type != 'Number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">
-                      {{ data_value }}
-                    </td>
-                  </tr>
-                  {% endfor %}
-              {% endwith %}
-            {% endif %}
+            {% for data_value in data_column.data %}
+              <tr>
+                <td {% if selected_protocol_result.data_type != 'number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">
+                  {{ data_value }}
+                </td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
