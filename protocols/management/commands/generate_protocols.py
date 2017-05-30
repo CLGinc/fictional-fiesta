@@ -59,7 +59,7 @@ class Command(BaseCommand):
                 projects = list()
             # Generate steps
             procedure = {'steps': []}
-            for step_idx in range(options['protocols']):
+            for step_idx in range(options['steps']):
                 procedure['steps'].append(
                     {
                         'description': 'Step {} description'.format(step_idx),
