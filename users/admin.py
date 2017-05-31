@@ -14,7 +14,14 @@ class RoleAdmin(admin.ModelAdmin):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'email')
+    list_display = (
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'date_joined',
+        'is_superuser'
+    )
     search_fields = (
         'username',
         'email',
