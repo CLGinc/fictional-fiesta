@@ -76,6 +76,12 @@ an owner of this protocol!')
 class User(AbstractUser):
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
 
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return '{} {}'.format(self.first_name, self.last_name)
+        else:
+            return self.email
+
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
