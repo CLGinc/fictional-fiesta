@@ -55,42 +55,37 @@
     "description": "Description for protocol 7",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-18T19:30:46.374Z",
     "datetime_last_modified": "2017-05-29T18:09:30.463Z",
     "last_modified_by": 3,
@@ -106,42 +101,37 @@
     "description": "Description for protocol 2",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-13T19:30:45.164Z",
     "datetime_last_modified": "2017-05-29T18:08:24.194Z",
     "last_modified_by": 3,
@@ -157,42 +147,37 @@
     "description": "Description for protocol 6",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-17T19:30:46.146Z",
     "datetime_last_modified": "2017-05-29T18:09:20.506Z",
     "last_modified_by": 1,
@@ -208,42 +193,37 @@
     "description": "Description for protocol 9",
     "label": "modified",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-20T19:30:46.962Z",
     "datetime_last_modified": "2017-05-29T18:09:53.312Z",
     "last_modified_by": 3,
@@ -259,42 +239,37 @@
     "description": "Description for protocol 5",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-16T19:30:45.884Z",
     "datetime_last_modified": "2017-05-29T18:09:09.520Z",
     "last_modified_by": 3,
@@ -310,42 +285,37 @@
     "description": "Description for protocol 1",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-12T19:30:44.883Z",
     "datetime_last_modified": "2017-05-29T18:08:07.477Z",
     "last_modified_by": 2,
@@ -368,42 +338,37 @@
     "description": "Description for protocol 3",
     "label": "modified",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-14T19:30:45.417Z",
     "datetime_last_modified": "2017-05-29T18:08:36.157Z",
     "last_modified_by": 1,
@@ -419,42 +384,37 @@
     "description": "Description for protocol 8",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-19T19:30:46.651Z",
     "datetime_last_modified": "2017-05-29T18:09:43.895Z",
     "last_modified_by": 1,
@@ -470,42 +430,37 @@
     "description": "Description for protocol 4",
     "label": "modified",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-15T19:30:45.628Z",
     "datetime_last_modified": "2017-05-29T18:08:49.185Z",
     "last_modified_by": 3,
@@ -521,42 +476,37 @@
     "description": "Description for protocol 10",
     "label": "standard",
     "procedure": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "data_type": "independent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "data_type": "dependent_variable"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "data_type": "dependent_variable"
-        }
-      ]
+  "steps":[
+    {
+      "description":"Step 1 description",
+      "title":"Step 1"
     },
+    {
+      "description":"Step 2 description",
+      "title":"Step 2"
+    },
+    {
+      "description":"Step 3 description",
+      "title":"Step 3"
+    },
+    {
+      "description":"Step 4 description",
+      "title":"Step 4"
+    },
+    {
+      "description":"Step 5 description",
+      "title":"Step 5"
+    },
+    {
+      "description":"Step 6 description",
+      "title":"Step 6"
+    },
+    {
+      "description":"Step 7 description",
+      "title":"Step 7"
+    }
+  ]
+},
     "datetime_created": "2016-12-21T19:30:47.213Z",
     "datetime_last_modified": "2017-05-29T18:07:11.590Z",
     "last_modified_by": 1,
