@@ -1,19 +1,9 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
 
 from protocols.models import Protocol
 from projects.models import Project
-
-
-class University(models.Model):
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = 'Universities'
-
-    def __str__(self):
-        return self.name
 
 
 class Role(models.Model):
@@ -32,7 +22,7 @@ class Role(models.Model):
     )
     DEFAULT_INVITATION_ROLE = ('watcher', 'Watcher')
 
-    researcher = models.ForeignKey('Researcher', related_name='roles')
+    user = models.ForeignKey('User', related_name='roles')
     project = models.ForeignKey(
         'projects.Project',
         related_name='roles',
@@ -47,8 +37,8 @@ class Role(models.Model):
 
     class Meta:
         unique_together = (
-            ('researcher', 'project'),
-            ('researcher', 'protocol'))
+            ('user', 'project'),
+            ('user', 'protocol'))
 
     def __str__(self):
         role_object_label = ''
@@ -57,7 +47,7 @@ class Role(models.Model):
         elif self.protocol:
             role_object_label = 'protocol {}'.format(self.protocol.name)
         return '{} {} of/to {}'.format(
-            self.researcher.user.username,
+            self.user.username,
             self.get_role_display(),
             role_object_label
         )
@@ -83,20 +73,12 @@ an owner of this protocol!')
         return [role[0] for role in cls.ROLES]
 
 
-class Researcher(models.Model):
-    user = models.OneToOneField(User, related_name='researcher')
-    university = models.ForeignKey(
-        University,
-        related_name='researchers',
-        null=True,
-        blank=True)
+class User(AbstractUser):
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
 
-    def __str__(self):
-        if self.user.first_name and self.user.last_name:
-            return '{} {}'.format(self.user.first_name, self.user.last_name)
-        else:
-            return self.user.username
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
 
     def get_roles(self, scope=None, roles=Role.get_db_roles()):
         """
@@ -107,25 +89,25 @@ class Researcher(models.Model):
         """
         if scope == 'project':
             return Role.objects.filter(
-                researcher=self,
+                user=self,
                 role__in=roles,
                 protocol=None
             ).exclude(project=None).select_related(scope)
         elif scope == 'protocol':
             return Role.objects.filter(
-                researcher=self,
+                user=self,
                 role__in=roles,
                 project=None
             ).exclude(protocol=None).select_related(scope)
         else:
             return Role.objects.filter(
-                researcher=self,
+                user=self,
                 role__in=roles,).select_related('project', 'protocol')
 
     def get_protocols_to_add(self, project):
         if self.can_edit(project):
             protocols = Protocol.objects.filter(
-                roles__researcher=self,
+                roles__user=self,
                 roles__project=None
             ).exclude(uuid__in=project.protocols.all())
             return protocols
@@ -142,12 +124,12 @@ class Researcher(models.Model):
             return Source.objects.none()
 
     def can_edit(self, item):
-        role = item.roles.get(researcher=self)
+        role = item.roles.get(user=self)
         return role.role in Role.ROLES_CAN_EDIT
 
     def get_projects_to_edit(self):
         projects = Project.objects.filter(
-            roles__researcher=self,
+            roles__user=self,
             roles__protocol=None,
             roles__role__in=Role.ROLES_CAN_EDIT
         )
@@ -155,7 +137,7 @@ class Researcher(models.Model):
 
     def get_protocols_to_edit(self):
         projects = Protocol.objects.filter(
-            roles__researcher=self,
+            roles__user=self,
             roles__project=None,
             roles__role__in=Role.ROLES_CAN_EDIT
         )
@@ -164,7 +146,7 @@ class Researcher(models.Model):
 
 class Source(models.Model):
     name = models.CharField(max_length=255)
-    researcher = models.ForeignKey(Researcher, related_name='sources')
+    user = models.ForeignKey(User, related_name='sources')
     url = models.URLField(max_length=255, null=True, blank=True)
     isbn = models.CharField(max_length=255, null=True, blank=True)
 

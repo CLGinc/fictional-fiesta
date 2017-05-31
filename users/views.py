@@ -72,7 +72,7 @@ class RoleListMixin(MultipleObjectMixin):
         roles_list = None
         self.form = RoleListForm(
             self.request.GET,
-            researcher=self.request.user.researcher,
+            user=self.request.user,
             scope=self.scope
         )
         if self.form.is_valid():

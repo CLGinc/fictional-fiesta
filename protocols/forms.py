@@ -1,6 +1,6 @@
 from django import forms
 
-from researchers.models import Role
+from users.models import Role
 from projects.models import Project
 from.models import Protocol, Result
 
@@ -17,11 +17,11 @@ class BasicProtocolForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        self.researcher = kwargs.pop('researcher')
+        self.user = kwargs.pop('user')
         super(BasicProtocolForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        self.instance._researcher = self.researcher
+        self.instance._user = self.user
         instance = super(BasicProtocolForm, self).save(commit=commit)
         return instance
 
@@ -43,12 +43,12 @@ class BasicResultForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        researcher = kwargs.pop('researcher')
+        user = kwargs.pop('user')
         protocol = kwargs.pop('protocol')
         super(BasicResultForm, self).__init__(*args, **kwargs)
         self.fields['project'].empty_label = None
         self.fields['project'].queryset = Project.objects.filter(
             protocols__in=[protocol],
             roles__role__in=Role.ROLES_CAN_EDIT,
-            roles__researcher=researcher
+            roles__user=user
         )

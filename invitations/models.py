@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.apps import apps
 
-from researchers.models import Role
+from users.models import Role
 
 
 class Invitation(models.Model):
@@ -18,11 +18,11 @@ class Invitation(models.Model):
     )
     email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
-        'researchers.Researcher',
+        'users.User',
         related_name='inviter_invitations'
     )
     invited = models.ForeignKey(
-        'researchers.Researcher',
+        'users.User',
         related_name='invited_invitations',
         blank=True,
         null=True
@@ -70,9 +70,9 @@ class Invitation(models.Model):
             raise ValidationError('You cannot select project and protocol for the same invitation!')
         if hasattr(self, 'inviter'):
             if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite researchers to this project')
+                raise ValidationError('You cannot invite users to this project')
             if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite researchers to this protocol')
+                raise ValidationError('You cannot invite users to this protocol')
         if hasattr(self, 'inviter') and hasattr(self, 'invited'):
             if self.inviter == self.invited:
                 raise ValidationError('Inviter and invited cannot be the same')
@@ -80,12 +80,12 @@ class Invitation(models.Model):
             raise ValidationError('Invited cannot be present for invitation that is not accepted')
         if self.invited:
             if self.project:
-                if self.project.roles.filter(researcher=self.invited).exists():
+                if self.project.roles.filter(user=self.invited).exists():
                     raise ValidationError('Invited is already a participant for the selected project')
             if self.protocol:
-                if self.protocol.roles.filter(researcher=self.invited).exists():
+                if self.protocol.roles.filter(user=self.invited).exists():
                     raise ValidationError('Invited is already a participant for the selected protocol')
-            if self.invited.user.email != self.email:
+            if self.invited.email != self.email:
                 raise ValidationError('Selected email address and the email address of the invited cannot be different')
 
     def save(self, *args, **kwargs):
@@ -94,9 +94,9 @@ class Invitation(models.Model):
         super(Invitation, self).save(*args, **kwargs)
 
     def get_invited(self):
-        ResearcherModel = apps.get_model('researchers', 'Researcher')
-        if ResearcherModel.objects.filter(user__email=self.email).exists():
-            return ResearcherModel.objects.get(user__email=self.email)
+        UserModel = apps.get_model('users', 'User')
+        if UserModel.objects.filter(email=self.email).exists():
+            return UserModel.objects.get(email=self.email)
         return None
 
     def send(self):
@@ -107,13 +107,13 @@ class Invitation(models.Model):
         if not(self.is_expired()):
             if self.project:
                 Role.objects.create(
-                    researcher=invited,
+                    user=invited,
                     role=self.role,
                     project=self.project
                 )
             elif self.protocol:
                 Role.objects.create(
-                    researcher=invited,
+                    user=invited,
                     role=self.role,
                     protocol=self.protocol
                 )
@@ -126,16 +126,16 @@ class Invitation(models.Model):
             timezone.timedelta(self.expiration_days)
         return not(expiration_date > timezone.now() > self.datetime_created)
 
-    def can_be_accepted(self, accepting_researcher):
+    def can_be_accepted(self, accepting_user):
         if self.accepted:
             return False
         if self.is_expired():
             return False
-        if self.inviter == accepting_researcher:
+        if self.inviter == accepting_user:
             return False
-        if self.invited and self.invited != accepting_researcher:
+        if self.invited and self.invited != accepting_user:
             return False
-        if self.email != accepting_researcher.user.email:
+        if self.email != accepting_user.email:
             return False
         return True
 

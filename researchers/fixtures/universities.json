@@ -1,9 +1,0 @@
-[
-{
-  "model": "researchers.university",
-  "pk": 1,
-  "fields": {
-    "name": "Sofia University"
-  }
-}
-]

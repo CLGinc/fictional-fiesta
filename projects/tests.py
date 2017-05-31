@@ -4,17 +4,16 @@ from django.core.urlresolvers import reverse
 
 from .models import Project
 from .forms import BasicProjectForm, AddElementsForm
-from researchers.models import Researcher, Role, Source
+from users.models import User, Role, Source
 from protocols.models import Protocol
 
 
 class ProjectModelTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
+        'users/fixtures/users',
+
         'projects/fixtures/projects',
-        'researchers/fixtures/roles',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
@@ -44,17 +43,15 @@ class ProjectModelTest(TestCase):
 
 class ProjectViewTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
+        'users/fixtures/users',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
     def setUp(self):
         self.client = Client()
-        self.researcher1 = Researcher.objects.get(id=1)
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_projects_list(self):
@@ -82,7 +79,7 @@ class ProjectViewTest(TestCase):
             url,
             data={'name': 'name1'}
         )
-        project = self.researcher1.roles.all().order_by('-id')[0].project
+        project = self.user1.roles.all().order_by('-id')[0].project
         self.assertRedirects(
             response,
             reverse('project', kwargs={'project_uuid': project.pk})
@@ -118,12 +115,10 @@ class ProjectViewTest(TestCase):
 
 class ProjectAjaxTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
+        'users/fixtures/users',
         'projects/fixtures/projects',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
@@ -230,18 +225,16 @@ class ProjectAjaxTest(TestCase):
 
 class ProjectFormTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
+        'users/fixtures/users',
+        'users/fixtures/sources',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher2 = Researcher.objects.get(id=2)
+        self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user2 = User.objects.get(username='user2@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol2 = Protocol.objects.get(name='Protocol 2')
@@ -265,12 +258,12 @@ class ProjectFormTest(TestCase):
         data = {
             'name': 'Project 1'
         }
-        form = BasicProjectForm(data, researcher=self.researcher1)
+        form = BasicProjectForm(data, user=self.user1)
         self.assertTrue(form.is_valid())
         project = form.save()
         self.assertIsInstance(project, Project)
         self.assertTrue(
-            self.researcher1.roles.filter(
+            self.user1.roles.filter(
                 project=project, role='owner'
             )
         )
@@ -280,12 +273,12 @@ class ProjectFormTest(TestCase):
             'name': 'Project 1',
             'description': 'Project 1 Description'
         }
-        form = BasicProjectForm(data, researcher=self.researcher1)
+        form = BasicProjectForm(data, user=self.user1)
         self.assertTrue(form.is_valid())
         project = form.save()
         self.assertIsInstance(project, Project)
         self.assertTrue(
-            self.researcher1.roles.filter(
+            self.user1.roles.filter(
                 project=project, role='owner'
             )
         )
@@ -293,7 +286,7 @@ class ProjectFormTest(TestCase):
     def test_add_elements_form_empty(self):
         form = AddElementsForm(
             data={},
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -305,7 +298,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
@@ -317,7 +310,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         protocols_to_add = [
@@ -337,7 +330,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         with self.assertRaises(AttributeError):
@@ -350,7 +343,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         form.is_valid()
@@ -374,7 +367,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher2,
+            user=self.user2,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -388,7 +381,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -402,7 +395,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         self.assertTrue(form.is_valid())
@@ -414,7 +407,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         sources_to_add = [
@@ -434,7 +427,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         with self.assertRaises(AttributeError):
@@ -447,7 +440,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         form.is_valid()
@@ -468,7 +461,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher2,
+            user=self.user2,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())
@@ -482,7 +475,7 @@ class ProjectFormTest(TestCase):
         }
         form = AddElementsForm(
             data,
-            researcher=self.researcher1,
+            user=self.user1,
             selected_project=self.project1
         )
         self.assertFalse(form.is_valid())

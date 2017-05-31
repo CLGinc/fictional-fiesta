@@ -15,7 +15,7 @@ class InvitationsList(ListView):
     template_name = 'invitations_list.html'
 
     def get_queryset(self):
-        return Invitation.objects.filter(invited=self.request.user.researcher)
+        return Invitation.objects.filter(invited=self.request.user)
 
 
 class SingleInvitationMixin(SingleObjectMixin):
@@ -33,6 +33,6 @@ class AssignInvitation(SingleInvitationMixin, View):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if not(self.object.invited):
-            self.object.invited = self.request.user.researcher
+            self.object.invited = self.request.user
             self.object.save()
         return redirect(reverse('invitations_list'))

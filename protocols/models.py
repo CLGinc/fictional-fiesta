@@ -43,14 +43,14 @@ class Protocol(models.Model):
         related_name='protocols',
         blank=True)
     sources = models.ManyToManyField(
-        'researchers.Source',
+        'users.Source',
         related_name='protocols',
         blank=True)
     procedure = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_last_modified = models.DateTimeField(auto_now=True)
     last_modified_by = models.ForeignKey(
-        'researchers.Researcher',
+        'users.User',
         related_name='procedures')
 
     class Meta:
@@ -66,7 +66,7 @@ class Protocol(models.Model):
                 raise ValidationError({'procedure': 'Invalid JSON content: {}!'.format(error_message)})
 
     def get_owner(self):
-        return self.roles.get(role='owner').researcher
+        return self.roles.get(role='owner').user
 
     def get_assets_by_category(self):
         assets_by_category = list()
@@ -82,14 +82,14 @@ class Protocol(models.Model):
 
     def get_participants_by_role(self):
         participants_by_role = list()
-        RoleModel = apps.get_model('researchers', 'Role')
+        RoleModel = apps.get_model('users', 'Role')
         for role_value, role_label in RoleModel.ROLES:
             if self.roles.filter(role=role_value).exists():
                 participants_by_role.append(
                     (
                         role_label,
                         self.roles.filter(
-                            role=role_value).order_by('researcher')
+                            role=role_value).order_by('user')
                     )
                 )
         return participants_by_role
@@ -113,7 +113,7 @@ class Result(models.Model):
     )
     title = models.CharField(max_length=255)
     note = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.ForeignKey('researchers.Researcher', related_name='results')
+    owner = models.ForeignKey('users.User', related_name='results')
     state = models.CharField(
         max_length=20,
         choices=STATES,
@@ -144,17 +144,17 @@ class Result(models.Model):
         return 'Result for protocol {} owned by {}'.format(self.protocol, self.owner)
 
     def clean(self):
-        RoleModel = apps.get_model('researchers', 'Role')
+        RoleModel = apps.get_model('users', 'Role')
         if hasattr(self, 'owner') and hasattr(self, 'protocol'):
-            if not(self.protocol.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
-                raise ValidationError({'owner': 'The selected researcher cannot add results to this protocol!'})
+            if not(self.protocol.roles.filter(user=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
+                raise ValidationError({'owner': 'The selected user cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
-            if not(self.project.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
-                raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
+            if not(self.project.roles.filter(user=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
+                raise ValidationError({'owner': 'The selected user cannot add results to this project!'})
         if hasattr(self, 'data_columns') and hasattr(self, 'data_type'):
             error_message = vaidate_result_data_columns(
                 value=self.data_columns,

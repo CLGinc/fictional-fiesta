@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Project
-from researchers.models import Role
+from users.models import Role
 
 
 class ProjectAdmin(admin.ModelAdmin):

@@ -4,20 +4,18 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 
-from .models import Researcher, Role, Source
+from .models import User, Role, Source
 from projects.models import Project
 from protocols.models import Protocol
 
 from .forms import RoleListForm
 
 
-class ResearcherModelTest(TestCase):
+class UserModelTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols'
     ]
@@ -26,122 +24,122 @@ class ResearcherModelTest(TestCase):
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
         self.project3 = Project.objects.get(name='Project 3')
-        self.researcher1 = Researcher.objects.get(user__username='user1@gmail.com')
-        self.researcher2 = Researcher.objects.get(user__username='user2@gmail.com')
-        self.researcher3 = Researcher.objects.get(user__username='user3@gmail.com')
-        self.tempuser = Researcher.objects.get(user__username='tempuser@gmail.com')
+        self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user2 = User.objects.get(username='user2@gmail.com')
+        self.user3 = User.objects.get(username='user3@gmail.com')
+        self.tempuser = User.objects.get(username='tempuser@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol6 = Protocol.objects.get(name='Protocol 6')
         self.protocol8 = Protocol.objects.get(name='Protocol 8')
         self.protocol10 = Protocol.objects.get(name='Protocol 10')
         self.roles_per_projects = {
-            self.researcher1: {
+            self.user1: {
                 'owner': [self.project1, self.project2],
                 'contributor': [self.project3],
             },
-            self.researcher2: {
+            self.user2: {
                 'contributor': [self.project2, self.project3],
                 'watcher': [self.project1],
             },
-            self.researcher3: {
+            self.user3: {
                 'watcher': [self.project2],
                 'owner': [self.project3],
             },
         }
 
     def test_get_roles_owners(self):
-        # Check data for Researcher 0
-        roles_list_researcher0 = list(
-            self.researcher1.get_roles(scope='project', roles=['owner']))
-        expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher1).get('owner')
+        # Check data for User 0
+        roles_list_user0 = list(
+            self.user1.get_roles(scope='project', roles=['owner']))
+        expected_projects_list_user0 = self.roles_per_projects.get(
+            self.user1).get('owner')
         self.assertEqual(
-            len(roles_list_researcher0),
-            len(expected_projects_list_researcher0))
-        for project in expected_projects_list_researcher0:
-            self.assertIn(project, expected_projects_list_researcher0)
+            len(roles_list_user0),
+            len(expected_projects_list_user0))
+        for project in expected_projects_list_user0:
+            self.assertIn(project, expected_projects_list_user0)
 
-        # Check data for Researcher 1
-        projects_list_researcher1 = list(
-            self.researcher2.get_roles(scope='project', roles=['owner']))
-        self.assertEqual(projects_list_researcher1, [])
+        # Check data for User 1
+        projects_list_user1 = list(
+            self.user2.get_roles(scope='project', roles=['owner']))
+        self.assertEqual(projects_list_user1, [])
 
-        # Check data for Researcher 2
-        projects_list_researcher2 = list(
-            self.researcher3.get_roles(scope='project', roles=['owner']))
-        expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher3).get('owner')
+        # Check data for User 2
+        projects_list_user2 = list(
+            self.user3.get_roles(scope='project', roles=['owner']))
+        expected_projects_list_user2 = self.roles_per_projects.get(
+            self.user3).get('owner')
         self.assertEqual(
-            len(projects_list_researcher2),
-            len(expected_projects_list_researcher2))
-        for project in expected_projects_list_researcher2:
-            self.assertIn(project, expected_projects_list_researcher2)
+            len(projects_list_user2),
+            len(expected_projects_list_user2))
+        for project in expected_projects_list_user2:
+            self.assertIn(project, expected_projects_list_user2)
 
     def test_get_roles_contributors(self):
-        # Check data for Researcher 0
-        roles_list_researcher0 = list(
-            self.researcher1.get_roles(
+        # Check data for User 0
+        roles_list_user0 = list(
+            self.user1.get_roles(
                 scope='project',
                 roles=['contributor']))
-        expected_projects_list_researcher0 = self.roles_per_projects.get(
-            self.researcher1).get('contributor')
+        expected_projects_list_user0 = self.roles_per_projects.get(
+            self.user1).get('contributor')
         self.assertEqual(
-            len(roles_list_researcher0),
-            len(expected_projects_list_researcher0))
-        for project in expected_projects_list_researcher0:
-            self.assertIn(project, expected_projects_list_researcher0)
+            len(roles_list_user0),
+            len(expected_projects_list_user0))
+        for project in expected_projects_list_user0:
+            self.assertIn(project, expected_projects_list_user0)
 
-        # Check data for Researcher 1
-        projects_list_researcher1 = list(
-            self.researcher2.get_roles(
+        # Check data for User 1
+        projects_list_user1 = list(
+            self.user2.get_roles(
                 scope='project',
                 roles=['contributor']))
-        expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher2).get('contributor')
+        expected_projects_list_user1 = self.roles_per_projects.get(
+            self.user2).get('contributor')
         self.assertEqual(
-            len(projects_list_researcher1),
-            len(expected_projects_list_researcher1))
-        for project in expected_projects_list_researcher1:
-            self.assertIn(project, expected_projects_list_researcher1)
+            len(projects_list_user1),
+            len(expected_projects_list_user1))
+        for project in expected_projects_list_user1:
+            self.assertIn(project, expected_projects_list_user1)
 
-        # Check data for Researcher 2
-        projects_list_researcher2 = list(
-            self.researcher3.get_roles(
+        # Check data for User 2
+        projects_list_user2 = list(
+            self.user3.get_roles(
                 scope='project',
                 roles=['contributor']))
-        self.assertEqual(projects_list_researcher2, [])
+        self.assertEqual(projects_list_user2, [])
 
     def test_get_roles_watchers(self):
-        # Check data for Researcher 0
-        roles_list_researcher0 = list(
-            self.researcher1.get_roles(scope='project', roles=['watcher']))
-        self.assertEqual(roles_list_researcher0, [])
+        # Check data for User 0
+        roles_list_user0 = list(
+            self.user1.get_roles(scope='project', roles=['watcher']))
+        self.assertEqual(roles_list_user0, [])
 
-        # Check data for Researcher 1
-        projects_list_researcher1 = list(
-            self.researcher2.get_roles(scope='project', roles=['watcher']))
-        expected_projects_list_researcher1 = self.roles_per_projects.get(
-            self.researcher2).get('watcher')
+        # Check data for User 1
+        projects_list_user1 = list(
+            self.user2.get_roles(scope='project', roles=['watcher']))
+        expected_projects_list_user1 = self.roles_per_projects.get(
+            self.user2).get('watcher')
         self.assertEqual(
-            len(projects_list_researcher1),
-            len(expected_projects_list_researcher1))
-        for project in expected_projects_list_researcher1:
-            self.assertIn(project, expected_projects_list_researcher1)
+            len(projects_list_user1),
+            len(expected_projects_list_user1))
+        for project in expected_projects_list_user1:
+            self.assertIn(project, expected_projects_list_user1)
 
-        # Check data for Researcher 2
-        projects_list_researcher2 = list(
-            self.researcher3.get_roles(scope='project', roles=['watcher']))
-        expected_projects_list_researcher2 = self.roles_per_projects.get(
-            self.researcher3).get('watcher')
+        # Check data for User 2
+        projects_list_user2 = list(
+            self.user3.get_roles(scope='project', roles=['watcher']))
+        expected_projects_list_user2 = self.roles_per_projects.get(
+            self.user3).get('watcher')
         self.assertEqual(
-            len(projects_list_researcher2),
-            len(expected_projects_list_researcher2))
-        for project in expected_projects_list_researcher2:
-            self.assertIn(project, expected_projects_list_researcher2)
+            len(projects_list_user2),
+            len(expected_projects_list_user2))
+        for project in expected_projects_list_user2:
+            self.assertIn(project, expected_projects_list_user2)
 
     def test_add_role_with_project_and_protocol(self):
         role = Role(
-            researcher=self.tempuser,
+            user=self.tempuser,
             project=self.project1,
             protocol=self.protocol1,
             role='watcher'
@@ -154,7 +152,7 @@ class ResearcherModelTest(TestCase):
 
     def test_role_without_project_and_protocol(self):
         role = Role(
-            researcher=self.tempuser,
+            user=self.tempuser,
             role='watcher'
         )
         with self.assertRaises(ValidationError) as e:
@@ -165,7 +163,7 @@ class ResearcherModelTest(TestCase):
 
     def test_add_second_owner_to_project(self):
         role = Role(
-            researcher=self.tempuser,
+            user=self.tempuser,
             project=self.project1,
             role='owner'
         )
@@ -177,7 +175,7 @@ class ResearcherModelTest(TestCase):
 
     def test_add_second_owner_to_protocol(self):
         role = Role(
-            researcher=self.tempuser,
+            user=self.tempuser,
             protocol=self.protocol1,
             role='owner'
         )
@@ -188,7 +186,7 @@ class ResearcherModelTest(TestCase):
             e.exception.messages)
 
     def test_get_protocols_to_add(self):
-        protocols = list(self.researcher1.get_protocols_to_add(self.project1))
+        protocols = list(self.user1.get_protocols_to_add(self.project1))
         expected_protocols = [
             self.protocol10,
             self.protocol8,
@@ -197,7 +195,7 @@ class ResearcherModelTest(TestCase):
         self.assertEqual(protocols, expected_protocols)
 
     def test_get_sources_to_add(self):
-        sources = list(self.researcher1.get_sources_to_add(self.project1))
+        sources = list(self.user1.get_sources_to_add(self.project1))
         expected_sources = [
             Source.objects.get(id=3),
             Source.objects.get(id=2),
@@ -206,11 +204,11 @@ class ResearcherModelTest(TestCase):
         self.assertEqual(sources, expected_sources)
 
     def test_can_edit(self):
-        self.assertTrue(self.researcher1.can_edit(self.project1))
-        self.assertFalse(self.researcher2.can_edit(self.project1))
+        self.assertTrue(self.user1.can_edit(self.project1))
+        self.assertFalse(self.user2.can_edit(self.project1))
 
     def test_get_projects_to_edit(self):
-        projects = list(self.researcher2.get_projects_to_edit())
+        projects = list(self.user2.get_projects_to_edit())
         expected_projects = [
             self.project3,
             self.project2
@@ -218,20 +216,18 @@ class ResearcherModelTest(TestCase):
         self.assertEqual(projects, expected_projects)
 
     def test_get_protocols_to_edit(self):
-        protocols = list(self.researcher2.get_protocols_to_edit())
+        protocols = list(self.user2.get_protocols_to_edit())
         expected_protocols = [
             self.protocol1
         ]
         self.assertEqual(protocols, expected_protocols)
 
 
-class ResearcherViewTest(TestCase):
+class UserViewTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols'
     ]
@@ -285,18 +281,16 @@ class ResearcherViewTest(TestCase):
         self.assertRedirects(response, '/project/list/')
 
 
-class ResearcherFormTest(TestCase):
+class UserFormTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols']
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(user__username='user1@gmail.com')
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
         self.project3 = Project.objects.get(name='Project 3')
@@ -304,7 +298,7 @@ class ResearcherFormTest(TestCase):
     def test_project_roles_list_form_empty(self):
         form = RoleListForm(
             data={},
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
@@ -320,7 +314,7 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
@@ -331,12 +325,12 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project1, researcher=self.researcher1)
+            Role.objects.get(project=self.project1, user=self.user1)
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -347,12 +341,12 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project3, researcher=self.researcher1)
+            Role.objects.get(project=self.project3, user=self.user1)
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -363,13 +357,13 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project2, researcher=self.researcher1),
-            Role.objects.get(project=self.project1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, user=self.user1),
+            Role.objects.get(project=self.project1, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -380,13 +374,13 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project2, researcher=self.researcher1),
-            Role.objects.get(project=self.project1, researcher=self.researcher1),
+            Role.objects.get(project=self.project2, user=self.user1),
+            Role.objects.get(project=self.project1, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -394,14 +388,14 @@ class ResearcherFormTest(TestCase):
     def test_project_roles_list_form_default_order(self):
         form = RoleListForm(
             data={},
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project3, researcher=self.researcher1),
-            Role.objects.get(project=self.project2, researcher=self.researcher1),
-            Role.objects.get(project=self.project1, researcher=self.researcher1),
+            Role.objects.get(project=self.project3, user=self.user1),
+            Role.objects.get(project=self.project2, user=self.user1),
+            Role.objects.get(project=self.project1, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -412,14 +406,14 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project1, researcher=self.researcher1),
-            Role.objects.get(project=self.project2, researcher=self.researcher1),
-            Role.objects.get(project=self.project3, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, user=self.user1),
+            Role.objects.get(project=self.project2, user=self.user1),
+            Role.objects.get(project=self.project3, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
@@ -431,14 +425,14 @@ class ResearcherFormTest(TestCase):
         }
         form = RoleListForm(
             data=data,
-            researcher=self.researcher1,
+            user=self.user1,
             scope='project'
         )
         self.assertTrue(form.is_valid())
         expected_projects = [
-            Role.objects.get(project=self.project1, researcher=self.researcher1),
-            Role.objects.get(project=self.project2, researcher=self.researcher1),
-            Role.objects.get(project=self.project3, researcher=self.researcher1),
+            Role.objects.get(project=self.project1, user=self.user1),
+            Role.objects.get(project=self.project2, user=self.user1),
+            Role.objects.get(project=self.project3, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)

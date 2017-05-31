@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Protocol, Asset, Result, Attachment
 
-from researchers.models import Role
+from users.models import Role
 
 
 class ProcedureAdmin(admin.ModelAdmin):
