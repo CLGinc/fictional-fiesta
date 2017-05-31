@@ -60,11 +60,16 @@ either project or protocol!')
             raise ValidationError('You cannot select \
 project and protocol for the same role!')
         if self.role == 'owner':
-            if self.project and self.project.roles.filter(role='owner').exists():
+            if self.project and \
+                    self.project.roles.filter(role='owner').exclude(
+                        pk=self.pk
+                    ).exists():
                 raise ValidationError('There is already \
 an owner of this project!')
-            if self.protocol and self.protocol.roles.filter(
-                    role='owner').exists():
+            if self.protocol and \
+                    self.protocol.roles.filter(role='owner').exclude(
+                        pk=self.pk
+                    ).exists():
                 raise ValidationError('There is already \
 an owner of this protocol!')
 
