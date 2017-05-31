@@ -26,10 +26,10 @@ class ResearcherModelTest(TestCase):
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
         self.project3 = Project.objects.get(name='Project 3')
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher2 = Researcher.objects.get(id=2)
-        self.researcher3 = Researcher.objects.get(id=3)
-        self.tempuser = Researcher.objects.get(id=1001)
+        self.researcher1 = Researcher.objects.get(user__username='user1@gmail.com')
+        self.researcher2 = Researcher.objects.get(user__username='user2@gmail.com')
+        self.researcher3 = Researcher.objects.get(user__username='user3@gmail.com')
+        self.tempuser = Researcher.objects.get(user__username='tempuser@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol6 = Protocol.objects.get(name='Protocol 6')
         self.protocol8 = Protocol.objects.get(name='Protocol 8')
@@ -296,7 +296,7 @@ class ResearcherFormTest(TestCase):
         'protocols/fixtures/protocols']
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(id=1)
+        self.researcher1 = Researcher.objects.get(user__username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
         self.project3 = Project.objects.get(name='Project 3')
