@@ -1,60 +1,60 @@
 [
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 1,
   "fields": {
     "name": "Source 1",
-    "researcher": 1,
+    "user": 1,
     "url": "",
     "isbn": ""
   }
 },
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 2,
   "fields": {
     "name": "Source 2",
-    "researcher": 1,
+    "user": 1,
     "url": "",
     "isbn": ""
   }
 },
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 3,
   "fields": {
     "name": "Source 3",
-    "researcher": 1,
+    "user": 1,
     "url": "",
     "isbn": ""
   }
 },
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 4,
   "fields": {
     "name": "Source 4",
-    "researcher": 2,
+    "user": 2,
     "url": "",
     "isbn": ""
   }
 },
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 5,
   "fields": {
     "name": "Source 5",
-    "researcher": 2,
+    "user": 2,
     "url": "",
     "isbn": ""
   }
 },
 {
-  "model": "researchers.source",
+  "model": "users.source",
   "pk": 6,
   "fields": {
     "name": "Source 6",
-    "researcher": 2,
+    "user": 2,
     "url": "",
     "isbn": ""
   }

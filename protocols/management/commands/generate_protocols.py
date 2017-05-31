@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 from protocols.models import Protocol, Result
 from projects.models import Project
-from researchers.models import Researcher, Role
+from users.models import User, Role
 
 
 class Command(BaseCommand):
@@ -42,9 +42,9 @@ class Command(BaseCommand):
         logger.info('Start generating protocols')
         for protocol_idx in range(options['protocols']):
             # Preparations for connecting
-            # protocol with projects and researchers
+            # protocol with projects and users
             add_to_projects = False
-            researcher = random.choice(Researcher.objects.all())
+            user = random.choice(User.objects.all())
             if Project.objects.exists():
                 add_to_projects = random.choice((True, False))
             if add_to_projects:
@@ -71,22 +71,22 @@ class Command(BaseCommand):
                 name='Protocol {}'.format(protocol_idx),
                 description='Description for protocol {}'.format(protocol_idx),
                 label=random.choice(Protocol.LABELS)[0],
-                last_modified_by=researcher,
+                last_modified_by=user,
                 procedure=procedure
             )
-            # Create random role between protocol and researcher
+            # Create random role between protocol and user
             Role.objects.create(
-                researcher=researcher,
+                user=user,
                 protocol=protocol,
                 role=random.choice(Role.ROLES[:2])[0]
             )
-            # Create random role between projects and researcher
+            # Create random role between projects and user
             if add_to_projects:
                 for project in projects:
                     project.protocols.add(protocol)
-                    if not(project.roles.filter(researcher=researcher)):
+                    if not(project.roles.filter(user=user)):
                         Role.objects.create(
-                            researcher=researcher,
+                            user=user,
                             project=project,
                             role=random.choice(Role.ROLES[1:])[0]
                         )
@@ -129,7 +129,7 @@ class Command(BaseCommand):
                 Result.objects.create(
                     title='Result {}'.format(result_idx),
                     note='Note for result {}'.format(result_idx),
-                    owner=researcher,
+                    owner=user,
                     state=state,
                     is_successful=is_successful,
                     protocol=protocol,

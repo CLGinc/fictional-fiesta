@@ -2,10 +2,9 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Role
+from .models import Role, User
 
 
 ERROR_MESSAGE = _('Please enter a correct email and password. ')
@@ -81,7 +80,7 @@ class RoleListForm(forms.Form):
     order_type = forms.ChoiceField(choices=ORDER_TYPE, required=False)
 
     def __init__(self, *args, **kwargs):
-        self.researcher = kwargs.pop('researcher')
+        self.user = kwargs.pop('user')
         self.scope = kwargs.pop('scope')
         super(RoleListForm, self).__init__(*args, **kwargs)
         self.fields['order_by'].choices = self.get_order_by_choices()
@@ -131,7 +130,7 @@ class RoleListForm(forms.Form):
             'created_from': '{}__datetime_created__date__gte'.format(self.scope),
             'created_to': '{}__datetime_created__date__lte'.format(self.scope),
         }
-        roles = self.researcher.get_roles(
+        roles = self.user.get_roles(
             scope=self.scope,
             roles=self.cleaned_data.get('role', Role.get_db_roles()))
         data = dict()

@@ -6,8 +6,8 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, CreateView
 from django.http import Http404
 
-from researchers.views import RoleListMixin
-from researchers.models import Role
+from users.views import RoleListMixin
+from users.models import Role
 from .models import Protocol, Result
 from .forms import BasicProtocolForm
 from .forms import BasicResultForm
@@ -19,7 +19,7 @@ class SinglePrototolMixin(SingleObjectMixin):
 
     def get_queryset(self):
         return Protocol.objects.filter(
-            roles__researcher=self.request.user.researcher
+            roles__user=self.request.user
         )
 
 
@@ -31,7 +31,7 @@ class SinglePrototolResultMixin(SingleObjectMixin):
         try:
             selected_protocol = Protocol.objects.get(
                 uuid=self.kwargs['protocol_uuid'],
-                roles__researcher=self.request.user.researcher
+                roles__user=self.request.user
             )
         except Protocol.DoesNotExist:
             selected_protocol = None
@@ -140,10 +140,10 @@ class CreateProtocol(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(CreateProtocol, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['last_modified_by'] = str(self.request.user.researcher.pk)
+            kwargs['data']['last_modified_by'] = str(self.request.user.pk)
         return kwargs
 
 
@@ -161,10 +161,10 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
 
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocol, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['last_modified_by'] = str(self.request.user.researcher.pk)
+            kwargs['data']['last_modified_by'] = str(self.request.user.pk)
         return kwargs
 
 
@@ -187,7 +187,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProtocolView, self).get_context_data(**kwargs)
-        context['can_edit'] = self.request.user.researcher.can_edit(
+        context['can_edit'] = self.request.user.can_edit(
             self.object
         )
         context['invitation_roles'] = Role.ROLES_TO_INVITE
@@ -231,7 +231,7 @@ class CreateProtocolResult(CreateView):
 
     def get_protocol_queryset(self):
         return Protocol.objects.filter(
-            roles__researcher=self.request.user.researcher
+            roles__user=self.request.user
         )
 
     def get_protocol(self, queryset=None):
@@ -255,9 +255,9 @@ class CreateProtocolResult(CreateView):
         kwargs = super(CreateProtocolResult, self).get_form_kwargs()
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+            kwargs['data']['owner'] = str(self.request.user.pk)
         kwargs['protocol'] = self.protocol
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
 
 
@@ -280,9 +280,9 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
         kwargs = super(UpdateProtocolResult, self).get_form_kwargs()
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+            kwargs['data']['owner'] = str(self.request.user.pk)
         kwargs['protocol'] = self.object.protocol
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
 
 

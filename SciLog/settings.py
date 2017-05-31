@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'researchers',
+    'users',
     'projects',
     'protocols',
     'invitations',
@@ -68,6 +68,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SciLog.wsgi.application'
 
+AUTH_USER_MODEL = 'users.User'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

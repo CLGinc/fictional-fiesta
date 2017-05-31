@@ -51,7 +51,7 @@ class CreateInvitation(CreateView):
         kwargs = super(CreateInvitation, self).get_form_kwargs()
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['inviter'] = str(self.request.user.researcher.pk)
+            kwargs['data']['inviter'] = str(self.request.user.pk)
         return kwargs
 
     def get_success_url(self):
@@ -63,7 +63,7 @@ class AcceptInvitation(SingleInvitationMixin, View):
     def post(self, request, *args, **kwargs):
         if self.request.is_ajax():
             self.object = self.get_object()
-            if self.object.can_be_accepted(self.request.user.researcher):
-                self.object.accept(invited=self.request.user.researcher)
+            if self.object.can_be_accepted(self.request.user):
+                self.object.accept(invited=self.request.user)
                 return HttpResponse('Invitation accepted!')
         return HttpResponseForbidden()
