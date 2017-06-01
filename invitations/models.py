@@ -77,7 +77,7 @@ class Invitation(models.Model):
             if self.inviter == self.invited:
                 raise ValidationError('Inviter and invited cannot be the same')
         if self.accepted and not(self.invited):
-            raise ValidationError('Invited cannot be present for invitation that is not accepted')
+            raise ValidationError('Invited must be present for invitation that is accepted')
         if self.invited:
             if self.project:
                 if self.project.roles.filter(user=self.invited).exists():
