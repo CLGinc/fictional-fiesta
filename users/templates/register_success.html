@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}SciLog - Register{% endblock %}
+{% block body %}
+<div class="content">
+  <div class="mdc-elevation--z4 padding-0 margin--top-40 login">
+    <div class="padding--top-24 text-center">
+        <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+        <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+    </div>
+  <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
+    Registration
+  </h1>
+  Congrats, Now you have to confirm your account!
+  </div>
+</div>
+  {% endblock %}
+  {% block post_load %}
+  {% endblock %}

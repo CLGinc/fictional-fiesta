@@ -44,6 +44,11 @@ class Register(CreateView):
             reverse(self.success_url)
         )
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.template_name = 'register_success.html'
+        return self.render_to_response(self.get_context_data())
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return redirect(self.get_success_url())
