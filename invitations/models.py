@@ -88,11 +88,6 @@ class Invitation(models.Model):
             if self.invited.email != self.email:
                 raise ValidationError('Selected email address and the email address of the invited cannot be different')
 
-    def save(self, *args, **kwargs):
-        if self.get_invited():
-            setattr(self, 'invited', self.get_invited())
-        super(Invitation, self).save(*args, **kwargs)
-
     def get_invited(self):
         UserModel = apps.get_model('users', 'User')
         if UserModel.objects.filter(email=self.email).exists():
