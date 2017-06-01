@@ -99,22 +99,9 @@ class Invitation(models.Model):
         pass
 
     def accept(self, invited):
-        if not(self.is_expired()):
-            if self.project:
-                Role.objects.create(
-                    user=invited,
-                    role=self.role,
-                    project=self.project
-                )
-            elif self.protocol:
-                Role.objects.create(
-                    user=invited,
-                    role=self.role,
-                    protocol=self.protocol
-                )
-            self.invited = invited
-            self.accepted = True
-            self.save()
+        self.invited = invited
+        self.accepted = True
+        self.save()
 
     def is_expired(self):
         expiration_date = self.datetime_created + \
