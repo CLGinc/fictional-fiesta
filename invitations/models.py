@@ -147,14 +147,14 @@ class Invitation(models.Model):
 
     def accept(self, invited):
         if self.project:
-            role = Role.objects(
-                researcher=invited,
+            role = Role(
+                user=invited,
                 role=self.role,
                 project=self.project
             )
         elif self.protocol:
-            role = Role.objects(
-                researcher=invited,
+            role = Role(
+                user=invited,
                 role=self.role,
                 protocol=self.protocol
             )
