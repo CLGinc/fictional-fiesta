@@ -80,6 +80,13 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
             kwargs['data']['last_modified_by'] = str(self.request.user.pk)
         return kwargs
 
+    def get_queryset(self):
+        queryset = super(UpdateProtocol, self).get_queryset()
+        return queryset.filter(
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
+        )
+
 
 @method_decorator(login_required, name='dispatch')
 class ProtocoltList(ListView, RoleListMixin):
@@ -197,6 +204,10 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
         kwargs['protocol'] = self.object.protocol
         kwargs['user'] = self.request.user
         return kwargs
+
+    def get_queryset(self):
+        queryset = super(UpdateProtocolResult, self).get_queryset()
+        return queryset.filter(owner=self.request.user)
 
 
 @method_decorator(login_required, name='dispatch')

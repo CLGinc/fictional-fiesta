@@ -12,6 +12,7 @@
         Result details
       </h1>
     </div>
+    {% if request.user is selected_protocol_result.owner %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <a data-mdc-auto-init="MDCRipple"
          href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
@@ -19,6 +20,7 @@
         <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Edit result
       </a>
     </div>
+    {% endif %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">

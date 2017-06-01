@@ -16,6 +16,7 @@
         </p>
       </h1>
     </div>
+    {% if can_edit %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <a data-mdc-auto-init="MDCRipple"
          href="{% url 'update_protocol' protocol_uuid=selected_protocol.uuid %}"
@@ -23,6 +24,7 @@
         <i class="material-icons mdl-color-text--blue-500">edit</i> <span>Edit protocol<span>
       </a>
     </div>
+    {% endif %}
     <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
       <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
