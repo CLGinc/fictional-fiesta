@@ -1,9 +1,12 @@
 import uuid
+from mailjet_rest import Client
 
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.apps import apps
+from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from users.models import Role
 
@@ -94,12 +97,68 @@ class Invitation(models.Model):
             return UserModel.objects.get(email=self.email)
         return None
 
-    def send(self):
-        # To develop seinding via MJ send API
-        pass
+    def send_mail(self):
+        mj_client = Client(
+            auth=(settings.MJ_APIKEY_PUBLIC, settings.MJ_APIKEY_PRIVATE),
+            version='v3.1'
+        )
+        if self.project:
+            object_type = 'project'
+            object_name = self.project.name
+        elif self.protocol:
+            object_type = 'protocol'
+            object_name = self.protocol.name
+        email = {
+            'Messages': [
+                {
+                    'From': {
+                        'Name': 'SciLog Inviter',
+                        'Email': 'inviter@lebaguette.eu'
+                    },
+                    'To': [
+                        {
+                            'Email': self.email
+                        }
+                    ],
+                    'TemplateID': 161939,
+                    'TemplateLanguage': True,
+                    'TemplateErrorReporting': {
+                        'Email': settings.MJ_TPL_ERROR_REPORTING_MAIL
+                    },
+                    'Variables': {
+                        'invited': str(self.invited) if self.invited else self.email,
+                        'inviter': str(self.inviter),
+                        'object': {
+                            'type': object_type,
+                            'name': object_name
+                        },
+                        'role': self.role,
+                        'url': reverse(
+                            'assign_invitation',
+                            kwargs={'uuid': self.pk}
+                        )
+                    },
+                    'TrackClicks': 'enabled',
+                    'TrackOpens': 'enabled'
+                }
+            ]
+        }
+        mj_client.send.create(email)
 
     def accept(self, invited):
-        self.invited = invited
+        if self.project:
+            role = Role.objects(
+                researcher=invited,
+                role=self.role,
+                project=self.project
+            )
+        elif self.protocol:
+            role = Role.objects(
+                researcher=invited,
+                role=self.role,
+                protocol=self.protocol
+            )
+        role.save()
         self.accepted = True
         self.save()
 
