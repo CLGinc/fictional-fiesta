@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'projects',
     'protocols',
     'invitations',
+    'mailjet_rest'
 ]
 
 MIDDLEWARE = [
