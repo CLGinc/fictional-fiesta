@@ -102,7 +102,7 @@ class InvitationModelTest(TestCase):
         with self.assertRaises(ValidationError) as e:
             invitation.clean()
         self.assertEqual(
-            ["Invited cannot be present for invitation that is not accepted"],
+            ['Invited must be present for invitation that is accepted'],
             e.exception.messages
         )
 
