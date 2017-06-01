@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.contrib.auth import login, logout
-from django.views.generic.edit import FormView
+from django.views.generic import CreateView
 from django.views.generic.base import RedirectView
+from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import MultipleObjectMixin
@@ -11,58 +11,53 @@ from django.views.generic.list import MultipleObjectMixin
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
 
 
-class BaseAuthView(FormView):
-    redirect_url = ''
+class Login(LoginView):
+    success_url = settings.LOGIN_REDIRECT_URL
+    template_name = 'login.html'
+    authentication_form = EmailAuthenticationForm
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseAuthView, self).get_context_data(**kwargs)
-        context['next_redirect'] = self.get_success_url()
-        return context
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(self.get_success_url())
+        return super(Login, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
         return self.request.GET.get(
             'next',
-            reverse(self.redirect_url)
+            reverse(self.success_url)
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super(Login, self).get_context_data(**kwargs)
+        context['next_redirect'] = self.get_success_url()
+        return context
+
+
+class Register(CreateView):
+    success_url = settings.REGISTER_REDIRECT_URL
+    template_name = 'register.html'
+    form_class = EmailUserCreationForm
+
+    def get_success_url(self):
+        return self.request.GET.get(
+            'next',
+            reverse(self.success_url)
         )
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            return redirect(self.redirect_url)
-        return super(BaseAuthView, self).get(request, *args, **kwargs)
+            return redirect(self.get_success_url())
+        return super(Register, self).get(request, *args, **kwargs)
 
-
-class Login(BaseAuthView):
-    redirect_url = settings.LOGIN_REDIRECT_URL
-    template_name = 'login.html'
-    form_class = EmailAuthenticationForm
-
-    def form_valid(self, form):
-        user = form.get_user()
-        if user is not None:
-            if user.is_active:
-                login(self.request, user, user.backend)
-        return super(Login, self).form_valid(form)
-
-
-class Register(BaseAuthView):
-    redirect_url = settings.REGISTER_REDIRECT_URL
-    template_name = 'register.html'
-    form_class = EmailUserCreationForm
-
-    def form_valid(self, form):
-        form.save()
-        user = form.instance
-        login(self.request, user, 'django.contrib.auth.backends.ModelBackend')
-        return super(Register, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(Register, self).get_context_data(**kwargs)
+        context['next_redirect'] = self.get_success_url()
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
-class Logout(RedirectView):
-    pattern_name = settings.LOGOUT_REDIRECT_URL
-
-    def get_redirect_url(self, *args, **kwargs):
-        logout(self.request)
-        return super(Logout, self).get_redirect_url(*args, **kwargs)
+class Logout(LogoutView):
+    next_page = settings.LOGOUT_REDIRECT_URL
 
 
 class RoleListMixin(MultipleObjectMixin):
