@@ -83,3 +83,8 @@ class RoleListMixin(MultipleObjectMixin):
         context = super(RoleListMixin, self).get_context_data(**kwargs)
         context['form'] = self.form
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class HomePage(RedirectView):
+    pattern_name = 'projects_list'
