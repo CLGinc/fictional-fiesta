@@ -278,7 +278,7 @@ class UserViewTest(TestCase):
             'password2': 'hr192$^8rh198',
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/project/list/')
+        self.assertEqual(response.status_code, 200)
 
 
 class UserFormTest(TestCase):
