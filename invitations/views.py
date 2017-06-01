@@ -9,15 +9,6 @@ from django.core.urlresolvers import reverse
 from .models import Invitation
 
 
-@method_decorator(login_required, name='dispatch')
-class InvitationsList(ListView):
-    context_object_name = 'invitations_list'
-    template_name = 'invitations_list.html'
-
-    def get_queryset(self):
-        return Invitation.objects.filter(invited=self.request.user)
-
-
 class SingleInvitationMixin(SingleObjectMixin):
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
@@ -36,3 +27,12 @@ class AssignInvitation(SingleInvitationMixin, View):
             self.object.invited = self.request.user
             self.object.save()
         return redirect(reverse('invitations_list'))
+
+
+@method_decorator(login_required, name='dispatch')
+class InvitationsList(ListView):
+    context_object_name = 'invitations_list'
+    template_name = 'invitations_list.html'
+
+    def get_queryset(self):
+        return Invitation.objects.filter(invited=self.request.user)
