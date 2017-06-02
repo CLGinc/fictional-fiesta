@@ -79,6 +79,11 @@ an owner of this protocol!')
 
 
 class User(AbstractUser):
+    email = models.EmailField(
+        unique=True,
+        max_length=254,
+        verbose_name='email address'
+    )
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
