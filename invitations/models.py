@@ -73,25 +73,25 @@ class Invitation(models.Model):
             raise ValidationError('You cannot select project and protocol for the same invitation!')
         if hasattr(self, 'inviter'):
             if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite users to this project')
+                raise ValidationError({'project': 'You cannot invite users to this project'})
             if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite users to this protocol')
+                raise ValidationError({'protocol': 'You cannot invite users to this protocol'})
             if self.inviter.email == self.email:
                 raise ValidationError({'email': 'You cannot invite yourself'})
         if hasattr(self, 'inviter') and hasattr(self, 'invited'):
             if self.inviter == self.invited:
                 raise ValidationError('Inviter and invited cannot be the same')
         if self.accepted and not(self.invited):
-            raise ValidationError('Invited must be present for invitation that is accepted')
+            raise ValidationError({'accepted': 'Invited must be present for invitation that is accepted'})
         if self.invited:
             if self.project:
                 if self.project.roles.filter(user=self.invited).exists():
-                    raise ValidationError('Invited is already a participant for the selected project')
+                    raise ValidationError({'invited': 'Invited is already a participant for the selected project'})
             if self.protocol:
                 if self.protocol.roles.filter(user=self.invited).exists():
-                    raise ValidationError('Invited is already a participant for the selected protocol')
+                    raise ValidationError({'invited': 'Invited is already a participant for the selected protocol'})
             if self.invited.email != self.email:
-                raise ValidationError('Selected email address and the email address of the invited cannot be different')
+                raise ValidationError({'email': 'Selected email address and the email address of the invited cannot be different'})
 
     def get_invited(self):
         UserModel = apps.get_model('users', 'User')
