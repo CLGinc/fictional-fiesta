@@ -51,11 +51,11 @@
           </div>
           {% endif %}
         </div>
+        <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
+          <span data-content="open-close-text">Register</span>
+        </button>
       </form>
-      <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-        <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
-        <span data-content="open-close-text">Register</span>
-      </button>
       {% if form.non_field_errors %}
       <div id="non_field_errors" class="error-tooltip-non">
         {% for error in form.non_field_errors %}
