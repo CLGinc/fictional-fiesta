@@ -81,8 +81,7 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
         return kwargs
 
     def get_queryset(self):
-        queryset = super(UpdateProtocol, self).get_queryset()
-        return queryset.filter(
+        return Protocol.objects.filter(
             roles__role__in=Role.ROLES_CAN_EDIT,
             roles__user=self.request.user
         )
