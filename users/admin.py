@@ -6,7 +6,7 @@ from .models import User, Role, Source
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('user', 'project', 'protocol', 'role')
     search_fields = (
-        'username',
+        'user__username',
         'project__name',
         'protocol__name'
     )
