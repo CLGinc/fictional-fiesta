@@ -122,7 +122,7 @@ class InvitationModelTest(TestCase):
 
     def test_invitation_invited_already_in_protocol(self):
         invitation = Invitation(
-            email='user2@gmail.com',
+            email='user1@gmail.com',
             inviter=self.user2,
             invited=self.user1,
             protocol=self.protocol1
