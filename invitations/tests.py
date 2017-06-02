@@ -150,12 +150,12 @@ class InvitationModelTest(TestCase):
 
     def test_accept_invitation(self):
         invitation = Invitation.objects.create(
-            email='user1@gmail.com',
+            email='user3@gmail.com',
             inviter=self.user1,
             project=self.project1,
             role='contributor'
         )
-        invitation.accept(self.user3)
+        invitation.accept()
         self.assertTrue(invitation.accepted)
         role = Role.objects.filter(
             user=self.user3,
