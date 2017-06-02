@@ -12,7 +12,7 @@
         Result details
       </h1>
     </div>
-    {% if request.user is selected_protocol_result.owner %}
+    {% if request.user == selected_protocol_result.owner %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <a data-mdc-auto-init="MDCRipple"
          href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
