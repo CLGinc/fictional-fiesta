@@ -45,6 +45,7 @@ class Register(CreateView):
         )
 
     def form_valid(self, form):
+        form.instance.is_active = False
         self.object = form.save()
         self.template_name = 'register_success.html'
         return self.render_to_response(self.get_context_data())
