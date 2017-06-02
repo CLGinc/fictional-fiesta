@@ -76,6 +76,8 @@ class Invitation(models.Model):
                 raise ValidationError('You cannot invite users to this project')
             if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
                 raise ValidationError('You cannot invite users to this protocol')
+            if self.inviter.email == self.email:
+                raise ValidationError({'email': 'You cannot invite yourself'})
         if hasattr(self, 'inviter') and hasattr(self, 'invited'):
             if self.inviter == self.invited:
                 raise ValidationError('Inviter and invited cannot be the same')

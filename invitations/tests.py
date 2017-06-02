@@ -148,6 +148,19 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
+    def test_invitation_invite_self(self):
+        invitation = Invitation(
+            email='user1@gmail.com',
+            inviter=self.user1,
+            project=self.project1
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ['You cannot invite yourself'],
+            e.exception.messages
+        )
+
     def test_accept_invitation(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
