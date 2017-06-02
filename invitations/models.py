@@ -145,20 +145,7 @@ class Invitation(models.Model):
         }
         mj_client.send.create(email)
 
-    def accept(self, invited):
-        if self.project:
-            role = Role(
-                user=invited,
-                role=self.role,
-                project=self.project
-            )
-        elif self.protocol:
-            role = Role(
-                user=invited,
-                role=self.role,
-                protocol=self.protocol
-            )
-        role.save()
+    def accept(self):
         self.accepted = True
         self.save()
 

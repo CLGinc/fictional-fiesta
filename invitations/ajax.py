@@ -64,6 +64,6 @@ class AcceptInvitation(SingleInvitationMixin, View):
         if self.request.is_ajax():
             self.object = self.get_object()
             if self.object.can_be_accepted(self.request.user):
-                self.object.accept(invited=self.request.user)
+                self.object.accept()
                 return HttpResponse('Invitation accepted!')
         return HttpResponseForbidden()
