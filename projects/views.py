@@ -51,6 +51,12 @@ class UpdateProject(UpdateView, SingleProjectMixin):
             kwargs={'project_uuid': self.object.uuid}
         )
 
+    def get_queryset(self):
+        return Project.objects.filter(
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
+        )
+
 
 @method_decorator(login_required, name='dispatch')
 class ProjectList(ListView, RoleListMixin):
