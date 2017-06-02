@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 from .models import User, Role, Source
 
@@ -11,21 +12,6 @@ class RoleAdmin(admin.ModelAdmin):
         'protocol__name'
     )
     list_filter = ('role',)
-
-
-class UserAdmin(admin.ModelAdmin):
-    list_display = (
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-        'date_joined',
-        'is_superuser'
-    )
-    search_fields = (
-        'username',
-        'email',
-    )
 
 
 class SourceAdmin(admin.ModelAdmin):
