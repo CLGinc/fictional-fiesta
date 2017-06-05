@@ -297,34 +297,34 @@ $('[data-trigger="submit"]').click(function(){
   return false;
 });
 // submit form (result submit)
-$('[data-trigger="submit-result"]').click(function(){
-  // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
-  // target form is the form to submit
-  var targetElementId = $(this).attr('data-target'),
-      targetForm = $(this).attr('data-form');
-      $('.dataTable--column').each(function(){
-        var data = [],
-            colType= '';
-        $(this).find('[data-content="data"]').each(function(){
-          var value = $(this).val();
-          if($.isNumeric(value)) {
-            value = parseFloat(value);
-            if(colType === 'String') {
-              colType = 'Mixed';
-            } else {
-              colType = 'Number';
-            }
-          } else if(colType === 'Number') {
-            colType = 'Mixed';
-          } else {
-            colType = 'String';
-          }
-          data.push(value);
-        });
-        $(this).find('[data-content="data-merged"]').html(JSON.stringify({Data: data, Type: colType}));
-      });
-  $('#'+targetForm).submit();
-});
+// $('[data-trigger="submit-result"]').click(function(){
+//   // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
+//   // target form is the form to submit
+//   var targetElementId = $(this).attr('data-target'),
+//       targetForm = $(this).attr('data-form');
+//       $('.dataTable--column').each(function(){
+//         var data = [],
+//             colType= '';
+//         $(this).find('[data-content="data"]').each(function(){
+//           var value = $(this).val();
+//           if($.isNumeric(value)) {
+//             value = parseFloat(value);
+//             if(colType === 'String') {
+//               colType = 'Mixed';
+//             } else {
+//               colType = 'Number';
+//             }
+//           } else if(colType === 'Number') {
+//             colType = 'Mixed';
+//           } else {
+//             colType = 'String';
+//           }
+//           data.push(value);
+//         });
+//         $(this).find('[data-content="data-merged"]').html(JSON.stringify({Data: data, Type: colType}));
+//       });
+//   $('#'+targetForm).submit();
+// });
 // submit ajax data
 $('[data-trigger="submit-ajax"]').click(function(){
   // store the target form and submit button element in vars

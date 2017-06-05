@@ -148,6 +148,18 @@
               {% endif %}
             </div>
           </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independant variable</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="note"
+                       data-content="independant-title"
+                       maxlength="255">
+                <label class="mdc-textfield__label">Add a independant variable for data table</label>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
@@ -166,7 +178,6 @@
             </div>
           </div>
           <div class="" data-content="dataTable--parent" style="display:table;">
-
             <table class="mdl-data-table mdl-js-data-table">
               <colgroup>
                 <col class="table--border-right"/>
@@ -194,12 +205,12 @@
               <tbody>
                 <tr>
                   <td></td>
-                  <td><input type="text" placeholder="Add title" class="text-right"></td>
+                  <td data-type="dependant-title"><input type="text" placeholder="Add title" class="text-right"></td>
                   <td></td>
                 </tr>
                 <tr data-content="table--row">
-                  <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value"></td>
-                  <td><input type="text" placeholder="Add value" class="text-right"></td>
+                  <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value" data-content="independant-value"></td>
+                  <td data-type="dependant-value" data-index="1"><input type="text" placeholder="Add value" class="text-right"></td>
                   <td>
                     <div data-mdc-auto-init="MDCRipple"
                        data-trigger="removeDataRow"
@@ -210,14 +221,6 @@
                 </tr>
               </tbody>
             </table>
-
-            {% for data_column_form in data_columns_formset.forms %}
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
-
-
-
-            </div>
-            {% endfor %}
             {% if data_column_form.data.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
                 {{ data_column_form.data.errors.as_text }}
