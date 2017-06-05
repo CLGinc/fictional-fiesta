@@ -12,10 +12,13 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
 from mailjet_rest import Client
+from django.utils.encoding import force_bytes
+from django.contrib.auth import login
 
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
 from .models import User
+
 
 class Login(LoginView):
     success_url = settings.LOGIN_REDIRECT_URL
@@ -54,7 +57,45 @@ class Register(CreateView):
         form.instance.is_active = False
         self.object = form.save()
         token = default_token_generator.make_token(self.object)
+        username_base64 = urlsafe_base64_encode(
+            force_bytes(self.object.username)
+        )
         self.template_name = 'register_success.html'
+        url = reverse(
+            'activate_user',
+            kwargs={'username': username_base64, 'token': token}
+        )
+        mj_client = Client(
+            auth=(settings.MJ_APIKEY_PUBLIC, settings.MJ_APIKEY_PRIVATE),
+            version='v3.1'
+        )
+        email = {
+            'Messages': [
+                {
+                    'From': {
+                        'Name': 'SciLog Inviter',
+                        'Email': 'inviter@lebaguette.eu'
+                    },
+                    'To': [
+                        {
+                            'Email': self.object.email
+                        }
+                    ],
+                    'TemplateID': settings.MJ_EMAIL_CONFIRMATION_TEMPLATE_ID,
+                    'TemplateLanguage': True,
+                    'TemplateErrorReporting': {
+                        'Email': settings.MJ_TPL_ERROR_REPORTING_MAIL
+                    },
+                    'Variables': {
+                        'user': str(self.object),
+                        'url': url
+                    },
+                    'TrackClicks': 'enabled',
+                    'TrackOpens': 'enabled'
+                }
+            ]
+        }
+        mj_client.send.create(email)
         return self.render_to_response(self.get_context_data())
 
     def get(self, request, *args, **kwargs):
@@ -72,8 +113,8 @@ class ActivateUser(RedirectView):
     pattern_name = 'home_page'
 
     def get(self, request, *args, **kwargs):
-        username_base64 = kwargs.get('username')
-        token = kwargs.get('token')
+        username_base64 = kwargs.pop('username')
+        token = kwargs.pop('token')
         if not request.user.is_authenticated():
             try:
                 username = urlsafe_base64_decode(username_base64)
@@ -82,7 +123,8 @@ class ActivateUser(RedirectView):
                         user.is_active is False:
                     user.is_active = True
                     user.save()
-                    super(ActivateUser, self).get(request, *args, **kwargs)
+                    login(request, user, 'django.contrib.auth.backends.ModelBackend')
+                    return super(ActivateUser, self).get(request, *args, **kwargs)
             except:
                 pass
         raise Http404
