@@ -11,6 +11,8 @@ from django.http import Http404
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
+from mailjet_rest import Client
+
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
 from .models import User
@@ -51,6 +53,7 @@ class Register(CreateView):
     def form_valid(self, form):
         form.instance.is_active = False
         self.object = form.save()
+        token = default_token_generator.make_token(self.object)
         self.template_name = 'register_success.html'
         return self.render_to_response(self.get_context_data())
 
@@ -69,10 +72,11 @@ class ActivateUser(RedirectView):
     pattern_name = 'home_page'
 
     def get(self, request, *args, **kwargs):
-        username = kwargs.get('username')
+        username_base64 = kwargs.get('username')
         token = kwargs.get('token')
         if not request.user.is_authenticated():
             try:
+                username = urlsafe_base64_decode(username_base64)
                 user = User.objects.get(username=username)
                 if default_token_generator.check_token(user, token) and \
                         user.is_active is False:
