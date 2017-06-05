@@ -122,7 +122,7 @@ class Invitation(models.Model):
                             'Email': self.email
                         }
                     ],
-                    'TemplateID': 161939,
+                    'TemplateID': settings.MJ_INVITATION_TEMPLATE_ID,
                     'TemplateLanguage': True,
                     'TemplateErrorReporting': {
                         'Email': settings.MJ_TPL_ERROR_REPORTING_MAIL
