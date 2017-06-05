@@ -7,9 +7,13 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import MultipleObjectMixin
+from django.http import Http404
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
-
+from .models import User
 
 class Login(LoginView):
     success_url = settings.LOGIN_REDIRECT_URL
@@ -59,6 +63,25 @@ class Register(CreateView):
         context = super(Register, self).get_context_data(**kwargs)
         context['next_redirect'] = self.get_success_url()
         return context
+
+
+class ActivateUser(RedirectView):
+    pattern_name = 'home_page'
+
+    def get(self, request, *args, **kwargs):
+        username = kwargs.get('username')
+        token = kwargs.get('token')
+        if not request.user.is_authenticated():
+            try:
+                user = User.objects.get(username=username)
+                if default_token_generator.check_token(user, token) and \
+                        user.is_active is False:
+                    user.is_active = True
+                    user.save()
+                    super(ActivateUser, self).get(request, *args, **kwargs)
+            except:
+                pass
+        raise Http404
 
 
 @method_decorator(login_required, name='dispatch')
