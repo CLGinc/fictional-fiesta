@@ -1,10 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
-from django.views import View
 from django.views.generic.detail import SingleObjectMixin
-from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
 
 from .models import Invitation
 
@@ -17,16 +14,6 @@ class SingleInvitationMixin(SingleObjectMixin):
         return Invitation.objects.filter(
             email=self.request.user.email
         )
-
-
-@method_decorator(login_required, name='dispatch')
-class AssignInvitation(SingleInvitationMixin, View):
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if not(self.object.invited):
-            self.object.invited = self.request.user
-            self.object.save()
-        return redirect(reverse('invitations_list'))
 
 
 @method_decorator(login_required, name='dispatch')

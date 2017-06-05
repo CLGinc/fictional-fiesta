@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.apps import apps
 
 from protocols.models import Protocol
 from projects.models import Project
@@ -158,6 +159,16 @@ class User(AbstractUser):
             roles__role__in=Role.ROLES_CAN_EDIT
         )
         return projects
+
+    def assign_invitations(self):
+        InvitationModel = apps.get_model('invitations', 'Invitation')
+        invitations = InvitationModel.objects.filter(
+            email=self.email, invited=None
+        )
+        if invitations.exists():
+            for invitation in invitations:
+                invitation.invited = self
+                invitation.save()
 
 
 class Source(models.Model):

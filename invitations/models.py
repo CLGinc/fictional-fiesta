@@ -135,10 +135,7 @@ class Invitation(models.Model):
                             'name': object_name
                         },
                         'role': self.role,
-                        'url': reverse(
-                            'assign_invitation',
-                            kwargs={'uuid': self.pk}
-                        )
+                        'url': reverse('invitations_list')
                     },
                     'TrackClicks': 'enabled',
                     'TrackOpens': 'enabled'

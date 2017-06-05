@@ -252,25 +252,6 @@ class InvitationViewTest(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_get_assign_invitation(self):
-        invitation = Invitation.objects.create(
-            email='user3@gmail.com',
-            inviter=self.user1,
-            project=self.project1,
-        )
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': invitation.pk})
-        response = self.client.get(url)
-        self.assertRedirects(response, reverse('invitations_list'))
-        invitation.refresh_from_db()
-        self.assertEqual(invitation.invited, self.user3)
-
-    def test_get_assign_invitation_404(self):
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-
 
 class InvitationAjaxTest(TestCase):
     fixtures = [
