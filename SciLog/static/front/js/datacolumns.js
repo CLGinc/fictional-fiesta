@@ -76,7 +76,7 @@ $('[data-trigger=submit-result]').click(function(){
   $('#create_protocol_result_form').submit();
 });
 
-// function to remoev data row
+// function to remove data row
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRow"]', function() {
   var dataRowsCount = $('[data-content="table--row"]').length;
   if(dataRowsCount > 1) {
@@ -96,13 +96,31 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataCo
   var parentColumn = $(this).closest('th, td').index();
   if(dataColumnsCount > 1){
     var target_tr = $('table tr').find('td:eq('+parentColumn+'),th:eq('+parentColumn+')');
+    var saveTitle = $('table tr th').eq(1).html();
     $(target_tr).fadeOut("fast",function(){
         $(this).remove();
+        if(parentColumn === 1){
+          $('table tr th').eq(1).html(saveTitle);
+        }
       });
     $('[data-content="table--column"]').first().remove();
   } else {
     var notif = 'At least one data column is required';
     show(snackbar,notif);
+  }
+});
+
+// function to update variables from input value
+$('[data-trigger="update-value"]').on('keyup', function(){
+  var target = $(this).attr('data-target'),
+      currentValue = $(this).val();
+  $('#'+target).html(currentValue);
+  if(currentValue.length === 0) {
+    if(target === 'dependant-title') {
+      $('#'+target).html('Dependant variable');
+    } else if (target === 'independant-title') {
+      $('#'+target).html('Independant variable');
+    }
   }
 });
 

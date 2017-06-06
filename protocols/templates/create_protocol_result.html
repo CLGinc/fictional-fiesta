@@ -51,7 +51,7 @@
         {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-form-field">
@@ -130,9 +130,7 @@
               {{ selected_protocol.name }}
             </div>
           </div>
-        </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -148,6 +146,8 @@
               {% endif %}
             </div>
           </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independant variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
@@ -155,7 +155,9 @@
                 <input class="mdc-textfield__input" type="text"
                        name="note"
                        data-content="independant-title"
-                       maxlength="255">
+                       maxlength="255"
+                       data-trigger="update-value"
+                       data-target="independant-title">
                 <label class="mdc-textfield__label">Add a independant variable for data table</label>
               </div>
             </div>
@@ -167,9 +169,21 @@
                 <input class="mdc-textfield__input" type="text"
                        name="note"
                        data-content="independant-title"
-                       maxlength="255">
+                       maxlength="255"
+                       data-trigger="update-value"
+                       data-target="dependant-title">
                 <label class="mdc-textfield__label">Add a dependant variable for data table</label>
               </div>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <select class="mdc-select margin--none height-40" name="dataType">
+                <option value="mixed" selected>Mixed</option>
+                <option value="numeric">Numeric</option>
+                <option value="string">String</option>
+              </select>
             </div>
           </div>
         </div>
@@ -202,8 +216,8 @@
               </colgroup>
               <thead>
                 <tr data-content="table--labels">
-                  <th class="mdl-data-table__cell--non-numeric">Independant variable</th>
-                  <th>Dependant variables</th>
+                  <th class="mdl-data-table__cell--non-numeric" id="independant-title">Independant variable</th>
+                  <th id="dependant-title">Dependant variables</th>
                   <th></th>
                 </tr>
                 <tr data-content="table--controls-column">
