@@ -160,6 +160,18 @@
               </div>
             </div>
           </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependant variable</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="note"
+                       data-content="independant-title"
+                       maxlength="255">
+                <label class="mdc-textfield__label">Add a dependant variable for data table</label>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
@@ -178,6 +190,10 @@
             </div>
           </div>
           <div class="" data-content="dataTable--parent" style="display:table;">
+            <input type="text"
+                   class="hidden"
+                   name="data"
+                   data-content="dataTable--input">
             <table class="mdl-data-table mdl-js-data-table">
               <colgroup>
                 <col class="table--border-right"/>
@@ -210,7 +226,7 @@
                 </tr>
                 <tr data-content="table--row">
                   <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value" data-content="independant-value"></td>
-                  <td data-type="dependant-value" data-index="1"><input type="text" placeholder="Add value" class="text-right"></td>
+                  <td data-type="dependant-value"><input type="text" placeholder="Add value" class="text-right"></td>
                   <td>
                     <div data-mdc-auto-init="MDCRipple"
                        data-trigger="removeDataRow"

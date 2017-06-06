@@ -1,12 +1,14 @@
+// function to add data row
 $('[data-trigger="addDataRow"]').on('click', function() {
-  var sourceElement = $('[data-content="table--row"]').last();
-  var clonedElement = sourceElement.clone();
+  var sourceElement = $('[data-content="table--row"]').last(),
+      clonedElement = sourceElement.clone();
   clonedElement.find('input').each(function(){
     $(this).val('');
   });
   clonedElement.insertAfter(sourceElement);
-  updateColumnIndex();
 });
+
+// function to add data column
 $('[data-trigger="addDataColumn"]').on('click', function() {
   var sourceElement = $('[data-content="table--column"]').index(),
       colTemplate = '<col data-content="table--column"/>',
@@ -26,33 +28,55 @@ $('[data-trigger="addDataColumn"]').on('click', function() {
     $(clonedTd).insertAfter(sourceTd);
   });
 });
-var updateColumnIndex = function(){
-  $('[data-index]').each(function(){
-    console.log($(this));
-    $(this).attr('data-index', $(this).index());
-  });
-};
+
 $('[data-trigger=submit-result]').click(function(){
   var independant = [],
+      dataTableBuilder = [],
       independantValues = $('[data-content="independant-value"]'),
       independantTitle = $('[data-content="independant-title"]').val(),
-      dataColumnsCount = $('[data-content="table--column"]').length;
+      dataColumnsCount = $('[data-content="table--column"]').length,
+      mainInput = $('[data-content="dataTable--input"]'),
+      idependantData,
+      dependantData,
+      collectColumnData,
+      dataTable;
+
+  // collect values for independant data
   independantValues.each(function(){
     independant.push($(this).val());
   });
-  var dependantData = {};
-  for(currentCol = 0; currentCol < dataColumnsCount; currentCol++){
-    dependantData = {title: $('[data-type="dependant-title"]').eq(currentCol).children('input').val()};
-  }
-  var idependantData = {data: independant, title: independantTitle, variable: 'independant'};
-  // var dependantData =
-  var data = [idependantData,dependantData];
-  var dataTable = JSON.stringify({data_columns: data});
-  console.log(dataTable);
-});
-var getColumnValues = function(){
 
-};
+  // build independant data object and push it to the array
+  idependantData = {data: independant, title: independantTitle, variable: 'independant'};
+  dataTableBuilder.push(idependantData);
+
+  // function to collect column data values
+  collectColumnData = function(element){
+    data.push($(this).children('input').val());
+  };
+  // iterate over dependant data columns, create objects and push them to the array
+  for(currentCol = 0; currentCol < dataColumnsCount; currentCol++){
+    var data = [],
+        // index is +2 because column index starts from 1 and we ignore the first column
+        index = currentCol + 2;
+    var dependantValuesLocal = $('table').find('[data-type="dependant-value"]:nth-child('+index+')');
+
+    $(dependantValuesLocal).each(collectColumnData);
+    // dependantValuesLocal.each(collectDependantValues());
+    dependantData = {data: data, title: $('[data-type="dependant-title"]').eq(currentCol).children('input').val(), variable: 'dependant'};
+    dataTableBuilder.push(dependantData);
+  }
+
+  // generate final json
+  dataTable = JSON.stringify({data_columns: dataTableBuilder});
+  // set the json as value for the datatable input
+  mainInput.val(dataTable);
+
+  //submit form
+  $('#create_protocol_result_form').submit();
+});
+
+// function to remoev data row
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRow"]', function() {
   var dataRowsCount = $('[data-content="table--row"]').length;
   if(dataRowsCount > 1) {
@@ -65,6 +89,8 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRo
     show(snackbar,notif);
   }
 });
+
+// function to remove data column
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataColumn"]', function() {
   var dataColumnsCount = $('[data-content="table--column"]').length;
   var parentColumn = $(this).closest('th, td').index();
