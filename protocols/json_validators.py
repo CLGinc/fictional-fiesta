@@ -2,22 +2,33 @@ from jsonschema import validate
 import jsonschema
 
 
-def vaidate_result_data_columns(value, data_type):
+def vaidate_result_data_columns(
+        value,
+        data_type_independent,
+        data_type_dependent):
     data_columns_schema = {
         'type': 'object',
         'properties': {
-            'data_columns': {
+            'independent_variable': {
                 'type': 'array',
-                'minItems': 2,
+                'minItems': 1,
+                'maxItems': 1,
+                'items': {
+                    '$ref': '#/definitions/data_column_independent'
+                }
+            },
+            'dependent_variable': {
+                'type': 'array',
+                'minItems': 1,
                 'maxItems': 50,
                 'items': {
-                    '$ref': '#/definitions/data_column'
+                    '$ref': '#/definitions/data_column_dependent'
                 }
             }
         },
-        'required': ['data_columns', ],
+        'required': ['independent_variable', 'dependent_variable'],
         'definitions': {
-            'data_column': {
+            'data_column_independent': {
                 'type': 'object',
                 'properties': {
                     'data': {
@@ -25,36 +36,45 @@ def vaidate_result_data_columns(value, data_type):
                         'minItems': 1,
                         'maxItems': 50,
                         'items': {
-                            'type': data_type
+                            'type': data_type_independent
                         }
                     },
                     'title': {
                         'type': 'string',
                         'maxLength': 255,
-                    },
-                    'variable': {
-                        'type': 'string',
-                        'enum': [
-                            'dependent',
-                            'independent'
-                        ]
                     }
                 },
-                'required': ['data', 'title', 'variable'],
+                'required': ['data', 'title'],
+            },
+            'data_column_dependent': {
+                'type': 'object',
+                'properties': {
+                    'data': {
+                        'type': 'array',
+                        'minItems': 1,
+                        'maxItems': 50,
+                        'items': {
+                            'type': data_type_dependent
+                        }
+                    },
+                    'title': {
+                        'type': 'string',
+                        'maxLength': 255,
+                    }
+                },
+                'required': ['data', 'title'],
             }
         }
     }
     error_message = None
     try:
         validate(value, data_columns_schema)
-        # Number of rows for the first column
-        column_size = len(value['data_columns'][0]['data'])
-        for idx, column in enumerate(value['data_columns']):
+        column_size = len(
+            value['independent_variable'][0]['data']
+        )
+        for column in value['dependent_variable']:
             if column_size != len(column['data']):
                 error_message = 'All columns must have the same number of rows!'
-            if (idx == 0 and column['variable'] != 'independent') or \
-                    (idx != 0 and column['variable'] == 'independent'):
-                error_message = '"variable" must be "independent" only in the first column and "dependent" in the rest!'
     except jsonschema.exceptions.ValidationError as e:
         error_message = e.message
     return error_message

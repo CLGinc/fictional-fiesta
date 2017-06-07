@@ -128,8 +128,13 @@ class Result(models.Model):
         blank=True
     )
     independent_variable = models.CharField(max_length=255)
+    data_type_independent = models.CharField(
+        max_length=20,
+        choices=DATA_TYPES,
+        default=DATA_TYPES[0][0]
+    )
     dependent_variable = models.CharField(max_length=255)
-    data_type = models.CharField(
+    data_type_dependent = models.CharField(
         max_length=20,
         choices=DATA_TYPES,
         default=DATA_TYPES[0][0]
@@ -155,10 +160,13 @@ class Result(models.Model):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
             if not(self.project.roles.filter(user=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
                 raise ValidationError({'owner': 'The selected user cannot add results to this project!'})
-        if hasattr(self, 'data_columns') and hasattr(self, 'data_type'):
+        if hasattr(self, 'data_columns') and \
+                hasattr(self, 'data_type_independent') and \
+                hasattr(self, 'data_type_dependent'):
             error_message = vaidate_result_data_columns(
                 value=self.data_columns,
-                data_type=self.data_type
+                data_type_dependent=self.data_type_dependent,
+                data_type_independent=self.data_type_independent
             )
             if error_message:
                 raise ValidationError({'data_columns': 'Invalid JSON content: {}!'.format(error_message)})

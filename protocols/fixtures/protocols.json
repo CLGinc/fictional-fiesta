@@ -527,43 +527,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.018Z"
   }
 },
@@ -580,43 +544,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.741Z"
   }
 },
@@ -633,43 +561,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.062Z"
   }
 },
@@ -686,43 +578,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.015Z"
   }
 },
@@ -739,43 +595,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.480Z"
   }
 },
@@ -792,43 +612,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.048Z"
   }
 },
@@ -845,43 +629,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.043Z"
   }
 },
@@ -898,43 +646,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.094Z"
   }
 },
@@ -951,43 +663,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.521Z"
   }
 },
@@ -1004,43 +680,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.225Z"
   }
 },
@@ -1057,43 +697,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.517Z"
   }
 },
@@ -1110,43 +714,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.269Z"
   }
 },
@@ -1163,43 +731,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.858Z"
   }
 },
@@ -1216,43 +748,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.843Z"
   }
 },
@@ -1269,43 +765,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.546Z"
   }
 },
@@ -1322,43 +782,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.348Z"
   }
 },
@@ -1375,43 +799,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.974Z"
   }
 },
@@ -1428,43 +816,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.069Z"
   }
 },
@@ -1481,43 +833,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.035Z"
   }
 },
@@ -1534,43 +850,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.533Z"
   }
 },
@@ -1587,43 +867,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.131Z"
   }
 },
@@ -1640,43 +884,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.472Z"
   }
 },
@@ -1693,43 +901,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.783Z"
   }
 },
@@ -1746,43 +918,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.526Z"
   }
 },
@@ -1799,43 +935,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.991Z"
   }
 },
@@ -1852,43 +952,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.759Z"
   }
 },
@@ -1905,43 +969,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.377Z"
   }
 },
@@ -1958,43 +986,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.273Z"
   }
 },
@@ -2011,43 +1003,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.729Z"
   }
 },
@@ -2064,43 +1020,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.100Z"
   }
 },
@@ -2117,43 +1037,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.747Z"
   }
 },
@@ -2170,43 +1054,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.543Z"
   }
 },
@@ -2223,43 +1071,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.753Z"
   }
 },
@@ -2276,43 +1088,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.512Z"
   }
 },
@@ -2329,43 +1105,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.531Z"
   }
 },
@@ -2382,43 +1122,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.359Z"
   }
 },
@@ -2435,43 +1139,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.417Z"
   }
 },
@@ -2488,43 +1156,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.252Z"
   }
 },
@@ -2541,43 +1173,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.999Z"
   }
 },
@@ -2594,43 +1190,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.524Z"
   }
 },
@@ -2647,43 +1207,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.032Z"
   }
 },
@@ -2700,43 +1224,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.257Z"
   }
 },
@@ -2753,43 +1241,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.027Z"
   }
 },
@@ -2806,43 +1258,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:44.989Z"
   }
 },
@@ -2859,43 +1275,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.051Z"
   }
 },
@@ -2912,43 +1292,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.735Z"
   }
 },
@@ -2965,43 +1309,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.370Z"
   }
 },
@@ -3018,43 +1326,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.392Z"
   }
 },
@@ -3071,43 +1343,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.291Z"
   }
 },
@@ -3124,43 +1360,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.552Z"
   }
 },
@@ -3177,43 +1377,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.008Z"
   }
 },
@@ -3230,43 +1394,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.515Z"
   }
 },
@@ -3283,43 +1411,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.340Z"
   }
 },
@@ -3336,43 +1428,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.332Z"
   }
 },
@@ -3389,43 +1445,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.541Z"
   }
 },
@@ -3442,43 +1462,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.497Z"
   }
 },
@@ -3495,43 +1479,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.505Z"
   }
 },
@@ -3548,43 +1496,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.815Z"
   }
 },
@@ -3601,43 +1513,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.245Z"
   }
 },
@@ -3654,43 +1530,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.230Z"
   }
 },
@@ -3707,43 +1547,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.241Z"
   }
 },
@@ -3760,43 +1564,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.767Z"
   }
 },
@@ -3813,43 +1581,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.007Z"
   }
 },
@@ -3866,43 +1598,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.324Z"
   }
 },
@@ -3919,43 +1615,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.491Z"
   }
 },
@@ -3972,43 +1632,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.316Z"
   }
 },
@@ -4025,43 +1649,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.308Z"
   }
 },
@@ -4078,43 +1666,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.775Z"
   }
 },
@@ -4131,43 +1683,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.284Z"
   }
 },
@@ -4184,43 +1700,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.261Z"
   }
 },
@@ -4237,43 +1717,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.300Z"
   }
 },
@@ -4290,43 +1734,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.796Z"
   }
 },
@@ -4343,43 +1751,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.106Z"
   }
 },
@@ -4396,43 +1768,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.507Z"
   }
 },
@@ -4449,43 +1785,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.407Z"
   }
 },
@@ -4502,43 +1802,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.070Z"
   }
 },
@@ -4555,43 +1819,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.024Z"
   }
 },
@@ -4608,43 +1836,7 @@
     "project": "b710deae-8650-492b-92f3-3bf5b973295d",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.387Z"
   }
 },
@@ -4661,43 +1853,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.040Z"
   }
 },
@@ -4714,43 +1870,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.836Z"
   }
 },
@@ -4767,43 +1887,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.112Z"
   }
 },
@@ -4820,43 +1904,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.485Z"
   }
 },
@@ -4873,43 +1921,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.381Z"
   }
 },
@@ -4926,43 +1938,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.851Z"
   }
 },
@@ -4979,43 +1955,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.792Z"
   }
 },
@@ -5032,43 +1972,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.236Z"
   }
 },
@@ -5085,43 +1989,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.866Z"
   }
 },
@@ -5138,43 +2006,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45Z"
   }
 },
@@ -5191,43 +2023,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.088Z"
   }
 },
@@ -5244,43 +2040,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.276Z"
   }
 },
@@ -5297,43 +2057,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.119Z"
   }
 },
@@ -5350,43 +2074,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.800Z"
   }
 },
@@ -5403,43 +2091,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.982Z"
   }
 },
@@ -5456,43 +2108,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.824Z"
   }
 },
@@ -5509,43 +2125,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.075Z"
   }
 },
@@ -5562,43 +2142,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.364Z"
   }
 },
@@ -5615,43 +2159,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.399Z"
   }
 },
@@ -5668,43 +2176,7 @@
     "project": "808d85c6-8fdb-478d-994a-aab8496ef4cb",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:45.536Z"
   }
 },
@@ -5721,43 +2193,7 @@
     "project": "bc155dad-5694-482d-9bf6-37f3a84825de",
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:47.081Z"
   }
 },
@@ -5774,43 +2210,7 @@
     "project": null,
     "independent_variable": "Not Provided",
     "dependent_variable": "Not Provided",
-    "data_columns": {
-      "data_columns": [
-        {
-          "data": [
-            0,
-            2,
-            4,
-            6,
-            8
-          ],
-          "title": "Independent Variable",
-          "variable": "independent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 1",
-          "variable": "dependent"
-        },
-        {
-          "data": [
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          "title": "Trial 2",
-          "variable": "dependent"
-        }
-      ]
-    },
+    "data_columns": {"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]},
     "datetime_created": "2016-12-12T19:30:46.808Z"
   }
 }
