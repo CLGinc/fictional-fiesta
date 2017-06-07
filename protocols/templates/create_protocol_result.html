@@ -149,40 +149,50 @@
         </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independant variable</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
-                       name="note"
-                       data-content="independant-title"
+                       name="independent_variable"
+                       data-content="independent-title"
                        maxlength="255"
                        data-trigger="update-value"
-                       data-target="independant-title">
-                <label class="mdc-textfield__label">Add a independant variable for data table</label>
+                       data-target="independent-title">
+                <label class="mdc-textfield__label">Add a independent variable for data table</label>
               </div>
             </div>
           </div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependant variable</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">dependent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
-                       name="note"
-                       data-content="independant-title"
+                       name="dependent_variable"
+                       data-content="independent-title"
                        maxlength="255"
                        data-trigger="update-value"
-                       data-target="dependant-title">
-                <label class="mdc-textfield__label">Add a dependant variable for data table</label>
+                       data-target="dependent-title">
+                <label class="mdc-textfield__label">Add a dependent variable for data table</label>
               </div>
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <select class="mdc-select margin--none height-40" name="dataType">
-                <option value="mixed" selected>Mixed</option>
-                <option value="numeric">Numeric</option>
-                <option value="string">String</option>
+              <select class="mdc-select margin--none height-40" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
+                <option value="string" selected>String</option>
+                <option value="number">Numeric</option>
+                <option value="boolean">Boolean (True/False)</option>
+              </select>
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <select class="mdc-select margin--none height-40" name="data_type_dependent" data-trigger="data-type" data-target="dependent-value">
+                <option value="string" selected>String</option>
+                <option value="number">Numeric</option>
+                <option value="boolean">Boolean (True/False)</option>
               </select>
             </div>
           </div>
@@ -216,8 +226,8 @@
               </colgroup>
               <thead>
                 <tr data-content="table--labels">
-                  <th class="mdl-data-table__cell--non-numeric" id="independant-title">Independant variable</th>
-                  <th id="dependant-title">Dependant variables</th>
+                  <th class="mdl-data-table__cell--non-numeric" id="independent-title">Independent variable</th>
+                  <th id="dependent-title">dependent variables</th>
                   <th></th>
                 </tr>
                 <tr data-content="table--controls-column">
@@ -235,12 +245,16 @@
               <tbody>
                 <tr>
                   <td></td>
-                  <td data-type="dependant-title"><input type="text" placeholder="Add title" class="text-right"></td>
+                  <td data-type="dependent-title"><input type="text" placeholder="Add title" class="text-right"></td>
                   <td></td>
                 </tr>
                 <tr data-content="table--row">
-                  <td class="mdl-data-table__cell--non-numeric"><input type="text" placeholder="Add value" data-content="independant-value"></td>
-                  <td data-type="dependant-value"><input type="text" placeholder="Add value" class="text-right"></td>
+                  <td data-type="independent-value" class="mdl-data-table__cell--non-numeric">
+                    <input type="text" placeholder="Add value" class="dataTypeInput">
+                  </td>
+                  <td data-type="dependent-value">
+                    <input type="text" placeholder="Add value" class="text-right dataTypeInput">
+                  </td>
                   <td>
                     <div data-mdc-auto-init="MDCRipple"
                        data-trigger="removeDataRow"
