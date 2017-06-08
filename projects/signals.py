@@ -10,6 +10,6 @@ def create_owner_role(sender, instance, created, **kwargs):
     if created and not(kwargs.get('raw', False)) and hasattr(instance, '_owner'):
         Role.objects.create(
             user=instance._owner,
-            protocol=instance,
+            project=instance,
             role='owner'
         )
