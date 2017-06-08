@@ -128,7 +128,8 @@ class User(AbstractUser):
         if self.can_edit(project):
             protocols = Protocol.objects.filter(
                 roles__user=self,
-                roles__project=None
+                roles__project=None,
+                roles__role__in=Role.ROLES_CAN_EDIT
             ).exclude(uuid__in=project.protocols.all())
             return protocols
         else:

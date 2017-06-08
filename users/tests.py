@@ -29,6 +29,7 @@ class UserModelTest(TestCase):
         self.user3 = User.objects.get(username='user3@gmail.com')
         self.tempuser = User.objects.get(username='tempuser@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol3 = Protocol.objects.get(name='Protocol 3')
         self.protocol6 = Protocol.objects.get(name='Protocol 6')
         self.protocol8 = Protocol.objects.get(name='Protocol 8')
         self.protocol10 = Protocol.objects.get(name='Protocol 10')
@@ -186,11 +187,11 @@ class UserModelTest(TestCase):
             e.exception.messages)
 
     def test_get_protocols_to_add(self):
-        protocols = list(self.user1.get_protocols_to_add(self.project1))
+        protocols = list(self.user1.get_protocols_to_add(self.project2))
         expected_protocols = [
-            self.protocol10,
             self.protocol8,
-            self.protocol6
+            self.protocol6,
+            self.protocol3
         ]
         self.assertEqual(protocols, expected_protocols)
 
