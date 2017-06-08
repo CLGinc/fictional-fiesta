@@ -21,7 +21,7 @@ class BasicProtocolForm(forms.ModelForm):
         super(BasicProtocolForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        self.instance._user = self.user
+        self.instance._owner = self.user
         instance = super(BasicProtocolForm, self).save(commit=commit)
         return instance
 

@@ -6,10 +6,10 @@ from .models import Protocol
 
 
 @receiver(post_save, sender=Protocol)
-def create_user(sender, instance, created, **kwargs):
-    if created and not(kwargs.get('raw', False)) and hasattr(instance, '_user'):
+def create_owner_role(sender, instance, created, **kwargs):
+    if created and not(kwargs.get('raw', False)) and hasattr(instance, '_owner'):
         Role.objects.create(
-            user=instance._user,
+            user=instance._owner,
             protocol=instance,
             role='owner'
         )
