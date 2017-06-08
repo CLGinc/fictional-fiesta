@@ -17,6 +17,9 @@ class Role(models.Model):
         'owner',
         'contributor'
     )
+    ROLES_CAN_INVITE = (
+        'owner',
+    )
     ROLES_TO_INVITE = (
         ('contributor', 'Contributor'),
         ('watcher', 'Watcher'),

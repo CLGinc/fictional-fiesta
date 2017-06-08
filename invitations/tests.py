@@ -24,7 +24,9 @@ class InvitationModelTest(TestCase):
         self.user2 = User.objects.get(username='user2@gmail.com')
         self.user3 = User.objects.get(username='user3@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_invitation_without_project_or_protocol(self):
         invitation = Invitation(
@@ -52,7 +54,7 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
-    def test_invitation_inviter_cannot_invite_to_project(self):
+    def test_invitation_watcher_cannot_invite_to_project(self):
         invitation = Invitation(
             email='test@gmail.com',
             inviter=self.user2,
@@ -65,11 +67,37 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
-    def test_invitation_inviter_cannot_invite_to_protocol(self):
+    def test_invitation_contributor_cannot_invite_to_project(self):
+        invitation = Invitation(
+            email='test@gmail.com',
+            inviter=self.user2,
+            project=self.project2,
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["You cannot invite users to this project"],
+            e.exception.messages
+        )
+
+    def test_invitation_watcher_cannot_invite_to_protocol(self):
         invitation = Invitation(
             email='test@gmail.com',
             inviter=self.user1,
             protocol=self.protocol1,
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["You cannot invite users to this protocol"],
+            e.exception.messages
+        )
+
+    def test_invitation_contributor_cannot_invite_to_protocol(self):
+        invitation = Invitation(
+            email='test@gmail.com',
+            inviter=self.user1,
+            protocol=self.protocol10,
         )
         with self.assertRaises(ValidationError) as e:
             invitation.clean()

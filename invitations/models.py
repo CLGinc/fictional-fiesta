@@ -72,9 +72,9 @@ class Invitation(models.Model):
         if self.project and self.protocol:
             raise ValidationError('You cannot select project and protocol for the same invitation!')
         if hasattr(self, 'inviter'):
-            if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_EDIT).exists()):
+            if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_INVITE).exists()):
                 raise ValidationError({'project': 'You cannot invite users to this project'})
-            if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
+            if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_INVITE).exists()):
                 raise ValidationError({'protocol': 'You cannot invite users to this protocol'})
             if self.inviter.email == self.email:
                 raise ValidationError({'email': 'You cannot invite yourself'})

@@ -28,7 +28,7 @@
     </ul>
     {% endfor %}
   </div>
-  {% if can_edit %}
+  {% if request.user == selected_protocol.get_owner %}
   <div id="modal--participants"
        class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
