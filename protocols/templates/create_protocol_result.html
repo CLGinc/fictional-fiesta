@@ -197,6 +197,7 @@
             </div>
           </div>
         </div>
+        {{ form.data_columns.errors.as_text }}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
             <span>Data table</span>
@@ -216,7 +217,7 @@
           <div class="" data-content="dataTable--parent" style="display:table;">
             <input type="text"
                    class="hidden"
-                   name="data"
+                   name="data_columns"
                    data-content="dataTable--input">
             <table class="mdl-data-table mdl-js-data-table">
               <colgroup>
