@@ -56,7 +56,6 @@ $('[data-trigger=submit-result]').click(function(){
 
   // build independent data object and push it to the array
   independent.push({data: independentData, title: independentTitle});
-  // dataTableBuilder.push(idependentData);
 
   // function to collect column data values
   collectColumnData = function(element){
@@ -85,13 +84,12 @@ $('[data-trigger=submit-result]').click(function(){
   // dataTableBuilder.push(dependent);
 
   // generate final json
-  dataTable = JSON.stringify({data_columns: {'independent_variable': independent,'dependent_variable': dependent}});
+  dataTable = JSON.stringify({'independent_variable': independent,'dependent_variable': dependent});
   // set the json as value for the datatable input
   mainInput.val(dataTable);
-  console.log(dataTable);
 
   //submit form
-  // $('#create_protocol_result_form').submit();
+  $('#create_protocol_result_form').submit();
 });
 
 // function to remove data row
