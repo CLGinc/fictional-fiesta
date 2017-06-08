@@ -1,7 +1,6 @@
 from django import forms
 
 from .models import Project
-from users.models import Role
 
 
 class BasicProjectForm(forms.ModelForm):
@@ -17,12 +16,8 @@ class BasicProjectForm(forms.ModelForm):
         super(BasicProjectForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
+        self.instance._owner = self.user
         instance = super(BasicProjectForm, self).save(commit=True)
-        if self.user:
-            Role.objects.create(
-                user=self.user,
-                project=instance,
-                role='owner')
         return instance
 
 
