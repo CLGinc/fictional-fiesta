@@ -212,7 +212,8 @@ class ProtocolViewTest(TestCase):
                 'independent_variable': 'Salt Concentration (%)',
                 'dependent_variable': 'Light Transmittance (%T)',
                 'data_columns': '{"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]}',
-                'data_type': 'number'
+                'data_type_dependent': 'number',
+                'data_type_independent': 'number'
             }
         )
         result = self.protocol3.results.all().order_by('-datetime_created')[0]
@@ -265,7 +266,8 @@ class ProtocolViewTest(TestCase):
                 'independent_variable': 'Salt Concentration (%)',
                 'dependent_variable': 'Light Transmittance (%T)',
                 'data_columns': '{"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]}',
-                'data_type': 'number'
+                'data_type_dependent': 'number',
+                'data_type_independent': 'number'
             }
         )
         self.protocol3_result.refresh_from_db()
