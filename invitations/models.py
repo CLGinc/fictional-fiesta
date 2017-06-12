@@ -99,51 +99,6 @@ class Invitation(models.Model):
             return UserModel.objects.get(email=self.email)
         return None
 
-    def send_mail(self):
-        mj_client = Client(
-            auth=(settings.MJ_APIKEY_PUBLIC, settings.MJ_APIKEY_PRIVATE),
-            version='v3.1'
-        )
-        if self.project:
-            object_type = 'project'
-            object_name = self.project.name
-        elif self.protocol:
-            object_type = 'protocol'
-            object_name = self.protocol.name
-        email = {
-            'Messages': [
-                {
-                    'From': {
-                        'Name': 'SciLog Inviter',
-                        'Email': 'inviter@lebaguette.eu'
-                    },
-                    'To': [
-                        {
-                            'Email': self.email
-                        }
-                    ],
-                    'TemplateID': settings.MJ_INVITATION_TEMPLATE_ID,
-                    'TemplateLanguage': True,
-                    'TemplateErrorReporting': {
-                        'Email': settings.MJ_TPL_ERROR_REPORTING_MAIL
-                    },
-                    'Variables': {
-                        'invited': str(self.invited) if self.invited else self.email,
-                        'inviter': str(self.inviter),
-                        'object': {
-                            'type': object_type,
-                            'name': object_name
-                        },
-                        'role': self.role,
-                        'url': reverse('invitations_list')
-                    },
-                    'TrackClicks': 'enabled',
-                    'TrackOpens': 'enabled'
-                }
-            ]
-        }
-        mj_client.send.create(email)
-
     def accept(self):
         self.accepted = True
         self.save()

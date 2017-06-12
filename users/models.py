@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.apps import apps
+from django.core.mail import EmailMessage
 
 from protocols.models import Protocol
 from projects.models import Project
@@ -173,6 +174,34 @@ class User(AbstractUser):
             for invitation in invitations:
                 invitation.invited = self
                 invitation.save()
+
+    def email_user(
+            self,
+            template_id,
+            variables,
+            from_email=None,
+            fail_silently=False,
+            **kwargs):
+        kwargs.update(
+            {
+                'headers':
+                    {
+                        'X-MJ-TemplateID': template_id,
+                        'X-MJ-TemplateLanguage': '1',
+                        'X-Mailjet-TrackClick': '1',
+                        'X-Mailjet-TrackOpen': '1',
+                        'X-MJ-Vars': variables
+                    }
+            }
+        )
+        msg = EmailMessage(
+            subject=kwargs.pop('subject', ''),
+            body=kwargs.pop('body', ''),
+            to=[self.email],
+            from_email=from_email,
+            **kwargs
+        )
+        msg.send(fail_silently=fail_silently)
 
 
 class Source(models.Model):

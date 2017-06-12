@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -11,7 +13,6 @@ from django.http import Http404
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
-from mailjet_rest import Client
 from django.utils.encoding import force_bytes
 from django.contrib.auth import login
 
@@ -65,37 +66,16 @@ class Register(CreateView):
             'activate_user',
             kwargs={'username': username_base64, 'token': token}
         )
-        mj_client = Client(
-            auth=(settings.MJ_APIKEY_PUBLIC, settings.MJ_APIKEY_PRIVATE),
-            version='v3.1'
-        )
-        email = {
-            'Messages': [
-                {
-                    'From': {
-                        'Name': 'SciLog Inviter',
-                        'Email': 'inviter@lebaguette.eu'
-                    },
-                    'To': [
-                        {
-                            'Email': self.object.email
-                        }
-                    ],
-                    'TemplateID': settings.MJ_EMAIL_CONFIRMATION_TEMPLATE_ID,
-                    'TemplateLanguage': True,
-                    'TemplateErrorReporting': {
-                        'Email': settings.MJ_TPL_ERROR_REPORTING_MAIL
-                    },
-                    'Variables': {
-                        'user': str(self.object),
-                        'url': url
-                    },
-                    'TrackClicks': 'enabled',
-                    'TrackOpens': 'enabled'
-                }
-            ]
+        variables = {
+            'user': str(self.object),
+            'url': url
         }
-        mj_client.send.create(email)
+        self.object.email_user(
+            template_id=settings.MJ_EMAIL_CONFIRMATION_TEMPLATE_ID,
+            variables=json.dumps(variables),
+            from_email=settings.MJ_EMAIL_CONFIRMATION_FROM,
+            fail_silently=settings.DEBUG
+        )
         return self.render_to_response(self.get_context_data())
 
     def get(self, request, *args, **kwargs):
