@@ -1,32 +1,20 @@
 // function to add data row
 $('[data-trigger="addDataRow"]').on('click', function() {
-  var sourceElement = $('[data-content="table--row"]').last(),
-      clonedElement = sourceElement.clone();
-  clonedElement.find('input').each(function(){
-    $(this).val('');
+  $('.trow').find('ul').each(function(){
+    var clone = $(this).find('li').last().clone();
+    clone.find('input').val('');
+    $(this).append(clone);
   });
-  clonedElement.insertAfter(sourceElement);
 });
 
 // function to add data column
 $('[data-trigger="addDataColumn"]').on('click', function() {
-  var sourceElement = $('[data-content="table--column"]').index(),
-      colTemplate = '<col data-content="table--column"/>',
-      empyThTemplate = '<th></th>',
-      columnsCount = $('[data-content="table--column"]').length,
-      lastColumnRemoveButton = $('[data-content="table--controls-remove_col"]').last();
-
-  $('[data-content="table--column"]').last().after(colTemplate);
-  $('[data-content="table--labels"]').append(empyThTemplate);
-  $(removeColumnButton).insertAfter(lastColumnRemoveButton);
-  $('table tbody tr').each(function() {
-    var sourceTd = $(this).find('td:eq('+columnsCount+')'),
-        clonedTd = sourceTd.clone();
-    clonedTd.find('input').each(function(){
-      $(this).val('');
-    });
-    $(clonedTd).insertAfter(sourceTd);
+  var clone = $('.trow').find('.td:nth-last-child(2)').clone(),
+  lastChild = $('.trow').find('.td').last();
+  clone.find('input').each(function(){
+    $(this).val('');
   });
+  (clone).insertBefore(lastChild);
 });
 
 // submit result
@@ -34,9 +22,10 @@ $('[data-trigger=submit-result]').click(function(){
   var dependent = [],
       independent = [],
       independentData = [],
+      data = [],
       independentValues = $('[data-type="independent-value"]'),
       independentTitle = $('[data-content="independent-title"]').val(),
-      dataColumnsCount = $('[data-content="table--column"]').length,
+      dataColumnsCount =  $('.trow').find('.td:nth-last-child(2)').length,
       mainInput = $('[data-content="dataTable--input"]'),
       collectColumnData,
       dataTable;
@@ -71,35 +60,31 @@ $('[data-trigger=submit-result]').click(function(){
   };
 
   // iterate over dependent data columns, create objects and push them to the array
-  for(currentCol = 0; currentCol < dataColumnsCount; currentCol++){
-    var data = [],
-        // index is +2 because column index starts from 1 and we ignore the first column
-        index = currentCol + 2;
-    var dependentValuesLocal = $('table').find('[data-type="dependent-value"]:nth-child('+index+')');
-
-    $(dependentValuesLocal).each(collectColumnData);
-    // dependentValuesLocal.each(collectdependentValues());
-    dependent.push({data: data, title: $('[data-type="dependent-title"]').eq(currentCol).children('input').val()});
-  }
+  $('.trow').find('.col').each(function(){
+    data = [];
+    var elements = $(this).find('[data-type="dependent-value"]'),
+        title = $(this).find('[data-type="dependent-title"]').children('input').val();
+    $(elements).each(collectColumnData);
+    dependent.push({data: data, title: title});
+  });
   // dataTableBuilder.push(dependent);
 
   // generate final json
-  dataTable = JSON.stringify({'independent_variable': independent,'dependent_variable': dependent});
+  dataTable = JSON.stringify({'dependent_variable': dependent, 'independent_variable': independent});
   // set the json as value for the datatable input
   mainInput.val(dataTable);
-
   //submit form
   $('#create_protocol_result_form').submit();
 });
 
 // function to remove data row
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRow"]', function() {
-  var dataRowsCount = $('[data-content="table--row"]').length;
-  if(dataRowsCount > 1) {
-  var parentRow = $(this).closest('tr');
-  $(parentRow).fadeOut("fast",function(){
-    $(this).remove();
-  });
+  var dataRowsCount = $('.col:first').find('li').length;
+
+  if(dataRowsCount > 3) {
+    rowIndex = $(this).closest('li').index();
+    ++rowIndex;
+    $('.trow').find('li:nth-child('+rowIndex+')').remove();
   } else {
     var notif = 'At least one data row is required';
     show(snackbar,notif);
@@ -108,18 +93,10 @@ $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRo
 
 // function to remove data column
 $('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataColumn"]', function() {
-  var dataColumnsCount = $('[data-content="table--column"]').length;
-  var parentColumn = $(this).closest('th, td').index();
-  if(dataColumnsCount > 1){
-    var target_tr = $('table tr').find('td:eq('+parentColumn+'),th:eq('+parentColumn+')');
-    var saveTitle = $('table tr th').eq(1).html();
-    $(target_tr).fadeOut("fast",function(){
-        $(this).remove();
-        if(parentColumn === 1){
-          $('table tr th').eq(1).html(saveTitle);
-        }
-      });
-    $('[data-content="table--column"]').first().remove();
+  var dataColumnsCount = $('.col').length;
+
+  if(dataColumnsCount > 1) {
+    $(this).closest('.td').remove();
   } else {
     var notif = 'At least one data column is required';
     show(snackbar,notif);
@@ -164,8 +141,8 @@ $('table').on('mouseleave', 'th, td', function() {
 
 // templates
 // checkbox before input
-var inputTemplateString = '<input type="text" placeholder="Add value" class="text-right dataTypeInput">';
-var inputTemplateNumber = '<input type="number" placeholder="Add value" class="text-right dataTypeInput">';
+var inputTemplateString = '<input type="text" placeholder="Add value" class="dataTypeInput">';
+var inputTemplateNumber = '<input type="number" placeholder="Add value" class="dataTypeInput">';
 // checkbox after input
 var checkboxTemplate = '<div class="mdc-checkbox"> <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput"/> <div class="mdc-checkbox__background"> <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"> <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/> </svg> <div class="mdc-checkbox__mixedmark"></div></div></div>';
 // remove col cell and button

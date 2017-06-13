@@ -159,7 +159,7 @@
                        maxlength="255"
                        data-trigger="update-value"
                        data-target="independent-title"
-                       {% if form.independent_variable.data %}value="{{ form.independent_variable.data }}"{% endif %}">
+                       {% if form.independent_variable.data %}value="{{ form.independent_variable.data }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a independent variable for data table</label>
               </div>
             </div>
@@ -222,63 +222,52 @@
               <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add row
             </div>
           </div>
-          <div class="" data-content="dataTable--parent" style="display:table;">
+          <div class="table" data-content="dataTable--parent">
             <input type="text"
                    class="hidden"
                    name="data_columns"
                    data-content="dataTable--input">
-            <table class="mdl-data-table mdl-js-data-table">
-              <colgroup>
-                <col class="table--border-right"/>
-                <col data-content="table--column"/>
-                <col/>
-              </colgroup>
-              <thead>
-                <tr data-content="table--labels">
-                  <th class="mdl-data-table__cell--non-numeric" id="independent-title">Independent variable</th>
-                  <th id="dependent-title">dependent variables</th>
-                  <th></th>
-                </tr>
-                <tr data-content="table--controls-column">
-                  <th></th>
-                  <th data-content="table--controls-remove_col">
-                    <div data-mdc-auto-init="MDCRipple"
-                       data-trigger="removeDataColumn"
-                       class="mdc-button table--button">
-                      Remove col
-                    </div>
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td data-type="dependent-title"><input type="text" placeholder="Add title" class="text-right"></td>
-                  <td></td>
-                </tr>
-                <tr data-content="table--row">
-                  <td data-type="independent-value" class="mdl-data-table__cell--non-numeric">
-                    <input type="text" placeholder="Add value" class="dataTypeInput">
-                  </td>
-                  <td data-type="dependent-value">
-                    <input type="text" placeholder="Add value" class="text-right dataTypeInput">
-                  </td>
-                  <td>
-                    <div data-mdc-auto-init="MDCRipple"
-                       data-trigger="removeDataRow"
-                       class="mdc-button table--button">
-                      Remove row
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            {% if data_column_form.data.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ data_column_form.data.errors.as_text }}
-              </p>
-            {% endif %}
+            <div class="thead">
+              <div class="th table--border-right" id="independent-title">Independent variable</div>
+              <div class="th" id="dependent-title">Dependent variable</div>
+            </div>
+            <div class="tbody">
+              <div class="trow">
+                <div class="td table--border-right col-indep">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item" data-type="independent-value"><input type="number" placeholder="Add value" class="dataTypeInput"></li>
+                  </ul>
+                </div>
+                <div class="td col">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataColumn"
+                         class="mdc-button table--button center">
+                        Remove col
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" data-type="dependent-title"><input type="text" placeholder="Add title"></li>
+                    <li class="mdc-list-item" data-type="dependent-value"><input type="number" placeholder="Add value" class="dataTypeInput"></li>
+                  </ul>
+                </div>
+                <div class="td">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataRow"
+                         class="mdc-button table--button">
+                        Remove row
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </form>
