@@ -231,6 +231,89 @@
               <div class="th table--border-right" id="independent-title">Independent variable</div>
               <div class="th" id="dependent-title">Dependent variable</div>
             </div>
+            {% if form.data_columns.data %}
+            {% with data_columns=form.data_columns.data|json_to_dict %}
+            <div class="tbody">
+              <div class="trow">
+                {% for independent_column in data_columns.independent_variable %}
+                <div class="td table--border-right col-indep">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    {% for data_value in independent_column.data %}
+                    <li class="mdc-list-item" data-type="independent-value">
+                      {% if form.data_type_independent.data == "number" %}
+                      <input type="number" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_independent.data == "string" %}
+                      <input type="text" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_independent.data == "boolean" %}
+                      <div class="mdc-checkbox">
+                        <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput" {% if data_value %}checked{% endif %}>
+                        <div class="mdc-checkbox__background">
+                          <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                          </svg>
+                          <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
+                {% for dependent_column in data_columns.dependent_variable %}
+                <div class="td col">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataColumn"
+                         class="mdc-button table--button center">
+                        Remove col
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" data-type="dependent-title"><input type="text" placeholder="Add title" value="{{ dependent_column.title }}"></li>
+                    {% for data_value in dependent_column.data %}
+                    <li class="mdc-list-item" data-type="dependent-value">
+                      {% if form.data_type_dependent.data == "number" %}
+                      <input type="number" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_dependent.data == "string" %}
+                      <input type="text" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_dependent.data == "boolean" %}
+                      <div class="mdc-checkbox">
+                        <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput" {% if data_value %}checked{% endif %}>
+                        <div class="mdc-checkbox__background">
+                          <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                          </svg>
+                          <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
+                <div class="td">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    {% for dava_value in data_columns.independent_variable.0.data %}
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataRow"
+                         class="mdc-button table--button">
+                        Remove row
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% endwith %}
+            {% else %}
             <div class="tbody">
               <div class="trow">
                 <div class="td table--border-right col-indep">
@@ -268,6 +351,7 @@
                 </div>
               </div>
             </div>
+            {% endif %}
           </div>
         </div>
       </form>
