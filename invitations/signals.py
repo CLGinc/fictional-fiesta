@@ -60,14 +60,13 @@ def send_mail(sender, created, instance, raw, using, update_fields, **kwargs):
 def create_role(sender, created, instance, raw, using, update_fields, **kwargs):
     if not raw and instance.invited and instance.accepted:
         if instance.project is not None:
-            role = Role.objects.get_or_create(
+            Role.objects.get_or_create(
                 user=instance.invited,
                 role=instance.role,
                 project=instance.project
             )
-            role.save()
         elif instance.protocol is not None:
-            role = Role.objects.get_or_create(
+            Role.objects.get_or_create(
                 user=instance.invited,
                 role=instance.role,
                 protocol=instance.protocol
