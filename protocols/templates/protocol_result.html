@@ -101,18 +101,26 @@
           </div>
           <div class="tbody">
             <div class="trow">
+              {% for independent_column in selected_protocol_result.data_columns.independent_variable %}
               <div class="td table--border-right col-indep">
                 <ul class="mdc-list">
                   <li class="mdc-list-item"></li>
-                  <li class="mdc-list-item" data-type="independent-value">independent value</li>
+                  {% for data_value in independent_column.data %}
+                  <li class="mdc-list-item" data-type="independent-value">{{ data_value }}</li>
+                  {% endfor %}
                 </ul>
               </div>
+              {% endfor %}
+              {% for dependent_column in selected_protocol_result.data_columns.dependent_variable %}
               <div class="td col">
                 <ul class="mdc-list">
-                  <li class="mdc-list-item" data-type="dependent-title">dependent Title</li>
-                  <li class="mdc-list-item" data-type="dependent-value">dependent Value</li>
+                  <li class="mdc-list-item" data-type="dependent-title">{{ dependent_column.title }}</li>
+                  {% for data_value in dependent_column.data %}
+                  <li class="mdc-list-item" data-type="dependent-value">{{ data_value }}</li>
+                  {% endfor %}
                 </ul>
               </div>
+              {% endfor %}
             </div>
           </div>
         </div>
