@@ -80,7 +80,7 @@ class Command(BaseCommand):
                 protocol=protocol,
                 role=random.choice(Role.ROLES[:2])[0]
             )
-            # Create random role between projects and user
+            # Add protocol to projects
             if add_to_projects:
                 for project in projects:
                     project.protocols.add(protocol)
