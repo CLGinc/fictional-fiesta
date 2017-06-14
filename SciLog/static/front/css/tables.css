@@ -60,12 +60,16 @@ background-color: #eeeeee; }
   padding-bottom: 8px;
   border-bottom: none;
   box-sizing: border-box;
-  padding: 0 18px 12px 18px;
+  padding: 12px 18px 12px 18px;
+  min-width: 150px;
+  white-space: nowrap;
 }
 .td {
   display: table-cell;
   position: relative;
   vertical-align: middle;
+  white-space: nowrap;
+  min-width: 150px;
 }
 .td ul {
   padding: 0;
