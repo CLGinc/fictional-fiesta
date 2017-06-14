@@ -170,3 +170,76 @@ EMAIL_USE_TLS = True
 SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 
 ADMINS = [tuple(x.split('|')) for x in os.environ.get('ADMINS', '').split(';')]
+
+
+LOGGING_DIR = os.environ.get('LOGGING_DIR', os.path.join(BASE_DIR, 'log'))
+
+if not os.path.exists(LOGGING_DIR):
+    os.mkdir(LOGGING_DIR)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s|%(asctime)s|%(pathname)s|%(message)s'
+        },
+        'simple': {
+            'format': '[%(asctime)s] %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'file_debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filters': ['require_debug_true'],
+            'filename': os.path.join(LOGGING_DIR, "debug.log"),
+            'formatter': 'simple',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "info.log"),
+            'formatter': 'verbose',
+        },
+        'file_warning': {
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "warning.log"),
+            'formatter': 'verbose',
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "error.log"),
+            'formatter': 'verbose',
+        },
+        'file_critical': {
+            'level': 'CRITICAL',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "critical.txt"),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'scilog': {
+            'handlers': ['file_debug', 'file_info', 'file_warning', 'file_error', 'file_critical'],
+            'level': 'DEBUG',
+        },
+    }
+}
