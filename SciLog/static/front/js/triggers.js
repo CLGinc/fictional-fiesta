@@ -163,7 +163,6 @@ var addStepInit = function(event){
 var addStepEditOrder = function(){
   // the new step html order id is last so it does not override existing esteps
   var newStepOrder = $('.step').length;
-  clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+newStepOrder+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+newStepOrder+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+newStepOrder+'-text');
 };
@@ -256,8 +255,6 @@ var updateStepsCreate = function(){
   $(steps).each(function(){
     var updateSteps = parseInt(this.getAttribute('data-step'));
     this.querySelector('[data-content="step-number"]').innerHTML = number+1;
-    this.querySelector('[data-content="step-input"]').setAttribute('value',number);
-    this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+number+'-order');
     this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+number+'-title');
     this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+number+'-text');
     this.setAttribute('data-step',number);
@@ -272,7 +269,6 @@ var updateStepsEdit = function(){
   // update each step order and display with the new value
   $(steps).each(function(){
     this.querySelector('[data-content="step-number"]').innerHTML = number+1; // display number is +1 of order
-    this.querySelector('[data-content="step-input"]').setAttribute('value',number);
     this.setAttribute('data-step',number);
     // increment number for next loop
     number++;
@@ -290,6 +286,30 @@ $('[data-trigger="submit"]').click(function(){
   // target form is the form to submit
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form');
+  $('#'+targetForm).submit();
+  if($('#'+targetElementId).hasClass('element--show-animate')){
+    $('#'+targetElementId).removeClass('element--show-animate');
+  }
+  return false;
+});
+
+// submit setps form
+$('[data-trigger="submitSteps"]').click(function(){
+  // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
+  // target form is the form to submit
+  var targetElementId = $(this).attr('data-target'),
+      targetForm = $(this).attr('data-form'),
+      steps = $('[data-step]'),
+      stepMain = $('[data-content="step-main"]'),
+      data = [],
+      stepsJson;
+
+  steps.each(function(){
+    data.push({'title': $(this).find('[data-content="step-title"]').val(), 'description' : $(this).find('[data-content="step-desc"]').val()});
+  });
+  stepsJson = JSON.stringify({'steps': data});
+  stepMain.val(stepsJson);
+
   $('#'+targetForm).submit();
   if($('#'+targetElementId).hasClass('element--show-animate')){
     $('#'+targetElementId).removeClass('element--show-animate');

@@ -21,7 +21,7 @@
       <button data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
          href="{% url 'update_protocol' protocol_uuid=object.uuid %}"
-         data-trigger="submit"
+         data-trigger="submitSteps"
          data-form="form--protocol-edit">
         <i class="material-icons">check</i>
         <span class="toolbar__button-label">Save</span>
@@ -90,6 +90,10 @@
             Procedure
           </span>
         </div>
+        <input type="text"
+               class="hidden"
+               name="procedure"
+               data-content="step-main">
         <ul class="mdc-list padding-0">
           {% with procedure=form.procedure.value|json_to_dict %}
           {% for step in procedure.steps %}

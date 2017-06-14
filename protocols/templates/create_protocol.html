@@ -19,7 +19,7 @@
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
-              data-trigger="submit"
+              data-trigger="submitSteps"
               data-form="create_protocol_form"
               class="mdc-button mdl-color-text--white">
         <i class="material-icons">check</i>
@@ -37,7 +37,7 @@
       </h1>
       <div>
         {% if form.nonfield_errors %}
-          {{ form.nonfield_errors }}
+          <span class="error">{{ form.nonfield_errors.as_text }}</span>
         {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
@@ -91,6 +91,10 @@
             </div>
             <div class="mdl-tabs__panel is-active"
                  id="steps-panel">
+              <input type="text"
+                     class="hidden"
+                     name="procedure"
+                     data-content="step-main">
               <ul class="mdc-list padding-0">
                 {% if form.procedure.value != "null" %}
                 {% with procedure=form.procedure.value|json_to_dict %}
