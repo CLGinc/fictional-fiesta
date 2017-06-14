@@ -37,7 +37,7 @@
       </h1>
       <div>
         {% if form.nonfield_errors %}
-          {{ form.nonfield_errors }}
+          <span class="error">{{ form.nonfield_errors.as_text }}</span>
         {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
