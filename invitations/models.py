@@ -51,6 +51,7 @@ class Invitation(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ['-datetime_created']
         unique_together = (
             ('email', 'project'),
             ('email', 'protocol'))
