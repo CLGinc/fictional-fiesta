@@ -333,7 +333,7 @@ a {
 }
 /* user card */
 .button--height-normal {
-  line-height: normal;
+  line-height: 24px;
   height: auto;
 }
 .button--position-right {
