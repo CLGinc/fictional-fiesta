@@ -45,7 +45,7 @@
             method="post"
             action="">
         {% csrf_token %}
-        <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
+        <input class="hidden" name="protocol" value="{{ form.protocol.value }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result title</p>
