@@ -57,7 +57,7 @@
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="title"
-                       maxlength="255" {% if form.title.data %}value="{{ form.title.value }}"{% endif %}>
+                       maxlength="255" {% if form.title.value %}value="{{ form.title.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a title for this result</label>
               </div>
               {% if form.title.errors %}
@@ -75,7 +75,7 @@
                   <input type="checkbox"
                          id="success-checkbox"
                          name="is_successful"
-                         {% if form.is_successful.data %}checked{% endif %}
+                         {% if form.is_successful.value %}checked{% endif %}
                          class="mdc-checkbox__native-control"/>
                   <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark"
@@ -102,7 +102,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <select class="mdc-select margin--none" name="state">
                 {% for key, value in form.state.field.choices %}
-                <option value="{{ key }}" {% if form.state.data == key %}selected{% endif %}>{{ value }}</option>
+                <option value="{{ key }}" {% if form.state.value == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -121,11 +121,11 @@
                        type="text"
                        autocomplete="off"
                        maxlength="255">
-                <label class="mdc-textfield__label{% if form.project.data %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
+                <label class="mdc-textfield__label{% if form.project.value %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
                 <input type="text"
                        name="project"
                        class="hidden"
-                       {% if form.project.data %}value="{{ form.project.data }}"{% endif %}
+                       {% if form.project.value %}value="{{ form.project.value }}"{% endif %}
                        id="link_result_to_project_input_uuid">
               </div>
               {% if form.project.errors %}
@@ -152,7 +152,7 @@
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="note"
-                       maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
+                       maxlength="255" {% if form.note.value %}value="{{ form.note.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a note for this result</label>
               </div>
               {% if form.note.errors %}
@@ -175,7 +175,7 @@
                        maxlength="255"
                        data-trigger="update-value"
                        data-target="independent-title"
-                       {% if form.independent_variable.data %}value="{{ form.independent_variable.data }}"{% endif %}>
+                       {% if form.independent_variable.value %}value="{{ form.independent_variable.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a independent variable for data table</label>
               </div>
             </div>
@@ -191,7 +191,7 @@
                        maxlength="255"
                        data-trigger="update-value"
                        data-target="dependent-title"
-                       {% if form.dependent_variable.data %}value="{{ form.dependent_variable.data }}"{% endif %}>
+                       {% if form.dependent_variable.value %}value="{{ form.dependent_variable.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a dependent variable for data table</label>
               </div>
             </div>
@@ -199,7 +199,7 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {% with data=form.data_type_independent.data|default:form.data_type_independent.field.initial %}
+              {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
               <select class="mdc-select margin--none height-40" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
                 {% for key, value in form.data_type_independent.field.choices %}
                 <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
@@ -211,7 +211,7 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              {% with data=form.data_type_dependent.data|default:form.data_type_dependent.field.initial %}
+              {% with data=form.data_type_dependent.value|default:form.data_type_dependent.field.initial %}
               <select class="mdc-select margin--none height-40" name="data_type_dependent" data-trigger="data-type" data-target="dependent-value">
                 {% for key, value in form.data_type_dependent.field.choices %}
                 <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
@@ -247,7 +247,7 @@
               <div class="th table--border-right" id="independent-title">Independent variable</div>
               <div class="th" id="dependent-title">Dependent variable</div>
             </div>
-            {% if form.data_columns.data %}
+            {% if form.data_columns.value != "null" %}
             {% with data_columns=form.data_columns.data|json_to_dict %}
             <div class="tbody">
               <div class="trow">
