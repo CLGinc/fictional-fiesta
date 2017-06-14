@@ -316,8 +316,41 @@ $('[data-trigger="submitSteps"]').click(function(){
   }
   return false;
 });
+// submit ajax invitations
+$('[data-trigger="submit-ajax"]').click(function(){
+  var targetForm = $(this).closest('form'),
+      sendBtn = $(this),
+      formData = targetForm.serialize(),
+  		url = targetForm.attr('action'),
+      loader = targetForm.find('div[data-content="loader"]'),
+      button = targetForm.find('a'),
+      parent = $(this).closest('[data-content="invitation-button"]');
 
-// submit ajax data
+      loader.toggleClass('is-active');
+      $(sendBtn).addClass('hidden');
+
+      $.ajax({
+        url: url,
+        data: formData,
+        type: 'POST',
+        success: function(response)
+        {
+          parent.html('<button class="mdc-button button--height-normal" disabled>Accepted</button>');
+          loader.toggleClass('is-active');
+        },
+        error: function(response)
+        {
+          loader.toggleClass('is-active');
+          button.html('Try again');
+        },
+        complete: function(response)
+        {
+          $(sendBtn).removeClass('hidden');
+        }
+      });
+});
+
+// submit ajax participants
 $('[data-trigger="submit-ajax"]').click(function(){
   // store the target form and submit button element in vars
   var targetForm = $('#modal--participants').children('form');

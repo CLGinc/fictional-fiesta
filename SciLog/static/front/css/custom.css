@@ -621,6 +621,12 @@ td > .list--link-remove, td > .list--link-add {
   margin-left: auto;
   margin-right: auto;
 }
+.center--spinner {
+  right:50%;
+}
+.relative {
+  position: relative;
+}
 .padding-0 {
   padding: 0;
 }
