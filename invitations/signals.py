@@ -59,21 +59,16 @@ def send_mail(sender, created, instance, raw, using, update_fields, **kwargs):
 @receiver(post_save, sender=Invitation)
 def create_role(sender, created, instance, raw, using, update_fields, **kwargs):
     if not raw and instance.invited and instance.accepted:
-        if instance.project and not Role.objects.filter(
-            user=instance.invited,
-            project=instance.project
-        ).exists():
-            role = Role(
+        if instance.project is not None:
+            role = Role.objects.get_or_create(
                 user=instance.invited,
                 role=instance.role,
                 project=instance.project
             )
-        elif instance.protocol and not Role.objects.filter(
-            user=instance.invited,
-            project=instance.project
-        ).exists():
-            role = Role(
+            role.save()
+        elif instance.protocol is not None:
+            role = Role.objects.get_or_create(
                 user=instance.invited,
+                role=instance.role,
                 protocol=instance.protocol
             )
-        role.save()
