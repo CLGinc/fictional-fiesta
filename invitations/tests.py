@@ -189,7 +189,7 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
-    def test_accept_invitation(self):
+    def test_accept_invitation_project(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
             inviter=self.user1,
@@ -201,6 +201,22 @@ class InvitationModelTest(TestCase):
         role = Role.objects.filter(
             user=self.user3,
             project=self.project1,
+            role='contributor'
+        )
+        self.assertTrue(role.exists())
+
+    def test_accept_invitation_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.user1,
+            protocol=self.protocol1,
+            role='contributor'
+        )
+        invitation.accept()
+        self.assertTrue(invitation.accepted)
+        role = Role.objects.filter(
+            user=self.user3,
+            protocol=self.protocol1,
             role='contributor'
         )
         self.assertTrue(role.exists())
