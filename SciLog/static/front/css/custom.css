@@ -666,6 +666,12 @@ td > .list--link-remove, td > .list--link-add {
 .height-40 {
   height: 40px;
 }
+.select--fix {
+  height: 88px;
+}
+.select--fix > select {
+  height: 48px;
+}
 /*Data tables*/
 .dataTable--column {
   position: relative;
