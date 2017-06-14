@@ -3,6 +3,7 @@
 {% block title %}Sci Log - {{ selected_protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
+{% load protocol_extras %}
 <header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
@@ -73,11 +74,13 @@
         <div class="mdc-textfield select-protocol">
           <select class="mdc-select mdl-color-text--blue-grey-900"
                  name="label">
+            {% with selected_option=form.label.value|default:form.label.field.initial %}
             {% for key, value in form.label.field.choices %}
               {% if key %}
-              <option value="{{ key }}"{% if key == form.label.data or key == form.label.value %}selected="selected"{% endif %}>{{ value }}</option>
+              <option value="{{ key }}"{% if key == selected_option %}selected="selected"{% endif %}>{{ value }}</option>
               {% endif %}
             {% endfor %}
+            {% endwith %}
           </select>
         </div>
       </div>
@@ -88,74 +91,46 @@
           </span>
         </div>
         <ul class="mdc-list padding-0">
-          {{ steps_formset.management_form }}
-          {% for step_form in steps_formset.forms %}
+          {% with procedure=form.procedure.value|json_to_dict %}
+          {% for step in procedure.steps %}
           <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-              data-step="{{ step_form.order.value }}">
-            <input id="id_steps-{{ step_form.order.value }}-id"
-                   data-content="form-id"
-                   name="steps-{{ step_form.order.value }}-id"
-                   type="hidden"
-                   value="{{ step_form.id.value }}">
-            <input id="id_steps-{{ step_form.order.value }}-DELETE"
-                   data-content="delete-step"
-                   class="hidden"
-                   name="steps-{{ step_form.order.value }}-DELETE"
-                   type="checkbox">
-            <!-- Order input -->
-            <input type="text" class="hidden"
-                   data-content="step-input"
-                   name="steps-{{ step_form.order.value }}-order"
-                   value="{{ step_form.order.value }}">
+              data-step="0">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
               <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
-                   data-content="step-number">
-                {{ step_form.order.value|add:"1" }}
-              </div>
+                   data-content="step-number">{{ forloop.counter }}</div>
               <div class="mdl-color-text--blue-grey-600 text-center">
                 STEP
               </div>
             </div>
             <!-- Title input -->
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-              <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        data-content="step-title"
-                       name="steps-{{ step_form.order.value }}-title"
-                       maxlength="255" {% if step_form.title.value %}value="{{ step_form.title.value }}"{% endif %}>
-                <label class="mdc-textfield__label mdl-color-text--blue-500">Step title</label>
+                       maxlength="255" {% if step.title %}value="{{ step.title }}"{% endif %}>
+                <label class="mdc-textfield__label">Step title</label>
               </div>
-              {% if step_form.title.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ step_form.title.errors.as_text }}
-              </p>
-              {% endif %}
               <!-- Text input -->
-              <div class="mdc-textfield mdc-textfield--multiline {% if step_form.text.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
                 <textarea class="mdc-textfield__input" rows="6" type="text"
                           data-content="step-desc"
-                          name="steps-{{ step_form.order.value }}-text"
-                          maxlength="1024" required>{% if step_form.text.value %}{{ step_form.text.value }}{% endif %}</textarea>
+                          maxlength="1024" required>{% if step.description %}{{ step.description }}{% endif %}</textarea>
                 <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
               </div>
-              {% if step_form.text.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ step_form.text.errors.as_text }}
-              </p>
-              {% endif %}
             </div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8 step__button">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
               <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                 data-trigger="add-step-edit">
+                 data-trigger="add-step-create">
                 <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
               </a>
               <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                 data-trigger="delete-step">
+                 data-trigger="remove-step">
                 <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
               </a>
             </div>
           </li>
           {% endfor %}
+          {% endwith %}
         </ul>
       </div>
     </form>
