@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - New result{% endblock %}
+{% block title %}Sci Log - Result for {{ selected_protocol_result.protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
