@@ -143,7 +143,7 @@ class Result(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-            ordering = ['-datetime_created', 'owner']
+        ordering = ['-datetime_created', 'owner']
 
     def __str__(self):
         return 'Result for protocol {} owned by {}'.format(self.protocol, self.owner)
