@@ -136,7 +136,6 @@ class Command(BaseCommand):
                     project=random.choice(
                         projects) if add_to_projects else None,
                     data_columns=data_columns,
-                    data_type='number',
                     independent_variable='Salt Concentration (%)',
                     dependent_variable='Light Transmittance (%T)'
                 )
