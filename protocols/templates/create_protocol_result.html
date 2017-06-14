@@ -54,7 +54,7 @@
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result title</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <div class="mdc-textfield {% if form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="title"
                        maxlength="255" {% if form.title.value %}value="{{ form.title.value }}"{% endif %}>
@@ -167,8 +167,7 @@
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                {{ form.independent_variable.errors }}
+              <div class="mdc-textfield {% if form.independent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="independent_variable"
                        data-content="independent-title"
@@ -178,13 +177,17 @@
                        {% if form.independent_variable.value %}value="{{ form.independent_variable.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a independent variable for data table</label>
               </div>
+              {% if form.independent_variable.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.independent_variable.errors.as_text }}
+              </p>
+              {% endif %}
             </div>
           </div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">dependent variable</p>
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                {{ form.dependent_variable.errors }}
+              <div class="mdc-textfield {% if form.dependent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="dependent_variable"
                        data-content="independent-title"
@@ -194,9 +197,14 @@
                        {% if form.dependent_variable.value %}value="{{ form.dependent_variable.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a dependent variable for data table</label>
               </div>
+              {% if form.dependent_variable.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.dependent_variable.errors.as_text }}
+              </p>
+              {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
@@ -208,7 +216,7 @@
               {% endwith %}
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               {% with data=form.data_type_dependent.value|default:form.data_type_dependent.field.initial %}
@@ -221,10 +229,12 @@
             </div>
           </div>
         </div>
-        {{ form.data_columns.errors.as_text }}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
             <span>Data table</span>
+            {% if form.data_columns.errors %}
+            <span class="error">{{ form.data_columns.errors.as_text }}</span>
+            {% endif %}
             <div data-mdc-auto-init="MDCRipple"
                href="#"
                data-trigger="addDataColumn"
