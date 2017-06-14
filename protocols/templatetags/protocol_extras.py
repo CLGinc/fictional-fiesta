@@ -11,6 +11,6 @@ def json_to_dict(value):
         converted_value = json.loads(value)
         if isinstance(converted_value, dict):
             return converted_value
-    except ValueError:
+    except TypeError:
         return value
     return value
