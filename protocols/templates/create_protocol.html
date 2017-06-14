@@ -183,7 +183,7 @@
                 <textarea class="mdc-textfield__input" rows="6" type="text"
                           id="input-new-protocol--desc"
                           name="description"
-                          maxlength="2560">{% if form.description.data %}{{ form.description.data }}{% endif %}</textarea>
+                          maxlength="2560">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
                 <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
               </div>
               {% if form.description.errors %}

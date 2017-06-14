@@ -22,7 +22,7 @@
         {% endif %}
         {% csrf_token %}
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-          <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.data %}value="{{ form.email.value }}"{% endif %} type="text" required />
+          <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.value %}value="{{ form.email.value }}"{% endif %} type="text" required />
           <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
         </div>
         {% if form.errors.email %}
