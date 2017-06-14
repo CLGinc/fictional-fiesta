@@ -39,16 +39,12 @@
         {% if form.nonfield_errors %}
           {{ form.nonfield_errors }}
         {% endif %}
-        {% if data_columns_formset.nonfield_errors %}
-          {{ data_columns_formset.nonfield_errors }}
-        {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_result_form"
             method="post"
             action="">
         {% csrf_token %}
-        {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
