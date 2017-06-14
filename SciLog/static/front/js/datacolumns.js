@@ -28,8 +28,19 @@ $('[data-trigger=submit-result]').click(function(){
       dataColumnsCount =  $('.trow').find('.td:nth-last-child(2)').length,
       mainInput = $('[data-content="dataTable--input"]'),
       collectColumnData,
-      dataTable;
+      dataTable,
+      isValid;
 
+$('.trow').find('input').each(function() {
+   if ($(this).val().trim() === '') {
+    isValid = false;
+   }
+});
+
+if(isValid === false) {
+  var notif = 'The data table is incomplete';
+  show(snackbar,notif);
+} else {
   // collect values for independent data
   independentValues.each(function(){
     var dataType = $('[data-target="independent-value"]').val();
@@ -75,6 +86,7 @@ $('[data-trigger=submit-result]').click(function(){
   mainInput.val(dataTable);
   //submit form
   $('#create_protocol_result_form').submit();
+  }
 });
 
 // function to remove data row
