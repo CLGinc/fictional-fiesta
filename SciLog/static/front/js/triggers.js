@@ -317,7 +317,7 @@ $('[data-trigger="submitSteps"]').click(function(){
   return false;
 });
 // submit ajax invitations
-$('[data-trigger="submit-ajax"]').click(function(){
+$('[data-trigger="submit-ajax-invitation"]').click(function(){
   var targetForm = $(this).closest('form'),
       sendBtn = $(this),
       formData = targetForm.serialize(),
