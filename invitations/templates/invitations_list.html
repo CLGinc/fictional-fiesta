@@ -40,7 +40,7 @@
                     {% csrf_token %}
                     <input class="hidden" name="uuid" value="{{ invitation.uuid }}" type="text" required />
                     <a class="mdc-button mdl-color-text--blue-500 button--height-normal"
-                       data-trigger="submit-ajax"
+                       data-trigger="submit-ajax-invitation"
                        data-mdc-auto-init="MDCRipple">
                     I Accept
                     </a>
