@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - My Protocols{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <div class="article width--full">
+        <h1 class="mdl-color-text--accent section--title">No results</h1>
+        <p class="mdl-color-text--blue-grey-900">
+          Please update your search criteria and try again or use the default filter!
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}
