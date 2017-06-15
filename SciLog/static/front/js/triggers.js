@@ -300,21 +300,34 @@ $('[data-trigger="submitSteps"]').click(function(){
   var targetElementId = $(this).attr('data-target'),
       targetForm = $(this).attr('data-form'),
       steps = $('[data-step]'),
+      descInputs = $('[data-content="step-desc"]'),
       stepMain = $('[data-content="step-main"]'),
       data = [],
-      stepsJson;
+      stepsJson,
+      isValid;
 
-  steps.each(function(){
-    data.push({'title': $(this).find('[data-content="step-title"]').val(), 'description' : $(this).find('[data-content="step-desc"]').val()});
+  descInputs.each(function() {
+     if ($(this).val().trim() === '') {
+      isValid = false;
+     }
   });
-  stepsJson = JSON.stringify({'steps': data});
-  stepMain.val(stepsJson);
 
-  $('#'+targetForm).submit();
-  if($('#'+targetElementId).hasClass('element--show-animate')){
-    $('#'+targetElementId).removeClass('element--show-animate');
+  if(isValid === false) {
+    var notif = 'At least one step is required and step description is mandatory';
+    show(snackbar,notif);
+  } else {
+    steps.each(function(){
+      data.push({'title': $(this).find('[data-content="step-title"]').val(), 'description' : $(this).find('[data-content="step-desc"]').val()});
+    });
+    stepsJson = JSON.stringify({'steps': data});
+    stepMain.val(stepsJson);
+
+    $('#'+targetForm).submit();
+    if($('#'+targetElementId).hasClass('element--show-animate')){
+      $('#'+targetElementId).removeClass('element--show-animate');
+    }
+    return false;
   }
-  return false;
 });
 // submit ajax invitations
 $('[data-trigger="submit-ajax-invitation"]').click(function(){

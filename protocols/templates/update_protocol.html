@@ -140,7 +140,7 @@
     </form>
   </div>
 </div>
-<div class="mdc-snackbar mdl-color--blue-500"
+<div class="mdc-snackbar mdl-color--red-500"
      aria-live="assertive"
      aria-atomic="true"
      aria-hidden="true" id="mdc-js-snackbar">
@@ -157,11 +157,11 @@
 <script>
   var MDCSnackbar = mdc.snackbar.MDCSnackbar;
   var snackbar = new MDCSnackbar(document.getElementById('mdc-js-snackbar'));
-  var show = function(sb) {
+  var show = function(sb,notif) {
     var data =  {
-      message: 'At least one step is required'
+      message: notif
     };
     sb.show(data);
   };
-</script>
+  </script>
 {% endblock %}

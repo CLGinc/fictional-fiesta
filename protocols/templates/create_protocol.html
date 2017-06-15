@@ -83,7 +83,7 @@
           <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             <div class="mdl-tabs__tab-bar block">
               <a href="#steps-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
-                <h2 class="section--title">Steps</h2>
+                <h2 class="section--title">Procedure</h2>
               </a>
               <a href="#details-panel" data-trigger="tab" data-target="modal--details" class="mdl-tabs__tab">
                 <h2 class="section--title">Details {% if form.description.errors %}<span class="mdl-color-text--red-500">*</span>{% endif %}</h2>
@@ -91,6 +91,9 @@
             </div>
             <div class="mdl-tabs__panel is-active"
                  id="steps-panel">
+              {% if form.procedure.errors %}
+              <span class="error">{{ form.procedure.errors.as_text }}</span>
+              {% endif %}
               <input type="text"
                      class="hidden"
                      name="procedure"
@@ -202,7 +205,7 @@
     </div>
   </div>
 </div>
-<div class="mdc-snackbar mdl-color--blue-500"
+<div class="mdc-snackbar mdl-color--red-500"
      aria-live="assertive"
      aria-atomic="true"
      aria-hidden="true" id="mdc-js-snackbar">
@@ -219,9 +222,9 @@
 <script>
   var MDCSnackbar = mdc.snackbar.MDCSnackbar;
   var snackbar = new MDCSnackbar(document.getElementById('mdc-js-snackbar'));
-  var show = function(sb) {
+  var show = function(sb,notif) {
     var data =  {
-      message: 'At least one step is required'
+      message: notif
     };
     sb.show(data);
   };
