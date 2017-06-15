@@ -43,30 +43,34 @@
           action="{% url 'update_protocol' protocol_uuid=object.uuid %}">
       {% csrf_token %}
       {% if form.non_field_errors %}
-        {{ form.non_field_errors }}
+        <span class="error">{{ form.non_field_errors }}</span>
       {% endif %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <h1 class="mdl-color-text--blue-500 section--title">Protocol name</h1>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_name"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
                  value="{{ form.name.value }}"
                  name="name">
         </div>
         {% if form.name.errors %}
-          {{ form.name.errors }}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+          {{ form.name.errors.as_text }}
+        </p>
         {% endif %}
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
         <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
-        <div class="mdc-textfield mdc-textfield--upgraded padding-0" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield mdc-textfield--upgraded padding-0 {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_desc"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
                  value="{{ form.description.value }}"
                  name="description">
         </div>
         {% if form.description.errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ form.description.errors }}
+        </p>
         {% endif %}
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
@@ -89,6 +93,9 @@
           <span class="mdl-color-text--blue-500 article--modal-title padding-0">
             Procedure
           </span>
+           {% if form.procedure.errors %}
+           <span class="error padding-16">{{ form.procedure.errors.as_text }}</span>
+           {% endif %}
         </div>
         <input type="text"
                class="hidden"
