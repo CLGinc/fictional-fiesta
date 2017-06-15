@@ -91,8 +91,8 @@ class ProjectViewTest(TestCase):
         )
         project = self.user1.roles.get(
             role='owner',
-            project__name='name'
-        )
+            project__name='name1'
+        ).project
         self.assertRedirects(
             response,
             reverse('project', kwargs={'project_uuid': project.pk})

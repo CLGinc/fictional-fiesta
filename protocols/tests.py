@@ -165,7 +165,7 @@ class ProtocolViewTest(TestCase):
         protocol = self.user1.roles.get(
             role='owner',
             protocol__name='New Protocol'
-        )
+        ).protocol
         self.assertRedirects(
             response,
             reverse('protocol', kwargs={'protocol_uuid': protocol.pk})
