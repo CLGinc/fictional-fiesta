@@ -1,23 +1,26 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - My Protocols{% endblock %}
+{% block title %}SciLog - Page not found{% endblock %}
 {% block body %}
-{% include "base/toolbar.html" %}
-<div class="mdc-layout-grid content">
-{% include "base/drawer.html" %}
-  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <div class="article width--full">
-        <h1 class="mdl-color-text--accent section--title">No results</h1>
-        <p class="mdl-color-text--blue-grey-900">
-          Please update your search criteria and try again or use the default filter!
-        </p>
-      </div>
+<div class="content">
+  <div class="mdc-elevation--z4 padding-0 margin--top-40 login simple-grid">
+    <div class="padding--top-24 text-center">
+        <img src="{% static "front/img/optimised.svg" %}" alt="logo">
+        <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
     </div>
+    <h1 class="mdc-typography--display4 mdl-color--blue-300 mdl-color-text--white login--message">
+      500
+    </h1>
+    <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 login--message">
+        Ooops something went wrong...
+        <p class="login--message login--message mdc-typography--body1 mdl-color-text--blue-grey-900">Please contact the server administrator</p>
+        <a class="mdc-button mdl-color-text--blue-grey-600 margin--top-24"
+           href="#"
+           data-mdc-auto-init="MDCRipple">
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
+          <span data-content="open-close-text">Go home</span>
+        </a>
+    </h1>
   </div>
 </div>
-{% include "base/scroll_top.html" %}
-{% endblock %}
-{% block post_load %}
-  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
 {% endblock %}
