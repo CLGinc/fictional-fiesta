@@ -94,6 +94,10 @@ class Protocol(models.Model):
                 )
         return participants_by_role
 
+    def has_role(self, user):
+        RoleModel = apps.get_model('users', 'Role')
+        return RoleModel.objects.filter(user=user, protocol=self).exists()
+
 
 class Result(models.Model):
     STATES = (

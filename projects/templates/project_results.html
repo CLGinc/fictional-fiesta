@@ -3,7 +3,7 @@
     Results
   </span>
 </div>
-{% if selected_project.results.all %}
+{% if results_with_permission %}
 <ul class="mdc-list padding-0">
   <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
     <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
@@ -19,8 +19,9 @@
   </li>
 </ul>
 <ul class="mdc-list padding-0">
-  {% for result in selected_project.results.all %}
+  {% for result, has_role in results_with_permission %}
   <li class="border--bottom mdc-layout-grid margin--none padding-0">
+    {% if has_role %}
     <a href="{% url 'protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
@@ -32,11 +33,26 @@
       {% else %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
       {% endif %}
+      {% if request.user == result.owner %}
+      <a href="#" class="mdc-button mdc-button--icon center padding-8"
+         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-remove">clear</i>
+      </a>
+      {% endif %}
     </a>
-    <a href="#" class="mdc-button mdc-button--icon center padding-8"
-       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-remove">clear</i>
-    </a>
+    {% else %}
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">{{ result.get_state_display }}</div>
+      {% if result.is_successful == True %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
+      {% else %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
+    </div>
+    {% endif %}
+    {% endif %}
 	</li>
   {% endfor %}
 </ul>

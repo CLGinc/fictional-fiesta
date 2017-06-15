@@ -85,6 +85,10 @@ class ProjectView(DetailView, SingleProjectMixin):
         context['default_invitation_role'] = Role.DEFAULT_INVITATION_ROLE
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
+        protocols_with_permission = [(x, x.has_role(self.request.user)) for x in self.object.protocols.all()]
+        context['protocols_with_permission'] = protocols_with_permission
+        results_with_permission = [(x, x.protocol.has_role(self.request.user)) for x in self.object.results.all()]
+        context['results_with_permission'] = results_with_permission
         return context
 
     def get_success_url(self):

@@ -13,7 +13,7 @@
   </button>
   {% endif %}
 </div>
-{% if selected_project.protocols.all %}
+{% if protocols_with_permission %}
 <ul class="mdc-list padding-0">
   <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none">
     <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
@@ -27,18 +27,28 @@
   </li>
 </ul>
 <ul class="mdc-list padding-0">
-  {% for protocol in selected_project.protocols.all %}
+  {% for protocol, has_role in protocols_with_permission %}
 	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
+    {% if has_role %}
     <a href="{% url 'protocol' protocol_uuid=protocol.pk %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">{{ protocol.name }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
     </a>
+    {% if can_edit %}
     <button href="#" class="mdc-button mdc-button--icon center padding-8"
        aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-remove">clear</i>
     </button>
+    {% endif %}
+    {% else %}
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">{{ protocol.name }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
+    </div>
+    {% endif %}
 	</li>
   {% endfor %}
 </ul>
