@@ -77,7 +77,6 @@ class ProjectView(DetailView, SingleProjectMixin):
     form_class = BasicProjectForm
 
     def get_context_data(self, **kwargs):
-        self.object = self.get_object()
         context = super(ProjectView, self).get_context_data(**kwargs)
         context['can_edit'] = self.request.user.can_edit(
             self.object
