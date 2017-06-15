@@ -238,6 +238,51 @@ class UserModelTest(TestCase):
         invitation.refresh_from_db()
         self.assertEqual(invitation.invited, user)
 
+    def test_create_project_protocols_roles_new(self):
+        Role.objects.create(
+            user=self.tempuser,
+            project=self.project1,
+            role='contributor'
+        )
+        roles = list(
+            Role.objects.filter(
+                user=self.tempuser
+            ).exclude(protocol=None).order_by('protocol__name')
+        )
+        expected_roles = list(
+            Role.objects.filter(
+                protocol__name__in=['Protocol 1', 'Protocol 3', 'Protocol 7'],
+                user=self.tempuser
+            ).order_by('protocol__name')
+        )
+        self.assertEqual(roles, expected_roles)
+
+    def test_create_project_protocols_roles_existing(self):
+        existing_role = Role.objects.create(
+            user=self.tempuser,
+            protocol=self.protocol1,
+            role='watcher'
+        )
+        Role.objects.create(
+            user=self.tempuser,
+            project=self.project1,
+            role='contributor'
+        )
+        roles = list(
+            Role.objects.filter(
+                user=self.tempuser
+            ).exclude(protocol=None).order_by('protocol__name')
+        )
+        expected_roles = list(
+            Role.objects.filter(
+                protocol__name__in=['Protocol 1', 'Protocol 3', 'Protocol 7'],
+                user=self.tempuser
+            ).order_by('protocol__name')
+        )
+        existing_role.refresh_from_db()
+        self.assertEqual(roles, expected_roles)
+        self.assertEqual(existing_role.role, 'watcher')
+
 
 class UserViewTest(TestCase):
     fixtures = [
