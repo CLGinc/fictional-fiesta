@@ -105,6 +105,18 @@ class ProtocolModelTest(TestCase):
         ]
         self.assertEqual(participants_by_role, expected_participants)
 
+    def test_create_owner_role(self):
+        protocol = Protocol(
+            name='New Protocol',
+            label='modified',
+            procedure='{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
+            last_modified_by=self.user1
+        )
+        protocol._owner = self.user1
+        protocol.save()
+        owner = protocol.roles.filter(role='owner')
+        self.assertTrue(owner.exists())
+
 
 class ProtocolViewTest(TestCase):
     fixtures = [
@@ -150,7 +162,10 @@ class ProtocolViewTest(TestCase):
                 'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
-        protocol = self.user1.roles.all().order_by('-id')[0].protocol
+        protocol = self.user1.roles.get(
+            role='owner',
+            protocol__name='New Protocol'
+        )
         self.assertRedirects(
             response,
             reverse('protocol', kwargs={'protocol_uuid': protocol.pk})

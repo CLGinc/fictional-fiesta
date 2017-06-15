@@ -18,6 +18,7 @@ class ProjectModelTest(TestCase):
     ]
 
     def setUp(self):
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
 
@@ -39,6 +40,15 @@ class ProjectModelTest(TestCase):
             ['Watcher', [Role.objects.get(id=15)]],
         ]
         self.assertEqual(participants, expected_participants)
+
+    def test_create_owner_role(self):
+        project = Project(
+            name='New Project',
+        )
+        project._owner = self.user1
+        project.save()
+        owner = project.roles.filter(role='owner')
+        self.assertTrue(owner.exists())
 
 
 class ProjectViewTest(TestCase):
@@ -79,7 +89,10 @@ class ProjectViewTest(TestCase):
             url,
             data={'name': 'name1'}
         )
-        project = self.user1.roles.all().order_by('-id')[0].project
+        project = self.user1.roles.get(
+            role='owner',
+            project__name='name'
+        )
         self.assertRedirects(
             response,
             reverse('project', kwargs={'project_uuid': project.pk})

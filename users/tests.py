@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from .models import User, Role, Source
 from projects.models import Project
 from protocols.models import Protocol
+from invitations.models import Invitation
 
 from .forms import RoleListForm
 
@@ -222,6 +223,20 @@ class UserModelTest(TestCase):
             self.protocol1
         ]
         self.assertEqual(protocols, expected_protocols)
+
+    def test_assign_invitation(self):
+        invitation = Invitation.objects.create(
+            email='invited@gmail.com',
+            inviter=self.user2,
+            protocol=self.protocol1,
+        )
+        user = User.objects.create_user(
+            username='invited@gmail.com',
+            email='invited@gmail.com',
+            password='password1234'
+        )
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.invited, user)
 
 
 class UserViewTest(TestCase):

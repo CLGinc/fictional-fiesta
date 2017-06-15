@@ -274,6 +274,14 @@ class InvitationModelTest(TestCase):
         )
         self.assertEqual(invitation.get_item_name(), 'Protocol 1')
 
+    def test_set_invited(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.user2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.invited, self.user3)
+
 
 class InvitationViewTest(TestCase):
     fixtures = [
