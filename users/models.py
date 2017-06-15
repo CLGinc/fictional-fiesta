@@ -9,6 +9,9 @@ from projects.models import Project
 
 
 class Role(models.Model):
+    ROLES_ADDED_PROTOCOL = (
+        ('owner', 'contributor'),
+    )
     ROLES = (
         ('owner', 'Owner'),
         ('contributor', 'Contributor'),

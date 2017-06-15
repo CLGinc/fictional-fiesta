@@ -11,7 +11,6 @@ from protocols.models import Protocol
 class ProjectModelTest(TestCase):
     fixtures = [
         'users/fixtures/users',
-
         'projects/fixtures/projects',
         'users/fixtures/roles',
         'protocols/fixtures/protocols'
@@ -19,8 +18,12 @@ class ProjectModelTest(TestCase):
 
     def setUp(self):
         self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user2 = User.objects.get(username='user2@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
         self.project2 = Project.objects.get(name='Project 2')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
+        self.protocol9 = Protocol.objects.get(name='Protocol 9')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_get_participants_by_role_all(self):
         participants = self.project2.get_participants_by_role()
@@ -49,6 +52,55 @@ class ProjectModelTest(TestCase):
         project.save()
         owner = project.roles.filter(role='owner')
         self.assertTrue(owner.exists())
+
+    def test_create_roles_on_add_protocol(self):
+        self.project1.protocols.add(
+            self.protocol6,
+            self.protocol9,
+            self.protocol10
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user2,
+                protocol=self.protocol6,
+                role='watcher'
+            ).exists()
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user1,
+                protocol=self.protocol6,
+                role='owner'
+            ).exists()
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user2,
+                protocol=self.protocol9,
+                role='watcher'
+            ).exists()
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user1,
+                protocol=self.protocol9,
+                role='contributor'
+            ).exists()
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user2,
+                protocol=self.protocol10,
+                role='watcher'
+            ).exists()
+        )
+        self.assertTrue(
+            Role.objects.filter(
+                user=self.user1,
+                protocol=self.protocol10,
+                role='contributor'
+            ).exists()
+        )
 
 
 class ProjectViewTest(TestCase):
