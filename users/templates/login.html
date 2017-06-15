@@ -21,27 +21,34 @@
       <form id="login--form" method="post" action="{% url 'login_user' %}">
         {% endif %}
         {% csrf_token %}
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield {% if form.errors.email %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.value %}value="{{ form.email.value }}"{% endif %} type="text" required />
           <label class="mdc-textfield__label"><i class="material-icons login--icon">email</i>Email address</label>
         </div>
         {% if form.errors.email %}
-        <div class="result error">
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {% for error in form.errors.email %}
           {{ error|escape }}<br>
           {% endfor %}
-        </div>
+        </p>
         {% endif %}
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield {% if form.errors.password %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input class="mdc-textfield__input" id="id_password" name="password" type="password" required />
           <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Password</label>
         </div>
         {% if form.errors.password %}
-        <div class="result error">
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {% for error in form.errors.password %}
           {{ error|escape }}<br>
           {% endfor %}
-        </div>
+        </p>
+        {% endif %}
+        {% if form.non_field_errors %}
+        <span class="error">
+          {% for error in form.non_field_errors %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </span>
         {% endif %}
         <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
           <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
@@ -63,13 +70,6 @@
          </a>
         {% endif %}
       </form>
-      {% if form.non_field_errors %}
-      <div id="non_field_errors" class="error-tooltip-non">
-        {% for error in form.non_field_errors %}
-        {{ error|escape }}<br>
-        {% endfor %}
-      </div>
-      {% endif %}
       <div class="login--link-register mdc-typography--caption text-center">
         {% if next_redirect %}
         Don't have an account yet?<br>

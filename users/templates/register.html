@@ -18,50 +18,50 @@
       <form method="post" action="{% url 'register_user' %}">
         {% endif %}
         {% csrf_token %}
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield {% if form.errors.email %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input class="mdc-textfield__input" id="id_email" maxlength="254" name="email" {% if form.email.value %}value="{{ form.email.value }}"{% endif %} type="text" required />
           <label class="mdc-textfield__label" for="id_email"><i class="material-icons login--icon">email</i>Email</label>
-          {% if form.errors.email %}
-          <div id="id_email_error" class="error-tooltip">
-            {% for error in form.errors.email %}
-            {{ error|escape }}<br>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        {% if form.errors.email %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+        {% for error in form.errors.email %}
+        {{ error|escape }}<br>
+        {% endfor %}
+        </p>
+        {% endif %}
+        <div class="mdc-textfield {% if form.errors.password1 %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input class="mdc-textfield__input" id="id_password1" name="password1" type="password" required />
           <label class="mdc-textfield__label" for="id_password1"><i class="material-icons login--icon">lock_open</i>Password</label>
-          {% if form.errors.password1 %}
-          <div id="id_password1_error" class="error-tooltip">
-            {% for error in form.errors.password1 %}
-            {{ error|escape }}<br>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        {% if form.errors.password1 %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+          {% for error in form.errors.password1 %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </p>
+        {% endif %}
+        <div class="mdc-textfield {% if form.errors.password2 %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input class="mdc-textfield__input" id="id_password2" name="password2" type="password" required />
           <label class="mdc-textfield__label" for="id_password"><i class="material-icons login--icon">lock_outline</i>Repeat Password</label>
-          {% if form.errors.password2 %}
-          <div id="id_password2_error" class="error-tooltip">
-            {% for error in form.errors.password2 %}
-            {{ error|escape }}<br>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
+        {% if form.errors.password2 %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+          {% for error in form.errors.password2 %}
+          {{ error|escape }}<br>
+          {% endfor %}
+        </p>
+        {% endif %}
         <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
           <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
           <span data-content="open-close-text">Register</span>
         </button>
       </form>
       {% if form.non_field_errors %}
-      <div id="non_field_errors" class="error-tooltip-non">
+      <span class="error">
         {% for error in form.non_field_errors %}
         {{ error|escape }}<br>
         {% endfor %}
-      </div>
+      </span>
       {% endif %}
       <div class="login--link-register mdc-typography--caption text-center">
         {% if next_redirect %}

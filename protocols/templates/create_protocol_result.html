@@ -37,10 +37,14 @@
       </h1>
       <div>
         {% if form.nonfield_errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ form.nonfield_errors }}
+        </p>
         {% endif %}
         {% if data_columns_formset.nonfield_errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ data_columns_formset.nonfield_errors }}
+        </p>
         {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
