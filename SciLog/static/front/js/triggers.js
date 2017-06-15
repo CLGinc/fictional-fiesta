@@ -313,7 +313,7 @@ $('[data-trigger="submitSteps"]').click(function(){
   });
 
   if(isValid === false) {
-    var notif = 'At least one step is required and step description is mandatory';
+    var notif = 'At least one step is required and step description is mandatory for all steps';
     show(snackbar,notif);
   } else {
     steps.each(function(){
