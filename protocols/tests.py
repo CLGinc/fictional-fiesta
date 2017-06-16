@@ -131,6 +131,7 @@ class ProtocolViewTest(TestCase):
         self.user1 = User.objects.get(username='user1@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
         self.protocol3_result = Result.objects.get(pk='833eaf8d-4154-45b9-b96a-2d9ee27f704a')
 
     def test_get_protocols_list(self):
