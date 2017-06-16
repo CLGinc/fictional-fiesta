@@ -92,22 +92,22 @@ class Command(BaseCommand):
                         )
             # Generate data columns
             data_columns = {
-                'data_columns': [
+                "dependent_variable": [],
+                "independent_variable": [
                     {
-                        'data': [
+                        "data": [
                             random.randint(0, 2048),
                             random.randint(0, 2048),
                             random.randint(0, 2048),
                             random.randint(0, 2048),
-                            random.randint(0, 2048)
+                            random.randint(0, 2048),
                         ],
-                        "variable":"independent",
                         "title":"Independent Variable"
                     }
                 ]
             }
             for column_idx in range(options['data_columns']):
-                data_columns['data_columns'].append(
+                data_columns['dependent_variable'].append(
                     {
                         'data': [
                             random.randint(0, 2048),
@@ -117,7 +117,6 @@ class Command(BaseCommand):
                             random.randint(0, 2048)
                         ],
                         'title': 'Trial {}'.format(column_idx + 1),
-                        'variable': 'dependent'
                     }
                 )
             # Create randomly generated results for the selected protocol
