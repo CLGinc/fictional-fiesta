@@ -132,7 +132,7 @@ class User(AbstractUser):
                 role__in=roles,).select_related('project', 'protocol')
 
     def get_protocols_to_add(self, project):
-        if self.can_update(project):
+        if self.can_add_items(project):
             protocols = Protocol.objects.filter(
                 roles__user=self,
                 roles__project=None,
@@ -143,7 +143,7 @@ class User(AbstractUser):
             return Protocol.objects.none()
 
     def get_sources_to_add(self, project):
-        if self.can_update(project):
+        if self.can_add_items(project):
             sources = self.sources.all().exclude(
                 id__in=project.sources.all()
             )

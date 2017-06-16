@@ -14,7 +14,7 @@ class AddItems(FormView, SingleProjectMixin):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if request.is_ajax() and request.user.can_update(self.object):
+        if request.is_ajax() and request.user.can_add_items(self.object):
             return super(
                 AddItems,
                 self
