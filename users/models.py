@@ -5,7 +5,6 @@ from django.apps import apps
 from django.core.mail import EmailMessage
 
 from protocols.models import Protocol
-from projects.models import Project
 
 
 class Role(models.Model):
