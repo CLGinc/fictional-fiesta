@@ -2,7 +2,7 @@
   <span class="mdl-color-text--blue-500 article--modal-title padding-0">
     Protocols
   </span>
-  {% if can_edit %}
+  {% if can_add_items %}
   <button data-mdc-auto-init="MDCRipple"
           data-trigger="show"
           data-target="modal--protocols"
@@ -36,7 +36,7 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
     </a>
-    {% if can_edit %}
+    {% if can_add_items %}
     <button href="#" class="mdc-button mdc-button--icon center padding-8"
        aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-remove">clear</i>

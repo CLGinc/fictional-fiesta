@@ -34,10 +34,12 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
       {% endif %}
       {% if request.user == result.owner %}
+      {% if can_add_items %}
       <a href="#" class="mdc-button mdc-button--icon center padding-8"
          aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
         <i class="material-icons list--link-remove">clear</i>
       </a>
+      {% endif %}
       {% endif %}
     </a>
     </li>

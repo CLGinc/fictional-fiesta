@@ -78,7 +78,10 @@ class ProjectView(DetailView, SingleProjectMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectView, self).get_context_data(**kwargs)
-        context['can_edit'] = self.request.user.can_edit(
+        context['can_update'] = self.request.user.can_update(
+            self.object
+        )
+        context['can_add_items'] = self.request.user.can_add_items(
             self.object
         )
         context['invitation_roles'] = Role.ROLES_TO_INVITE

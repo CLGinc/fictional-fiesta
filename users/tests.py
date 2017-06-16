@@ -205,9 +205,9 @@ class UserModelTest(TestCase):
         ]
         self.assertEqual(sources, expected_sources)
 
-    def test_can_edit(self):
-        self.assertTrue(self.user1.can_edit(self.project1))
-        self.assertFalse(self.user2.can_edit(self.project1))
+    def test_can_update(self):
+        self.assertTrue(self.user1.can_update(self.project1))
+        self.assertFalse(self.user2.can_update(self.project1))
 
     def test_get_projects_to_edit(self):
         projects = list(self.user2.get_projects_to_edit())

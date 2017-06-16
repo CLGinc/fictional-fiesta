@@ -2,7 +2,7 @@
   <span class="mdl-color-text--blue-500 article--modal-title padding-0">
     Results
   </span>
-  {% if can_edit %}
+  {% if can_add_items %}
   <a data-mdc-auto-init="MDCRipple"
      href="{% url 'create_protocol_result' protocol_uuid=selected_protocol.uuid %}"
      class="mdc-button mdl-color-text--blue-grey-600 right">

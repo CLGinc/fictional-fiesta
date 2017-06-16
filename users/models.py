@@ -19,6 +19,9 @@ class Role(models.Model):
     )
     ROLES_CAN_EDIT = (
         'owner',
+    )
+    ROLES_CAN_ADD_ITEMS = (
+        'owner',
         'contributor'
     )
     ROLES_CAN_INVITE = (
@@ -129,7 +132,7 @@ class User(AbstractUser):
                 role__in=roles,).select_related('project', 'protocol')
 
     def get_protocols_to_add(self, project):
-        if self.can_edit(project):
+        if self.can_update(project):
             protocols = Protocol.objects.filter(
                 roles__user=self,
                 roles__project=None,
@@ -140,7 +143,7 @@ class User(AbstractUser):
             return Protocol.objects.none()
 
     def get_sources_to_add(self, project):
-        if self.can_edit(project):
+        if self.can_update(project):
             sources = self.sources.all().exclude(
                 id__in=project.sources.all()
             )
@@ -148,9 +151,13 @@ class User(AbstractUser):
         else:
             return Source.objects.none()
 
-    def can_edit(self, item):
+    def can_update(self, item):
         role = item.roles.get(user=self)
         return role.role in Role.ROLES_CAN_EDIT
+
+    def can_add_items(self, item):
+        role = item.roles.get(user=self)
+        return role.role in Role.ROLES_CAN_ADD_ITEMS
 
     def get_projects_to_edit(self):
         projects = Project.objects.filter(
