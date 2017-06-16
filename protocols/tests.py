@@ -189,7 +189,7 @@ class ProtocolViewTest(TestCase):
         )
         redirect_url = reverse(
             'protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.post(
             url,
@@ -199,9 +199,9 @@ class ProtocolViewTest(TestCase):
                 'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
-        self.protocol3.refresh_from_db()
+        self.protocol6.refresh_from_db()
         self.assertRedirects(response, redirect_url)
-        self.assertEqual(self.protocol3.name, 'New Protocol Name')
+        self.assertEqual(self.protocol6.name, 'New Protocol Name')
 
     def test_create_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
