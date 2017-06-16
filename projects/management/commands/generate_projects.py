@@ -45,7 +45,7 @@ class Command(BaseCommand):
                             role='owner'
                         )
                     else:
-                        project_role = Role.objects.create(
+                        Role.objects.create(
                             user=user,
                             project=project,
                             role=random.choice(Role.ROLES[1:])[0]
