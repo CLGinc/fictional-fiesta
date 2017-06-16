@@ -22,15 +22,18 @@ class Command(BaseCommand):
         latest_user_id = User.objects.latest('id').id
         for user_idx in range(options['users']):
             User.objects.create_user(
-                username='user{}@google.com'.format(
+                username='gen.user{}@google.com'.format(
                     user_idx + latest_user_id + 1),
-                password='user{}'.format(user_idx + latest_user_id + 1),
-                email='user{}@google.com'.format(
+                password='gen.user{}'.format(user_idx + latest_user_id + 1),
+                email='gen.user{}@google.com'.format(
                     user_idx + latest_user_id + 1),
-                first_name='User',
+                first_name='Generated User',
                 last_name=str(user_idx + latest_user_id + 1)
             )
         execution_time = time.time() - start_time
         logger.info(
-            "Finished! Execution time: {0:0.2f} seconds!".format(execution_time)
+            "Finished! Generated {} in {:0.2f} seconds!".format(
+                options['users'],
+                execution_time
+            )
         )
