@@ -53,6 +53,7 @@ class Command(BaseCommand):
         else:
             logger.info("No users in database! Operation cancelled!")
         execution_time = time.time() - start_time
-        logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
+        logger.info("Finished! Generated {} projects in {:0.2f} seconds!".format(
+            options['projects'],
             execution_time)
         )

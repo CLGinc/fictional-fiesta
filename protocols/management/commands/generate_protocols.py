@@ -140,7 +140,11 @@ class Command(BaseCommand):
                 )
         execution_time = time.time() - start_time
         logger.info(
-            "Finished! Execution time: {0:0.2f} seconds!".format(
+            "Finished! Generated {} protocols with {} steps each, {} results with {} data columns each in {:0.2f} seconds!".format(
+                options['protocols'],
+                options['steps'],
+                options['results'],
+                options['data_columns'],
                 execution_time
             )
         )
