@@ -175,7 +175,7 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -184,7 +184,7 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         redirect_url = reverse(
             'protocol',
