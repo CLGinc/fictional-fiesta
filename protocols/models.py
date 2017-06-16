@@ -153,16 +153,15 @@ class Result(models.Model):
         return 'Result for protocol {} owned by {}'.format(self.protocol, self.owner)
 
     def clean(self):
-        RoleModel = apps.get_model('users', 'Role')
         if hasattr(self, 'owner') and hasattr(self, 'protocol'):
-            if not(self.protocol.roles.filter(user=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
+            if not(self.owner.can_add_items(self.protocol)):
                 raise ValidationError({'owner': 'The selected user cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
-            if not(self.project.roles.filter(user=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
+            if not(self.owner.can_add_items(self.project)):
                 raise ValidationError({'owner': 'The selected user cannot add results to this project!'})
         if hasattr(self, 'data_columns') and \
                 hasattr(self, 'data_type_independent') and \
