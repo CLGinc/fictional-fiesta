@@ -63,7 +63,7 @@ var editableInputs = function(button){
     newButtonLabel = 'Save '+type;
   } else if (action=='save') {
     newAction = 'activate';
-    newButtonLabel = 'Edit '+type;
+    newButtonLabel = 'Update '+type;
     button.closest('form').submit();
   }
   $(button).attr('data-trigger', newAction).children('span').html(newButtonLabel);
