@@ -48,7 +48,7 @@ class Command(BaseCommand):
         if verbosity > 0:
             execution_time = time.time() - start_time
             logger.info(
-                "Finished! Generated {} in {:0.2f} seconds!".format(
+                "Finished! Generated {} users in {:0.2f} seconds!".format(
                     options['users'],
                     execution_time
                 )
