@@ -16,24 +16,40 @@ class Command(BaseCommand):
             help='Number of users. Default: 10')
 
     def handle(self, *args, **options):
-        start_time = time.time()
+        verbosity = options.get('verbosity')
         logger = logging.getLogger('django')
-        logger.info('Start generating users')
+        users_to_create = list()
+        if verbosity > 0:
+            start_time = time.time()
+            logger.info('Start generating users')
         latest_user_id = User.objects.latest('id').id
         for user_idx in range(options['users']):
-            User.objects.create_user(
-                username='gen.user{}@google.com'.format(
-                    user_idx + latest_user_id + 1),
-                password='gen.user{}'.format(user_idx + latest_user_id + 1),
-                email='gen.user{}@google.com'.format(
-                    user_idx + latest_user_id + 1),
-                first_name='Generated User',
-                last_name=str(user_idx + latest_user_id + 1)
+            users_to_create.append(
+                User(
+                    username='gen.user{}@google.com'.format(
+                        user_idx + latest_user_id + 1),
+                    password='gen.user{}'.format(user_idx + latest_user_id + 1),
+                    email='gen.user{}@google.com'.format(
+                        user_idx + latest_user_id + 1),
+                    first_name='Generated User',
+                    last_name=str(user_idx + latest_user_id + 1)
+                )
             )
-        execution_time = time.time() - start_time
-        logger.info(
-            "Finished! Generated {} in {:0.2f} seconds!".format(
-                options['users'],
-                execution_time
+            if verbosity > 2:
+                logger.info('Generated User {}.'.format(user_idx))
+
+        # Write objects to db
+        if verbosity > 1:
+            logger.info('Writing users to database.')
+        User.objects.bulk_create(users_to_create)
+        if verbosity > 1:
+            logger.info('All users written to database.')
+
+        if verbosity > 0:
+            execution_time = time.time() - start_time
+            logger.info(
+                "Finished! Generated {} in {:0.2f} seconds!".format(
+                    options['users'],
+                    execution_time
+                )
             )
-        )
