@@ -20,8 +20,8 @@
 </ul>
 <ul class="mdc-list padding-0">
   {% for result, has_role in results_with_permission %}
-  <li class="border--bottom mdc-layout-grid margin--none padding-0">
     {% if has_role %}
+  <li class="border--bottom mdc-layout-grid padding-0 margin--none">
     <a href="{% url 'protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
@@ -40,8 +40,10 @@
       </a>
       {% endif %}
     </a>
+    </li>
     {% else %}
-    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
+  <li class="border--bottom mdc-layout-grid padding-0 margin--none mdl-color--grey-100">
+    <div class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none mdl-color-text--grey-400">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
@@ -50,10 +52,14 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
       {% else %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
+      {% endif %}
     </div>
+    <button href="#" class="mdc-button center padding-8" disabled
+       aria-label="Not accessible" title="Not accessible" data-mdc-auto-init="MDCRipple">
+      <i class="material-icons list--link-inactive">lock_outline</i>
+    </button>
+	  </li>
     {% endif %}
-    {% endif %}
-	</li>
   {% endfor %}
 </ul>
 {% else %}

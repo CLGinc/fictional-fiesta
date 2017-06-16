@@ -436,6 +436,15 @@ td > .list--link-remove, td > .list--link-add {
   user-select: none;
   -webkit-appearance: none;
 }
+.list--link-inactive {
+  font-weight: normal;
+  font-size: 14px;
+}
+i.list--link-inactive {
+  font-size: 18px; 
+}
+
+}
 .list--alternative {
   padding-top: 10px;
 }
