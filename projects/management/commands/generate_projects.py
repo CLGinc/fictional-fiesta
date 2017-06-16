@@ -22,6 +22,7 @@ class Command(BaseCommand):
         logger = logging.getLogger('django')
         projects_count = options.get('projects')
         all_users = list(User.objects.all())
+        max_users = len(all_users) if len(all_users) <= 20 else 20
         users_to_add = list()
         projects_to_create = list()
         roles_to_create = list()
@@ -39,7 +40,7 @@ class Command(BaseCommand):
         for project_idx in range(projects_count):
             if verbosity > 1:
                 logger.info('Working on project {}.'.format(project_idx))
-            number_of_users = random.randrange(1, len(all_users) + 1)
+            number_of_users = random.randrange(1, max_users + 1)
             users_to_add = random.sample(all_users, number_of_users)
             # Create project
             project = Project(

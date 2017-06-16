@@ -45,8 +45,10 @@ class Command(BaseCommand):
         logger = logging.getLogger('django')
         projects_exist = Project.objects.exists()
         all_projects = list(Project.objects.all())
+        max_projects = len(all_projects) if len(all_projects) <= 20 else 20
         projects_to_add = list()
         all_users = list(User.objects.all())
+        max_users = len(all_users) if len(all_users) <= 20 else 20
         users_to_add = list()
         protocols_to_create = list()
         roles_to_create = list()
@@ -69,7 +71,7 @@ class Command(BaseCommand):
             if verbosity > 1:
                 logger.info('Working on protocol {}.'.format(protocol_idx))
             # Get a sample of users. The first user is Owner!
-            number_of_users = random.randrange(1, len(all_users) + 1)
+            number_of_users = random.randrange(1, max_users + 1)
             users_to_add = random.sample(all_users, number_of_users)
             if verbosity > 2:
                 logger.info('Users sample ({}): {}.'.format(number_of_users, users_to_add))
@@ -79,7 +81,7 @@ class Command(BaseCommand):
                 if add_to_projects:
                     number_of_projects = random.randrange(
                         start=1,
-                        stop=len(all_projects) + 1
+                        stop=max_projects + 1
                     )
                     projects_to_add.append(
                         random.sample(all_projects, number_of_projects)
