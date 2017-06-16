@@ -136,7 +136,7 @@ class User(AbstractUser):
             protocols = Protocol.objects.filter(
                 roles__user=self,
                 roles__project=None,
-                roles__role__in=Role.ROLES_CAN_EDIT
+                roles__role__in=Role.ROLES_CAN_ADD_ITEMS
             ).exclude(uuid__in=project.protocols.all())
             return protocols
         else:
