@@ -411,7 +411,7 @@ class ProjectFormTest(TestCase):
             user=self.user1,
             selected_project=self.project1
         )
-        form.is_valid()
+        self.assertTrue(form.is_valid())
         form.add_elements(self.project1)
         expected_protocols = [
             self.protocol8,
