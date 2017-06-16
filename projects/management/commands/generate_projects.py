@@ -32,7 +32,7 @@ class Command(BaseCommand):
                     number_of_users)
                 # Create project
                 project = Project.objects.create(
-                    name="Project {}".format(project_idx),
+                    name="Generated Project {}".format(project_idx),
                     description="Description for project {}".format(
                         project_idx),
                 )
@@ -54,4 +54,5 @@ class Command(BaseCommand):
             logger.info("No users in database! Operation cancelled!")
         execution_time = time.time() - start_time
         logger.info("Finished! Execution time: {0:0.2f} seconds!".format(
-                execution_time))
+            execution_time)
+        )

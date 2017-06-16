@@ -68,7 +68,7 @@ class Command(BaseCommand):
                 )
             # Create protocol
             protocol = Protocol.objects.create(
-                name='Protocol {}'.format(protocol_idx),
+                name='Generated Protocol {}'.format(protocol_idx),
                 description='Description for protocol {}'.format(protocol_idx),
                 label=random.choice(Protocol.LABELS)[0],
                 last_modified_by=user,
@@ -126,7 +126,7 @@ class Command(BaseCommand):
                 if state == 'finished':
                     is_successful = random.choice((True, False))
                 Result.objects.create(
-                    title='Result {}'.format(result_idx),
+                    title='Generated Result {}'.format(result_idx),
                     note='Note for result {}'.format(result_idx),
                     owner=user,
                     state=state,
