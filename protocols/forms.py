@@ -51,6 +51,6 @@ class BasicResultForm(forms.ModelForm):
         self.fields['project'].empty_label = None
         self.fields['project'].queryset = Project.objects.filter(
             protocols__in=[protocol],
-            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__role__in=Role.ROLES_CAN_ADD_ITEMS,
             roles__user=user
         )
