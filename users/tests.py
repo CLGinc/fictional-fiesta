@@ -209,21 +209,6 @@ class UserModelTest(TestCase):
         self.assertTrue(self.user1.can_update(self.project1))
         self.assertFalse(self.user2.can_update(self.project1))
 
-    def test_get_projects_to_edit(self):
-        projects = list(self.user2.get_projects_to_edit())
-        expected_projects = [
-            self.project3,
-            self.project2
-        ]
-        self.assertEqual(projects, expected_projects)
-
-    def test_get_protocols_to_edit(self):
-        protocols = list(self.user2.get_protocols_to_edit())
-        expected_protocols = [
-            self.protocol1
-        ]
-        self.assertEqual(protocols, expected_protocols)
-
     def test_assign_invitation(self):
         invitation = Invitation.objects.create(
             email='invited@gmail.com',

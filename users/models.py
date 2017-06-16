@@ -159,22 +159,6 @@ class User(AbstractUser):
         role = item.roles.get(user=self)
         return role.role in Role.ROLES_CAN_ADD_ITEMS
 
-    def get_projects_to_edit(self):
-        projects = Project.objects.filter(
-            roles__user=self,
-            roles__protocol=None,
-            roles__role__in=Role.ROLES_CAN_EDIT
-        )
-        return projects
-
-    def get_protocols_to_edit(self):
-        projects = Protocol.objects.filter(
-            roles__user=self,
-            roles__project=None,
-            roles__role__in=Role.ROLES_CAN_EDIT
-        )
-        return projects
-
     def assign_invitations(self):
         InvitationModel = apps.get_model('invitations', 'Invitation')
         invitations = InvitationModel.objects.filter(
