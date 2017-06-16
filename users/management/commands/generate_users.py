@@ -26,10 +26,10 @@ class Command(BaseCommand):
         for user_idx in range(options['users']):
             users_to_create.append(
                 User(
-                    username='gen.user{}@google.com'.format(
+                    username='gen.user{}@gmail.com'.format(
                         user_idx + latest_user_id + 1),
                     password='gen.user{}'.format(user_idx + latest_user_id + 1),
-                    email='gen.user{}@google.com'.format(
+                    email='gen.user{}@gmail.com'.format(
                         user_idx + latest_user_id + 1),
                     first_name='Generated User',
                     last_name=str(user_idx + latest_user_id + 1)
