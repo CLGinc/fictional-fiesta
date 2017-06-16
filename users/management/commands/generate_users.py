@@ -9,7 +9,7 @@ from users.models import User
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
-            '-r',
+            '-u',
             '--users',
             default=10,
             type=int,
