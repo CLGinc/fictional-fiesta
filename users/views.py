@@ -3,7 +3,7 @@ import json
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 from django.views.generic.base import RedirectView
 from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
@@ -136,5 +136,5 @@ class RoleListMixin(MultipleObjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class HomePage(RedirectView):
-    pattern_name = 'projects_list'
+class HomePage(TemplateView):
+    template_name = 'home_page.html'
