@@ -9,7 +9,7 @@
 </ul>
 <form id="form--sources" method="post" action="{% url 'project_add_sources' project_uuid=object.uuid %}">
   {% csrf_token %}
-  <ul class="mdc-list">
+  <ul class="mdc-list padding-0">
     {% for source in form.element_choices.field.queryset %}
     <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
         id="{{ source.id }}"
