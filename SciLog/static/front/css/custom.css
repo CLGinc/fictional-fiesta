@@ -30,6 +30,11 @@ html {
   -ms-flex-positive: 1;
   flex-grow: 1;
 }
+.home {
+  max-width: 1200px;
+  left: 240px;
+  margin: 0 auto;
+}
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 20px;
@@ -441,7 +446,7 @@ td > .list--link-remove, td > .list--link-add {
   font-size: 14px;
 }
 i.list--link-inactive {
-  font-size: 18px; 
+  font-size: 18px;
 }
 
 }
