@@ -43,7 +43,7 @@
       </div>
     {% endif %}
     {% if can_add_items %}
-      {% if request.user == result.owner or can_update %}
+      {% if request.user == result.owner %}
       <a href="#" class="mdc-button mdc-button--icon center padding-8"
          aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
         <i class="material-icons list--link-remove">clear</i>
