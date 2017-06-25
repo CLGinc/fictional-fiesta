@@ -42,16 +42,18 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
       {% endif %}
     </a>
-    {% if request.user == result.owner and can_add_items %}
-    <a href="#" class="mdc-button mdc-button--icon center padding-8"
-       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-remove">clear</i>
-    </a>
-    {% else %}
-    <button class="mdc-button center padding-8" disabled
-       aria-label="Not accessible" title="Not accessible" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-inactive">lock_outline</i>
-    </button>
+    {% if can_add_items %}
+      {% if request.user == result.owner %}
+      <a href="#" class="mdc-button mdc-button--icon center padding-8"
+         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-remove">clear</i>
+      </a>
+      {% else %}
+      <button class="mdc-button center padding-8" disabled
+         aria-label="Not accessible" title="Not accessible" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-inactive">lock_outline</i>
+      </button>
+      {% endif %}
     {% endif %}
   </li>
   {% endfor %}

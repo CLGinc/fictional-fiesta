@@ -43,16 +43,18 @@
         {% endif %}
       </a>
     </div>
-    {% if request.user == source.user and can_add_items %}
-    <button href="#" class="mdc-button mdc-button--icon center padding-8"
-       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-remove">clear</i>
-    </button>
-    {% else %}
-    <button class="mdc-button center padding-8" disabled
-       aria-label="Not accessible" title="Not accessible" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-inactive">lock_outline</i>
-    </button>
+    {% if can_add_items %}
+      {% if request.user == source.user %}
+      <button href="#" class="mdc-button mdc-button--icon center padding-8"
+         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-remove">clear</i>
+      </button>
+      {% else %}
+      <button class="mdc-button center padding-8" disabled
+         aria-label="Not accessible" title="Not accessible" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-inactive">lock_outline</i>
+      </button>
+      {% endif %}
     {% endif %}
 	</li>
 {% endfor %}
