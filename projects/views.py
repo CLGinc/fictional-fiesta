@@ -6,8 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.utils.decorators import method_decorator
 
 
-from researchers.models import Role
-from researchers.views import RoleListMixin
+from users.models import Role
+from users.views import RoleListMixin
 from .forms import BasicProjectForm
 from .models import Project
 
@@ -18,7 +18,7 @@ class SingleProjectMixin(SingleObjectMixin):
 
     def get_queryset(self):
         return Project.objects.filter(
-            roles__researcher=self.request.user.researcher
+            roles__user=self.request.user
         )
 
 
@@ -29,7 +29,7 @@ class CreateProject(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(CreateProject, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
 
     def get_success_url(self):
@@ -49,6 +49,12 @@ class UpdateProject(UpdateView, SingleProjectMixin):
         return reverse(
             'project',
             kwargs={'project_uuid': self.object.uuid}
+        )
+
+    def get_queryset(self):
+        return Project.objects.filter(
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
         )
 
 
@@ -71,15 +77,21 @@ class ProjectView(DetailView, SingleProjectMixin):
     form_class = BasicProjectForm
 
     def get_context_data(self, **kwargs):
-        self.object = self.get_object()
         context = super(ProjectView, self).get_context_data(**kwargs)
-        context['can_edit'] = self.request.user.researcher.can_edit(
+        context['can_update'] = self.request.user.can_update(
+            self.object
+        )
+        context['can_add_items'] = self.request.user.can_add_items(
             self.object
         )
         context['invitation_roles'] = Role.ROLES_TO_INVITE
         context['default_invitation_role'] = Role.DEFAULT_INVITATION_ROLE
         context['participants_by_role'] = \
             self.object.get_participants_by_role()
+        protocols_with_permission = [(x, x.has_role(self.request.user)) for x in self.object.protocols.all()]
+        context['protocols_with_permission'] = protocols_with_permission
+        results_with_permission = [(x, x.protocol.has_role(self.request.user)) for x in self.object.results.all()]
+        context['results_with_permission'] = results_with_permission
         return context
 
     def get_success_url(self):

@@ -5,33 +5,33 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from .models import Invitation
-from researchers.models import Researcher, Role
+from users.models import User, Role
 from projects.models import Project
 from protocols.models import Protocol
 
 
 class InvitationModelTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols',
     ]
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher2 = Researcher.objects.get(id=2)
-        self.researcher3 = Researcher.objects.get(id=3)
+        self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user2 = User.objects.get(username='user2@gmail.com')
+        self.user3 = User.objects.get(username='user3@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
+        self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
     def test_invitation_without_project_or_protocol(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
         )
         with self.assertRaises(ValidationError) as e:
             invitation.clean()
@@ -43,7 +43,7 @@ class InvitationModelTest(TestCase):
     def test_invitation_with_project_and_protocol(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
             protocol=self.protocol1,
         )
@@ -54,37 +54,63 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
-    def test_invitation_inviter_cannot_invite_to_project(self):
+    def test_invitation_watcher_cannot_invite_to_project(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher2,
+            inviter=self.user2,
             project=self.project1,
         )
         with self.assertRaises(ValidationError) as e:
             invitation.clean()
         self.assertEqual(
-            ["You cannot invite researchers to this project"],
+            ["You cannot invite users to this project"],
             e.exception.messages
         )
 
-    def test_invitation_inviter_cannot_invite_to_protocol(self):
+    def test_invitation_contributor_cannot_invite_to_project(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user2,
+            project=self.project2,
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["You cannot invite users to this project"],
+            e.exception.messages
+        )
+
+    def test_invitation_watcher_cannot_invite_to_protocol(self):
+        invitation = Invitation(
+            email='test@gmail.com',
+            inviter=self.user1,
             protocol=self.protocol1,
         )
         with self.assertRaises(ValidationError) as e:
             invitation.clean()
         self.assertEqual(
-            ["You cannot invite researchers to this protocol"],
+            ["You cannot invite users to this protocol"],
+            e.exception.messages
+        )
+
+    def test_invitation_contributor_cannot_invite_to_protocol(self):
+        invitation = Invitation(
+            email='test@gmail.com',
+            inviter=self.user1,
+            protocol=self.protocol10,
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ["You cannot invite users to this protocol"],
             e.exception.messages
         )
 
     def test_invitation_with_the_same_inviter_and_invited(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
-            invited=self.researcher1,
+            inviter=self.user1,
+            invited=self.user1,
             project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
@@ -97,22 +123,22 @@ class InvitationModelTest(TestCase):
     def test_accepted_invitation_without_invited(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
             accepted=True
         )
         with self.assertRaises(ValidationError) as e:
             invitation.clean()
         self.assertEqual(
-            ["Invited cannot be present for invitation that is not accepted"],
+            ['Invited must be present for invitation that is accepted'],
             e.exception.messages
         )
 
     def test_invitation_invited_already_in_project(self):
         invitation = Invitation(
             email='user2@gmail.com',
-            inviter=self.researcher1,
-            invited=self.researcher2,
+            inviter=self.user1,
+            invited=self.user2,
             project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
@@ -124,9 +150,9 @@ class InvitationModelTest(TestCase):
 
     def test_invitation_invited_already_in_protocol(self):
         invitation = Invitation(
-            email='user2@gmail.com',
-            inviter=self.researcher2,
-            invited=self.researcher1,
+            email='user1@gmail.com',
+            inviter=self.user2,
+            invited=self.user1,
             protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
@@ -139,8 +165,8 @@ class InvitationModelTest(TestCase):
     def test_invitation_invited_different_email(self):
         invitation = Invitation(
             email='test@gmail.com',
-            inviter=self.researcher1,
-            invited=self.researcher3,
+            inviter=self.user1,
+            invited=self.user3,
             project=self.project1
         )
         with self.assertRaises(ValidationError) as e:
@@ -150,18 +176,47 @@ class InvitationModelTest(TestCase):
             e.exception.messages
         )
 
-    def test_accept_invitation(self):
-        invitation = Invitation.objects.create(
+    def test_invitation_invite_self(self):
+        invitation = Invitation(
             email='user1@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
+            project=self.project1
+        )
+        with self.assertRaises(ValidationError) as e:
+            invitation.clean()
+        self.assertEqual(
+            ['You cannot invite yourself'],
+            e.exception.messages
+        )
+
+    def test_accept_invitation_project(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.user1,
             project=self.project1,
             role='contributor'
         )
-        invitation.accept(self.researcher3)
+        invitation.accept()
         self.assertTrue(invitation.accepted)
         role = Role.objects.filter(
-            researcher=self.researcher3,
+            user=self.user3,
             project=self.project1,
+            role='contributor'
+        )
+        self.assertTrue(role.exists())
+
+    def test_accept_invitation_protocol(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.user1,
+            protocol=self.protocol1,
+            role='contributor'
+        )
+        invitation.accept()
+        self.assertTrue(invitation.accepted)
+        role = Role.objects.filter(
+            user=self.user3,
+            protocol=self.protocol1,
             role='contributor'
         )
         self.assertTrue(role.exists())
@@ -169,7 +224,7 @@ class InvitationModelTest(TestCase):
     def test_expired(self):
         invitation = Invitation.objects.create(
             email='user1@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
             expiration_days=3
         )
@@ -179,7 +234,7 @@ class InvitationModelTest(TestCase):
     def test_not_expired(self):
         invitation = Invitation.objects.create(
             email='user1@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
             expiration_days=4
         )
@@ -190,7 +245,7 @@ class InvitationModelTest(TestCase):
     def test_get_item_project(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.assertEqual(invitation.get_item(), 'Project')
@@ -198,7 +253,7 @@ class InvitationModelTest(TestCase):
     def test_get_item_name_project(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.assertEqual(invitation.get_item_name(), 'Project 1')
@@ -206,7 +261,7 @@ class InvitationModelTest(TestCase):
     def test_get_item_protocol(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher2,
+            inviter=self.user2,
             protocol=self.protocol1,
         )
         self.assertEqual(invitation.get_item(), 'Protocol')
@@ -214,27 +269,33 @@ class InvitationModelTest(TestCase):
     def test_get_item_name_protocol(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher2,
+            inviter=self.user2,
             protocol=self.protocol1,
         )
         self.assertEqual(invitation.get_item_name(), 'Protocol 1')
 
+    def test_set_invited(self):
+        invitation = Invitation.objects.create(
+            email='user3@gmail.com',
+            inviter=self.user2,
+            protocol=self.protocol1,
+        )
+        self.assertEqual(invitation.invited, self.user3)
+
 
 class InvitationViewTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols',
     ]
 
     def setUp(self):
         self.client = Client()
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher3 = Researcher.objects.get(id=3)
+        self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user3 = User.objects.get(username='user3@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_invitations_list(self):
@@ -243,40 +304,19 @@ class InvitationViewTest(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_get_assign_invitation(self):
-        invitation = Invitation.objects.create(
-            email='user3@gmail.com',
-            inviter=self.researcher1,
-            project=self.project1,
-        )
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': invitation.pk})
-        response = self.client.get(url)
-        self.assertRedirects(response, reverse('invitations_list'))
-        invitation.refresh_from_db()
-        self.assertEqual(invitation.invited, self.researcher3)
-
-    def test_get_assign_invitation_404(self):
-        self.client.login(username='user3@gmail.com', password='user3')
-        url = reverse('assign_invitation', kwargs={'uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-
 
 class InvitationAjaxTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
-        'researchers/fixtures/sources',
-        'researchers/fixtures/roles',
+        'users/fixtures/users',
+        'users/fixtures/sources',
+        'users/fixtures/roles',
         'projects/fixtures/projects',
         'protocols/fixtures/protocols',
     ]
 
     def setUp(self):
         self.client = Client()
-        self.researcher1 = Researcher.objects.get(id=1)
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_create_invitation_no_ajax(self):
@@ -317,7 +357,7 @@ class InvitationAjaxTest(TestCase):
         self.assertEqual(response.status_code, 200)
         invitation = Invitation.objects.filter(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1
         )
         self.assertTrue(invitation.exists())
@@ -325,7 +365,7 @@ class InvitationAjaxTest(TestCase):
     def test_get_accept_invitation_no_ajax(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
@@ -336,7 +376,7 @@ class InvitationAjaxTest(TestCase):
     def test_post_accept_invitation_no_ajax(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
@@ -350,7 +390,7 @@ class InvitationAjaxTest(TestCase):
     def test_get_accept_invitation_ajax(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')
@@ -364,7 +404,7 @@ class InvitationAjaxTest(TestCase):
     def test_post_accept_expired_invitation_ajax(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         invitation.datetime_created -= timezone.timedelta(3)
@@ -379,7 +419,7 @@ class InvitationAjaxTest(TestCase):
     def test_post_accept_invitation(self):
         invitation = Invitation.objects.create(
             email='user3@gmail.com',
-            inviter=self.researcher1,
+            inviter=self.user1,
             project=self.project1,
         )
         self.client.login(username='user3@gmail.com', password='user3')

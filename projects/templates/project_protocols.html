@@ -2,7 +2,7 @@
   <span class="mdl-color-text--blue-500 article--modal-title padding-0">
     Protocols
   </span>
-  {% if can_edit %}
+  {% if can_add_items %}
   <button data-mdc-auto-init="MDCRipple"
           data-trigger="show"
           data-target="modal--protocols"
@@ -13,33 +13,51 @@
   </button>
   {% endif %}
 </div>
-{% if selected_project.protocols.all %}
+{% if protocols_with_permission %}
 <ul class="mdc-list padding-0">
   <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none">
-    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %}">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">Name</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Label</div>
     </div>
+    {% if can_add_items %}
     <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
     </div>
+    {% endif %}
   </li>
 </ul>
 <ul class="mdc-list padding-0">
-  {% for protocol in selected_project.protocols.all %}
-	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
-    <a href="/resultid/"
-       class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-11 list--link margin--none">
+  {% for protocol, has_role in protocols_with_permission %}
+  <li class="border--bottom mdc-layout-grid padding-0 margin--none {% if has_role is False %}mdl-color--grey-100{% endif %}">
+    {% if has_role %}
+    <a href="{% url 'protocol' protocol_uuid=protocol.pk %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none">
+    {% else %}
+    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link-inactive margin--none mdl-color-text--grey-400">
+    {% endif %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7">{{ protocol.name }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ protocol.get_owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ protocol.get_label_display }}</div>
+    {% if has_role %}
     </a>
-    <button href="#" class="mdc-button mdc-button--icon center padding-8"
-       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-      <i class="material-icons list--link-remove">clear</i>
-    </button>
-	</li>
+    {% else %}
+    </div>
+    {% endif %}
+    {% if can_add_items %}
+      {% if request.user == protocol.get_owner %}
+      <button href="#" class="mdc-button mdc-button--icon center padding-8"
+         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-remove">clear</i>
+      </button>
+      {% else %}
+      <button href="#" class="mdc-button center padding-8" disabled
+         aria-label="Not accessible" title="Only the owner of the project or the protocol can remove it!" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons list--link-inactive">lock_outline</i>
+      </button>
+      {% endif %}
+    {% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% else %}

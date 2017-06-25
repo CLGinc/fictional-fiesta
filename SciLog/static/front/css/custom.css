@@ -30,6 +30,11 @@ html {
   -ms-flex-positive: 1;
   flex-grow: 1;
 }
+.home {
+  max-width: 1200px;
+  left: 240px;
+  margin: 0 auto;
+}
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 20px;
@@ -85,6 +90,10 @@ html {
 .main-grid {
   margin-left: 240px;
   border-left: 1px solid #e4e4e4;
+  box-sizing: border-box;
+}
+.simple-grid {
+  min-width: 900px;
   box-sizing: border-box;
 }
 .mobile-button {
@@ -333,7 +342,7 @@ a {
 }
 /* user card */
 .button--height-normal {
-  line-height: normal;
+  line-height: 24px;
   height: auto;
 }
 .button--position-right {
@@ -431,6 +440,15 @@ td > .list--link-remove, td > .list--link-add {
   -ms-user-select: none;
   user-select: none;
   -webkit-appearance: none;
+}
+.list--link-inactive {
+  font-weight: normal;
+  font-size: 14px;
+}
+i.list--link-inactive {
+  font-size: 18px;
+}
+
 }
 .list--alternative {
   padding-top: 10px;
@@ -621,6 +639,12 @@ td > .list--link-remove, td > .list--link-add {
   margin-left: auto;
   margin-right: auto;
 }
+.center--spinner {
+  right:50%;
+}
+.relative {
+  position: relative;
+}
 .padding-0 {
   padding: 0;
 }
@@ -662,6 +686,15 @@ td > .list--link-remove, td > .list--link-add {
 }
 .left-24 {
   left: 24px;
+}
+.height-40 {
+  height: 40px;
+}
+.select--fix {
+  height: 88px;
+}
+.select--fix > select {
+  height: 48px;
 }
 /*Data tables*/
 .dataTable--column {

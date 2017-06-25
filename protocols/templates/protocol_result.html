@@ -1,40 +1,27 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - New result{% endblock %}
+{% block title %}Sci Log - Result for {{ selected_protocol_result.protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
-  <div class="mdc-toolbar__row padding-16">
-    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-      <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
-        href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=results">
-        <i class="material-icons">close</i>
-        <span class="toolbar__button-label">Cancel</span>
-      </a>
-    </section>
-    <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Result {{ selected_protocol_result.pk }}</span>
-    </section>
-    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-      <button data-mdc-auto-init="MDCRipple"
-              data-trigger="submit-result"
-              data-form="create_protocol_result_form"
-              class="mdc-button mdl-color-text--white">
-        <i class="material-icons">check</i>
-        <span class="toolbar__button-label">Save</span>
-      </button>
-    </section>
-  </div>
-</header>
 <div class="content">
 {% include "base/drawer.html" %}
   <div class="main-grid mdc-layout-grid">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-        Result details
+        Result details for {{ selected_protocol_result.title }}
       </h1>
+    </div>
+    {% if request.user == selected_protocol_result.owner %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+      <a data-mdc-auto-init="MDCRipple"
+         href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
+         class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
+        <i class="material-icons mdl-color-text--blue-500">edit</i> Update result
+      </a>
+    </div>
+    {% endif %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Success</p>
@@ -78,114 +65,69 @@
       </div>
       {% endif %}
       <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.independent_variable }}
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.dependent_variable }}
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.get_data_type_independent_display }}
+          </div>
+        </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            {{ selected_protocol_result.get_data_type_dependent_display }}
+          </div>
+        </div>
+      </div>
+      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
-          <span>Data tables</span>
-          <a data-mdc-auto-init="MDCRipple"
-             href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
-             class="mdc-button mdl-color-text--blue-grey-600 right">
-            <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Edit result
-          </a>
+          Data table
         </div>
-      </div>
-      {% for data_column in selected_protocol_result.data_columns.all %}
-      <div class="left margin--8">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-          {% if data_column.title %}
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                {{ data_column.title }}
-              </td>
-            </tr>
-          </tbody>
-          {% endif %}
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric">Measurement</th>
-              <th class="mdl-data-table__cell--non-numeric">Unit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">
-                {{ data_column.measurement }}
-              </td>
-              <td class="mdl-data-table__cell--non-numeric">
-                {{ data_column.unit }}
-              </td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th {% if data_column.data.Type != 'Number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">Data ({{ data_column.data.Type }})</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% if data_column.data.Data %}
-              {% with data_dict=data_column.data.Data %}
-                {% for data_value in data_dict %}
-                  <tr>
-                    <td {% if data_column.data.Type != 'Number' %}class="mdl-data-table__cell--non-numeric"{% endif %} colspan="2">
-                      {{ data_value }}
-                    </td>
-                  </tr>
+        <div class="table" data-content="dataTable--parent">
+          <div class="thead">
+            <div class="th table--border-right" id="independent-title">{{ selected_protocol_result.independent_variable }}</div>
+            <div class="th" id="dependent-title">{{ selected_protocol_result.dependent_variable }}</div>
+          </div>
+          <div class="tbody">
+            <div class="trow">
+              {% for independent_column in selected_protocol_result.data_columns.independent_variable %}
+              <div class="td table--border-right col-indep">
+                <ul class="mdc-list">
+                  <li class="mdc-list-item"></li>
+                  {% for data_value in independent_column.data %}
+                  <li class="mdc-list-item" data-type="independent-value">{{ data_value }}</li>
                   {% endfor %}
-              {% endwith %}
-            {% endif %}
-          </tbody>
-        </table>
-      </div>
-    {% endfor %}
-    </div>
-  </div>
-</div>
-<div id="modal--attachments" class="modal visible mdc-layout-grid">
-  <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-    <header class="mdc-toolbar mdl-color--blue-500 mdc-elevation--z2">
-      <div class="mdc-toolbar__row padding-16">
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-          <a data-mdc-auto-init="MDCRipple"
-
-             data-target="modal--attachments"
-             class="mdc-button mdl-color-text--white">
-            <i class="material-icons">close</i>
-            <span class="toolbar__button-label">Cancel</span>
-          </a>
-        </section>
-        <section class="mdc-toolbar__section">
-          <span class="mdc-toolbar__title">Select files to attach</span>
-        </section>
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-          <button data-mdc-auto-init="MDCRipple"
-                  data-form="create_protocol_result_form"
-                  class="mdc-button mdl-color-text--white">
-            <i class="material-icons">check</i>
-            <span class="toolbar__button-label">Done</span>
-          </button>
-        </section>
-      </div>
-    </header>
-    <div id="add_attachments" class="modal--content">
-      <form action="/file-upload" class="dropzone">
-        <div class="fallback">
-          <input name="file" type="file" multiple />
+                </ul>
+              </div>
+              {% endfor %}
+              {% for dependent_column in selected_protocol_result.data_columns.dependent_variable %}
+              <div class="td col">
+                <ul class="mdc-list">
+                  <li class="mdc-list-item" data-type="dependent-title">{{ dependent_column.title }}</li>
+                  {% for data_value in dependent_column.data %}
+                  <li class="mdc-list-item" data-type="dependent-value">{{ data_value }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
-<button data-mdc-auto-init="MDCRipple"
-        data-trigger="show"
-        data-target="modal--attachments"
-        id="button-add"
-        class="button--attachments mdc-fab mdc-fab--mini material-icons mdl-color--blue-500">
-  <span  class="mdc-fab__icon">cloud_upload</span>
-</button>
 <div class="mdc-snackbar mdl-color--blue-500"
      aria-live="assertive"
      aria-atomic="true"

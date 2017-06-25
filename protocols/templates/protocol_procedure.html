@@ -4,11 +4,11 @@
   </span>
 </div>
 <ul class="mdc-list padding-0">
-  {% for step in selected_protocol.procedure.steps.all %}
+  {% for step in selected_protocol.procedure.steps %}
   <li class="mdc-layout-grid border--bottom padding-0 margin--none">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
       <div class="mdl-color-text--blue-grey-600 text-center">
-        {{ step.order|add:"1" }}
+        {{ forloop.counter }}
       </div>
       <div class="mdl-color-text--blue-grey-600 text-center">
         STEP
@@ -19,7 +19,7 @@
         {{ step.title }}
       </p>
       <p>
-        {{ step.text }}
+        {{ step.description }}
       </p>
     </div>
   </li>

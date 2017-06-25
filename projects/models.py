@@ -13,7 +13,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=1024, blank=True)
     sources = models.ManyToManyField(
-        'researchers.Source',
+        'users.Source',
         related_name='projects',
         blank=True)
     protocols = models.ManyToManyField(
@@ -29,18 +29,18 @@ class Project(models.Model):
         return self.name
 
     def get_owner(self):
-        return self.roles.get(role='owner').researcher
+        return self.roles.get(role='owner').user
 
     def get_participants_by_role(self):
         participants_by_role = list()
-        RoleModel = apps.get_model('researchers', 'Role')
+        RoleModel = apps.get_model('users', 'Role')
         for role_value, role_label in RoleModel.ROLES:
             if self.roles.filter(role=role_value).exists():
                 participants_by_role.append(
                     (
                         role_label,
                         self.roles.filter(
-                            role=role_value).order_by('researcher')
+                            role=role_value).order_by('user')
                     )
                 )
         return participants_by_role

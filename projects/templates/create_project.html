@@ -34,39 +34,44 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         Project details
       </h1>
-      {% if form.nonfield_errors %}
-      <div>
-        {{ form.nonfield_errors }}
-        {% endif %}
-        {% if form.nonfield_errors %}
-        {{ steps_formset.nonfield_errors }}
-      </div>
-      {% endif %}
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             method="post"
             action="{% url 'create_project' %}"
             id="new-project-form">
         {% csrf_token %}
+          {% if form.nonfield_errors %}
+            <span class="error">{{ form.nonfield_errors.as_text }}</span>
+          {% endif %}
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
             Name and description
           </p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255">
+            <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text" id="input-new-project--name" name="name" maxlength="255" {% if form.name.value %}value="{{form.name.value}}"{% endif %}>
               <label class="mdc-textfield__label" for="input-new-project--name">Project name</label>
             </div>
+            {% if form.name.errors %}
+            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+              {{ form.name.errors.as_text }}
+            </p>
+            {% endif %}
             <p id="new-project-name-helptext" class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the project list and on your project page. Maximum of 255 characters.
             </p>
           </div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
-              <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="255"></textarea>
+            <div class="mdc-textfield mdc-textfield--multiline {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <textarea class="mdc-textfield__input" rows="6" type="text" id="input-new-project--desc" name="description" maxlength="1024">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
               <label class="mdc-textfield__label" for="input-new-project--desc">Project description</label>
             </div>
+            {% if form.description.errors %}
+            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+              {{ form.description.errors.as_text }}
+            </p>
+            {% endif %}
             <p id="new-project-desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-              A short project description. Maximum length of 250 characters.
+              A short project description. Maximum length of 1024 characters.
             </p>
           </div>
         </div>

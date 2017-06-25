@@ -37,10 +37,14 @@
       </h1>
       <div>
         {% if form.nonfield_errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ form.nonfield_errors }}
+        </p>
         {% endif %}
         {% if data_columns_formset.nonfield_errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ data_columns_formset.nonfield_errors }}
+        </p>
         {% endif %}
       </div>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
@@ -51,7 +55,23 @@
         {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result title</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="title"
+                       maxlength="255" {% if form.title.value %}value="{{ form.title.value }}"{% endif %}>
+                <label class="mdc-textfield__label">Add a title for this result</label>
+              </div>
+              {% if form.title.errors %}
+                <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                  {{ form.title.errors.as_text }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-form-field">
@@ -59,7 +79,7 @@
                   <input type="checkbox"
                          id="success-checkbox"
                          name="is_successful"
-                         {% if form.is_successful.data %}checked{% endif %}
+                         {% if form.is_successful.value %}checked{% endif %}
                          class="mdc-checkbox__native-control"/>
                   <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark"
@@ -86,7 +106,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <select class="mdc-select margin--none" name="state">
                 {% for key, value in form.state.field.choices %}
-                <option value="{{ key }}" {% if form.state.data == key %}selected{% endif %}>{{ value }}</option>
+                <option value="{{ key }}" {% if form.state.value == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -105,11 +125,11 @@
                        type="text"
                        autocomplete="off"
                        maxlength="255">
-                <label class="mdc-textfield__label{% if form.project.data %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
+                <label class="mdc-textfield__label{% if form.project.value %} mdc-textfield__label--float-above{% endif %}">Start typing project name</label>
                 <input type="text"
                        name="project"
                        class="hidden"
-                       {% if form.project.data %}value="{{ form.project.data }}"{% endif %}
+                       {% if form.project.value %}value="{{ form.project.value }}"{% endif %}
                        id="link_result_to_project_input_uuid">
               </div>
               {% if form.project.errors %}
@@ -130,15 +150,13 @@
               {{ selected_protocol.name }}
             </div>
           </div>
-        </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        name="note"
-                       maxlength="255" {% if form.note.data %}value="{{ form.note.data }}"{% endif %}>
+                       maxlength="255" {% if form.note.value %}value="{{ form.note.value }}"{% endif %}>
                 <label class="mdc-textfield__label">Add a note for this result</label>
               </div>
               {% if form.note.errors %}
@@ -149,136 +167,220 @@
             </div>
           </div>
         </div>
+        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.independent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="independent_variable"
+                       data-content="independent-title"
+                       maxlength="255"
+                       data-trigger="update-value"
+                       data-target="independent-title"
+                       {% if form.independent_variable.value %}value="{{ form.independent_variable.value }}"{% endif %}>
+                <label class="mdc-textfield__label">Add a independent variable for data table</label>
+              </div>
+              {% if form.independent_variable.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.independent_variable.errors.as_text }}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+              <div class="mdc-textfield {% if form.dependent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                <input class="mdc-textfield__input" type="text"
+                       name="dependent_variable"
+                       data-content="independent-title"
+                       maxlength="255"
+                       data-trigger="update-value"
+                       data-target="dependent-title"
+                       {% if form.dependent_variable.value %}value="{{ form.dependent_variable.value }}"{% endif %}>
+                <label class="mdc-textfield__label">Add a dependent variable for data table</label>
+              </div>
+              {% if form.dependent_variable.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.dependent_variable.errors.as_text }}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
+              {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
+              <select class="mdc-select margin--none" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
+                {% for key, value in form.data_type_independent.field.choices %}
+                <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+              {% endwith %}
+            </div>
+          </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
+              {% with data=form.data_type_dependent.value|default:form.data_type_dependent.field.initial %}
+              <select class="mdc-select margin--none" name="data_type_dependent" data-trigger="data-type" data-target="dependent-value">
+                {% for key, value in form.data_type_dependent.field.choices %}
+                <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+              {% endwith %}
+            </div>
+          </div>
+        </div>
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
-            <span>Data tables</span>
+            <span>Data table</span>
+            {% if form.data_columns.errors %}
+            <span class="error">{{ form.data_columns.errors.as_text }}</span>
+            {% endif %}
             <div data-mdc-auto-init="MDCRipple"
                href="#"
                data-trigger="addDataColumn"
                class="mdc-button mdl-color-text--blue-grey-600 right">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add data column
+              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add column
+            </div>
+            <div data-mdc-auto-init="MDCRipple"
+               href="#"
+               data-trigger="addDataRow"
+               class="mdc-button mdl-color-text--blue-grey-600 right">
+              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add row
             </div>
           </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0" data-content="dataTable--parent">
-            {% for data_column_form in data_columns_formset.forms %}
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0">
-              <input type="text"
-                     name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-order"
-                     value="{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}"
-                     data-content="order"
-                     class="hidden">
-              <textarea name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-data"
-                        data-content="data-merged"
-                        class="hidden">{% if data_column_form.data.data %}value="{{ data_column_form.data.data }}"{% endif %}</textarea>
-              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th>
-                    <th>
-                      <i class="material-icons list--link-remove"
-                        data-trigger="remove-table">clear</i>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="3">
-                      <input type="text"
-                             class="width--full"
-                             name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-title"
-                             data-content="title"
-                             {% if data_column_form.title.data %}value="{{ data_column_form.title.data }}"{% endif %}>
-                       {% if data_column_form.title.errors %}
-                         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                           {{ data_column_form.title.errors.as_text }}
-                         </p>
-                       {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Measurement</th>
-                    <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-measurement"
-                               data-content="measurement"
-                               {% if data_column_form.measurement.data %}value="{{ data_column_form.measurement.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.measurement.errors %}
-                       <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                         {{ data_column_form.measurement.errors.as_text }}
-                       </p>
-                      {% endif %}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      <div class="mdc-textfield {% if data_column_form.measurement.errors %}mdc-textfield--invalid{% endif %}">
-                        <input type="text"
-                               class="width--full"
-                               name="data_columns-{% if data_column_form.order.data %}{{ data_column_form.order.data }}{% else %}0{% endif %}-unit"
-                               data-content="unit"
-                               {% if data_column_form.unit.data %}value="{{ data_column_form.unit.data }}"{% endif %}>
-                      </div>
-                      {% if data_column_form.unit.errors %}
-                        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                          {{ data_column_form.unit.errors.as_text }}
-                        </p>
-                      {% endif %}
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th>
-                    <th>
-                      remove / add
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% if data_column_form.data.data %}
-                    {% with data_dict=data_column_form.data.data|json_to_dict %}
-                      {% for data_value in data_dict.Data %}
-                        <tr>
-                          <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                            <input class="width--full"
-                                   data-content="data"
-                                   value="{{ data_value }}">
-                          </td>
-                          <td>
-                            <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i>
-                            <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                    {% endwith %}
-                  {% else %}
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric" colspan="2">
-                      <input class="width--full"
-                             data-content="data">
-                    </td>
-                    <td>
-                      <i class="material-icons list--link-remove" data-trigger="remove--datarow">clear</i>
-                      <i class="material-icons list--link-add" data-trigger="add--datarow">add</li>
-                    </td>
-                  </tr>
-                  {% endif %}
-                </tbody>
-              </table>
+          <div class="table" data-content="dataTable--parent">
+            <input type="text"
+                   class="hidden"
+                   name="data_columns"
+                   data-content="dataTable--input">
+            <div class="thead">
+              <div class="th table--border-right" id="independent-title">Independent variable</div>
+              <div class="th" id="dependent-title">Dependent variable</div>
             </div>
-            {% endfor %}
-            {% if data_column_form.data.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ data_column_form.data.errors.as_text }}
-              </p>
+            {% if form.data_columns.value != "null" %}
+            {% with data_columns=form.data_columns.value|json_to_dict %}
+            <div class="tbody">
+              <div class="trow">
+                {% for independent_column in data_columns.independent_variable %}
+                <div class="td table--border-right col-indep">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    {% for data_value in independent_column.data %}
+                    <li class="mdc-list-item" data-type="independent-value">
+                      {% if form.data_type_independent.value == "number" %}
+                      <input type="number" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_independent.value == "string" %}
+                      <input type="text" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_independent.value == "boolean" %}
+                      <div class="mdc-checkbox">
+                        <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput" {% if data_value %}checked{% endif %}>
+                        <div class="mdc-checkbox__background">
+                          <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                          </svg>
+                          <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
+                {% for dependent_column in data_columns.dependent_variable %}
+                <div class="td col">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataColumn"
+                         class="mdc-button table--button center">
+                        Remove col
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" data-type="dependent-title"><input type="text" placeholder="Add title" value="{{ dependent_column.title }}"></li>
+                    {% for data_value in dependent_column.data %}
+                    <li class="mdc-list-item" data-type="dependent-value">
+                      {% if form.data_type_dependent.value == "number" %}
+                      <input type="number" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_dependent.value == "string" %}
+                      <input type="text" placeholder="Add value" class="dataTypeInput" value="{{ data_value }}">
+                      {% elif form.data_type_dependent.value == "boolean" %}
+                      <div class="mdc-checkbox">
+                        <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput" {% if data_value %}checked{% endif %}>
+                        <div class="mdc-checkbox__background">
+                          <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                          </svg>
+                          <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
+                <div class="td">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    {% for dava_value in data_columns.independent_variable.0.data %}
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataRow"
+                         class="mdc-button table--button">
+                        Remove row
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% endwith %}
+            {% else %}
+            <div class="tbody">
+              <div class="trow">
+                <div class="td table--border-right col-indep">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item" data-type="independent-value"><input type="number" placeholder="Add value" class="dataTypeInput"></li>
+                  </ul>
+                </div>
+                <div class="td col">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataColumn"
+                         class="mdc-button table--button center">
+                        Remove col
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" data-type="dependent-title"><input type="text" placeholder="Add title"></li>
+                    <li class="mdc-list-item" data-type="dependent-value"><input type="number" placeholder="Add value" class="dataTypeInput"></li>
+                  </ul>
+                </div>
+                <div class="td">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item"></li>
+                    <li class="mdc-list-item">
+                      <div data-mdc-auto-init="MDCRipple"
+                         data-trigger="removeDataRow"
+                         class="mdc-button table--button">
+                        Remove row
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             {% endif %}
           </div>
         </div>
@@ -328,7 +430,7 @@
         class="button--attachments mdc-fab mdc-fab--mini material-icons mdl-color--blue-500">
   <span  class="mdc-fab__icon">cloud_upload</span>
 </button>
-<div class="mdc-snackbar mdl-color--blue-500"
+<div class="mdc-snackbar mdl-color--red-500"
      aria-live="assertive"
      aria-atomic="true"
      aria-hidden="true" id="mdc-js-snackbar">

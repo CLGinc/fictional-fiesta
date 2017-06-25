@@ -6,11 +6,11 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, CreateView
 from django.http import Http404
 
-from researchers.views import RoleListMixin
-from researchers.models import Role
+from users.views import RoleListMixin
+from users.models import Role
 from .models import Protocol, Result
-from .forms import BasicProtocolForm, StepsFormset
-from .forms import BasicResultForm, DataColumnsFormset
+from .forms import BasicProtocolForm
+from .forms import BasicResultForm
 
 
 class SinglePrototolMixin(SingleObjectMixin):
@@ -19,7 +19,7 @@ class SinglePrototolMixin(SingleObjectMixin):
 
     def get_queryset(self):
         return Protocol.objects.filter(
-            roles__researcher=self.request.user.researcher
+            roles__user=self.request.user
         )
 
 
@@ -31,7 +31,7 @@ class SinglePrototolResultMixin(SingleObjectMixin):
         try:
             selected_protocol = Protocol.objects.get(
                 uuid=self.kwargs['protocol_uuid'],
-                roles__researcher=self.request.user.researcher
+                roles__user=self.request.user
             )
         except Protocol.DoesNotExist:
             selected_protocol = None
@@ -41,98 +41,9 @@ class SinglePrototolResultMixin(SingleObjectMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateViewWithFormset(CreateView):
-    formset_class = None
-    formset_name = ''
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class(request.POST)
-        if form.is_valid() and formset.is_valid():
-            return self.form_valid(form, formset)
-        else:
-            return self.form_invalid(form, formset)
-
-    def form_valid(self, form, formset):
-        self.object = form.save()
-        self.formset_instance = self.get_formset_instance()
-        formset.instance = self.formset_instance
-        formset.save()
-        return super(CreateViewWithFormset, self).form_valid(form)
-
-    def form_invalid(self, form, formset):
-        return self.render_to_response(
-            self.get_context_data(form=form, formset=formset)
-        )
-
-    def get_context_data(self, **kwargs):
-        context = dict()
-        if 'formset' in kwargs:
-            context[self.formset_name] = kwargs['formset']
-        else:
-            context[self.formset_name] = self.formset_class()
-        context.update(
-            super(CreateViewWithFormset, self).get_context_data(**kwargs)
-        )
-        return context
-
-
-@method_decorator(login_required, name='dispatch')
-class UpdateViewWithFormset(UpdateView):
-    formset_class = None
-    formset_name = ''
-    formset_instance = None
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.formset_instance = self.get_formset_instance()
-        return super(UpdateViewWithFormset, self).get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.formset_instance = self.get_formset_instance()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class(
-            instance=self.formset_instance,
-            data=request.POST
-        )
-        if form.is_valid() and formset.is_valid():
-            return self.form_valid(form, formset)
-        else:
-            return self.form_invalid(form, formset)
-
-    def form_valid(self, form, formset):
-        formset.save()
-        return super(UpdateViewWithFormset, self).form_valid(form)
-
-    def form_invalid(self, form, formset):
-        return self.render_to_response(
-            self.get_context_data(form=form, formset=formset)
-        )
-
-    def get_context_data(self, **kwargs):
-        context = dict()
-        if 'formset' in kwargs:
-            context[self.formset_name] = kwargs['formset']
-        else:
-            context[self.formset_name] = self.formset_class(
-                instance=self.formset_instance
-            )
-        context.update(
-            super(UpdateViewWithFormset, self).get_context_data(**kwargs)
-        )
-        return context
-
-
-@method_decorator(login_required, name='dispatch')
-class CreateProtocol(CreateViewWithFormset):
+class CreateProtocol(CreateView):
     template_name = 'create_protocol.html'
     form_class = BasicProtocolForm
-    formset_class = StepsFormset
-    formset_name = 'steps_formset'
 
     def get_success_url(self):
         return reverse(
@@ -142,20 +53,18 @@ class CreateProtocol(CreateViewWithFormset):
 
     def get_form_kwargs(self):
         kwargs = super(CreateProtocol, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['last_modified_by'] = str(self.request.user.pk)
         return kwargs
-
-    def get_formset_instance(self):
-        return self.object.procedure
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
+class UpdateProtocol(UpdateView, SinglePrototolMixin):
     context_object_name = 'selected_protocol'
     template_name = 'update_protocol.html'
     form_class = BasicProtocolForm
-    formset_class = StepsFormset
-    formset_name = 'steps_formset'
 
     def get_success_url(self):
         return reverse(
@@ -165,11 +74,17 @@ class UpdateProtocol(UpdateViewWithFormset, SinglePrototolMixin):
 
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocol, self).get_form_kwargs()
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
+        if 'data' in kwargs:
+            kwargs['data'] = kwargs['data'].copy()
+            kwargs['data']['last_modified_by'] = str(self.request.user.pk)
         return kwargs
 
-    def get_formset_instance(self):
-        return self.object.procedure
+    def get_queryset(self):
+        return Protocol.objects.filter(
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
+        )
 
 
 @method_decorator(login_required, name='dispatch')
@@ -191,7 +106,10 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProtocolView, self).get_context_data(**kwargs)
-        context['can_edit'] = self.request.user.researcher.can_edit(
+        context['can_update'] = self.request.user.can_update(
+            self.object
+        )
+        context['can_add_items'] = self.request.user.can_add_items(
             self.object
         )
         context['invitation_roles'] = Role.ROLES_TO_INVITE
@@ -202,11 +120,9 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateProtocolResult(CreateViewWithFormset):
+class CreateProtocolResult(CreateView):
     template_name = 'create_protocol_result.html'
     form_class = BasicResultForm
-    formset_class = DataColumnsFormset
-    formset_name = 'data_columns_formset'
     protocol_slug_field = 'uuid'
     protocol_slug_url_kwarg = 'protocol_uuid'
 
@@ -237,7 +153,7 @@ class CreateProtocolResult(CreateViewWithFormset):
 
     def get_protocol_queryset(self):
         return Protocol.objects.filter(
-            roles__researcher=self.request.user.researcher
+            roles__user=self.request.user
         )
 
     def get_protocol(self, queryset=None):
@@ -257,27 +173,21 @@ class CreateProtocolResult(CreateViewWithFormset):
             )
         return protocol
 
-    def get_formset_instance(self):
-        return self.object
-
     def get_form_kwargs(self):
         kwargs = super(CreateProtocolResult, self).get_form_kwargs()
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+            kwargs['data']['owner'] = str(self.request.user.pk)
         kwargs['protocol'] = self.protocol
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
+class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
-    template_name = 'update_protocol_result.html'
     form_class = BasicResultForm
-    formset_class = DataColumnsFormset
-    formset_name = 'data_columns_formset'
-    formset_instance = None
+    template_name = 'update_protocol_result.html'
 
     def get_success_url(self):
         return reverse(
@@ -288,28 +198,21 @@ class UpdateProtocolResult(UpdateViewWithFormset, SinglePrototolResultMixin):
             }
         )
 
-    def get_context_data(self, **kwargs):
-        self.formset_instance = self.get_formset_instance()
-        return super(UpdateProtocolResult, self).get_context_data(**kwargs)
-
-    def get_formset_instance(self):
-        return self.object
-
     def get_form_kwargs(self):
         kwargs = super(UpdateProtocolResult, self).get_form_kwargs()
         if 'data' in kwargs:
             kwargs['data'] = kwargs['data'].copy()
-            kwargs['data']['owner'] = str(self.request.user.researcher.pk)
+            kwargs['data']['owner'] = str(self.request.user.pk)
         kwargs['protocol'] = self.object.protocol
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
+
+    def get_queryset(self):
+        queryset = super(UpdateProtocolResult, self).get_queryset()
+        return queryset.filter(owner=self.request.user)
 
 
 @method_decorator(login_required, name='dispatch')
 class ProtocolResultView(DetailView, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
     template_name = 'protocol_result.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ProtocolResultView, self).get_context_data(**kwargs)
-        return context

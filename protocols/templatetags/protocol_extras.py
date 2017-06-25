@@ -1,4 +1,4 @@
-from ast import literal_eval
+import json
 
 from django import template
 
@@ -7,7 +7,10 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 def json_to_dict(value):
-    converted_value = literal_eval(value)
-    if isinstance(converted_value, dict):
-        return converted_value
+    try:
+        converted_value = json.loads(value)
+        if isinstance(converted_value, dict):
+            return converted_value
+    except TypeError:
+        return value
     return value

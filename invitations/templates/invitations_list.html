@@ -8,41 +8,42 @@
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-        <span id="project_name">Invitations</span>
+        My invitations
       </h1>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       {% if invitations_list %}
-      <ul class="mdc-list-group padding-0">
-        <ul class="mdc-list">
-          <li class="mdc-layout-grid mdc-list-item border--bottom mdl-color-text--blue-500">
+        <ul class="mdc-list padding-0">
+          <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Type</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Inviter</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding--right-16">Status</div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding--left-16">Status</div>
           </li>
         </ul>
-        <ul class="mdc-list">
+        <ul class="mdc-list padding-0">
           {% for invitation in invitations_list %}
-            <li class="mdc-list-item border--bottom mdc-layout-grid">
+            <li class="mdc-layout-grid border--bottom">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ invitation.get_item }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">{{ invitation.get_item_name }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text">{{ invitation.inviter }}</div>
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ invitation.datetime_created|date:"d M Y" }}</div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-0">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1" data-content="invitation-button">
                 {% if invitation.accepted %}
-                <button class="mdc-button center" disabled>Accepted</button>
+                <button class="mdc-button button--height-normal" disabled>Accepted</button>
                 {% elif invitation.is_expired %}
-                <button class="mdc-button center" disabled>Expired</button>
+                <button class="mdc-button button--height-normal" disabled>Expired</button>
                 {% else %}
-                  <form method="post" action="{% url 'accept_invitation' uuid=invitation.uuid %}">
+                  <form method="post" action="{% url 'accept_invitation' uuid=invitation.uuid %}" class="relative">
+                    <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner center--spinner"></div>
                     {% csrf_token %}
                     <input class="hidden" name="uuid" value="{{ invitation.uuid }}" type="text" required />
-                    <button class="mdc-button center mdl-color-text--blue-500"
-                    data-mdc-auto-init="MDCRipple">
-                    Accept
-                    </button>
+                    <a class="mdc-button mdl-color-text--blue-500 button--height-normal"
+                       data-trigger="submit-ajax-invitation"
+                       data-mdc-auto-init="MDCRipple">
+                    I Accept
+                    </a>
                   </form>
                 {% endif %}
             </div>

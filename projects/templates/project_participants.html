@@ -20,14 +20,15 @@
       <li class="mdc-list-item">
         <a class="links--wrap participant-list--link" href="/userid/">
           <img class="mdc-list-item__start-detail" src="/static/front/img/ninja.png"
-            width="56" height="56" alt="Avatar of {{ role.researcher }}">
-          {{ role.researcher }}
+            width="56" height="56" alt="Avatar of {{ role.user }}">
+          {{ role.user }}
         </a>
       </li>
       {% endfor %}
     </ul>
     {% endfor %}
   </div>
+  {% if can_update %}
   <div id="modal--participants"
        class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
@@ -105,4 +106,5 @@
       </a>
     </div>
   </div>
+  {% endif %}
 </div>

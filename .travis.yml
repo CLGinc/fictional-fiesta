@@ -5,6 +5,11 @@ python:
 
 dist: trusty
 
+branches:
+  only:
+  - master
+  - dev
+
 services:
   - postgresql
 

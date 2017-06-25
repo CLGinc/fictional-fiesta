@@ -6,6 +6,9 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from .json_validators import vaidate_result_data_columns
+from .json_validators import vaidate_protocol_procedure
+
 
 class Asset(models.Model):
     CATEGORIES = (
@@ -40,10 +43,15 @@ class Protocol(models.Model):
         related_name='protocols',
         blank=True)
     sources = models.ManyToManyField(
-        'researchers.Source',
+        'users.Source',
         related_name='protocols',
         blank=True)
+    procedure = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey(
+        'users.User',
+        related_name='procedures')
 
     class Meta:
             ordering = ['-datetime_created']
@@ -51,8 +59,14 @@ class Protocol(models.Model):
     def __str__(self):
         return self.name
 
+    def clean(self):
+        if hasattr(self, 'procedure'):
+            error_message = vaidate_protocol_procedure(value=self.procedure)
+            if error_message:
+                raise ValidationError({'procedure': 'Invalid JSON content: {}!'.format(error_message)})
+
     def get_owner(self):
-        return self.roles.get(role='owner').researcher
+        return self.roles.get(role='owner').user
 
     def get_assets_by_category(self):
         assets_by_category = list()
@@ -68,48 +82,21 @@ class Protocol(models.Model):
 
     def get_participants_by_role(self):
         participants_by_role = list()
-        RoleModel = apps.get_model('researchers', 'Role')
+        RoleModel = apps.get_model('users', 'Role')
         for role_value, role_label in RoleModel.ROLES:
             if self.roles.filter(role=role_value).exists():
                 participants_by_role.append(
                     (
                         role_label,
                         self.roles.filter(
-                            role=role_value).order_by('researcher')
+                            role=role_value).order_by('user')
                     )
                 )
         return participants_by_role
 
-
-class Procedure(models.Model):
-    protocol = models.OneToOneField(Protocol, related_name='procedure')
-    datetime_last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by = models.ForeignKey(
-        'researchers.Researcher',
-        related_name='procedures')
-
-    def __str__(self):
-        return 'Procedure {} created by {}'.format(
-            self.id,
-            self.last_modified_by)
-
-
-class Step(models.Model):
-    title = models.CharField(max_length=255, blank=True)
-    text = models.TextField(max_length=1024)
-    procedure = models.ForeignKey(Procedure, related_name='steps')
-    order = models.PositiveIntegerField(
-        default=0
-    )
-
-    class Meta:
-        ordering = ['order', ]
-
-    def __str__(self):
-        return self.text
-
-    def __unicode__(self):
-        return self.text
+    def has_role(self, user):
+        RoleModel = apps.get_model('users', 'Role')
+        return RoleModel.objects.filter(user=user, protocol=self).exists()
 
 
 class Result(models.Model):
@@ -117,45 +104,75 @@ class Result(models.Model):
         ('created', 'Created'),
         ('finished', 'Finished'),
     )
+    DATA_TYPES = (
+        ('number', 'Number'),
+        ('string', 'Text'),
+        ('boolean', 'Yes/No'),
+    )
 
     uuid = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
     )
+    title = models.CharField(max_length=255)
     note = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.ForeignKey('researchers.Researcher', related_name='results')
+    owner = models.ForeignKey('users.User', related_name='results')
     state = models.CharField(
         max_length=20,
         choices=STATES,
-        default=STATES[0][0])
+        default=STATES[0][0]
+    )
     is_successful = models.BooleanField(default=False)
     protocol = models.ForeignKey(Protocol, related_name='results')
     project = models.ForeignKey(
         'projects.Project',
         related_name='results',
         null=True,
-        blank=True)
+        blank=True
+    )
+    independent_variable = models.CharField(max_length=255)
+    data_type_independent = models.CharField(
+        max_length=20,
+        choices=DATA_TYPES,
+        default=DATA_TYPES[0][0]
+    )
+    dependent_variable = models.CharField(max_length=255)
+    data_type_dependent = models.CharField(
+        max_length=20,
+        choices=DATA_TYPES,
+        default=DATA_TYPES[0][0]
+    )
+    data_columns = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-            ordering = ['-datetime_created', 'owner']
+        ordering = ['-datetime_created', 'owner']
 
     def __str__(self):
         return 'Result for protocol {} owned by {}'.format(self.protocol, self.owner)
 
     def clean(self):
-        RoleModel = apps.get_model('researchers', 'Role')
         if hasattr(self, 'owner') and hasattr(self, 'protocol'):
-            if not(self.protocol.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
-                raise ValidationError({'owner': 'The selected researcher cannot add results to this protocol!'})
+            if not(self.owner.can_add_items(self.protocol)):
+                raise ValidationError({'owner': 'The selected user cannot add results to this protocol!'})
         if self.is_successful and not(self.state == 'finished'):
             raise ValidationError({'is_successful': 'Unfinished result cannot be marked successful!'})
         if self.project:
             if not(self.protocol in self.project.protocols.all()):
                 raise ValidationError('The selected protocol does not belong to the selected project!')
-            if not(self.project.roles.filter(researcher=self.owner, role__in=RoleModel.ROLES_CAN_EDIT).exists()):
-                raise ValidationError({'owner': 'The selected researcher cannot add results to this project!'})
+            if not(self.owner.can_add_items(self.project)):
+                raise ValidationError({'owner': 'The selected user cannot add results to this project!'})
+        if hasattr(self, 'data_columns') and \
+                hasattr(self, 'data_type_independent') and \
+                hasattr(self, 'data_type_dependent'):
+            error_message = vaidate_result_data_columns(
+                value=self.data_columns,
+                data_type_dependent=self.data_type_dependent,
+                data_type_independent=self.data_type_independent
+            )
+            if error_message:
+                raise ValidationError({'data_columns': 'Invalid JSON content: {}!'.format(error_message)})
 
 
 class Attachment(models.Model):
@@ -165,22 +182,3 @@ class Attachment(models.Model):
 
     def __str__(self):
         return self.file.filename
-
-
-class DataColumn(models.Model):
-    title = models.CharField(max_length=255, null=True, blank=True)
-    result = models.ForeignKey(Result, related_name='data_columns')
-    data = JSONField()
-    order = models.PositiveIntegerField(
-        default=0
-    )
-    measurement = models.CharField(max_length=32)
-    unit = models.CharField(max_length=32)
-
-    def __str__(self):
-        return 'Data column {} ({}) for protocol "{}" owned by {}'.format(
-            self.order,
-            self.measurement,
-            self.result.protocol,
-            self.result.owner
-        )
