@@ -60,4 +60,5 @@ source /home/ubuntu/scilog/bin/activate
 pip install -r /vagrant/requirements/common.txt
 pip install -r /vagrant/requirements/dev.txt
 
+
 deactivate
