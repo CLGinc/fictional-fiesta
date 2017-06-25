@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'researchers',
+    'users',
     'projects',
     'protocols',
     'invitations',
@@ -68,6 +68,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SciLog.wsgi.application'
 
+AUTH_USER_MODEL = 'users.User'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -146,6 +147,111 @@ if not(DEBUG):
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/project/list'
 SOCIAL_AUTH_LOGIN_URL = '/'
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # Use email association to link existing users.
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 # Google
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY',)
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+# Mailjet API Keys
+MJ_APIKEY_PUBLIC = os.environ.get('MJ_APIKEY_PUBLIC')
+MJ_APIKEY_PRIVATE = os.environ.get('MJ_APIKEY_PRIVATE')
+MJ_TPL_ERROR_REPORTING_MAIL = os.environ.get('MJ_TPL_ERROR_REPORTING_MAIL')
+
+MJ_INVITATION_TEMPLATE_ID = os.environ.get('MJ_INVITATION_TEMPLATE_ID')
+MJ_INVITATION_FROM = os.environ.get('MJ_INVITATION_FROM')
+MJ_EMAIL_CONFIRMATION_TEMPLATE_ID = os.environ.get('MJ_EMAIL_CONFIRMATION_TEMPLATE_ID')
+MJ_EMAIL_CONFIRMATION_FROM = os.environ.get('MJ_EMAIL_CONFIRMATION_FROM')
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER',)
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
+
+ADMINS = [tuple(x.split('|')) for x in os.environ.get('ADMINS', '').split(';')]
+
+
+LOGGING_DIR = os.environ.get('LOGGING_DIR', os.path.join(BASE_DIR, 'log'))
+
+if not os.path.exists(LOGGING_DIR):
+    os.mkdir(LOGGING_DIR)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s|%(asctime)s|%(pathname)s|%(message)s'
+        },
+        'simple': {
+            'format': '[%(asctime)s] %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'file_debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filters': ['require_debug_true'],
+            'filename': os.path.join(LOGGING_DIR, "debug.log"),
+            'formatter': 'simple',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "info.log"),
+            'formatter': 'verbose',
+        },
+        'file_warning': {
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "warning.log"),
+            'formatter': 'verbose',
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "error.log"),
+            'formatter': 'verbose',
+        },
+        'file_critical': {
+            'level': 'CRITICAL',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 10,
+            'filename': os.path.join(LOGGING_DIR, "critical.txt"),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'scilog': {
+            'handlers': ['file_debug', 'file_info', 'file_warning', 'file_error', 'file_critical'],
+            'level': 'DEBUG',
+        },
+    }
+}

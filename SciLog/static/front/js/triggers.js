@@ -63,7 +63,7 @@ var editableInputs = function(button){
     newButtonLabel = 'Save '+type;
   } else if (action=='save') {
     newAction = 'activate';
-    newButtonLabel = 'Edit '+type;
+    newButtonLabel = 'Update '+type;
     button.closest('form').submit();
   }
   $(button).attr('data-trigger', newAction).children('span').html(newButtonLabel);
@@ -163,7 +163,6 @@ var addStepInit = function(event){
 var addStepEditOrder = function(){
   // the new step html order id is last so it does not override existing esteps
   var newStepOrder = $('.step').length;
-  clone.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+newStepOrder+'-order');
   clone.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+newStepOrder+'-title');
   clone.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+newStepOrder+'-text');
 };
@@ -236,8 +235,7 @@ $('[data-trigger="delete-step"]').click(function(event){
 var deleteStep = function(event){
   // do not execute the function if there is only 1 step
   if ($('.step').not('.hidden').length > 1){
-    var	sourceStep =  event.target.parentElement.parentElement,
-        countNext = $(sourceStep).nextAll().not('.hidden');
+    var	sourceStep =  event.target.parentElement.parentElement;
     // mark the step for deletion and hide it from view
     $(sourceStep).children('[data-content="delete-step"]').prop('checked', true);
     $(sourceStep).addClass('hidden');
@@ -257,8 +255,6 @@ var updateStepsCreate = function(){
   $(steps).each(function(){
     var updateSteps = parseInt(this.getAttribute('data-step'));
     this.querySelector('[data-content="step-number"]').innerHTML = number+1;
-    this.querySelector('[data-content="step-input"]').setAttribute('value',number);
-    this.querySelector('[data-content="step-input"]').setAttribute('name','steps-'+number+'-order');
     this.querySelector('[data-content="step-title"]').setAttribute('name','steps-'+number+'-title');
     this.querySelector('[data-content="step-desc"]').setAttribute('name','steps-'+number+'-text');
     this.setAttribute('data-step',number);
@@ -273,7 +269,6 @@ var updateStepsEdit = function(){
   // update each step order and display with the new value
   $(steps).each(function(){
     this.querySelector('[data-content="step-number"]').innerHTML = number+1; // display number is +1 of order
-    this.querySelector('[data-content="step-input"]').setAttribute('value',number);
     this.setAttribute('data-step',number);
     // increment number for next loop
     number++;
@@ -297,36 +292,78 @@ $('[data-trigger="submit"]').click(function(){
   }
   return false;
 });
-// submit form (result submit)
-$('[data-trigger="submit-result"]').click(function(){
+
+// submit setps form
+$('[data-trigger="submitSteps"]').click(function(){
   // targetelement is a target for an action before/after submit, usually the form container for closing e.t.c
   // target form is the form to submit
   var targetElementId = $(this).attr('data-target'),
-      targetForm = $(this).attr('data-form');
-      $('.dataTable--column').each(function(){
-        var data = [],
-            colType= '';
-        $(this).find('[data-content="data"]').each(function(){
-          var value = $(this).val();
-          if($.isNumeric(value)) {
-            value = parseFloat(value);
-            if(colType === 'String') {
-              colType = 'Mixed';
-            } else {
-              colType = 'Number';
-            }
-          } else if(colType === 'Number') {
-            colType = 'Mixed';
-          } else {
-            colType = 'String';
-          }
-          data.push(value);
-        });
-        $(this).find('[data-content="data-merged"]').html(JSON.stringify({Data: data, Type: colType}));
-      });
-  $('#'+targetForm).submit();
+      targetForm = $(this).attr('data-form'),
+      steps = $('[data-step]'),
+      descInputs = $('[data-content="step-desc"]'),
+      stepMain = $('[data-content="step-main"]'),
+      data = [],
+      stepsJson,
+      isValid;
+
+  descInputs.each(function() {
+     if ($(this).val().trim() === '') {
+      isValid = false;
+     }
+  });
+
+  if(isValid === false) {
+    var notif = 'At least one step is required and step description is mandatory for all steps';
+    show(snackbar,notif);
+  } else {
+    steps.each(function(){
+      data.push({'title': $(this).find('[data-content="step-title"]').val(), 'description' : $(this).find('[data-content="step-desc"]').val()});
+    });
+    stepsJson = JSON.stringify({'steps': data});
+    stepMain.val(stepsJson);
+
+    $('#'+targetForm).submit();
+    if($('#'+targetElementId).hasClass('element--show-animate')){
+      $('#'+targetElementId).removeClass('element--show-animate');
+    }
+    return false;
+  }
 });
-// submit ajax data
+// submit ajax invitations
+$('[data-trigger="submit-ajax-invitation"]').click(function(){
+  var targetForm = $(this).closest('form'),
+      sendBtn = $(this),
+      formData = targetForm.serialize(),
+  		url = targetForm.attr('action'),
+      loader = targetForm.find('div[data-content="loader"]'),
+      button = targetForm.find('a'),
+      parent = $(this).closest('[data-content="invitation-button"]');
+
+      loader.toggleClass('is-active');
+      $(sendBtn).addClass('hidden');
+
+      $.ajax({
+        url: url,
+        data: formData,
+        type: 'POST',
+        success: function(response)
+        {
+          parent.html('<button class="mdc-button button--height-normal" disabled>Accepted</button>');
+          loader.toggleClass('is-active');
+        },
+        error: function(response)
+        {
+          loader.toggleClass('is-active');
+          button.html('Try again');
+        },
+        complete: function(response)
+        {
+          $(sendBtn).removeClass('hidden');
+        }
+      });
+});
+
+// submit ajax participants
 $('[data-trigger="submit-ajax"]').click(function(){
   // store the target form and submit button element in vars
   var targetForm = $('#modal--participants').children('form');

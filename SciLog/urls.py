@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^project/', include('projects.urls')),
     url(r'^protocol/', include('protocols.urls')),
-    url(r'^', include('researchers.urls')),
+    url(r'^', include('users.urls')),
     url('', include('social_django.urls', namespace='social')),
     url(r'^invitation/', include('invitations.urls')),
 ]

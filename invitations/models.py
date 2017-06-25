@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.apps import apps
 
-from researchers.models import Role
+from users.models import Role
 
 
 class Invitation(models.Model):
@@ -18,11 +18,11 @@ class Invitation(models.Model):
     )
     email = models.EmailField(max_length=254)
     inviter = models.ForeignKey(
-        'researchers.Researcher',
+        'users.User',
         related_name='inviter_invitations'
     )
     invited = models.ForeignKey(
-        'researchers.Researcher',
+        'users.User',
         related_name='invited_invitations',
         blank=True,
         null=True
@@ -48,6 +48,7 @@ class Invitation(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ['-datetime_created']
         unique_together = (
             ('email', 'project'),
             ('email', 'protocol'))
@@ -69,73 +70,52 @@ class Invitation(models.Model):
         if self.project and self.protocol:
             raise ValidationError('You cannot select project and protocol for the same invitation!')
         if hasattr(self, 'inviter'):
-            if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite researchers to this project')
-            if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_EDIT).exists()):
-                raise ValidationError('You cannot invite researchers to this protocol')
+            if self.project and not(self.inviter.roles.filter(project=self.project, role__in=Role.ROLES_CAN_INVITE).exists()):
+                raise ValidationError({'project': 'You cannot invite users to this project'})
+            if self.protocol and not(self.inviter.roles.filter(protocol=self.protocol, role__in=Role.ROLES_CAN_INVITE).exists()):
+                raise ValidationError({'protocol': 'You cannot invite users to this protocol'})
+            if self.inviter.email == self.email:
+                raise ValidationError({'email': 'You cannot invite yourself'})
         if hasattr(self, 'inviter') and hasattr(self, 'invited'):
             if self.inviter == self.invited:
                 raise ValidationError('Inviter and invited cannot be the same')
         if self.accepted and not(self.invited):
-            raise ValidationError('Invited cannot be present for invitation that is not accepted')
+            raise ValidationError({'accepted': 'Invited must be present for invitation that is accepted'})
         if self.invited:
             if self.project:
-                if self.project.roles.filter(researcher=self.invited).exists():
-                    raise ValidationError('Invited is already a participant for the selected project')
+                if self.project.roles.filter(user=self.invited).exists():
+                    raise ValidationError({'invited': 'Invited is already a participant for the selected project'})
             if self.protocol:
-                if self.protocol.roles.filter(researcher=self.invited).exists():
-                    raise ValidationError('Invited is already a participant for the selected protocol')
-            if self.invited.user.email != self.email:
-                raise ValidationError('Selected email address and the email address of the invited cannot be different')
-
-    def save(self, *args, **kwargs):
-        if self.get_invited():
-            setattr(self, 'invited', self.get_invited())
-        super(Invitation, self).save(*args, **kwargs)
+                if self.protocol.roles.filter(user=self.invited).exists():
+                    raise ValidationError({'invited': 'Invited is already a participant for the selected protocol'})
+            if self.invited.email != self.email:
+                raise ValidationError({'email': 'Selected email address and the email address of the invited cannot be different'})
 
     def get_invited(self):
-        ResearcherModel = apps.get_model('researchers', 'Researcher')
-        if ResearcherModel.objects.filter(user__email=self.email).exists():
-            return ResearcherModel.objects.get(user__email=self.email)
+        UserModel = apps.get_model('users', 'User')
+        if UserModel.objects.filter(email=self.email).exists():
+            return UserModel.objects.get(email=self.email)
         return None
 
-    def send(self):
-        # To develop seinding via MJ send API
-        pass
-
-    def accept(self, invited):
-        if not(self.is_expired()):
-            if self.project:
-                Role.objects.create(
-                    researcher=invited,
-                    role=self.role,
-                    project=self.project
-                )
-            elif self.protocol:
-                Role.objects.create(
-                    researcher=invited,
-                    role=self.role,
-                    protocol=self.protocol
-                )
-            self.invited = invited
-            self.accepted = True
-            self.save()
+    def accept(self):
+        self.accepted = True
+        self.save()
 
     def is_expired(self):
         expiration_date = self.datetime_created + \
             timezone.timedelta(self.expiration_days)
         return not(expiration_date > timezone.now() > self.datetime_created)
 
-    def can_be_accepted(self, accepting_researcher):
+    def can_be_accepted(self, accepting_user):
         if self.accepted:
             return False
         if self.is_expired():
             return False
-        if self.inviter == accepting_researcher:
+        if self.inviter == accepting_user:
             return False
-        if self.invited and self.invited != accepting_researcher:
+        if self.invited and self.invited != accepting_user:
             return False
-        if self.email != accepting_researcher.user.email:
+        if self.email != accepting_user.email:
             return False
         return True
 

@@ -1,28 +1,8 @@
 from django import forms
-from django.forms.models import inlineformset_factory
 
-from researchers.models import Role
+from users.models import Role
 from projects.models import Project
-from.models import Protocol, Procedure, Step, Result, DataColumn
-
-
-StepsFormset = inlineformset_factory(
-    parent_model=Procedure,
-    model=Step,
-    fields=('title', 'text', 'order'),
-    extra=0,
-    max_num=64,
-    min_num=1
-)
-
-DataColumnsFormset = inlineformset_factory(
-    parent_model=Result,
-    model=DataColumn,
-    fields=('title', 'data', 'order', 'measurement', 'unit'),
-    extra=0,
-    max_num=64,
-    min_num=1
-)
+from.models import Protocol, Result
 
 
 class BasicProtocolForm(forms.ModelForm):
@@ -31,34 +11,18 @@ class BasicProtocolForm(forms.ModelForm):
         fields = [
             'name',
             'description',
-            'label'
+            'label',
+            'procedure',
+            'last_modified_by',
         ]
 
     def __init__(self, *args, **kwargs):
-        self.researcher = kwargs.pop('researcher')
+        self.user = kwargs.pop('user')
         super(BasicProtocolForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
+        self.instance._owner = self.user
         instance = super(BasicProtocolForm, self).save(commit=commit)
-        if not(
-                Role.objects.filter(
-                    role='owner',
-                    protocol=instance
-                ).exists() or
-                Role.objects.filter(
-                    researcher=self.researcher,
-                    protocol=instance
-                ).exists()):
-            Role.objects.create(
-                researcher=self.researcher,
-                protocol=instance,
-                role='owner'
-            )
-        if not(Procedure.objects.filter(protocol=instance).exists()):
-            Procedure.objects.create(
-                protocol=instance,
-                last_modified_by=self.researcher
-            )
         return instance
 
 
@@ -66,21 +30,27 @@ class BasicResultForm(forms.ModelForm):
     class Meta:
         model = Result
         fields = [
+            'title',
             'note',
             'owner',
             'state',
             'is_successful',
+            'independent_variable',
+            'data_type_independent',
+            'dependent_variable',
+            'data_type_dependent',
             'protocol',
-            'project'
+            'data_columns',
+            'project',
         ]
 
     def __init__(self, *args, **kwargs):
-        researcher = kwargs.pop('researcher')
+        user = kwargs.pop('user')
         protocol = kwargs.pop('protocol')
         super(BasicResultForm, self).__init__(*args, **kwargs)
         self.fields['project'].empty_label = None
         self.fields['project'].queryset = Project.objects.filter(
             protocols__in=[protocol],
-            roles__role__in=Role.ROLES_CAN_EDIT,
-            roles__researcher=researcher
+            roles__role__in=Role.ROLES_CAN_ADD_ITEMS,
+            roles__user=user
         )

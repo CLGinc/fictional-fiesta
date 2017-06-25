@@ -16,8 +16,8 @@
          style="top:60px; right: 0;">
       <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar center">
       <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <span class="mdl-color-text--grey-900">{{ request.user.first_name }} {{ request.user.last_name }}</span><br>
-        <span class="mdl-color-text--grey-600">{{ request.user.researcher.scientific_degree }}</span>
+        <span class="mdl-color-text--grey-900">{{ request.user }}</span><br>
+        {% if request.user.scientific_degree %}<span class="mdl-color-text--grey-600">{{ request.user.scientific_degree }}</span>{% endif %}
       </div>
       <hr class="mdc-list-divider margin--top-8 padding-0">
       <ul class="mdc-simple-menu__items mdc-list width--full" role="menu" aria-hidden="true">

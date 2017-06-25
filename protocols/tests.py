@@ -4,24 +4,22 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 from .models import Protocol, Result, Asset
-from researchers.models import Researcher, Role
+from users.models import User, Role
 from projects.models import Project
 
 
 class ProtocolModelTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
+        'users/fixtures/users',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
     def setUp(self):
-        self.researcher1 = Researcher.objects.get(id=1)
-        self.researcher2 = Researcher.objects.get(id=2)
-        self.researcher3 = Researcher.objects.get(id=3)
+        self.user1 = User.objects.get(username='user1@gmail.com')
+        self.user2 = User.objects.get(username='user2@gmail.com')
+        self.user3 = User.objects.get(username='user3@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol2 = Protocol.objects.get(name='Protocol 2')
         self.project1 = Project.objects.get(name='Project 1')
@@ -35,19 +33,19 @@ class ProtocolModelTest(TestCase):
 
     def test_create_result_when_not_owner_contributor_of_protocol(self):
         result = Result(
-            owner=self.researcher1,
+            owner=self.user1,
             state='created',
             protocol=self.protocol1
         )
         with self.assertRaises(ValidationError) as e:
             result.clean()
         self.assertEqual(
-            ['The selected researcher cannot add results to this protocol!'],
+            ['The selected user cannot add results to this protocol!'],
             e.exception.messages)
 
     def test_create_result_when_not_owner_contributor_of_project(self):
         result = Result(
-            owner=self.researcher2,
+            owner=self.user2,
             state='created',
             protocol=self.protocol1,
             project=self.project1
@@ -55,12 +53,12 @@ class ProtocolModelTest(TestCase):
         with self.assertRaises(ValidationError) as e:
             result.clean()
         self.assertEqual(
-            ['The selected researcher cannot add results to this project!'],
+            ['The selected user cannot add results to this project!'],
             e.exception.messages)
 
     def test_create_unfinished_successful_result(self):
         result = Result(
-            owner=self.researcher2,
+            owner=self.user2,
             state='created',
             is_successful=True,
             protocol=self.protocol1
@@ -73,7 +71,7 @@ class ProtocolModelTest(TestCase):
 
     def test_create_result_where_protocol_does_not_belong_to_project(self):
         result = Result(
-            owner=self.researcher3,
+            owner=self.user3,
             state='created',
             protocol=self.protocol2,
             project=self.project1
@@ -95,34 +93,45 @@ class ProtocolModelTest(TestCase):
 
     def test_get_owner(self):
         owner = self.protocol1.get_owner()
-        self.assertEqual(owner, self.researcher2)
+        self.assertEqual(owner, self.user2)
 
     def test_get_participants_by_role(self):
         participants_by_role = list()
         for role in self.protocol1.get_participants_by_role():
             participants_by_role.append([role[0], list(role[1])])
         expected_participants = [
-            ['Owner', [Role.objects.get(protocol=self.protocol1, researcher=self.researcher2)]],
-            ['Watcher', [Role.objects.get(protocol=self.protocol1, researcher=self.researcher1)]]
+            ['Owner', [Role.objects.get(protocol=self.protocol1, user=self.user2)]],
+            ['Watcher', [Role.objects.get(protocol=self.protocol1, user=self.user1)]]
         ]
         self.assertEqual(participants_by_role, expected_participants)
+
+    def test_create_owner_role(self):
+        protocol = Protocol(
+            name='New Protocol',
+            label='modified',
+            procedure='{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
+            last_modified_by=self.user1
+        )
+        protocol._owner = self.user1
+        protocol.save()
+        owner = protocol.roles.filter(role='owner')
+        self.assertTrue(owner.exists())
 
 
 class ProtocolViewTest(TestCase):
     fixtures = [
-        'researchers/fixtures/users',
-        'researchers/fixtures/researchers',
-        'researchers/fixtures/universities',
+        'users/fixtures/users',
         'projects/fixtures/projects',
-        'researchers/fixtures/roles',
+        'users/fixtures/roles',
         'protocols/fixtures/protocols'
     ]
 
     def setUp(self):
         self.client = Client()
-        self.researcher1 = Researcher.objects.get(pk=1)
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol6 = Protocol.objects.get(name='Protocol 6')
         self.protocol3_result = Result.objects.get(pk='833eaf8d-4154-45b9-b96a-2d9ee27f704a')
 
     def test_get_protocols_list(self):
@@ -149,24 +158,15 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'steps-TOTAL_FORMS': '3',
-                'steps-INITIAL_FORMS': '0',
-                'steps-MIN_NUM_FORMS': '1',
-                'steps-MAX_NUM_FORMS': '64',
                 'name': 'New Protocol',
                 'label': 'modified',
-                'steps-0-order': '0',
-                'steps-0-title': 'Step 1',
-                'steps-0-text': 'Step 1 desc',
-                'steps-1-order': '1',
-                'steps-1-title': 'Step 2',
-                'steps-1-text': 'Step 2 desc',
-                'steps-2-order': '2',
-                'steps-2-title': 'Step 3',
-                'steps-2-text': 'Step 3 desc',
+                'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
-        protocol = self.researcher1.roles.all().order_by('-id')[0].protocol
+        protocol = self.user1.roles.get(
+            role='owner',
+            protocol__name='New Protocol'
+        ).protocol
         self.assertRedirects(
             response,
             reverse('protocol', kwargs={'protocol_uuid': protocol.pk})
@@ -176,7 +176,7 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -185,35 +185,23 @@ class ProtocolViewTest(TestCase):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
             'update_protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         redirect_url = reverse(
             'protocol',
-            kwargs={'protocol_uuid': self.protocol3.pk}
+            kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.post(
             url,
             data={
-                'steps-TOTAL_FORMS': '3',
-                'steps-INITIAL_FORMS': '0',
-                'steps-MIN_NUM_FORMS': '1',
-                'steps-MAX_NUM_FORMS': '64',
                 'name': 'New Protocol Name',
                 'label': 'modified',
-                'steps-0-order': '0',
-                'steps-0-title': 'Step 1',
-                'steps-0-text': 'Step 1 desc',
-                'steps-1-order': '1',
-                'steps-1-title': 'Step 2',
-                'steps-1-text': 'Step 2 desc',
-                'steps-2-order': '2',
-                'steps-2-title': 'Step 3',
-                'steps-2-text': 'Step 3 desc',
+                'procedure': '{"steps":[{"description":"Step 1 description","title":"Step 1"},{"description":"Step 2 description","title":"Step 2"},{"description":"Step 3 description","title":"Step 3"},{"description":"Step 4 description","title":"Step 4"},{"description":"Step 5 description","title":"Step 5"},{"description":"Step 6 description","title":"Step 6"},{"description":"Step 7 description","title":"Step 7"}]}',
             }
         )
-        self.protocol3.refresh_from_db()
+        self.protocol6.refresh_from_db()
         self.assertRedirects(response, redirect_url)
-        self.assertEqual(self.protocol3.name, 'New Protocol Name')
+        self.assertEqual(self.protocol6.name, 'New Protocol Name')
 
     def test_create_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -233,22 +221,15 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'data_columns-TOTAL_FORMS': '2',
-                'data_columns-INITIAL_FORMS': '0',
-                'data_columns-MIN_NUM_FORMS': '1',
-                'data_columns-MAX_NUM_FORMS': '64',
+                'title': 'Result title',
                 'protocol': str(self.protocol3.pk),
+                'note': 'New Note',
                 'state': 'created',
-                'data_columns-0-order': '0',
-                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
-                'data_columns-0-title': 'Column 1 Title',
-                'data_columns-0-measurement': 'Mass',
-                'data_columns-0-unit': 'kg',
-                'data_columns-1-order': '1',
-                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
-                'data_columns-1-title': 'Column 1 Title',
-                'data_columns-1-measurement': 'Speed',
-                'data_columns-1-unit': 'm/s'
+                'independent_variable': 'Salt Concentration (%)',
+                'dependent_variable': 'Light Transmittance (%T)',
+                'data_columns': '{"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]}',
+                'data_type_dependent': 'number',
+                'data_type_independent': 'number'
             }
         )
         result = self.protocol3.results.all().order_by('-datetime_created')[0]
@@ -294,28 +275,21 @@ class ProtocolViewTest(TestCase):
         response = self.client.post(
             url,
             data={
-                'data_columns-TOTAL_FORMS': '2',
-                'data_columns-INITIAL_FORMS': '0',
-                'data_columns-MIN_NUM_FORMS': '1',
-                'data_columns-MAX_NUM_FORMS': '64',
+                'title': 'Result title',
                 'protocol': str(self.protocol3.pk),
                 'note': 'New Note',
                 'state': 'created',
-                'data_columns-0-order': '0',
-                'data_columns-0-data': '{"Data":[1,2,3,4],"Type":"Number"}',
-                'data_columns-0-title': 'Column 1 Title',
-                'data_columns-0-measurement': 'Mass',
-                'data_columns-0-unit': 'kg',
-                'data_columns-1-order': '1',
-                'data_columns-1-data': '{"Data":[15,20,25],"Type":"Number"}',
-                'data_columns-1-title': 'Column 1 Title',
-                'data_columns-1-measurement': 'Speed',
-                'data_columns-1-unit': 'm/s'
+                'independent_variable': 'Salt Concentration (%)',
+                'dependent_variable': 'Light Transmittance (%T)',
+                'data_columns': '{"dependent_variable":[{"data":[5,4,3,2,1],"title":"Trial 1"},{"data":[5,4,3,2,1],"title":"Trial 2"}],"independent_variable":[{"data":[0,2,4,6,8],"title":"Independent Variable"}]}',
+                'data_type_dependent': 'number',
+                'data_type_independent': 'number'
             }
         )
         self.protocol3_result.refresh_from_db()
         self.assertRedirects(response, redirect_url)
         self.assertEqual(self.protocol3_result.note, 'New Note')
+        self.assertEqual(self.protocol3_result.title, 'Result title')
 
     def test_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')

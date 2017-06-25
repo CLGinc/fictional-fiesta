@@ -1,0 +1,92 @@
+[
+{
+  "model": "users.user",
+  "pk": 1000,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$MWWUc65WZsm2$2UdzGW8fQSAnCqP3xDVWtE6i0dejFlE3YOOi51XtYpI=",
+    "last_login": "2016-10-12T19:17:23.784Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "Administrator",
+    "last_name": "Powerful",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2016-09-28T21:37:42.189Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$LgRQs4Ql2Eb5$54+vMudDO4h4moyzrnxtgGAcF38a07EMU8mtIHx2e/8=",
+    "last_login": "2016-10-12T19:17:13.213Z",
+    "is_superuser": false,
+    "username": "user1@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "email": "user1@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2016-10-12T18:03:12.339Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$aEIfjZ8IILCw$9wF1SWl2tJUaktT21Ms2B2OOQkH/yI7FopNzcPu1SsY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "user2@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "email": "user2@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-12T18:03:18.515Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$z4diDQo9ybbp$Cs9uZEmh0z4qfpe7sDsgUJbN6gKIT7yJ1u0JHhdBMR4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "user3@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "email": "user3@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-12T18:03:23.286Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 1001,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$a3rBeqTPLrCr$TYYC666ZYQRTDy5hpxL/dgM8C7YUQwrig0RyabknaPk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tempuser@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "email": "tempuser@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-12T18:03:23.286Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

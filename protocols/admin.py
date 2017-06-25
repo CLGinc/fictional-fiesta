@@ -1,30 +1,15 @@
 from django.contrib import admin
 
-from .models import Protocol, Asset, Procedure
-from .models import Step, Result, Attachment, DataColumn
+from .models import Protocol, Asset, Result, Attachment
 
-from researchers.models import Role
-
-
-class StepInline(admin.StackedInline):
-    model = Step
+from users.models import Role
 
 
 class ProcedureAdmin(admin.ModelAdmin):
-    inlines = [
-        StepInline,
-    ]
     list_display = ('last_modified_by', 'protocol', 'datetime_last_modified')
 
 
-class DataColumnInline(admin.StackedInline):
-    model = DataColumn
-
-
 class ResultAdmin(admin.ModelAdmin):
-    inlines = [
-        DataColumnInline,
-    ]
     list_display = ('owner', 'protocol', 'project', 'datetime_created')
 
 
@@ -54,8 +39,5 @@ class StepAdmin(admin.ModelAdmin):
 
 admin.site.register(Protocol, ProtocolAdmin)
 admin.site.register(Asset)
-admin.site.register(Procedure, ProcedureAdmin)
-admin.site.register(Step, StepAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(Attachment)
-admin.site.register(DataColumn)

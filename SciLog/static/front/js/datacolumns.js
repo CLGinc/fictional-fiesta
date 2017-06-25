@@ -1,58 +1,161 @@
-$('[data-trigger="addDataColumn"]').click(function() {
-  $('[data-content="dataTable--parent"]').append(dataColumnTemplate);
-  updateDataColumns();
+// function to add data row
+$('[data-trigger="addDataRow"]').on('click', function() {
+  $('.trow').find('ul').each(function(){
+    var clone = $(this).find('li').last().clone();
+    clone.find('input').val('');
+    $(this).append(clone);
+  });
 });
-$('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove-table"]', function() {
-  if($('.dataTable--column').length > 1){
-	   $(event.target).closest('.dataTable--column').fadeOut(200, function() {
-       $(this).remove();
-       updateDataColumns();
-     });
+
+// function to add data column
+$('[data-trigger="addDataColumn"]').on('click', function() {
+  var clone = $('.trow').find('.td:nth-last-child(2)').clone(),
+  lastChild = $('.trow').find('.td').last();
+  clone.find('input').each(function(){
+    $(this).val('');
+  });
+  (clone).insertBefore(lastChild);
+});
+
+// submit result
+$('[data-trigger=submit-result]').click(function(){
+  var dependent = [],
+      independent = [],
+      independentData = [],
+      data = [],
+      independentValues = $('[data-type="independent-value"]'),
+      independentTitle = $('[data-content="independent-title"]').val(),
+      dataColumnsCount =  $('.trow').find('.td:nth-last-child(2)').length,
+      mainInput = $('[data-content="dataTable--input"]'),
+      collectColumnData,
+      dataTable,
+      isValid;
+
+$('.trow').find('input').each(function() {
+   if ($(this).val().trim() === '') {
+    isValid = false;
+   }
+});
+
+if(isValid === false) {
+  var notif = 'The data table is incomplete';
+  show(snackbar,notif);
+} else {
+  // collect values for independent data
+  independentValues.each(function(){
+    var dataType = $('[data-target="independent-value"]').val();
+    if(dataType === 'boolean') {
+      independentData.push($(this).find('input').prop("checked"));
+    } else if(dataType === 'number') {
+      value = Number.parseFloat($(this).find('input').val());
+      independentData.push(value);
+    } else {
+      independentData.push($(this).find('input').val());
+    }
+  });
+
+  // build independent data object and push it to the array
+  independent.push({data: independentData, title: independentTitle});
+
+  // function to collect column data values
+  collectColumnData = function(element){
+    var dataType = $('[data-target="dependent-value"]').val();
+    if(dataType === 'boolean') {
+      data.push($(this).find('input').prop("checked"));
+    } else if(dataType === 'number') {
+      value = Number.parseFloat($(this).find('input').val());
+      data.push(value);
+    } else {
+      data.push($(this).find('input').val());
+    }
+  };
+
+  // iterate over dependent data columns, create objects and push them to the array
+  $('.trow').find('.col').each(function(){
+    data = [];
+    var elements = $(this).find('[data-type="dependent-value"]'),
+        title = $(this).find('[data-type="dependent-title"]').children('input').val();
+    $(elements).each(collectColumnData);
+    dependent.push({data: data, title: title});
+  });
+  // dataTableBuilder.push(dependent);
+
+  // generate final json
+  dataTable = JSON.stringify({'dependent_variable': dependent, 'independent_variable': independent});
+  // set the json as value for the datatable input
+  mainInput.val(dataTable);
+  //submit form
+  $('#create_protocol_result_form').submit();
+  }
+});
+
+// function to remove data row
+$('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataRow"]', function() {
+  var dataRowsCount = $('.col:first').find('li').length;
+
+  if(dataRowsCount > 3) {
+    rowIndex = $(this).closest('li').index();
+    ++rowIndex;
+    $('.trow').find('li:nth-child('+rowIndex+')').remove();
+  } else {
+    var notif = 'At least one data row is required';
+    show(snackbar,notif);
+  }
+});
+
+// function to remove data column
+$('[data-content="dataTable--parent"]').on('click', '[data-trigger="removeDataColumn"]', function() {
+  var dataColumnsCount = $('.col').length;
+
+  if(dataColumnsCount > 1) {
+    $(this).closest('.td').remove();
   } else {
     var notif = 'At least one data column is required';
     show(snackbar,notif);
   }
 });
 
-var updateDataColumns = function(){
-  var dataColumns = $('.dataTable--column'),
-      prefix = 'data_columns-',
-      totalForms = dataColumns.length,
-      index = 0;
-  $('#id_data_columns-TOTAL_FORMS').val(totalForms);
-  $(dataColumns).each(function(){
-    $(this).attr('data-order', index);
-    $(this).children('[data-content="order"]').attr('name', prefix+index+'-order').attr('value', index).val(index);
-    $(this).children('[data-content="data-merged"]').attr('name', prefix+index+'-data');
-    $(this).find('[data-content="label"]').attr('name', prefix+index+'-label');
-    $(this).find('[data-content="measurement"]').attr('name', prefix+index+'-measurement');
-    $(this).find('[data-content="unit"]').attr('name', prefix+index+'-unit');
-    $(this).find('.table--menu').attr('data-content', 'dataColumn-'+index+'-menu');
-    $(this).find('[data-trigger="table--menu"]').attr('data-target', 'dataColumn-'+index+'-menu');
-    index++;
-  });
-};
-
-// table menu
-$('[data-content="dataTable--parent"]').on('click', '[data-trigger="table--menu"]', function() {
-  var target = $(event.target).attr('data-target'),
-      menuEl = document.querySelector('[data-content="'+target+'"]'),
-      menu = new mdc.menu.MDCSimpleMenu(menuEl);
-  menu.open = !menu.open;
-});
-$('[data-content="dataTable--parent"]').on('click', '[data-trigger="remove--datarow"]', function() {
-  var dataRows = $(event.target).closest('tbody').children().length;
-  if(dataRows > 1){
-    $(event.target).closest('tr').remove();
-  } else {
-    var notif = 'At least one data row is required';
-    show(snackbar, notif);
+// function to update variables from input value
+$('[data-trigger="update-value"]').on('keyup', function(){
+  var target = $(this).attr('data-target'),
+      currentValue = $(this).val();
+  $('#'+target).html(currentValue);
+  if(currentValue.length === 0) {
+    if(target === 'dependent-title') {
+      $('#'+target).html('dependent variable');
+    } else if (target === 'independent-title') {
+      $('#'+target).html('Independent variable');
+    }
   }
 });
-$('[data-content="dataTable--parent"]').on('click', '[data-trigger="add--datarow"]', function() {
-  $(event.target).closest('tbody').append(dataRowTemplate);
+
+// Update inputs with correct data type
+$('[data-trigger="data-type"]').on('change', function(e){
+  var newDataType = $(this).val(),
+      targetVariable = $(this).data('target'),
+      parents = $('[data-type="'+targetVariable+'"]');
+  if(newDataType === 'number'){
+    parents.empty().append(inputTemplateNumber);
+  } else if(newDataType === 'string') {
+    parents.empty().append(inputTemplateString);
+  } else if(newDataType === 'boolean') {
+    parents.empty().append(checkboxTemplate);
+  }
 });
 
-var dataColumnTemplate = '<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 dataTable--column" data-order="0"> <input type="text" name="data_columns-0-order" value="0" data-content="order" class="hidden"> <textarea name="data_columns-0-data" data-content="data-merged" class="hidden"></textarea> <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" data-upgraded=",MaterialDataTable"> <thead> <tr> <th class="mdl-data-table__cell--non-numeric" colspan="2">Title</th> <th> <i class="material-icons list--link-remove" data-trigger="remove-table">clear</i> </th> </tr></thead> <tbody> <tr> <td class="mdl-data-table__cell--non-numeric" colspan="3"> <input type="text" class="width--full" name="data_columns-0-title" data-content="title"> </td></tr></tbody> <thead> <tr> <th class="mdl-data-table__cell--non-numeric" colspan="2">Measurement</th> <th class="mdl-data-table__cell--non-numeric">Unit</th> </tr></thead> <tbody> <tr> <td class="mdl-data-table__cell--non-numeric" colspan="2"> <input type="text" class="width--full" name="data_columns-0-measurement" data-content="measurement"> </td><td class="mdl-data-table__cell--non-numeric"> <input type="text" class="width--full" name="data_columns-0-unit" data-content="unit"> </td></tr></tbody> <thead> <tr> <th class="mdl-data-table__cell--non-numeric" colspan="2">Data</th> <th> remove / add </th> </tr></thead> <tbody> <tr> <td class="mdl-data-table__cell--non-numeric" colspan="2"> <input type="text" class="width--full" data-content="data"> </td><td> <i class="material-icons list--link-remove mdc-ripple-upgraded" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple" style="--mdc-ripple-surface-width:50.9688px; --mdc-ripple-surface-height:34px; --mdc-ripple-fg-size:30.5812px; --mdc-ripple-fg-scale:2.33046;">clear</i> <i class="material-icons list--link-add" data-trigger="add--datarow">add </i></td></tr></tbody> </table> </div>';
+// table highlights
+$('table').on('mouseenter', 'th, td', function() {
+  $(this).parents('table').find('col:eq('+$(this).index()+')').addClass('hover');
+});
+$('table').on('mouseleave', 'th, td', function() {
+  $(this).parents('table').find('col:eq('+$(this).index()+')').removeClass('hover');
+});
 
-var dataRowTemplate = '<tr> <td class="mdl-data-table__cell--non-numeric" colspan="2"> <input type="text" class="width--full" data-content="data"> </td><td> <i class="material-icons list--link-remove" data-trigger="remove--datarow" data-mdc-auto-init="MDCRipple">clear</i> <i class="material-icons list--link-add" data-trigger="add--datarow">add</li></td></tr>';
+// templates
+// checkbox before input
+var inputTemplateString = '<input type="text" placeholder="Add value" class="dataTypeInput">';
+var inputTemplateNumber = '<input type="number" placeholder="Add value" class="dataTypeInput">';
+// checkbox after input
+var checkboxTemplate = '<div class="mdc-checkbox"> <input type="checkbox" class="mdc-checkbox__native-control dataTypeInput"/> <div class="mdc-checkbox__background"> <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"> <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/> </svg> <div class="mdc-checkbox__mixedmark"></div></div></div>';
+// remove col cell and button
+var removeColumnButton = '<th data-content="table--controls-remove_col"> <div data-mdc-auto-init="MDCRipple" data-trigger="removeDataColumn" class="mdc-button table--button"> Remove col </div></th>';

@@ -10,16 +10,16 @@
       <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
         My protocols
       </h1>
-      <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--blue-grey-600"
-         href="{% url 'create_protocol' %}">
-        <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add protocol
-      </a>
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
               data-trigger="filter"
               data-target="filter-form">
         <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter protocols
       </button>
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-600 right"
+         href="{% url 'create_protocol' %}">
+        <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Create protocol
+      </a>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by protocol</p>
@@ -29,7 +29,7 @@
                      type="text"
                      id="input-filter--name"
                      name="name"
-                     {% if form.name.data %}value="{{ form.name.data }}"{% endif %}>
+                     {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
               <label class="mdc-textfield__label" for="input-filter--name">Protocol name</label>
             </div>
           </div>
@@ -39,7 +39,7 @@
                      type="text"
                      id="input-filter--date-from"
                      name="created_from"
-                     {% if form.created_from.data %}value="{{ form.created_from.data }}"{% endif %}>
+                     {% if form.created_from.value %}value="{{ form.created_from.value }}"{% endif %}>
               <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
                 <i class="material-icons right">arrow_drop_down</i> Created from:
               </label>
@@ -51,7 +51,7 @@
                      type="text"
                      id="input-filter--date-to"
                      name="created_to"
-                     {% if form.created_to.data %}value="{{ form.created_to.data }}"{% endif %}>
+                     {% if form.created_to.value %}value="{{ form.created_to.value }}"{% endif %}>
               <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
                 <i class="material-icons right">arrow_drop_down</i> Created to:
               </label>
@@ -69,7 +69,7 @@
                       name="role"
                       value="{{ role_value }}"
                       class="mdc-checkbox__native-control"
-                      {% if role_value in form.role.data %}checked{% endif %}/>
+                      {% if role_value in form.role.value %}checked{% endif %}/>
                   <div class="mdc-checkbox__background">
                     <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                       <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
@@ -88,7 +88,7 @@
               <select class="mdc-select margin--none margin--top-8" name="order_by">
                 <option value="" default>Select order by</option>
                 {% for key, value in form.order_by.field.choices %}
-                <option value="{{ key }}" {% if form.order_by.data == key %}selected{% endif %}>{{ value }}</option>
+                <option value="{{ key }}" {% if form.order_by.value == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -99,7 +99,7 @@
               <select class="mdc-select margin--none margin--top-8" name="order_type">
                 <option value="" default>Select order type</option>
                 {% for key, value in form.order_type.field.choices %}
-                <option value="{{ key }}" {% if form.order_type.data == key %}selected{% endif %}>{{ value }}</option>
+                <option value="{{ key }}" {% if form.order_type.value == key %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             </div>

@@ -14,7 +14,7 @@ class AddItems(FormView, SingleProjectMixin):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if request.is_ajax() and request.user.researcher.can_edit(self.object):
+        if request.is_ajax() and request.user.can_add_items(self.object):
             return super(
                 AddItems,
                 self
@@ -35,7 +35,7 @@ class AddItems(FormView, SingleProjectMixin):
     def get_form_kwargs(self):
         kwargs = super(AddItems, self).get_form_kwargs()
         kwargs['selected_project'] = self.object
-        kwargs['researcher'] = self.request.user.researcher
+        kwargs['user'] = self.request.user
         return kwargs
 
     def get_success_url(self):
