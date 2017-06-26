@@ -31,7 +31,7 @@ $('[data-trigger=submit-result]').click(function(){
       dataTable,
       isValid;
 
-$('.trow').find('input').each(function() {
+$('.trow').find('input:not(:checkbox)').each(function() {
    if ($(this).val().trim() === '') {
     isValid = false;
    }
