@@ -18,7 +18,7 @@ from django.contrib.auth import login
 
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
-from .models import User
+from .models import User, Role
 
 
 class Login(LoginView):
@@ -138,3 +138,17 @@ class RoleListMixin(MultipleObjectMixin):
 @method_decorator(login_required, name='dispatch')
 class HomePage(TemplateView):
     template_name = 'home_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePage, self).get_context_data(**kwargs)
+        context['number_of_projects'] = self.request.user.get_roles(
+            scope='project'
+        ).count()
+        context['number_of_protocols'] = self.request.user.get_roles(
+            scope='protocol'
+        ).count()
+        invitations = self.request.user.get_invitations()
+        context['number_of_invitations'] = invitations.filter(
+            accepted=False
+        ).count()
+        return context
