@@ -316,7 +316,7 @@ a {
   white-space: nowrap;
   font-weight: 500;
 }
-.footer .mdc-list-item a:hover {
+.footer a:hover {
   color: #4fc3f7;
 }
 .links--wrap {
@@ -722,12 +722,12 @@ i.list--link-inactive {
 .select--fix > select {
   height: 48px;
 }
+.text-light--300 {
+  font-weight: 300;
+}
 /* Footer */
 .footer li {
   color: #ffffff;
-}
-.footer .mdc-list {
-  padding: 0;
 }
 /*Data tables*/
 .dataTable--column {
