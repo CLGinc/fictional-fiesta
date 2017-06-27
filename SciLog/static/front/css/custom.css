@@ -90,6 +90,7 @@ html {
 }
 .mdc-permanent-drawer .mdc-list-item:hover, .mdc-temporary-drawer .mdc-list-item:hover {
   background-color: #03A9F4;
+  color: #ffffff!important
 }
 .drawer .mdc-list-item, .mdc-temporary-drawer__drawer .mdc-list-item {
   color: #ECEFF1;
