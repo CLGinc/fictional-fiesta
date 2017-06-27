@@ -196,6 +196,10 @@ class User(AbstractUser):
         )
         msg.send(fail_silently=fail_silently)
 
+    def get_invitations(self):
+        InvitationModel = apps.get_model('invitations', 'Invitation')
+        return InvitationModel.objects.filter(invited=self)
+
 
 class Source(models.Model):
     name = models.CharField(max_length=255)
