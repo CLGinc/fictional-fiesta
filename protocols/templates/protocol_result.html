@@ -8,7 +8,7 @@
 {% include "base/drawer.html" %}
   <div class="main-grid mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         Result details for {{ selected_protocol_result.title }}
       </h1>
     </div>
@@ -17,7 +17,7 @@
       <a data-mdc-auto-init="MDCRipple"
          href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
          class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--blue-500">edit</i> Update result
+        <i class="material-icons mdl-color-text--light-blue-500">edit</i> Update result
       </a>
     </div>
     {% endif %}

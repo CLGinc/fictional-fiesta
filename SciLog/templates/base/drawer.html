@@ -1,9 +1,9 @@
 {% load staticfiles %}
-<nav class="mdc-permanent-drawer drawer">
+<nav class="mdc-permanent-drawer drawer mdl-color--blue-grey-800">
   <div class="mdc-list-group">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
            {% if selected_project.uuid|stringformat:"s" in request.path %}
            Project
@@ -15,16 +15,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--light-blue-300{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--light-blue-300{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--light-blue-300{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -32,21 +32,21 @@
           {% elif 'update' in request.path %}
           <div class="mdc-list">
             <span class="mdc-list-item">
-              <span class="margin--left-72 mdl-color-text--blue-500">Edit project</span>
+              <span class="margin--left-72 mdl-color-text--light-blue-300">Edit project</span>
             </span>
           </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--blue-500" href="?section=results">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--light-blue-300{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--light-blue-300{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -54,7 +54,7 @@
       {% endif %}
       <a class="mdc-list-item"
          href="{% url 'protocols_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">assignment</i>
            {% if selected_protocol.uuid|stringformat:"s" in request.path or selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
             Protocol
@@ -66,16 +66,16 @@
         {% if 'section' in request.GET or '/result/create/' in request.path %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=procedure">
+          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=procedure">
             <span class="margin--left-72">Procedure</span>
           </a>
-          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=results">
+          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -83,16 +83,16 @@
         {% elif 'section' in request.GET or '/result/' in request.path %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=procedure">
+          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=procedure">
             <span class="margin--left-72">Procedure</span>
           </a>
-          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=results">
+          <a class="mdc-list-item {% if section == 'results' or '/result/' in request.path %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="{% url 'protocol' protocol_uuid=selected_protocol_result.protocol.pk %}?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -100,38 +100,38 @@
         {% elif 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--blue-500">Edit protocol</span>
+            <span class="margin--left-72 mdl-color-text--light-blue-300">Edit protocol</span>
           </span>
         </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--blue-500" href="?section=procedure">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="?section=procedure">
             <span class="margin--left-72">Procedure</span>
           </a>
-          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--light-blue-300{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--light-blue-300{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
         {% endif %}
       {% endif %}
       <a class="mdc-list-item" href="{% url 'invitations_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">drafts</i>Invitations
       </a>
     </nav>
   </div>
 </nav>
 <aside class="mdc-temporary-drawer mdc-typography mdc-permanent-drawer__content" data-mdc-auto-init="MDCTemporaryDrawer">
-  <nav class="mdc-temporary-drawer__drawer">
+  <nav class="mdc-temporary-drawer__drawer mdl-color--blue-grey-800">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
            {% if selected_project.uuid|stringformat:"s" in request.path %}
            Project
@@ -143,16 +143,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--light-blue-300{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--light-blue-300{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--light-blue-300{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -160,21 +160,21 @@
           {% elif 'update' in request.path %}
           <div class="mdc-list">
             <span class="mdc-list-item">
-              <span class="margin--left-72 mdl-color-text--blue-500">Edit project</span>
+              <span class="margin--left-72 mdl-color-text--light-blue-300">Edit project</span>
             </span>
           </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--blue-500" href="?section=results">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--blue-500{% endif %}" href="?section=protocols">
+          <a class="mdc-list-item {% if section == 'protocols' %}mdl-color-text--light-blue-300{% endif %}" href="?section=protocols">
             <span class="margin--left-72">Protocols</span>
           </a>
-          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--blue-500{% endif %}" href="?section=sources">
+          <a class="mdc-list-item {% if section == 'sources' %}mdl-color-text--light-blue-300{% endif %}" href="?section=sources">
             <span class="margin--left-72">Sources</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -182,7 +182,7 @@
       {% endif %}
       <a class="mdc-list-item"
          href="{% url 'protocols_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">assignment</i>
            {% if selected_protocol.uuid|stringformat:"s" in request.path %}
             Protocol
@@ -194,16 +194,16 @@
         {% if 'section' in request.GET %}
           {% with section=request.GET.section %}
         <div class="mdc-list">
-          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--blue-500{% endif %}" href="?section=procedure">
+          <a class="mdc-list-item {% if section == 'procedure' %}mdl-color-text--light-blue-300{% endif %}" href="?section=procedure">
             <span class="margin--left-72">Procedure</span>
           </a>
-          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--light-blue-300{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--light-blue-300{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
@@ -211,28 +211,28 @@
         {% elif 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--blue-500">Edit protocol</span>
+            <span class="margin--left-72 mdl-color-text--light-blue-300">Edit protocol</span>
           </span>
         </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--blue-500" href="?section=procedure">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="?section=procedure">
             <span class="margin--left-72">Procedure</span>
           </a>
-          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--blue-500{% endif %}" href="?section=results">
+          <a class="mdc-list-item {% if section == 'results' %}mdl-color-text--light-blue-300{% endif %}" href="?section=results">
             <span class="margin--left-72">Results</span>
           </a>
-          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--blue-500{% endif %}" href="?section=assets">
+          <a class="mdc-list-item {% if section == 'assets' %}mdl-color-text--light-blue-300{% endif %}" href="?section=assets">
             <span class="margin--left-72">Assets</span>
           </a>
-          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--blue-500{% endif %}" href="?section=participants">
+          <a class="mdc-list-item {% if section == 'participants' %}mdl-color-text--light-blue-300{% endif %}" href="?section=participants">
             <span class="margin--left-72">Participants</span>
           </a>
         </div>
         {% endif %}
       {% endif %}
       <a class="mdc-list-item" href="{% url 'invitations_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--blue-500{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">drafts</i>Invitations
       </a>
     </nav>

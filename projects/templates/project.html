@@ -7,7 +7,7 @@
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         {{ selected_project.name }}
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
           <span class="mdl-color-text--blue-grey-600">
@@ -21,12 +21,12 @@
       <a data-mdc-auto-init="MDCRipple"
          href="{% url 'update_project' project_uuid=selected_project.uuid %}"
          class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--blue-500">edit</i> <span>Update project<span>
+        <i class="material-icons mdl-color-text--light-blue-500">edit</i> <span>Update project<span>
       </a>
     </div>
     {% endif %}
     <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+      <h1 class="mdl-color-text--light-blue-500 section--title">Description</h1>
       <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
         {{ selected_project.description }}
       </div>

@@ -1,14 +1,14 @@
 <div class="border--bottom-blue padding--bottom-16">
-  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+  <span class="mdl-color-text--light-blue-500 article--modal-title padding-0">
     Participants
   </span>
 </div>
 <div class="mdc-layout-grid padding-0">
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--light-blue-500">
       <p>Role</p>
     </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-list mdl-color-text--blue-500">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-list mdl-color-text--light-blue-500">
       <p>Email</p>
     </div>
     {% for role_value, roles in participants_by_role %}
@@ -31,7 +31,7 @@
   {% if can_update %}
   <div id="modal--participants"
        class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--blue-500">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--light-blue-500">
       <p>Invite participants</p>
     </div>
     <form method="post"
@@ -41,7 +41,7 @@
       {% csrf_token %}
       <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
         <a data-trigger="remove-input" class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600 input--remove" data-mdc-auto-init="MDCRipple">
-          <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
+          <i class="material-icons mdl-color-text--light-blue-500 list--link-remove">close</i>
         </a>
         <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
         <input type="text" name="email" class="mdc-textfield__input">
@@ -67,7 +67,7 @@
       {% csrf_token %}
       <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
         <a data-trigger="remove-input" class="mdc-button mdc-button--icon mdl-color-text--blue-grey-600 input--remove" data-mdc-auto-init="MDCRipple">
-          <i class="material-icons mdl-color-text--blue-500 list--link-remove">close</i>
+          <i class="material-icons mdl-color-text--light-blue-500 list--link-remove">close</i>
         </a>
         <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner"></div>
         <input type="text" name="email" class="mdc-textfield__input">
@@ -93,7 +93,7 @@
          data-target="modal--participants"
          data-form="participant_invite_form"
          class="mdc-button mdl-color-text--blue-grey-600">
-        <i class="material-icons mdl-color-text--blue-500">playlist_add</i>
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
         Send
       </a>
       <a data-mdc-auto-init="MDCRipple"
@@ -101,7 +101,7 @@
          data-currentid="1"
          data-form="email_input_source"
          class="mdc-button mdl-color-text--blue-grey-600">
-        <i class="material-icons mdl-color-text--blue-500">add</i>
+        <i class="material-icons mdl-color-text--light-blue-500">add</i>
         More
       </a>
     </div>

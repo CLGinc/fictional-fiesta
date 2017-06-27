@@ -7,14 +7,14 @@
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         My invitations
       </h1>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       {% if invitations_list %}
         <ul class="mdc-list padding-0">
-          <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
+          <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Type</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Name</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Inviter</div>
@@ -39,7 +39,7 @@
                     <div data-content="loader" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner input--remove-spinner center--spinner"></div>
                     {% csrf_token %}
                     <input class="hidden" name="uuid" value="{{ invitation.uuid }}" type="text" required />
-                    <a class="mdc-button mdl-color-text--blue-500 button--height-normal"
+                    <a class="mdc-button mdl-color-text--light-blue-500 button--height-normal"
                        data-trigger="submit-ajax-invitation"
                        data-mdc-auto-init="MDCRipple">
                     I Accept

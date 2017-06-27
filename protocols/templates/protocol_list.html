@@ -7,18 +7,18 @@
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         My protocols
       </h1>
       <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
               data-trigger="filter"
               data-target="filter-form">
-        <i class="material-icons mdl-color-text--blue-500">filter_list</i> Filter protocols
+        <i class="material-icons mdl-color-text--light-blue-500">filter_list</i> Filter protocols
       </button>
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--blue-grey-600 right"
          href="{% url 'create_protocol' %}">
-        <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Create protocol
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Create protocol
       </a>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
@@ -107,13 +107,13 @@
         </div>
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8 margin--top-8">
           <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
-            <i class="material-icons mdl-color-text--blue-500">playlist_play</i>
+            <i class="material-icons mdl-color-text--light-blue-500">playlist_play</i>
               Apply filter
           </button>
           <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600"
                   data-trigger="filter"
                   data-target="filter-form">
-            <i class="material-icons mdl-color-text--blue-500">close</i>
+            <i class="material-icons mdl-color-text--light-blue-500">close</i>
               Close
           </button>
         </div>
@@ -122,7 +122,7 @@
     {% if roles_list_page %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <ul class="mdc-list padding-0">
-        <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500">
+        <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Protocol name</div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>

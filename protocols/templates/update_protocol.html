@@ -33,7 +33,7 @@
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         Edit protocol
       </h1>
     </div>
@@ -46,7 +46,7 @@
         <span class="error">{{ form.non_field_errors }}</span>
       {% endif %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <h1 class="mdl-color-text--blue-500 section--title">Protocol name</h1>
+        <h1 class="mdl-color-text--light-blue-500 section--title">Protocol name</h1>
         <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_name"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
@@ -60,7 +60,7 @@
         {% endif %}
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-        <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+        <h1 class="mdl-color-text--light-blue-500 section--title">Description</h1>
         <div class="mdc-textfield mdc-textfield--upgraded padding-0 {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_desc"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
@@ -74,7 +74,7 @@
         {% endif %}
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-        <h1 class="mdl-color-text--blue-500 section--title">Label</h1>
+        <h1 class="mdl-color-text--light-blue-500 section--title">Label</h1>
         <div class="mdc-textfield select-protocol">
           <select class="mdc-select mdl-color-text--blue-grey-900"
                  name="label">
@@ -90,7 +90,7 @@
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
         <div class="border--bottom-blue padding--bottom-16">
-          <span class="mdl-color-text--blue-500 article--modal-title padding-0">
+          <span class="mdl-color-text--light-blue-500 article--modal-title padding-0">
             Procedure
           </span>
            {% if form.procedure.errors %}
@@ -104,10 +104,10 @@
         <ul class="mdc-list padding-0">
           {% with procedure=form.procedure.value|json_to_dict %}
           {% for step in procedure.steps %}
-          <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
+          <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
               data-step="0">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-              <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
+              <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
                    data-content="step-number">{{ forloop.counter }}</div>
               <div class="mdl-color-text--blue-grey-600 text-center">
                 STEP
@@ -132,11 +132,11 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
               <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
                  data-trigger="add-step-create">
-                <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
+                <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
               </a>
               <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
                  data-trigger="remove-step">
-                <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
+                <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
               </a>
             </div>
           </li>

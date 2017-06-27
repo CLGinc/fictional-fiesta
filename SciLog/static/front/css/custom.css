@@ -57,6 +57,7 @@ html {
 }
 .mdc-toolbar {
   height: 64px;
+  z-index: 100;
 }
 .mdc-toolbar__title {
   display: flex;
@@ -71,7 +72,9 @@ html {
   margin-top: 60px;
 }
 .content {
+  position: absolute;
   height: 100%;
+  width: 100%;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -85,12 +88,22 @@ html {
   border: none;
 }
 .mdc-permanent-drawer .mdc-list-item:hover, .mdc-temporary-drawer .mdc-list-item:hover {
-  background-color: #EEEEEE;
+  background-color: #03A9F4;
+}
+.drawer .mdc-list-item, .mdc-temporary-drawer__drawer .mdc-list-item {
+  color: #ECEFF1;
+}
+.drawer .mdc-list-item i, .mdc-temporary-drawer__drawer .mdc-list-item i {
+  color: #ECEFF1;
+}
+.drawer .mdc-list-item:hover i, .mdc-temporary-drawer__drawer .mdc-list-item:hover i {
+  color: #ffffff!important;
 }
 .main-grid {
   margin-left: 240px;
-  border-left: 1px solid #e4e4e4;
+  background-color: #ffffff;
   box-sizing: border-box;
+  height: 100%;
 }
 .simple-grid {
   min-width: 900px;

@@ -51,7 +51,7 @@
         </span>
         {% endif %}
         <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--light-blue-500">arrow_forward</i>
           <span data-content="open-close-text">Log In</span>
         </button>
         {% if next_redirect %}
@@ -74,12 +74,12 @@
         {% if next_redirect %}
         Don't have an account yet?<br>
         <a href="{% url 'register_user' %}?next={{ next_redirect }}">
-          <span class="mdl-color-text--blue-500">Create one here!</span>
+          <span class="mdl-color-text--light-blue-500">Create one here!</span>
         </a>
         {% else %}
         Don't have an account yet?<br>
         <a href="{% url 'register_user' %}?next={{ self.request.path }}">
-          <span class="mdl-color-text--blue-500">Create one here!</span>
+          <span class="mdl-color-text--light-blue-500">Create one here!</span>
         </a>
         {% endif %}
       </div>
