@@ -106,6 +106,10 @@ html {
   box-sizing: border-box;
   height: 100%;
 }
+.footer {
+  display: block;
+  margin-left: 240px;
+}
 .simple-grid {
   min-width: 900px;
   box-sizing: border-box;
@@ -712,6 +716,11 @@ i.list--link-inactive {
 .select--fix > select {
   height: 48px;
 }
+/* Footer */
+.footer li {
+  color: #ffffff;
+}
+
 /*Data tables*/
 .dataTable--column {
   position: relative;
@@ -748,7 +757,7 @@ i.list--link-inactive {
   .mobile-button {
     visibility: visible;
   }
-  .main-grid {
+  .main-grid mdc-elevation--z8 {
     margin: 0;
     border-left: none;
   }
