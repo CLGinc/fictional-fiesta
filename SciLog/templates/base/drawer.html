@@ -2,6 +2,12 @@
 <nav class="mdc-permanent-drawer drawer mdl-color--blue-grey-800">
   <div class="mdc-list-group">
     <nav class="mdc-list">
+      <a class="mdc-list-item" href="/">
+        <i class="material-icons mdc-list-item__start-detail {% if url == 'check for root' %}mdl-color-text--light-blue-300{% endif %}"
+           aria-hidden="true">home</i>
+           Home
+        </a>
+      </a>
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
@@ -130,6 +136,12 @@
 <aside class="mdc-temporary-drawer mdc-typography mdc-permanent-drawer__content" data-mdc-auto-init="MDCTemporaryDrawer">
   <nav class="mdc-temporary-drawer__drawer mdl-color--blue-grey-800">
     <nav class="mdc-list">
+      <a class="mdc-list-item" href="/">
+        <i class="material-icons mdc-list-item__start-detail {% if url == 'check for root' %}mdl-color-text--light-blue-300{% endif %}"
+           aria-hidden="true">home</i>
+           Home
+        </a>
+      </a>
       <a class="mdc-list-item" href="{% url 'projects_list' %}">
         <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
