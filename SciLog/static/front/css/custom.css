@@ -315,6 +315,9 @@ a {
   white-space: nowrap;
   font-weight: 500;
 }
+.footer .mdc-list-item a:hover {
+  color: #4fc3f7;
+}
 .links--wrap {
   white-space: normal;
 }
@@ -722,7 +725,9 @@ i.list--link-inactive {
 .footer li {
   color: #ffffff;
 }
-
+.footer .mdc-list {
+  padding: 0;
+}
 /*Data tables*/
 .dataTable--column {
   position: relative;
