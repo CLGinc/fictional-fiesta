@@ -100,6 +100,7 @@ html {
   color: #ffffff!important;
 }
 .main-grid {
+  display: block;
   margin-left: 240px;
   background-color: #ffffff;
   box-sizing: border-box;
@@ -186,6 +187,8 @@ html {
 /* Text */
 .subpageheader {
   margin: 40px auto;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .subpageheader--project {
   margin: 16px auto;
