@@ -1,9 +1,9 @@
 {% load staticfiles %}
-<nav class="mdc-permanent-drawer drawer mdl-color--blue-grey-800">
+<nav class="mdc-permanent-drawer drawer mdl-color--blue-grey-700">
   <div class="mdc-list-group">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="/">
-        <i class="material-icons mdc-list-item__start-detail {% if url == 'check for root' %}mdl-color-text--light-blue-300{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if request.path == '/' %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">home</i>
            Home
         </a>
@@ -38,7 +38,7 @@
           {% elif 'update' in request.path %}
           <div class="mdc-list">
             <span class="mdc-list-item">
-              <span class="margin--left-72 mdl-color-text--light-blue-300">Edit project</span>
+              <span class="margin--left-72 mdl-color-text--orange-300 level2">Edit project</span>
             </span>
           </div>
         {% else %}
@@ -106,7 +106,7 @@
         {% elif 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--light-blue-300">Edit protocol</span>
+            <span class="margin--left-72 mdl-color-text--orange-300 level2">Edit protocol</span>
           </span>
         </div>
         {% else %}
@@ -172,7 +172,7 @@
           {% elif 'update' in request.path %}
           <div class="mdc-list">
             <span class="mdc-list-item">
-              <span class="margin--left-72 mdl-color-text--light-blue-300">Edit project</span>
+              <span class="margin--left-72 mdl-color-text--orange-300 level2">Edit project</span>
             </span>
           </div>
         {% else %}
@@ -223,7 +223,7 @@
         {% elif 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--light-blue-300">Edit protocol</span>
+            <span class="margin--left-72 mdl-color-text--orange-300 level2">Edit protocol</span>
           </span>
         </div>
         {% else %}

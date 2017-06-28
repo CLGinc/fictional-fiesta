@@ -4,22 +4,22 @@
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--orange-300 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
+         class="mdc-button mdl-color-text--blue-grey-800"
          href="{% url 'protocol' protocol_uuid=selected_protocol.uuid %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Editing: {{ selected_protocol.name }}</span>
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Editing: {{ selected_protocol.name }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
+         class="mdc-button mdl-color-text--blue-grey-800"
          href="{% url 'update_protocol' protocol_uuid=object.uuid %}"
          data-trigger="submitSteps"
          data-form="form--protocol-edit">
@@ -146,6 +146,7 @@
       </div>
     </form>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div class="mdc-snackbar mdl-color--red-500"
      aria-live="assertive"

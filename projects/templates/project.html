@@ -3,12 +3,17 @@
 {% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<div class="mdc-layout-grid content">
+<div class="mdc-layout-grid content mdc-toolbar-fixed-adjust">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <h1 class="mdc-typography--headline mdl-color-text--light-blue-500 subpageheader">
         {{ selected_project.name }}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
+          <span class="mdl-color-text--light-blue-300">
+            CONTRIBUTING / KICKING ASS AND TAKING NAMES (OWNER) / WATCHING
+          </span>
+        </p>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
           <span class="mdl-color-text--blue-grey-600">
             Label: {{ selected_project.get_label_display }} / Created on: {{ selected_project.datetime_created|date:"d M Y" }}
@@ -52,10 +57,11 @@
     {% endif %}
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div id="modal--protocols" class="modal visible mdc-layout-grid" data-request="add_protocols">
   <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-    <header class="mdc-toolbar mdl-color--blue-500 mdc-elevation--z2">
+    <header class="mdc-toolbar mdl-color--light-blue-500 mdc-elevation--z2">
       <div class="mdc-toolbar__row padding-16">
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
           <a data-mdc-auto-init="MDCRipple" data-trigger="close"  data-target="modal--protocols" class="mdc-button mdl-color-text--white">

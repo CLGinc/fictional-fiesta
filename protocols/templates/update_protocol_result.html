@@ -4,24 +4,24 @@
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--orange-300 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
+         class="mdc-button mdl-color-text--blue-grey-800"
          href="{% url 'protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Editing: {{ selected_protocol_result.title }}</span>
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Editing: {{ selected_protocol_result.title }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
               data-trigger="submit-result"
               data-form="create_protocol_result_form"
-              class="mdc-button mdl-color-text--white">
+              class="mdc-button mdl-color-text--blue-grey-800">
         <i class="material-icons">check</i>
         <span class="toolbar__button-label">Save</span>
       </button>
@@ -379,6 +379,7 @@
       </form>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div id="modal--attachments" class="modal visible mdc-layout-grid">
   <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">

@@ -3,7 +3,7 @@
 {% block title %}Sci Log - New project{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--light-blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
@@ -78,6 +78,7 @@
       </form>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}

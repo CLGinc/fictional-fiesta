@@ -37,7 +37,7 @@ html {
 }
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: 0.02em;
   font-weight: 400;
   box-sizing: border-box;
@@ -88,9 +88,10 @@ html {
   bottom: 0;
   border: none;
 }
-.mdc-permanent-drawer .mdc-list-item:hover, .mdc-temporary-drawer .mdc-list-item:hover {
+.mdc-permanent-drawer .mdc-list-item:hover, .mdc-permanent-drawer span:hover .level2, .mdc-temporary-drawer .mdc-list-item:hover, .mdc-temporary-drawer span:hover .level2 {
   background-color: #03A9F4;
-  color: #ffffff!important
+  color: #ffffff!important;
+  cursor: pointer;
 }
 .drawer .mdc-list-item, .mdc-temporary-drawer__drawer .mdc-list-item {
   color: #ECEFF1;
@@ -108,6 +109,7 @@ html {
   box-sizing: border-box;
   min-height: 100%;
   padding-bottom: 100px;
+  z-index: 2;
 }
 .footer {
   display: block;

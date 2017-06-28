@@ -3,22 +3,22 @@
 {% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--orange-300 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
+         class="mdc-button mdl-color-text--blue-grey-800"
          href="{% url 'project' project_uuid=selected_project.uuid %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Editing: {{ selected_project.name }}</span>
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Editing: {{ selected_project.name }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
+         class="mdc-button mdl-color-text--blue-grey-800"
          href="{% url 'update_project' project_uuid=object.uuid %}"
          data-trigger="submit"
          data-form="form--project-edit">
@@ -70,6 +70,7 @@
       </div>
     </form>
   </div>
+  {% include "base/footer.html" %}
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}
