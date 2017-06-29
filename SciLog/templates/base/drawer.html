@@ -34,17 +34,18 @@
            aria-hidden="true">assignment</i>
             Protocol list
       </a>
-      {% if selected_protocol.uuid|stringformat:"s" in request.path or selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
+      {% firstof selected_protocol.pk selected_protocol_result.protocol.pk as protocol_pk %}
+      {% if protocol_pk in request.path %}
         {% if 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ selected_protocol.uuid|truncatechars_html:11 }}</span>
+            <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ protocol_pk|truncatechars_html:11 }}</span>
           </span>
         </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}">
-            <span class="margin--left-72">Protocol: {{ selected_protocol.uuid|truncatechars_html:11 }}</span>
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=protocol_pk %}">
+            <span class="margin--left-72">Protocol: {{ protocol_pk|truncatechars_html:11 }}</span>
           </a>
         </div>
         {% endif %}
@@ -91,17 +92,17 @@
            aria-hidden="true">assignment</i>
             Protocol list
       </a>
-      {% if selected_protocol.uuid|stringformat:"s" in request.path or selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
+      {% if protocol_pk %}
         {% if 'update' in request.path %}
         <div class="mdc-list">
           <span class="mdc-list-item">
-            <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ selected_protocol.uuid|truncatechars_html:11 }}</span>
+            <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ protocol_pk|truncatechars_html:11 }}</span>
           </span>
         </div>
         {% else %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=selected_protocol.pk %}">
-            <span class="margin--left-72">Protocol: {{ selected_protocol.uuid|truncatechars_html:11 }}</span>
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=protocol_pk %}">
+            <span class="margin--left-72">Protocol: {{ protocol_pk|truncatechars_html:11 }}</span>
           </a>
         </div>
         {% endif %}
