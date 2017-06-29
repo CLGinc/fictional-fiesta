@@ -2,6 +2,38 @@
 html {
   overflow-y: scroll;
 }
+
+:root {
+  --mdc-theme-primary: #03A9F4;
+  --mdc-theme-accent: #FFB74D;
+  --mdc-theme-background: #fff;
+  --mdc-theme-text-primary-on-primary: white;
+  --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-accent: white;
+  --mdc-theme-text-secondary-on-accent: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(3, 169, 244,1.0);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}
+
 .mdc-button--icon {
     border-radius: 50%;
     font-size: 24px;
@@ -87,6 +119,7 @@ html {
   top: 0;
   bottom: 0;
   border: none;
+  width: 250px;
 }
 .mdc-permanent-drawer .mdc-list-item:hover, .mdc-permanent-drawer span:hover .level2, .mdc-temporary-drawer .mdc-list-item:hover, .mdc-temporary-drawer span:hover .level2 {
   background-color: #03A9F4;
@@ -104,7 +137,7 @@ html {
 }
 .main-grid {
   display: block;
-  margin-left: 240px;
+  margin-left: 250px;
   background-color: #ffffff;
   box-sizing: border-box;
   min-height: 100%;
@@ -121,23 +154,6 @@ html {
 }
 .mobile-button {
   visibility: hidden;
-}
-/*Tabs*/
-.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
-  background: #03A9F4;
-}
-.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active {
-  color: #03A9F4;
-}
-.mdl-tabs__tab-bar {
-  border: none;
-  margin-bottom: 24px;
-}
-.mdl-tabs__tab {
-  color: #03A9F4;
-  text-transform: none;
-  font-size: 24px;
-  font-weight: 300;
 }
 /* Input */
 .mdc-textfield.input--simple.mdc-textfield--upgraded {
@@ -327,6 +343,17 @@ a {
 .wrap--text {
   overflow-wrap: break-word;
 }
+/*Actions*/
+.button--actions {
+  position: fixed;
+  right: 30px;
+  bottom: 100px;
+  z-index: 9000;
+}
+.button--actions > label {
+  cursor: pointer;
+}
+
 /*Attachments to top*/
 .button--attachments {
   position: fixed;
@@ -761,6 +788,11 @@ i.list--link-inactive {
 @media screen and (max-width: 600px) {
   .toolbar__button-label {
     display: none;
+  }
+}
+@media screen and (max-width: 674px) {
+  .mdc-tab {
+    min-width: 72px;
   }
 }
 @media screen and (max-width: 1025px) {

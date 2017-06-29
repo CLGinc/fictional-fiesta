@@ -8,14 +8,14 @@
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
-        {{ selected_protocol.name }}
+        {{ selected_protocol.name }}<span class="mdc-typography--caption mdl-color-text--blue-grey-700"> / {% if request.GET.section %}{{ request.GET.section }}{% else %}Procedure{% endif %}</span>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
-          <span class="mdl-color-text--light-blue-300">
+          <span class="mdl-color-text--light-blue-300 mdc-typography--body2">
             CONTRIBUTING / KICKING ASS AND TAKING NAMES (OWNER) / WATCHING
           </span>
         </p>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
-          <span class="mdl-color-text--blue-grey-600">
+          <span class="mdc-typography--caption mdl-color-text--blue-grey-700">
             Label: {{ selected_protocol.get_label_display }} / Created on: {{ selected_protocol.datetime_created|date:"d M Y" }} {{ role.get_role_display }}
           </span>
         </p>
@@ -37,6 +37,9 @@
       </div>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
+      <div class="padding--bottom-16">
+        {% include "base/navtabs.html" %}
+      </div>
       {% if 'section' in request.GET %}
         {% with section=request.GET.section %}
         {% ifequal section 'procedure' %}
@@ -64,4 +67,19 @@
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+  <script>
+      window.tabBarScroller = new mdc.tabs.MDCTabBarScroller(document.querySelector('#tab-bar-scroller'));
+      setTimeout(function(){
+        var currentActiveTab = $('.mdc-tab--active');
+        if(currentActiveTab.hasClass('assets')) {
+          $('#my-scrollable-tab-bar').css({"-webkit-transform":"translateX(-50%)", "-ms-transform":"translateX(-50%)", "transform":"translateX(-50%)"});
+          $('.mdc-tab-bar-scroller__indicator--forward').removeClass('mdc-tab-bar-scroller__indicator--enabled');
+          $('.mdc-tab-bar-scroller__indicator--back').addClass('mdc-tab-bar-scroller__indicator--enabled');
+        } else if(currentActiveTab.hasClass('participants')) {
+          $('#my-scrollable-tab-bar').css({"-webkit-transform":"translateX(-50%)", "-ms-transform":"translateX(-50%)", "transform":"translateX(-50%)"});
+          $('.mdc-tab-bar-scroller__indicator--forward').removeClass('mdc-tab-bar-scroller__indicator--enabled');
+          $('.mdc-tab-bar-scroller__indicator--back').addClass('mdc-tab-bar-scroller__indicator--enabled');
+        }
+      }, 1000);
+    </script>
 {% endblock %}

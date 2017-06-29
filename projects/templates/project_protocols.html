@@ -1,18 +1,3 @@
-<div class="border--bottom-blue padding--bottom-16">
-  <span class="mdl-color-text--light-blue-500 article--modal-title padding-0">
-    Protocols
-  </span>
-  {% if can_add_items %}
-  <button data-mdc-auto-init="MDCRipple"
-          data-trigger="show"
-          data-target="modal--protocols"
-          data-ajax="addDataRequest"
-          id="button-add"
-          class="mdc-button mdl-color-text--blue-grey-600 right">
-    <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Add
-  </button>
-  {% endif %}
-</div>
 {% if protocols_with_permission %}
 <ul class="mdc-list padding-0">
   <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none">

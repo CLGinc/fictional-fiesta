@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - Update result{% endblock %}
+{% block title %}Sci Log - Updating result{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
@@ -15,7 +15,7 @@
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Editing: {{ selected_protocol_result.title }}</span>
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Updating: {{ selected_protocol_result.title }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
