@@ -16,7 +16,7 @@
         </p>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
           <span class="mdc-typography--caption mdl-color-text--blue-grey-700">
-            Label: {{ selected_protocol.get_label_display }} / Created on: {{ selected_protocol.datetime_created|date:"d M Y" }} {{ role.get_role_display }}
+            {% if selected_protocol.label %}Label: {{ selected_protocol.get_label_display }}{% endif %} / Created on: {{ selected_protocol.datetime_created|date:"d M Y" }} {{ role.get_role_display }}
           </span>
         </p>
       </h1>
