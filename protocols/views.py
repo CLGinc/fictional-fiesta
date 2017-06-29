@@ -106,6 +106,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProtocolView, self).get_context_data(**kwargs)
+        context['role'] = self.object.roles.get(user=self.request.user)
         context['can_update'] = self.request.user.can_update(
             self.object
         )

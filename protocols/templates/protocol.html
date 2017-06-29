@@ -11,7 +11,7 @@
         {{ selected_protocol.name }}<span class="mdc-typography--caption mdl-color-text--blue-grey-700"> / {% if request.GET.section %}{{ request.GET.section }}{% else %}Procedure{% endif %}</span>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
           <span class="mdl-color-text--light-blue-300 mdc-typography--body2">
-            CONTRIBUTING / KICKING ASS AND TAKING NAMES (OWNER) / WATCHING
+            {{ role.get_role_display }}
           </span>
         </p>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
