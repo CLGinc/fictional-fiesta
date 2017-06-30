@@ -208,7 +208,8 @@ var removeStep = function(event){
     setNumberOfTotalForms(); // update number of total forms
   } else {
     // function is initialized only in the create protocol screen (inline)
-    show(snackbar);
+    var notif = 'At least one step is required and step description is mandatory for all steps';
+    show(snackbar,notif);
   }
 };
 // remove step edit: used in protocol update, when the step was added by the user and has not been submitted yet
@@ -225,7 +226,8 @@ var removeStepEdit = function(){
     setNumberOfTotalForms(); // update number of total forms
   } else {
     // function is initialized only in the create protocol screen (inline)
-    show(snackbar);
+    var notif = 'At least one step is required and step description is mandatory for all steps';
+    show(snackbar,notif);
   }
 };
 // delete step: used in protocol update, when the step was loaded from database

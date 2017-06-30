@@ -22,8 +22,8 @@ html {
   --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
   --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
   --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-primary-on-light: rgba(3, 169, 244,1.0);
-  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.38);
   --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
   --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
   --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
@@ -353,7 +353,13 @@ a {
 .button--actions > label {
   cursor: pointer;
 }
-
+/*Tabs*/
+.mdc-tab-bar:not(.mdc-tab-bar-upgraded) .mdc-tab:after, .mdc-tab, .mdc-tab--active, .mdc-tab:hover {
+  color: #03A9F4;
+}
+.mdc-tab-bar:not(.mdc-tab-bar-upgraded) .mdc-tab:after {
+  background-color: #03A9F4;
+}
 /*Attachments to top*/
 .button--attachments {
   position: fixed;
