@@ -10,3 +10,13 @@
     </div>
   {% endfor %}
 </div>
+{% else %}
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+  <div class="article width--full margin--top-16">
+    <h1 class="mdl-color-text--accent section--title">No assets</h1>
+    <p class="mdl-color-text--blue-grey-900">
+      There are no assets yet.
+    </p>
+  </div>
+</div>
+{% endif %}
