@@ -1,5 +1,3 @@
-import json
-
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -72,7 +70,7 @@ class Register(CreateView):
         }
         self.object.email_user(
             template_id=settings.MJ_EMAIL_CONFIRMATION_TEMPLATE_ID,
-            variables=json.dumps(variables),
+            variables=variables,
             from_email=settings.MJ_EMAIL_CONFIRMATION_FROM,
             fail_silently=settings.DEBUG
         )
