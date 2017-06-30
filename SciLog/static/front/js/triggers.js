@@ -169,6 +169,8 @@ var addStepEditOrder = function(){
 // add new step: insert the copied step
 var addStepInsert = function(){
   $(clone).removeClass('hidden').insertAfter(sourceStep);
+  $('html,body').animate({
+    scrollTop: $(clone).offset().top}, 400);
 };
 // add new step: initialize the mdc elements
 var addStepInitMDCelements = function(){
