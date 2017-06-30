@@ -785,6 +785,12 @@ i.list--link-inactive {
     padding-top: 64px;
   }
 }
+@media screen and (max-width: 431px) {
+  .mdc-tab {
+    display: inline-table;
+    margin-top: 16px;
+  }
+}
 @media screen and (max-width: 600px) {
   .toolbar__button-label {
     display: none;

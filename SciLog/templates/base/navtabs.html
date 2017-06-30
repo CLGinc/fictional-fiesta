@@ -1,18 +1,11 @@
-<div id="tab-bar-scroller" class="mdc-tab-bar-scroller">
-  <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--back">
-    <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="#" aria-label="scroll back button">
-      navigate_before
-    </a>
-  </div>
-  <div class="mdc-tab-bar-scroller__scroll-frame">
-    <nav id="my-scrollable-tab-bar" class="mdc-tab-bar mdc-tab-bar-scroller__scroll-frame__tabs">
+<nav class="mdc-tab-bar mdc-tab-bar--icon-tab-bar">
       {% if selected_project.uuid|stringformat:"s" in request.path %}
       {% if 'section' in request.GET %}
       {% with section=request.GET.section %}
-      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %} {{ section }}" href="?section=results">Results</a>
-      <a class="mdc-tab {% if section == 'protocols' %}mdc-tab--active{% endif %} {{ section }}" href="?section=protocols">Protocols</a>
-      <a class="mdc-tab {% if section == 'sources' %}mdc-tab--active{% endif %} {{ section }}" href="?section=sources">Sources</a>
-      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %} {{ section }}" href="?section=participants">Participants</a>
+      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %}" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'protocols' %}mdc-tab--active{% endif %}" href="?section=protocols">Protocols</a>
+      <a class="mdc-tab {% if section == 'sources' %}mdc-tab--active{% endif %}" href="?section=sources">Sources</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
       {% endwith %}
       {% else %}
       <a class="mdc-tab mdc-tab--active" href="?section=results">Results</a>
@@ -24,10 +17,10 @@
       {% if selected_protocol.uuid|stringformat:"s" in request.path or selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
       {% if 'section' in request.GET or '/result/create/' in request.path %}
       {% with section=request.GET.section %}
-      <a class="mdc-tab {% if section == 'procedure' %}mdc-tab--active{% endif %} {{ section }}" href="?section=procedure">Procedure</a>
-      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %} {{ section }}" href="?section=results">Results</a>
-      <a class="mdc-tab {% if section == 'assets' %}mdc-tab--active{% endif %} {{ section }}" href="?section=assets">Assets</a>
-      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %} {{ section }}" href="?section=participants">Participants</a>
+      <a class="mdc-tab {% if section == 'procedure' %}mdc-tab--active{% endif %}" href="?section=procedure">Procedure</a>
+      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %}" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'assets' %}mdc-tab--active{% endif %}" href="?section=assets">Assets</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
       {% endwith %}
       {% else %}
       <a class="mdc-tab mdc-tab--active" href="?section=procedure">Procedure</a>
@@ -38,10 +31,3 @@
       {% endif %}
       <span class="mdc-tab-bar__indicator"></span>
     </nav>
-  </div>
-  <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--forward">
-    <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="#" aria-label="scroll forward button">
-      navigate_next
-    </a>
-  </div>
-</div>

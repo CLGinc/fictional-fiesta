@@ -123,19 +123,4 @@
   <script type = "text/javascript" src="{% static "front/js/infiniteScroll.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/addDataRequest.js" %}"></script>
-  <script>
-      window.tabBarScroller = new mdc.tabs.MDCTabBarScroller(document.querySelector('#tab-bar-scroller'));
-      setTimeout(function(){
-        var currentActiveTab = $('.mdc-tab--active');
-        if(currentActiveTab.hasClass('sources')) {
-          $('#my-scrollable-tab-bar').css({"-webkit-transform":"translateX(-50%)", "-ms-transform":"translateX(-50%)", "transform":"translateX(-50%)"});
-          $('.mdc-tab-bar-scroller__indicator--forward').removeClass('mdc-tab-bar-scroller__indicator--enabled');
-          $('.mdc-tab-bar-scroller__indicator--back').addClass('mdc-tab-bar-scroller__indicator--enabled');
-        } else if(currentActiveTab.hasClass('participants')) {
-          $('#my-scrollable-tab-bar').css({"-webkit-transform":"translateX(-50%)", "-ms-transform":"translateX(-50%)", "transform":"translateX(-50%)"});
-          $('.mdc-tab-bar-scroller__indicator--forward').removeClass('mdc-tab-bar-scroller__indicator--enabled');
-          $('.mdc-tab-bar-scroller__indicator--back').addClass('mdc-tab-bar-scroller__indicator--enabled');
-        }
-      }, 1000);
-    </script>
 {% endblock %}
