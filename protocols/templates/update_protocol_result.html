@@ -66,8 +66,8 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-form-field">
-                <div class="mdc-checkbox">
+              <div class="mdc-form-field {% if form.is_successful.errors %}mdc-textfield--invalid{% endif %}">
+                <div class="mdc-checkbox ">
                   <input type="checkbox"
                          id="success-checkbox"
                          name="is_successful"
