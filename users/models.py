@@ -2,9 +2,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.apps import apps
-from django.core.mail import EmailMessage
 
 from protocols.models import Protocol
+from SciLog.mail import MJEmailMessage
 
 
 class Role(models.Model):
@@ -175,26 +175,20 @@ class User(AbstractUser):
             from_email=None,
             fail_silently=False,
             **kwargs):
-        kwargs.update(
-            {
-                'headers':
-                    {
-                        'X-MJ-TemplateID': template_id,
-                        'X-MJ-TemplateLanguage': '1',
-                        'X-Mailjet-TrackClick': '1',
-                        'X-Mailjet-TrackOpen': '1',
-                        'X-MJ-Vars': variables
-                    }
-            }
-        )
-        msg = EmailMessage(
+        msg = MJEmailMessage(
             subject=kwargs.pop('subject', ''),
             body=kwargs.pop('body', ''),
             to=[self.email],
             from_email=from_email,
+            template_id=template_id,
+            variables=variables,
             **kwargs
         )
         msg.send(fail_silently=fail_silently)
+
+    def get_invitations(self):
+        InvitationModel = apps.get_model('invitations', 'Invitation')
+        return InvitationModel.objects.filter(invited=self)
 
 
 class Source(models.Model):
