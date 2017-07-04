@@ -8,6 +8,28 @@ var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawe
 document.querySelector('.menu').addEventListener('click', function() {
   drawer.open = !drawer.open;
 });
+// action button
+$(window).load(function(){
+  if($('.fixed-action-btn')){
+    var actionButtons = $('.fixed-action-btn-list-action'),
+        count = actionButtons.length,
+        delayIndex = count,
+        styleText = '';
+    for (i=0; i<count; i++){
+      delayIndex--;
+      var childIndex = i + 1,
+          delay = delayIndex * 30;
+      styleText += '.fixed-action-btn-list.open li:nth-child('+childIndex+') .fixed-action-btn-list-action {-webkit-transition-delay: '+delay+'ms;transition-delay: '+delay+'ms;}';
+    }
+    $('head').append('<style>'+styleText+'</style>');
+  }
+});
+$('.fixed-action-btn-main-btn a').mouseenter(function(){
+  $('.fixed-action-btn-list').css("visibility", "visible").addClass('open');
+});
+$('[data-trigger="hover"]').mouseleave(function(){
+  $('.fixed-action-btn-list').css("visibility", "hidden").removeClass('open');
+});
 // scrolltop
 $('.scrollToTop-button').click(function(){
 	$('body,html').animate({scrollTop : 0},300);
