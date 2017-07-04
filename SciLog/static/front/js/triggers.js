@@ -26,9 +26,11 @@ $(window).load(function(){
 });
 $('.fixed-action-btn-main-btn a').mouseenter(function(){
   $('.fixed-action-btn-list').css("visibility", "visible").addClass('open');
+  $('.fixed-action-btn-main-btn').addClass('edit');
 });
 $('[data-trigger="hover"]').mouseleave(function(){
   $('.fixed-action-btn-list').css("visibility", "hidden").removeClass('open');
+  $('.fixed-action-btn-main-btn').removeClass('edit');
 });
 // scrolltop
 $('.scrollToTop-button').click(function(){

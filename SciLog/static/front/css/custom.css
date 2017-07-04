@@ -37,6 +37,13 @@ li {
   list-style: none;
 }
 /*Action button*/
+.rotate {
+  opacity: 1;
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+}
 .fixed-action-btn {
   position: fixed;
   right: 90px;
@@ -54,6 +61,27 @@ li {
   -webkit-flex-direction: row-reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
+}
+.fixed-action-btn-main-btn a span {
+  -webkit-transition: transform .2s cubic-bezier(.4,0,.2,1);
+    transition: transform .2s cubic-bezier(.4,0,.2,1);
+  position: absolute;
+  top: 16px;;
+}
+.fixed-action-btn-main-btn a span:nth-child(2) {
+  -webkit-transform: rotate(224deg);
+  transform: rotate(224deg);
+  opacity: 0;
+}
+.fixed-action-btn-main-btn.edit a span:nth-child(1) {
+  -webkit-transform: rotate(224deg);
+  transform: rotate(224deg);
+  opacity: 0;
+}
+.fixed-action-btn-main-btn.edit a span:nth-child(2) {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+  opacity: 1;
 }
 .fixed-action-btn.active ul {
   visibility: visible;
