@@ -22,15 +22,6 @@
         </p>
       </h1>
     </div>
-    {% if can_update %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-      <a data-mdc-auto-init="MDCRipple"
-         href="{% url 'protocols:update_protocol' protocol_uuid=selected_protocol.uuid %}"
-         class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--light-blue-500">edit</i> <span>Update protocol<span>
-      </a>
-    </div>
-    {% endif %}
     <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
       <h1 class="mdl-color-text--light-blue-500 section--title">Description</h1>
       <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
