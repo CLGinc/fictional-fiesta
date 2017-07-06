@@ -16,9 +16,9 @@
     </h1>
     <div class="login--form">
       {% if next_redirect %}
-      <form id="login--form" method="post" action="{% url 'login_user' %}?next={{ next_redirect }}">
+      <form id="login--form" method="post" action="{% url 'users:login_user' %}?next={{ next_redirect }}">
       {% else %}
-      <form id="login--form" method="post" action="{% url 'login_user' %}">
+      <form id="login--form" method="post" action="{% url 'users:login_user' %}">
         {% endif %}
         {% csrf_token %}
         <div class="mdc-textfield {% if form.errors.email %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -73,12 +73,12 @@
       <div class="login--link-register mdc-typography--caption text-center">
         {% if next_redirect %}
         Don't have an account yet?<br>
-        <a href="{% url 'register_user' %}?next={{ next_redirect }}">
+        <a href="{% url 'users:register_user' %}?next={{ next_redirect }}">
           <span class="mdl-color-text--light-blue-500">Create one here!</span>
         </a>
         {% else %}
         Don't have an account yet?<br>
-        <a href="{% url 'register_user' %}?next={{ self.request.path }}">
+        <a href="{% url 'users:register_user' %}?next={{ self.request.path }}">
           <span class="mdl-color-text--light-blue-500">Create one here!</span>
         </a>
         {% endif %}

@@ -34,7 +34,7 @@ class CreateProject(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )
 
@@ -47,7 +47,7 @@ class UpdateProject(UpdateView, SingleProjectMixin):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )
 
@@ -97,6 +97,6 @@ class ProjectView(DetailView, SingleProjectMixin):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )

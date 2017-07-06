@@ -18,7 +18,7 @@
       </button>
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--blue-grey-600"
-         href="{% url 'create_protocol' %}">
+         href="{% url 'protocols:create_protocol' %}">
         <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Create protocol
       </a>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
@@ -137,7 +137,7 @@
           data-currentpage="{{ page_obj.number }}">
         {% for role in roles_list_page %}
         <li class="border--bottom">
-          <a href="{% url 'protocol' protocol_uuid=role.protocol.uuid %}"
+          <a href="{% url 'protocols:protocol' protocol_uuid=role.protocol.uuid %}"
              class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>

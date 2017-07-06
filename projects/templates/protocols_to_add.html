@@ -7,7 +7,7 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Label</div>
   </li>
 </ul>
-<form id="form--protocols" method="post" action="{% url 'add_protocols_to_project' project_uuid=object.uuid %}">
+<form id="form--protocols" method="post" action="{% url 'projects:add_protocols_to_project' project_uuid=object.uuid %}">
   {% csrf_token %}
   <ul class="mdc-list padding-0">
     {% for protocol in form.element_choices.field.queryset %}

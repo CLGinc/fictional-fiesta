@@ -25,7 +25,7 @@
     {% if can_update %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <a data-mdc-auto-init="MDCRipple"
-         href="{% url 'update_protocol' protocol_uuid=selected_protocol.uuid %}"
+         href="{% url 'protocols:update_protocol' protocol_uuid=selected_protocol.uuid %}"
          class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
         <i class="material-icons mdl-color-text--light-blue-500">edit</i> <span>Update protocol<span>
       </a>

@@ -283,12 +283,12 @@ class UserViewTest(TestCase):
         self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_login(self):
-        url = reverse('login_user')
+        url = reverse('users:login_user')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_post_login(self):
-        url = reverse('login_user')
+        url = reverse('users:login_user')
         data = {
             'email': 'user1@gmail.com',
             'password': 'user1'
@@ -297,7 +297,7 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, '/project/list/')
 
     def test_post_login_redirect_to_project(self):
-        url = reverse('login_user') + '?next=/project/{}/'.format(self.project1.pk)
+        url = reverse('users:login_user') + '?next=/project/{}/'.format(self.project1.pk)
         data = {
             'email': 'user1@gmail.com',
             'password': 'user1'
@@ -307,17 +307,17 @@ class UserViewTest(TestCase):
 
     def test_get_logout(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('logout_user')
+        url = reverse('users:logout_user')
         response = self.client.get(url)
         self.assertRedirects(response, '/login/')
 
     def test_get_register(self):
-        url = reverse('register_user')
+        url = reverse('users:register_user')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_post_register(self):
-        url = reverse('register_user')
+        url = reverse('users:register_user')
         data = {
             'email': 'userreg@gmail.com',
             'password1': 'hr192$^8rh198',

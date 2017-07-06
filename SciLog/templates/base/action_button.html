@@ -1,3 +1,4 @@
+{% with url_resolver=request.resolver_match %}
 <div class="fixed-action-btn" data-trigger="hover">
   <ul class="fixed-action-btn-list">
     <!-- Project actions -->
@@ -106,3 +107,4 @@
     <span><div class="fixed-action-btn-label fixed-action-btn-label-main">Page actions</div></span>
   </div>
 </div>
+{% endwith %}

@@ -61,7 +61,7 @@ class Register(CreateView):
         )
         self.template_name = 'register_success.html'
         url = reverse(
-            'activate_user',
+            'users:activate_user',
             kwargs={'username': username_base64, 'token': token}
         )
         variables = {

@@ -47,7 +47,7 @@ class CreateProtocol(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'protocol',
+            'protocols:protocol',
             kwargs={'protocol_uuid': self.object.uuid}
         )
 
@@ -68,7 +68,7 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
 
     def get_success_url(self):
         return reverse(
-            'protocol',
+            'protocols:protocol',
             kwargs={'protocol_uuid': self.object.uuid}
         )
 
@@ -137,7 +137,7 @@ class CreateProtocolResult(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.object.protocol.uuid,
                 'result_uuid': self.object.uuid,
@@ -192,7 +192,7 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
 
     def get_success_url(self):
         return reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.object.protocol.uuid,
                 'result_uuid': self.object.uuid,

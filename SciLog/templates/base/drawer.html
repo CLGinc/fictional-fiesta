@@ -1,57 +1,54 @@
 {% load staticfiles %}
+{% with url_resolver=request.resolver_match %}
 <nav class="mdc-permanent-drawer drawer mdl-color--blue-grey-700">
   <div class="mdc-list-group">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="/">
-        <i class="material-icons mdc-list-item__start-detail {% if request.path == '/' %}mdl-color-text--light-blue-300{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if url_resolver.url_name == 'home_page' %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">home</i>
            Home
         </a>
       </a>
-      <a class="mdc-list-item" href="{% url 'projects_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+      <a class="mdc-list-item" href="{% url 'projects:projects_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "projects" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
            Project list
       </a>
-      {% if selected_project.uuid|stringformat:"s" in request.path %}
-        {% if 'update' in request.path %}
+        {% if url_resolver.url_name == 'update_project' %}
         <div class="mdc-list">
           <span class="mdc-list-item">
             <span class="margin--left-72 mdl-color-text--orange-300 level2">Update: {{ selected_project.uuid|truncatechars_html:11 }}</span>
           </span>
         </div>
-        {% else %}
+        {% elif url_resolver.url_name == 'project' %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'project' project_uuid=selected_project.pk %}">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'projects:project' project_uuid=selected_project.pk %}">
             <span class="margin--left-72">Project: {{ selected_project.uuid|truncatechars_html:11 }}</span>
           </a>
         </div>
         {% endif %}
-      {% endif %}
       <a class="mdc-list-item"
-         href="{% url 'protocols_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+         href="{% url 'protocols:protocols_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "protocols" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">assignment</i>
             Protocol list
       </a>
       {% firstof selected_protocol.pk selected_protocol_result.protocol.pk as protocol_pk %}
-      {% if protocol_pk in request.path %}
-        {% if 'update' in request.path %}
+        {% if url_resolver.url_name == 'update_protocol' %}
         <div class="mdc-list">
           <span class="mdc-list-item">
             <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ protocol_pk|truncatechars_html:11 }}</span>
           </span>
         </div>
-        {% else %}
+        {% elif url_resolver.url_name == 'protocol' or url_resolver.url_name == 'protocol_result' or url_resolver.url_name == 'create_protocol_result' or url_resolver.url_name == 'protocol_result' or url_resolver.url_name == 'update_protocol_result' %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=protocol_pk %}">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocols:protocol' protocol_uuid=protocol_pk %}">
             <span class="margin--left-72">Protocol: {{ protocol_pk|truncatechars_html:11 }}</span>
           </a>
         </div>
         {% endif %}
-      {% endif %}
-      <a class="mdc-list-item" href="{% url 'invitations_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+      <a class="mdc-list-item" href="{% url 'invitations:invitations_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "invitations" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">drafts</i>Invitations
       </a>
     </nav>
@@ -61,56 +58,53 @@
   <nav class="mdc-temporary-drawer__drawer mdl-color--blue-grey-800">
     <nav class="mdc-list">
       <a class="mdc-list-item" href="/">
-        <i class="material-icons mdc-list-item__start-detail {% if url == 'check for root' %}mdl-color-text--light-blue-300{% endif %}"
+        <i class="material-icons mdc-list-item__start-detail {% if url_resolver.url_name == 'home_page' %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">home</i>
            Home
         </a>
       </a>
-      <a class="mdc-list-item" href="{% url 'projects_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/project/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+      <a class="mdc-list-item" href="{% url 'projects:projects_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "projects" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">list</i>
            Project list
       </a>
-      {% if selected_project.uuid|stringformat:"s" in request.path %}
-        {% if 'update' in request.path %}
+      {% if url_resolver.url_name == 'update_project' %}
         <div class="mdc-list">
           <span class="mdc-list-item">
             <span class="margin--left-72 mdl-color-text--orange-300 level2">Update: {{ selected_project.uuid|truncatechars_html:11 }}</span>
           </span>
         </div>
-        {% else %}
+        {% elif url_resolver.url_name == 'project' %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'project' project_uuid=selected_project.pk %}">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'projects:project' project_uuid=selected_project.pk %}">
             <span class="margin--left-72">Project: {{ selected_project.uuid|truncatechars_html:11 }}</span>
           </a>
         </div>
-        {% endif %}
       {% endif %}
       <a class="mdc-list-item"
-         href="{% url 'protocols_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/protocol/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+         href="{% url 'protocols:protocols_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "protocols" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">assignment</i>
             Protocol list
       </a>
-      {% if protocol_pk %}
-        {% if 'update' in request.path %}
+      {% if url_resolver.url_name == 'update_protocol' %}
         <div class="mdc-list">
           <span class="mdc-list-item">
             <span class="margin--left-72 mdl-color-text--orange-300 level2 mdc-typography--body2">Update: {{ protocol_pk|truncatechars_html:11 }}</span>
           </span>
         </div>
-        {% else %}
+      {% elif url_resolver.url_name == 'protocol' %}
         <div class="mdc-list">
-          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocol' protocol_uuid=protocol_pk %}">
+          <a class="mdc-list-item mdl-color-text--light-blue-300" href="{% url 'protocols:protocol' protocol_uuid=protocol_pk %}">
             <span class="margin--left-72">Protocol: {{ protocol_pk|truncatechars_html:11 }}</span>
           </a>
         </div>
-        {% endif %}
       {% endif %}
-      <a class="mdc-list-item" href="{% url 'invitations_list' %}">
-        <i class="material-icons mdc-list-item__start-detail {% if "/invitation/" in request.path %}mdl-color-text--light-blue-300{% endif %}"
+      <a class="mdc-list-item" href="{% url 'invitations:invitations_list' %}">
+        <i class="material-icons mdc-list-item__start-detail {% if "invitations" in url_resolver.app_names %}mdl-color-text--light-blue-300{% endif %}"
            aria-hidden="true">drafts</i>Invitations
       </a>
     </nav>
   </nav>
 </aside>
+{% endwith %}

@@ -127,11 +127,11 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
-LOGIN_URL = 'login_user'
-LOGIN_REDIRECT_URL = 'projects_list'
-LOGOUT_REDIRECT_URL = 'login_user'
-REGISTER_URL = 'reguster_user'
-REGISTER_REDIRECT_URL = 'projects_list'
+LOGIN_URL = 'users:login_user'
+LOGIN_REDIRECT_URL = 'projects:projects_list'
+LOGOUT_REDIRECT_URL = 'users:login_user'
+REGISTER_URL = 'users:reguster_user'
+REGISTER_REDIRECT_URL = 'projects:projects_list'
 
 # Social auth settings
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

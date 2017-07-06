@@ -8,7 +8,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--blue-grey-800"
-         href="{% url 'project' project_uuid=selected_project.uuid %}">
+         href="{% url 'projects:project' project_uuid=selected_project.uuid %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -19,7 +19,7 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--blue-grey-800"
-         href="{% url 'update_project' project_uuid=object.uuid %}"
+         href="{% url 'projects:update_project' project_uuid=object.uuid %}"
          data-trigger="submit"
          data-form="form--project-edit">
         <i class="material-icons">check</i>
@@ -39,7 +39,7 @@
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--project-edit"
           method="post"
-          action="{% url 'update_project' project_uuid=object.uuid %}">
+          action="{% url 'projects:update_project' project_uuid=object.uuid %}">
       {% csrf_token %}
       {% if form.non_field_errors %}
         {{ form.non_field_errors }}

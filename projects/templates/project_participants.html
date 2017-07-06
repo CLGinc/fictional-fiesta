@@ -30,7 +30,7 @@
       <p>Invite participants</p>
     </div>
     <form method="post"
-          action="{% url 'create_invitation' %}"
+          action="{% url 'invitations:create_invitation' %}"
           id="email_input_source"
           class="hidden mdc-list">
       {% csrf_token %}
@@ -57,7 +57,7 @@
       <div data-content="result" class="mdc-typography--caption result"></div>
     </form>
     <form method="post"
-          action="{% url 'create_invitation' %}"
+          action="{% url 'invitations:create_invitation' %}"
           class="mdc-list">
       {% csrf_token %}
       <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
