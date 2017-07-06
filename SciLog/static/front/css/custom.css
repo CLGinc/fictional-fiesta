@@ -564,6 +564,9 @@ a {
   white-space: nowrap;
   font-weight: 500;
 }
+.home-links a:hover {
+  color: #03A9F4;
+}
 .footer a:hover {
   color: #4fc3f7;
 }
