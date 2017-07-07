@@ -4,12 +4,12 @@
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--light-blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'protocols_list' %}">
+         href="{% url 'protocols:protocols_list' %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -30,9 +30,9 @@
 </header>
 <div class="content">
 {% include "base/drawer.html" %}
-  <div class="main-grid mdc-layout-grid">
+  <div class="main-grid mdc-elevation--z8 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
         Protocol details
       </h1>
       <div>
@@ -43,7 +43,7 @@
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_form"
             method="post"
-            action="{% url 'create_protocol' %}">
+            action="{% url 'protocols:create_protocol' %}">
         {% csrf_token %}
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Name and label</p>
@@ -51,7 +51,7 @@
             <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
               <input class="mdc-textfield__input" type="text"
                      name="name"
-                     maxlength="255" required {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+                     maxlength="255" required {% if form.name.value %}value="{{ form.name.value }}"{% endif %}/>
               <label class="mdc-textfield__label">Protocol name</label>
             </div>
             {% if form.name.errors %}
@@ -61,6 +61,22 @@
             {% else %}
             <p class="mdc-textfield-helptext" aria-hidden="true">
               This name will be displayed in the protocol list and on your protocol page. Maximum of 255 characters.
+            </p>
+            {% endif %}
+            <div class="mdc-textfield {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" rows="6" type="text"
+                        id="input-new-protocol--desc"
+                        name="description"
+                        maxlength="2560" {% if form.description.value %}value="{{ form.description.value }}"{% endif %}/>
+              <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
+            </div>
+            {% if form.description.errors %}
+            <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+              {{ form.description.errors.as_text }}
+            </p>
+            {% else %}
+            <p id="nput-new-protocol--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+             A short protocol description. Maximum length of 255 characters.
             </p>
             {% endif %}
           </div>
@@ -80,130 +96,107 @@
           </div>
         </div>
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid padding-0 margin--none">
-          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-            <div class="mdl-tabs__tab-bar block">
-              <a href="#steps-panel" data-trigger="tab"  data-target="none" class="mdl-tabs__tab is-active padding--left-none">
-                <h2 class="section--title">Procedure</h2>
-              </a>
-              <a href="#details-panel" data-trigger="tab" data-target="modal--details" class="mdl-tabs__tab">
-                <h2 class="section--title">Details {% if form.description.errors %}<span class="mdl-color-text--red-500">*</span>{% endif %}</h2>
-              </a>
+          <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+            <h1 class="mdl-color-text--light-blue-500 section--title">Procedure</h1>
+            <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
+              {{ selected_protocol.description }}
             </div>
-            <div class="mdl-tabs__panel is-active"
-                 id="steps-panel">
-              {% if form.procedure.errors %}
-              <span class="error">{{ form.procedure.errors.as_text }}</span>
-              {% endif %}
-              <input type="text"
-                     class="hidden"
-                     name="procedure"
-                     data-content="step-main">
-              <ul class="mdc-list padding-0">
-                {% if form.procedure.value != "null" %}
-                {% with procedure=form.procedure.value|json_to_dict %}
-                {% for step in procedure.steps %}
-                <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-                    data-step="0">
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-                    <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
-                         data-content="step-number">{{ forloop.counter }}</div>
-                    <div class="mdl-color-text--blue-grey-600 text-center">
-                      STEP
-                    </div>
+          </div>
+            <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            {% if form.procedure.errors %}
+            <span class="error">{{ form.procedure.errors.as_text }}</span>
+            {% endif %}
+            <input type="text"
+                   class="hidden"
+                   name="procedure"
+                   data-content="step-main">
+            <ul class="mdc-list padding-0">
+              {% if form.procedure.value != "null" %}
+              {% with procedure=form.procedure.value|json_to_dict %}
+              {% for step in procedure.steps %}
+              <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
+                  data-step="0">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+                  <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
+                       data-content="step-number">{{ forloop.counter }}</div>
+                  <div class="mdl-color-text--blue-grey-600 text-center">
+                    STEP
                   </div>
-                  <!-- Title input -->
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                    <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                      <input class="mdc-textfield__input" type="text"
-                             data-content="step-title"
-                             maxlength="255" {% if step.title %}value="{{ step.title }}"{% endif %}>
-                      <label class="mdc-textfield__label">Step title</label>
-                    </div>
-                    <!-- Text input -->
-                    <div class="mdc-textfield mdc-textfield--multiline}" data-mdc-auto-init="MDCTextfield">
-                      <textarea class="mdc-textfield__input" rows="6" type="text"
-                                data-content="step-desc"
-                                maxlength="1024" required>{% if step.description %}{{ step.description }}{% endif %}</textarea>
-                      <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
-                    </div>
+                </div>
+                <!-- Title input -->
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                  <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                    <input class="mdc-textfield__input" type="text"
+                           data-content="step-title"
+                           maxlength="255" {% if step.title %}value="{{ step.title }}"{% endif %}>
+                    <label class="mdc-textfield__label">Step title</label>
                   </div>
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
-                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                       data-trigger="add-step-create">
-                      <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
-                    </a>
-                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                       data-trigger="remove-step">
-                      <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
-                    </a>
+                  <!-- Text input -->
+                  <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                    <textarea class="mdc-textfield__input" rows="6" type="text"
+                              data-content="step-desc"
+                              maxlength="1024" required>{% if step.description %}{{ step.description }}{% endif %}</textarea>
+                    <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
                   </div>
-                </li>
-                {% endfor %}
-                {% endwith %}
-                {% else %}
-                <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none step"
-                    data-step="0">
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-                    <div class="mdc-typography--display1 mdl-color-text--blue-500 text-center"
-                         data-content="step-number">1</div>
-                    <div class="mdl-color-text--blue-grey-600 text-center">
-                      STEP
-                    </div>
-                  </div>
-                  <!-- Title input -->
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                    <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                      <input class="mdc-textfield__input" type="text"
-                             data-content="step-title"
-                             maxlength="255">
-                      <label class="mdc-textfield__label">Step title</label>
-                    </div>
-                    <!-- Text input -->
-                    <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
-                      <textarea class="mdc-textfield__input" rows="6" type="text"
-                                data-content="step-desc"
-                                maxlength="1024" required></textarea>
-                      <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
-                    </div>
-                  </div>
-                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
-                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                       data-trigger="add-step-create">
-                      <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Insert new step
-                    </a>
-                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                       data-trigger="remove-step">
-                      <i class="material-icons mdl-color-text--blue-500">close</i> Remove step
-                    </a>
-                  </div>
-                </li>
-                {% endif %}
-              </ul>
-            </div>
-            <div class="mdl-tabs__panel"
-                 id="details-panel">
-              <div class="mdc-textfield mdc-textfield--multiline {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                <textarea class="mdc-textfield__input" rows="6" type="text"
-                          id="input-new-protocol--desc"
-                          name="description"
-                          maxlength="2560">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
-                <label class="mdc-textfield__label" for="input-new-protocol--desc">Protocol description</label>
-              </div>
-              {% if form.description.errors %}
-              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-                {{ form.description.errors.as_text }}
-              </p>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
+                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                     data-trigger="add-step-create">
+                    <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
+                  </a>
+                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                     data-trigger="remove-step">
+                    <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
+                  </a>
+                </div>
+              </li>
+              {% endfor %}
+              {% endwith %}
               {% else %}
-              <p id="nput-new-protocol--desc-helptext" class="mdc-textfield-helptext" aria-hidden="true">
-               A short protocol description. Maximum length of 255 characters.
-              </p>
+              <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
+                  data-step="0">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+                  <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
+                       data-content="step-number">1</div>
+                  <div class="mdl-color-text--blue-grey-600 text-center">
+                    STEP
+                  </div>
+                </div>
+                <!-- Title input -->
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                  <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                    <input class="mdc-textfield__input" type="text"
+                           data-content="step-title"
+                           maxlength="255">
+                    <label class="mdc-textfield__label">Step title</label>
+                  </div>
+                  <!-- Text input -->
+                  <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                    <textarea class="mdc-textfield__input" rows="6" type="text"
+                              data-content="step-desc"
+                              maxlength="1024" required></textarea>
+                    <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
+                  </div>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
+                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                     data-trigger="add-step-create">
+                    <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
+                  </a>
+                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                     data-trigger="remove-step">
+                    <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
+                  </a>
+                </div>
+              </li>
               {% endif %}
-            </div>
+            </ul>
           </div>
         </div>
       </form>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div class="mdc-snackbar mdl-color--red-500"
      aria-live="assertive"

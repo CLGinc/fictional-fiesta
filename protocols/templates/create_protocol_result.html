@@ -4,12 +4,12 @@
 {% block body %}
 {% include "base/toolbar.html" %}
 {% load protocol_extras %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--light-blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'protocol' protocol_uuid=selected_protocol.uuid %}?section=results">
+         href="{% url 'protocols:protocol' protocol_uuid=selected_protocol.uuid %}?section=results">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -30,9 +30,9 @@
 </header>
 <div class="content">
 {% include "base/drawer.html" %}
-  <div class="main-grid mdc-layout-grid">
+  <div class="main-grid mdc-elevation--z8 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
         Result details
       </h1>
       <div>
@@ -74,7 +74,7 @@
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-2 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
-              <div class="mdc-form-field">
+              <div class="mdc-form-field {% if form.is_successful.errors %}mdc-textfield--invalid{% endif %}">
                 <div class="mdc-checkbox">
                   <input type="checkbox"
                          id="success-checkbox"
@@ -188,6 +188,18 @@
               {% endif %}
             </div>
           </div>
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
+              {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
+              <select class="mdc-select margin--none" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
+                {% for key, value in form.data_type_independent.field.choices %}
+                <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+              {% endwith %}
+            </div>
+          </div>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
@@ -206,18 +218,6 @@
                 {{ form.dependent_variable.errors.as_text }}
               </p>
               {% endif %}
-            </div>
-          </div>
-          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
-              {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
-              <select class="mdc-select margin--none" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
-                {% for key, value in form.data_type_independent.field.choices %}
-                <option value="{{ key }}" {% if key == data %}selected{% endif %}>{{ value }}</option>
-                {% endfor %}
-              </select>
-              {% endwith %}
             </div>
           </div>
           <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
@@ -243,13 +243,13 @@
                href="#"
                data-trigger="addDataColumn"
                class="mdc-button mdl-color-text--blue-grey-600 right">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add column
+              <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Add column
             </div>
             <div data-mdc-auto-init="MDCRipple"
                href="#"
                data-trigger="addDataRow"
                class="mdc-button mdl-color-text--blue-grey-600 right">
-              <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add row
+              <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Add row
             </div>
           </div>
           <div class="table" data-content="dataTable--parent">
@@ -387,6 +387,7 @@
       </form>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div id="modal--attachments" class="modal visible mdc-layout-grid">
   <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">

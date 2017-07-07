@@ -47,7 +47,7 @@ class CreateProtocol(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'protocol',
+            'protocols:protocol',
             kwargs={'protocol_uuid': self.object.uuid}
         )
 
@@ -68,7 +68,7 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
 
     def get_success_url(self):
         return reverse(
-            'protocol',
+            'protocols:protocol',
             kwargs={'protocol_uuid': self.object.uuid}
         )
 
@@ -106,6 +106,7 @@ class ProtocolView(DetailView, SinglePrototolMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProtocolView, self).get_context_data(**kwargs)
+        context['role'] = self.object.roles.get(user=self.request.user)
         context['can_update'] = self.request.user.can_update(
             self.object
         )
@@ -136,7 +137,7 @@ class CreateProtocolResult(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.object.protocol.uuid,
                 'result_uuid': self.object.uuid,
@@ -191,7 +192,7 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
 
     def get_success_url(self):
         return reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.object.protocol.uuid,
                 'result_uuid': self.object.uuid,
@@ -216,3 +217,10 @@ class UpdateProtocolResult(UpdateView, SinglePrototolResultMixin):
 class ProtocolResultView(DetailView, SinglePrototolResultMixin):
     context_object_name = 'selected_protocol_result'
     template_name = 'protocol_result.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProtocolResultView, self).get_context_data(**kwargs)
+        context['can_add_items'] = self.request.user.can_add_items(
+            self.object.protocol
+        )
+        return context

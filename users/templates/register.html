@@ -3,19 +3,19 @@
 {% block title %}SciLog - Register{% endblock %}
 {% block body %}
 <div class="content">
-  <div class="mdc-elevation--z4 padding-0 margin--top-40 login">
+  <div class="mdc-elevation--z8 padding-0 margin--top-40 login mdl-color--white">
     <div class="padding--top-24 text-center">
         <img src="{% static "front/img/optimised.svg" %}" alt="logo">
-        <span class="logo mdl-color-text--blue-grey-700">Sci Log</span>
+        <span class="logo mdl-color-text--light-blue-500"><strong>Sci Log</strong></span>
     </div>
   <h1 class="mdc-typography--display2 mdl-color--blue-300 mdl-color-text--white login--message">
     Registration
   </h1>
   <div class="login--form">
     {% if next_redirect %}
-    <form method="post" action="{% url 'register_user' %}?next={{ next_redirect }}">
+    <form method="post" action="{% url 'users:register_user' %}?next={{ next_redirect }}">
       {% else %}
-      <form method="post" action="{% url 'register_user' %}">
+      <form method="post" action="{% url 'users:register_user' %}">
         {% endif %}
         {% csrf_token %}
         <div class="mdc-textfield {% if form.errors.email %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -52,7 +52,7 @@
         </p>
         {% endif %}
         <button type="submit" class="mdc-button mdl-color-text--blue-grey-600 margin--top-24" data-mdc-auto-init="MDCRipple">
-          <i data-content="open-close-icon" class="material-icons mdl-color-text--blue-500">arrow_forward</i>
+          <i data-content="open-close-icon" class="material-icons mdl-color-text--light-blue-500">arrow_forward</i>
           <span data-content="open-close-text">Register</span>
         </button>
       </form>
@@ -66,13 +66,13 @@
       <div class="login--link-register mdc-typography--caption text-center">
         {% if next_redirect %}
         Already have an account?<br>
-        <a href="{% url 'login_user' %}?next={{ next_redirect }}">
-          <span class="mdl-color-text--blue-500">Login here!</span>
+        <a href="{% url 'users:login_user' %}?next={{ next_redirect }}">
+          <span class="mdl-color-text--light-blue-500">Login here!</span>
         </a>
         {% else %}
         Already have an account?<br>
-        <a href="{% url 'login_user' %}?next={{ self.request.path }}">
-          <span class="mdl-color-text--blue-500">Login here!</span>
+        <a href="{% url 'users:login_user' %}?next={{ self.request.path }}">
+          <span class="mdl-color-text--light-blue-500">Login here!</span>
         </a>
         {% endif %}
       </div>

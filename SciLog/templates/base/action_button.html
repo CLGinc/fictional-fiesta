@@ -1,0 +1,137 @@
+{% with url_resolver=request.resolver_match %}
+<div class="fixed-action-btn" data-trigger="hover">
+  <ul class="fixed-action-btn-list">
+    <!-- Project actions -->
+    {% if 'projects' in url_resolver.app_names %}
+      <li>
+        <div>
+          <a href="{% url 'projects:create_project' %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--light-blue-500 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+            <span class="mdc-fab__icon">
+              add
+            </span>
+          </a>
+        </div>
+        <span><div class="fixed-action-btn-label">Create project</div></span>
+      </li>
+      {% if url_resolver.url_name == 'project' %}
+        {% if can_update %}
+          <li>
+            <div>
+              <a href="{% url 'projects:update_project' project_uuid=selected_project.uuid %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--orange-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  mode_edit
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Update project</div></span>
+          </li>
+          <li>
+            <div>
+              <a href=".?section=participants"class="mdc-fab mdc-fab--mini material-icons mdl-color--teal-500 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  person_add
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Invite participant</div></span>
+          </li>
+        {% endif %}
+        {% if can_add_items %}
+          <li>
+            <div>
+              <a data-trigger="show" data-target="modal--protocols" data-ajax="addDataRequest" id="button-add" class="mdc-fab mdc-fab--mini material-icons mdl-color--light-green-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  assignment
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Add protocol to project</div></span>
+          </li>
+          <li>
+            <div>
+              <a data-trigger="show" data-target="modal--sources" data-ajax="addDataRequest" id="button-add" class="mdc-fab mdc-fab--mini material-icons mdl-color--blue-grey-500 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  note_add
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Add source to project</div></span>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% elif 'protocols' in url_resolver.app_names %}
+      <!-- Protocol actions -->
+      <li>
+        <div>
+          <a href="{% url 'protocols:create_protocol' %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--light-blue-500 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+            <span class="mdc-fab__icon">
+              add
+            </span>
+          </a>
+        </div>
+        <span><div class="fixed-action-btn-label">Create protocol</div></span>
+      </li>
+      {% if url_resolver.url_name == 'protocol' or url_resolver.url_name == 'protocol_result' %}
+      {% firstof selected_protocol.pk selected_protocol_result.protocol.pk as protocol_pk %}
+        {% if can_update %}
+          <li>
+            <div>
+              <a href="{% url 'protocols:update_protocol' protocol_uuid=protocol_pk %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--orange-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  mode_edit
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Update protocol</div></span>
+          </li>
+          <li>
+            <div>
+              <a href=".?section=participants" class="mdc-fab mdc-fab--mini material-icons mdl-color--teal-500 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-fab__icon">
+                  person_add
+                </span>
+              </a>
+            </div>
+            <span><div class="fixed-action-btn-label">Invite participant</div></span>
+          </li>
+          {% endif %}
+        {% if can_add_items %}
+        <li>
+          <div>
+            <a href="{% url 'protocols:create_protocol_result' protocol_uuid=protocol_pk %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--light-green-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+              <span class="mdc-fab__icon">
+                playlist_add_check
+              </span>
+            </a>
+          </div>
+          <span><div class="fixed-action-btn-label">Create result</div></span>
+        </li>
+        {% endif %}
+        {% if request.user == selected_protocol_result.owner %}
+        <li>
+          <div>
+            <a href="{% url 'protocols:update_protocol_result' protocol_uuid=protocol_pk result_uuid=selected_protocol_result.pk %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--orange-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+              <span class="mdc-fab__icon">
+                mode_edit
+              </span>
+            </a>
+          </div>
+          <span><div class="fixed-action-btn-label">Update result</div></span>
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </ul>
+  <div class="fixed-action-btn-main-btn">
+    <a class="mdc-fab material-icons mdl-color--red-A400" data-mdc-auto-init="MDCRipple">
+      <span class="mdc-fab__icon">
+        add
+      </span>
+      <span class="mdc-fab__icon">
+        mode_edit
+      </span>
+    </a>
+    <span><div class="fixed-action-btn-label fixed-action-btn-label-main">Page actions</div></span>
+  </div>
+</div>
+{% endwith %}

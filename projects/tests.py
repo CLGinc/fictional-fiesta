@@ -118,25 +118,25 @@ class ProjectViewTest(TestCase):
 
     def test_get_projects_list(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('projects_list')
+        url = reverse('projects:projects_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_get_project(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('project', kwargs={'project_uuid': str(self.project1.pk)})
+        url = reverse('projects:project', kwargs={'project_uuid': str(self.project1.pk)})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_project_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('create_project')
+        url = reverse('projects:create_project')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_project_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('create_project')
+        url = reverse('projects:create_project')
         response = self.client.post(
             url,
             data={'name': 'name1'}
@@ -147,13 +147,13 @@ class ProjectViewTest(TestCase):
         ).project
         self.assertRedirects(
             response,
-            reverse('project', kwargs={'project_uuid': project.pk})
+            reverse('projects:project', kwargs={'project_uuid': project.pk})
         )
 
     def test_update_project_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_project',
+            'projects:update_project',
             kwargs={'project_uuid': self.project1.pk}
         )
         response = self.client.get(url)
@@ -162,11 +162,11 @@ class ProjectViewTest(TestCase):
     def test_update_project_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_project',
+            'projects:update_project',
             kwargs={'project_uuid': self.project1.pk}
         )
         redirect_url = reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.project1.pk}
         )
         response = self.client.post(
@@ -196,7 +196,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'add_protocols_to_project',
+            'projects:add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -205,7 +205,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add_non_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'add_protocols_to_project',
+            'projects:add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url)
@@ -214,7 +214,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_protocols_to_add_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'add_protocols_to_project',
+            'projects:add_protocols_to_project',
             kwargs={'project_uuid': '74369692-6844-430d-bff2-90904fc3094e'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -223,7 +223,7 @@ class ProjectAjaxTest(TestCase):
     def test_post_project_protocols_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'add_protocols_to_project',
+            'projects:add_protocols_to_project',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         data = {
@@ -237,13 +237,13 @@ class ProjectAjaxTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('project', kwargs={'project_uuid': str(self.project1.pk)})
+            reverse('projects:project', kwargs={'project_uuid': str(self.project1.pk)})
         )
 
     def test_get_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_sources',
+            'projects:project_add_sources',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -252,7 +252,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_sources_to_add_non_ajax(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_sources',
+            'projects:project_add_sources',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         response = self.client.get(url)
@@ -261,7 +261,7 @@ class ProjectAjaxTest(TestCase):
     def test_get_project_sources_to_add_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_sources',
+            'projects:project_add_sources',
             kwargs={'project_uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'}
         )
         response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -270,7 +270,7 @@ class ProjectAjaxTest(TestCase):
     def test_post_project_sources_to_add(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'project_add_sources',
+            'projects:project_add_sources',
             kwargs={'project_uuid': str(self.project1.pk)}
         )
         data = {
@@ -284,7 +284,7 @@ class ProjectAjaxTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('project', kwargs={'project_uuid': str(self.project1.pk)})
+            reverse('projects:project', kwargs={'project_uuid': str(self.project1.pk)})
         )
 
 

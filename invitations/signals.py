@@ -27,7 +27,7 @@ def send_mail(sender, created, instance, raw, using, update_fields, **kwargs):
                 "name": instance.get_item_name()
             },
             "role": instance.role,
-            "url": reverse('invitations_list')
+            "url": reverse('invitations:invitations_list')
         }
         email = MJEmailMessage(
             subject='',

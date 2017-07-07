@@ -39,7 +39,7 @@ class AddItems(FormView, SingleProjectMixin):
         return kwargs
 
     def get_success_url(self):
-        return reverse('project', kwargs={'project_uuid': self.object.uuid})
+        return reverse('projects:project', kwargs={'project_uuid': self.object.uuid})
 
 
 @method_decorator(login_required, name='dispatch')

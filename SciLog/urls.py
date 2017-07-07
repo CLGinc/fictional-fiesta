@@ -18,9 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^project/', include('projects.urls')),
-    url(r'^protocol/', include('protocols.urls')),
-    url(r'^', include('users.urls')),
+    url(r'^project/', include('projects.urls', namespace='projects', app_name='projects')),
+    url(r'^protocol/', include('protocols.urls', namespace='protocols', app_name='protocols')),
+    url(r'^', include('users.urls', namespace='users', app_name='users')),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^invitation/', include('invitations.urls')),
+    url(r'^invitation/', include('invitations.urls', namespace='invitations', app_name='invitations')),
 ]

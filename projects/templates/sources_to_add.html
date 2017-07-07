@@ -1,13 +1,13 @@
 {% if form.element_choices.field.queryset %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-8">
+  <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-8">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Select</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">Name</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 padding-8 margin--none">ISBN</div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 padding-8 margin--none">URL</div>
   </li>
 </ul>
-<form id="form--sources" method="post" action="{% url 'project_add_sources' project_uuid=object.uuid %}">
+<form id="form--sources" method="post" action="{% url 'projects:project_add_sources' project_uuid=object.uuid %}">
   {% csrf_token %}
   <ul class="mdc-list padding-0">
     {% for source in form.element_choices.field.queryset %}
