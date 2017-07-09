@@ -55,7 +55,7 @@ class CreateInvitation(CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('invitations_list')
+        return reverse('invitations:invitations_list')
 
 
 @method_decorator(login_required, name='dispatch')

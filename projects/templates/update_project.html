@@ -1,25 +1,25 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
+{% block title %}Sci Log - Updating {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--orange-300 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
-         href="{% url 'project' project_uuid=selected_project.uuid %}">
+         class="mdc-button mdl-color-text--blue-grey-800"
+         href="{% url 'projects:project' project_uuid=selected_project.uuid %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
     </section>
     <section class="mdc-toolbar__section">
-      <span class="mdc-toolbar__title">Editing: {{ selected_project.name }}</span>
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Updating: {{ selected_project.name }}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <button data-mdc-auto-init="MDCRipple"
-         class="mdc-button mdl-color-text--white"
-         href="{% url 'update_project' project_uuid=object.uuid %}"
+         class="mdc-button mdl-color-text--blue-grey-800"
+         href="{% url 'projects:update_project' project_uuid=object.uuid %}"
          data-trigger="submit"
          data-form="form--project-edit">
         <i class="material-icons">check</i>
@@ -30,22 +30,22 @@
 </header>
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
-  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-        Edit project
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
+        Update project
       </h1>
     </div>
     <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--project-edit"
           method="post"
-          action="{% url 'update_project' project_uuid=object.uuid %}">
+          action="{% url 'projects:update_project' project_uuid=object.uuid %}">
       {% csrf_token %}
       {% if form.non_field_errors %}
         {{ form.non_field_errors }}
       {% endif %}
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <h1 class="mdl-color-text--blue-500 section--title">Project name</h1>
+        <h1 class="mdl-color-text--light-blue-500 section--title">Project name</h1>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="project_name"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
@@ -57,7 +57,7 @@
         {% endif %}
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-        <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+        <h1 class="mdl-color-text--light-blue-500 section--title">Description</h1>
         <div class="mdc-textfield mdc-textfield--upgraded padding-0" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="project_desc"
                  class="mdc-textfield__input mdl-color-text--blue-grey-900"
@@ -70,6 +70,7 @@
       </div>
     </form>
   </div>
+  {% include "base/footer.html" %}
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}

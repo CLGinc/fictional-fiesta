@@ -3,12 +3,12 @@
 {% block title %}Sci Log - New project{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<header class="mdc-toolbar mdl-color--blue-500 mdc-toolbar--fixed">
+<header class="mdc-toolbar mdl-color--light-blue-500 mdc-toolbar--fixed">
   <div class="mdc-toolbar__row padding-16">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
       <a data-mdc-auto-init="MDCRipple"
          class="mdc-button mdl-color-text--white"
-         href="{% url 'projects_list' %}">
+         href="{% url 'projects:projects_list' %}">
         <i class="material-icons">close</i>
         <span class="toolbar__button-label">Cancel</span>
       </a>
@@ -29,14 +29,14 @@
 </header>
 <div class="content">
 {% include "base/drawer.html" %}
-  <div class="main-grid mdc-layout-grid">
+  <div class="main-grid mdc-elevation--z8 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
         Project details
       </h1>
       <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             method="post"
-            action="{% url 'create_project' %}"
+            action="{% url 'projects:create_project' %}"
             id="new-project-form">
         {% csrf_token %}
           {% if form.nonfield_errors %}
@@ -78,6 +78,7 @@
       </form>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}

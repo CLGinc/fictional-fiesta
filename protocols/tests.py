@@ -136,25 +136,25 @@ class ProtocolViewTest(TestCase):
 
     def test_get_protocols_list(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('protocols_list')
+        url = reverse('protocols:protocols_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_get_protocol(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('protocol', kwargs={'protocol_uuid': str(self.protocol1.pk)})
+        url = reverse('protocols:protocol', kwargs={'protocol_uuid': str(self.protocol1.pk)})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_protocol_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('create_protocol')
+        url = reverse('protocols:create_protocol')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_protocol_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse('create_protocol')
+        url = reverse('protocols:create_protocol')
         response = self.client.post(
             url,
             data={
@@ -169,13 +169,13 @@ class ProtocolViewTest(TestCase):
         ).protocol
         self.assertRedirects(
             response,
-            reverse('protocol', kwargs={'protocol_uuid': protocol.pk})
+            reverse('protocols:protocol', kwargs={'protocol_uuid': protocol.pk})
         )
 
     def test_update_protocol_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_protocol',
+            'protocols:update_protocol',
             kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.get(url)
@@ -184,11 +184,11 @@ class ProtocolViewTest(TestCase):
     def test_update_protocol_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_protocol',
+            'protocols:update_protocol',
             kwargs={'protocol_uuid': self.protocol6.pk}
         )
         redirect_url = reverse(
-            'protocol',
+            'protocols:protocol',
             kwargs={'protocol_uuid': self.protocol6.pk}
         )
         response = self.client.post(
@@ -206,7 +206,7 @@ class ProtocolViewTest(TestCase):
     def test_create_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'create_protocol_result',
+            'protocols:create_protocol_result',
             kwargs={'protocol_uuid': self.protocol3.pk}
         )
         response = self.client.get(url)
@@ -215,7 +215,7 @@ class ProtocolViewTest(TestCase):
     def test_create_protocol_result_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'create_protocol_result',
+            'protocols:create_protocol_result',
             kwargs={'protocol_uuid': str(self.protocol3.pk)}
         )
         response = self.client.post(
@@ -236,7 +236,7 @@ class ProtocolViewTest(TestCase):
         self.assertRedirects(
             response,
             reverse(
-                'protocol_result',
+                'protocols:protocol_result',
                 kwargs={
                     'protocol_uuid': self.protocol3.pk,
                     'result_uuid': result.pk
@@ -247,7 +247,7 @@ class ProtocolViewTest(TestCase):
     def test_update_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_protocol_result',
+            'protocols:update_protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': str(self.protocol3_result.pk)
@@ -259,14 +259,14 @@ class ProtocolViewTest(TestCase):
     def test_update_protocol_result_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'update_protocol_result',
+            'protocols:update_protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': str(self.protocol3_result.pk)
             }
         )
         redirect_url = reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': str(self.protocol3_result.pk)
@@ -294,7 +294,7 @@ class ProtocolViewTest(TestCase):
     def test_protocol_result_get(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': str(self.protocol3_result.pk)
@@ -306,7 +306,7 @@ class ProtocolViewTest(TestCase):
     def test_protocol_result_get_404(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
@@ -318,7 +318,7 @@ class ProtocolViewTest(TestCase):
     def test_protocol_result_post(self):
         self.client.login(username='user1@gmail.com', password='user1')
         url = reverse(
-            'protocol_result',
+            'protocols:protocol_result',
             kwargs={
                 'protocol_uuid': self.protocol3.pk,
                 'result_uuid': str(self.protocol3_result.pk)

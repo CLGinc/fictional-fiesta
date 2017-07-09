@@ -1,18 +1,6 @@
-<div class="border--bottom-blue padding--bottom-16">
-  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
-    Results
-  </span>
-  {% if can_add_items %}
-  <a data-mdc-auto-init="MDCRipple"
-     href="{% url 'create_protocol_result' protocol_uuid=selected_protocol.uuid %}"
-     class="mdc-button mdl-color-text--blue-grey-600 right">
-    <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add result
-  </a>
-  {% endif %}
-</div>
 {% if selected_protocol.results.all %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 margin--none padding-0">
+  <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 margin--none padding-0">
     <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %}">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Owner</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Project</div>
@@ -30,7 +18,7 @@
 <ul class="mdc-list padding-0">
   {% for result in selected_protocol.results.all %}
   <li class="border--bottom mdc-layout-grid margin--none padding-0">
-    <a href="{% url 'protocol_result' protocol_uuid=selected_protocol.uuid result_uuid=result.uuid %}"
+    <a href="{% url 'protocols:protocol_result' protocol_uuid=selected_protocol.uuid result_uuid=result.uuid %}"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.owner }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{% if result.project %}{{ result.project }}{% else %}-{% endif %}</div>

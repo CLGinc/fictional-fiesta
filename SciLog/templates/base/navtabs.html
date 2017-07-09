@@ -1,0 +1,33 @@
+<nav class="mdc-tab-bar mdc-tab-bar--icon-tab-bar">
+      {% if selected_project.uuid|stringformat:"s" in request.path %}
+      {% if 'section' in request.GET %}
+      {% with section=request.GET.section %}
+      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %}" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'protocols' %}mdc-tab--active{% endif %}" href="?section=protocols">Protocols</a>
+      <a class="mdc-tab {% if section == 'sources' %}mdc-tab--active{% endif %}" href="?section=sources">Sources</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
+      {% endwith %}
+      {% else %}
+      <a class="mdc-tab mdc-tab--active" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'protocols' %}mdc-tab--active{% endif %}" href="?section=protocols">Protocols</a>
+      <a class="mdc-tab {% if section == 'sources' %}mdc-tab--active{% endif %}" href="?section=sources">Sources</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
+      {% endif %}
+      {% endif %}
+      {% if selected_protocol.uuid|stringformat:"s" in request.path or selected_protocol_result.protocol.uuid|stringformat:"s" in request.path %}
+      {% if 'section' in request.GET or '/result/create/' in request.path %}
+      {% with section=request.GET.section %}
+      <a class="mdc-tab {% if section == 'procedure' %}mdc-tab--active{% endif %}" href="?section=procedure">Procedure</a>
+      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %}" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'assets' %}mdc-tab--active{% endif %}" href="?section=assets">Assets</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
+      {% endwith %}
+      {% else %}
+      <a class="mdc-tab mdc-tab--active" href="?section=procedure">Procedure</a>
+      <a class="mdc-tab {% if section == 'results' %}mdc-tab--active{% endif %}" href="?section=results">Results</a>
+      <a class="mdc-tab {% if section == 'assets' %}mdc-tab--active{% endif %}" href="?section=assets">Assets</a>
+      <a class="mdc-tab {% if section == 'participants' %}mdc-tab--active{% endif %}" href="?section=participants">Participants</a>
+      {% endif %}
+      {% endif %}
+      <span class="mdc-tab-bar__indicator"></span>
+    </nav>

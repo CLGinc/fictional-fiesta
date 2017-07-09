@@ -3,21 +3,22 @@
 {% block title %}Sci Log - Result for {{ selected_protocol_result.protocol.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
+{% include "base/action_button.html" %}
 {% load protocol_extras %}
 <div class="content">
 {% include "base/drawer.html" %}
-  <div class="main-grid mdc-layout-grid">
+  <div class="main-grid mdc-elevation--z8 mdc-layout-grid">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
         Result details for {{ selected_protocol_result.title }}
       </h1>
     </div>
     {% if request.user == selected_protocol_result.owner %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
       <a data-mdc-auto-init="MDCRipple"
-         href="{% url 'update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
+         href="{% url 'protocols:update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
          class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--blue-500">edit</i> Update result
+        <i class="material-icons mdl-color-text--light-blue-500">edit</i> Update result
       </a>
     </div>
     {% endif %}
@@ -127,6 +128,7 @@
       </div>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div class="mdc-snackbar mdl-color--blue-500"
      aria-live="assertive"

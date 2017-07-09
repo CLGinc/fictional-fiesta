@@ -5,16 +5,16 @@
 {% include "base/toolbar.html" %}
 <div class="content">
 {% include "base/drawer.html" %}
-  <div class="main-grid">
+  <div class="main-grid mdc-elevation--z8">
     <div class="mdc-layout-grid home">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <h1 class="mdc-typography--display4 mdl-color-text--light-blue-500">
-          Hello,<br />
+          <strong class="mdl-color-text--orange-300">Hello,</strong><br />
           <span class="mdc-typography--display3 ">welcome to SciLog!</span>
         </h1>
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-        <h1 class="mdc-typography--headline">
+        <h1 class="mdc-typography--headline mdl-color-text--light-blue-500">
           Quickstart guide
         </h1>
         <ul class="mdc-list home-links">
@@ -26,7 +26,7 @@
       </div>
       <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0 margin--none">
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline">
-          <h1 class="mdc-typography--headline">
+          <h1 class="mdc-typography--headline mdl-color-text--light-blue-500">
             Overview
           </h1>
         </div>
@@ -57,6 +57,7 @@
       </div>
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}

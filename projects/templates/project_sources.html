@@ -1,21 +1,6 @@
-<div class="border--bottom-blue padding--bottom-16">
-  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
-    Sources
-  </span>
-  {% if can_add_items %}
-  <button data-mdc-auto-init="MDCRipple"
-          data-trigger="show"
-          data-target="modal--sources"
-          data-ajax="addDataRequest"
-          id="button-add"
-          class="mdc-button mdl-color-text--blue-grey-600 right">
-    <i class="material-icons mdl-color-text--blue-500">playlist_add</i> Add
-  </button>
-  {% endif %}
-</div>
 {% if selected_project.sources.all %}
 <ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--blue-500 padding-0 margin--none">
+  <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none">
     <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}9{% else %}10{% endif %} margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">Name</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">ISBN</div>

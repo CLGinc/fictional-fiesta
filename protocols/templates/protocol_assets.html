@@ -1,13 +1,9 @@
-<div class="border--bottom-blue padding--bottom-16">
-  <span class="mdl-color-text--blue-500 article--modal-title padding-0">
-    Assets
-  </span>
-</div>
+{% if assets_by_category %}
 <div class="mdc-layout-grid padding-0">
   {% for asset_category_value, assets in assets_by_category %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-0">
       <ul class="mdc-list">
-        <li class="mdc-list-item mdl-color-text--blue-500">{{ asset_category_value }}</li>
+        <li class="mdc-list-item mdl-color-text--light-blue-500">{{ asset_category_value }}</li>
       {% for asset in assets %}
         <li class="mdc-list-item">{{ asset.name }}</li>
       {% endfor %}
@@ -15,3 +11,13 @@
     </div>
   {% endfor %}
 </div>
+{% else %}
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+  <div class="article width--full margin--top-16">
+    <h1 class="mdl-color-text--accent section--title">No assets</h1>
+    <p class="mdl-color-text--blue-grey-900">
+      There are no assets yet.
+    </p>
+  </div>
+</div>
+{% endif %}

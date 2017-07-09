@@ -34,7 +34,7 @@ class CreateProject(CreateView):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )
 
@@ -47,7 +47,7 @@ class UpdateProject(UpdateView, SingleProjectMixin):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )
 
@@ -78,6 +78,7 @@ class ProjectView(DetailView, SingleProjectMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectView, self).get_context_data(**kwargs)
+        context['role'] = self.object.roles.get(user=self.request.user)
         context['can_update'] = self.request.user.can_update(
             self.object
         )
@@ -96,6 +97,6 @@ class ProjectView(DetailView, SingleProjectMixin):
 
     def get_success_url(self):
         return reverse(
-            'project',
+            'projects:project',
             kwargs={'project_uuid': self.object.uuid}
         )

@@ -3,35 +3,35 @@
 {% block title %}Sci Log - {{ selected_project.name }}{% endblock %}
 {% block body %}
 {% include "base/toolbar.html" %}
-<div class="mdc-layout-grid content">
+{% include "base/action_button.html" %}
+<div class="mdc-layout-grid content mdc-toolbar-fixed-adjust">
 {% include "base/drawer.html" %}
-  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid">
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdc-typography--headline mdl-color-text--blue-500 subpageheader">
-        {{ selected_project.name }}
+      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
+        {{ selected_project.name }}<span class="mdc-typography--caption mdl-color-text--blue-grey-700"> / {% if request.GET.section %}{{ request.GET.section }}{% else %}Results{% endif %}</span>
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
-          <span class="mdl-color-text--blue-grey-600">
-            Label: {{ selected_project.get_label_display }} / Created on: {{ selected_project.datetime_created|date:"d M Y" }}
+          <span class="mdl-color-text--light-blue-300 mdc-typography--body2">
+            {{ role.get_role_display }}
+          </span>
+        </p>
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent">
+          <span class="mdc-typography--caption mdl-color-text--blue-grey-700">
+            Created on: {{ selected_project.datetime_created|date:"d M Y" }}
           </span>
         </p>
       </h1>
     </div>
-    {% if can_update %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-      <a data-mdc-auto-init="MDCRipple"
-         href="{% url 'update_project' project_uuid=selected_project.uuid %}"
-         class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--blue-500">edit</i> <span>Update project<span>
-      </a>
-    </div>
-    {% endif %}
     <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-      <h1 class="mdl-color-text--blue-500 section--title">Description</h1>
+      <h1 class="mdl-color-text--light-blue-500 section--title">Description</h1>
       <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
         {{ selected_project.description }}
       </div>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
+      <div class="padding--bottom-16">
+        {% include "base/navtabs.html" %}
+      </div>
       {% if 'section' in request.GET %}
         {% with section=request.GET.section %}
         {% ifequal section 'results' %}
@@ -52,10 +52,11 @@
     {% endif %}
     </div>
   </div>
+  {% include "base/footer.html" %}
 </div>
 <div id="modal--protocols" class="modal visible mdc-layout-grid" data-request="add_protocols">
   <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-    <header class="mdc-toolbar mdl-color--blue-500 mdc-elevation--z2">
+    <header class="mdc-toolbar mdl-color--light-blue-500 mdc-elevation--z2">
       <div class="mdc-toolbar__row padding-16">
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
           <a data-mdc-auto-init="MDCRipple" data-trigger="close"  data-target="modal--protocols" class="mdc-button mdl-color-text--white">
