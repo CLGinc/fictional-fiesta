@@ -33,9 +33,6 @@ class CreateInvitation(CreateView):
     def form_valid(self, form):
         super(CreateInvitation, self).form_valid(form)
         if self.request.is_ajax():
-            return HttpResponse('Invitation to {} created and sent!'.format(
-                form.cleaned_data['email'])
-            )
             data = {
                 'pk': self.object.pk,
                 'invited': self.object.invited or self.object.email
