@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden, HttpResponse, JsonResponse
+from django.http import HttpResponseForbidden, JsonResponse
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView
 from django.views import View
@@ -59,5 +59,9 @@ class AcceptInvitation(SingleInvitationMixin, View):
             self.object = self.get_object()
             if self.object.can_be_accepted(self.request.user):
                 self.object.accept()
-                return HttpResponse('Invitation accepted!')
+                data = {
+                    'pk': self.object.pk,
+                    'accepted': self.object.accepted
+                }
+                return JsonResponse(data, status=200)
         return HttpResponseForbidden()
