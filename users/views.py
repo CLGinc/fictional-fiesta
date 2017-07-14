@@ -16,7 +16,7 @@ from django.contrib.auth import login
 
 
 from .forms import EmailAuthenticationForm, EmailUserCreationForm, RoleListForm
-from .models import User, Role
+from .models import User
 
 
 class Login(LoginView):
