@@ -1,5 +1,4 @@
-from django.http import HttpResponseForbidden, HttpResponse
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseForbidden, HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView
 from django.views import View
@@ -27,10 +26,7 @@ class CreateInvitation(CreateView):
     def form_invalid(self, form):
         super(CreateInvitation, self).form_invalid(form)
         if self.request.is_ajax():
-            return HttpResponseBadRequest(
-                reason=form.errors.as_json()
-            )
-            # return JsonResponse(form.errors, status=400)
+            return JsonResponse(form.errors, status=400)
         else:
             return HttpResponseForbidden()
 
@@ -40,10 +36,11 @@ class CreateInvitation(CreateView):
             return HttpResponse('Invitation to {} created and sent!'.format(
                 form.cleaned_data['email'])
             )
-            # data = {
-            #     'pk': self.object.pk,
-            # }
-            # return JsonResponse(data)
+            data = {
+                'pk': self.object.pk,
+                'invited': self.object.invited or self.object.email
+            }
+            return JsonResponse(data, status=201)
         else:
             return HttpResponseForbidden()
 
