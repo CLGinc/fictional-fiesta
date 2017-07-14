@@ -186,9 +186,9 @@ class User(AbstractUser):
         )
         msg.send(fail_silently=fail_silently)
 
-    def get_invitations(self):
+    def get_invitations(self, **kwargs):
         InvitationModel = apps.get_model('invitations', 'Invitation')
-        return InvitationModel.objects.filter(invited=self)
+        return InvitationModel.objects.filter(**kwargs, invited=self)
 
 
 class Source(models.Model):
