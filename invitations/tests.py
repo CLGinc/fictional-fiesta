@@ -354,7 +354,7 @@ class InvitationAjaxTest(TestCase):
             data=data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         invitation = Invitation.objects.filter(
             email='user3@gmail.com',
             inviter=self.user1,
