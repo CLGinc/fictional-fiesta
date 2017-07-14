@@ -145,8 +145,6 @@ class HomePage(TemplateView):
         context['number_of_protocols'] = self.request.user.get_roles(
             scope='protocol'
         ).count()
-        invitations = self.request.user.get_invitations()
-        context['number_of_invitations'] = invitations.filter(
-            accepted=False
-        ).count()
+        invitations = [i for i in self.request.user.get_invitations(accepted=False) if i.is_expired() is False]
+        context['number_of_invitations'] = len(invitations)
         return context
