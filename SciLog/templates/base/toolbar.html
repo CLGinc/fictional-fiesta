@@ -5,7 +5,7 @@
       <i class="material-icons">menu</i>
     </button>
     <div class="mdl-layout-spacer"></div>
-    <a href="/">
+    <a href="{% url 'users:home_page' %}">
       <img src="{% static "front/img/optimised.svg" %}" alt="logo">
       <span class="logo mdl-color-text--light-blue-300"><strong>Sci Log</strong></span>
     </a>
@@ -24,14 +24,14 @@
       <hr class="mdc-list-divider margin--top-8 padding-0">
       <ul class="mdc-simple-menu__items mdc-list width--full" role="menu" aria-hidden="true">
         <li class="mdc-list-item" role="menuitem" tabindex="0">
-          <a href="/profile">
+          <a href="#">
             <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
               <i class="material-icons mdl-color-text--light-blue-500">person</i> Profile
             </button>
           </a>
         </li>
         <li class="mdc-list-item" role="menuitem" tabindex="0">
-          <a href="/logout" class="width--full">
+          <a href="{% url 'users:logout_user' %}" class="width--full">
             <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
               <i class="material-icons mdl-color-text--orange-500">power_settings_new</i> Log out
             </button>
