@@ -35,7 +35,8 @@ class CreateInvitation(CreateView):
         if self.request.is_ajax():
             data = {
                 'pk': self.object.pk,
-                'invited': str(self.object.invited) or self.object.email
+                'invited_email': self.object.email,
+                'invited_name': str(self.object.invited)
             }
             return JsonResponse(data, status=201)
         else:
