@@ -16,7 +16,7 @@
     <div class="mdc-simple-menu profile--menu mdc-elevation--z4"
          tabindex="-1"
          style="top:60px; right: 0;">
-      <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar center">
+      <img src="{{ request.user.avatar }}" class="user-card--avatar center">
       <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <span class="mdl-color-text--grey-900">{{ request.user }}</span><br>
         {% if request.user.scientific_degree %}<span class="mdl-color-text--grey-600">{{ request.user.scientific_degree }}</span>{% endif %}
