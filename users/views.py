@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, DetailView
 from django.views.generic.base import RedirectView
 from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
@@ -148,3 +148,12 @@ class HomePage(TemplateView):
         invitations = [i for i in self.request.user.get_invitations(accepted=False) if i.is_expired() is False]
         context['number_of_invitations'] = len(invitations)
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfilePage(DetailView):
+    context_object_name = 'auth_user'
+    template_name = 'profile_page.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
