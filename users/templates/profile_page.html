@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - Profile{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+{% include "base/action_button.html" %}
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
+    <div class="home mdc-layout-grid">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
+          User profile
+        </h1>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+        <div class="user-profile--card">
+          <img class="user-profile--avatar" src="{% static "front/img/ninja.png" %}"></img>
+          <div class="user-profile--name">
+            <h1 class="mdc-card__title mdc-card__title--large">{{ auth_user.first_name }} {{ auth_user.last_name }}</h1>
+            <h2 class="mdc-card__subtitle">{{ auth_user.scientific_degree }}</h2>
+            <h2 class="mdc-card__subtitle">{{ auth_user.email }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+        <h1 class="mdc-typography--headline mdl-color-text--light-blue-500">
+          Quickstart guide
+        </h1>
+        <ul class="mdc-list home-links">
+          <li class="mdc-list-item">Introduction</li>
+          <li class="mdc-list-item">Using SciLog</li>
+          <li class="mdc-list-item">Frequently asked questions</li>
+          <li class="mdc-list-item"><a href="https://github.com/CLGinc/SciLog" target="_blank">Github Repo</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% include "base/footer.html" %}
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}
