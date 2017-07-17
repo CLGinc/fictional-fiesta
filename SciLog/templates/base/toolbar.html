@@ -10,7 +10,7 @@
       <span class="logo mdl-color-text--light-blue-300"><strong>Sci Log</strong></span>
     </a>
     <div class="mdl-layout-spacer"></div>
-    <button data-mdc-auto-init="MDCRipple" data-trigger="profile--menu" class="mdc-button mdc-button--icon mdl-color-text--light-blue-500">
+    <button data-mdc-auto-init="MDCRipple" data-trigger="profile--menu" class="mdc-button mdc-button--icon mdl-color-text--white">
       <i class="material-icons">account_circle</i>
     </button>
     <div class="mdc-simple-menu profile--menu mdc-elevation--z4"
@@ -24,7 +24,7 @@
       <hr class="mdc-list-divider margin--top-8 padding-0">
       <ul class="mdc-simple-menu__items mdc-list width--full" role="menu" aria-hidden="true">
         <li class="mdc-list-item" role="menuitem" tabindex="0">
-          <a href="#">
+          <a href="{% url 'users:profile_page' %}">
             <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
               <i class="material-icons mdl-color-text--light-blue-500">person</i> Profile
             </button>

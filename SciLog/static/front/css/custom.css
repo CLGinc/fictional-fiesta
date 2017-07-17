@@ -296,6 +296,7 @@ li {
   max-width: 1200px;
   left: 240px;
   margin: 0 auto;
+  padding: 0;
 }
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -670,6 +671,23 @@ a {
 }
 .user-card--name {
   transform: perspective(1px);
+}
+/*User profile*/
+.user-profile--card {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.user-profile--avatar {
+  position: relative;
+  width: 120px;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.user-profile--name {
+  padding-top: 40px;
+  text-align: center;
 }
 /*Participants list*/
 .participant-list--link {
