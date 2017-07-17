@@ -7,6 +7,8 @@ def get_avatar(backend, strategy, details, response,
     if backend.name == 'google-oauth2':
         url = urlparse(response['image'].get('url'))
         url = '{}://{}{}'.format(url.scheme, url.netloc, url.path)
+    elif backend.name == 'facebook':
+        url = 'http://graph.facebook.com/{}/picture?type=large'.format(response['id'])
     if url:
         user.avatar = url
         user.save()
