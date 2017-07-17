@@ -16,7 +16,7 @@
   </li>
   {% for source in selected_project.sources.all %}
 	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
-    <a href="/resultid/"
+    <a href="#"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}9{% else %}10{% endif %} list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">{{ source.name }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.isbn }}</div>

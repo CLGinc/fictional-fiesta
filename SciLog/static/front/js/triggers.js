@@ -416,27 +416,29 @@ $('[data-trigger="submit-ajax"]').click(function(){
         url: url,
         data: formData,
         type: 'POST',
-        success: function(response)
+        success: function(json)
         {
-					resultHolder.removeClass('error').addClass('resultok').html('<p>'+response+'</p>');
+          var name = '';
+          if(json.invited_name){
+            name = ' ('+json.invited_name+')';
+          }
+					resultHolder.removeClass('error').addClass('resultok').html('<p>Invitation to '+json.invited_email+name+' sent!</p>');
 					loader.toggleClass('is-active');
 					buttonIcon.html('check');
 					button.toggleClass('hidden');
         },
-        error: function(response)
+        error: function(json)
         {
           var errorNotif = '';
-          // test with multiple errors (replace response.statusText with json below)
-          // var json = '{"__all__": [{"code": "unique_together", "message": "Invitation with this Email and Project already exists."}],"email":[{"code": "unique_together", "message": "mail not sent."}]}';
-          $.each($.parseJSON(response.statusText), function() {
-            errorNotif += '<p>'+this[0].message+'</p>';
+          $.each((json.responseJSON), function() {
+            errorNotif += '<p>'+this+'</p>';
           });
 					resultHolder.removeClass('resultok').addClass('error').html(errorNotif);
 					loader.toggleClass('is-active');
 					buttonIcon.html('close');
 					button.toggleClass('hidden');
         },
-        complete: function(response)
+        complete: function(json)
         {
           $(sendBtn).removeClass('disabled');
         }
