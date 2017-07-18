@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, TemplateView, DetailView
 from django.views.generic.base import RedirectView
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -160,9 +161,10 @@ class ProfilePage(DetailView):
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProfile(DetailView):
+class UpdateProfile(UpdateView):
     context_object_name = 'auth_user'
     template_name = 'update_profile_page.html'
+    fields = ['first_name', 'last_name', 'scientific_degree']
 
     def get_object(self, queryset=None):
         return self.request.user
