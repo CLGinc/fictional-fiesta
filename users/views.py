@@ -157,3 +157,12 @@ class ProfilePage(DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateProfile(DetailView):
+    context_object_name = 'auth_user'
+    template_name = 'update_profile_page.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
