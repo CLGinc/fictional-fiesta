@@ -129,7 +129,6 @@ MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
 LOGIN_URL = 'users:login_user'
 LOGIN_REDIRECT_URL = 'projects:projects_list'
-LOGOUT_REDIRECT_URL = 'users:login_user'
 REGISTER_URL = 'users:reguster_user'
 REGISTER_REDIRECT_URL = 'projects:projects_list'
 

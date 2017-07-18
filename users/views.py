@@ -110,7 +110,7 @@ class ActivateUser(RedirectView):
 
 @method_decorator(login_required, name='dispatch')
 class Logout(LogoutView):
-    next_page = settings.LOGOUT_REDIRECT_URL
+    next_page = 'users:login_user'
 
 
 class RoleListMixin(MultipleObjectMixin):
