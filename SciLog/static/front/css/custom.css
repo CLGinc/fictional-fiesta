@@ -658,10 +658,10 @@ a {
   padding: 24px;
 }
 .user-card--avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 24px;
-  padding-top: 24px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-top: 24px;
   margin-left: auto;
   margin-right: auto;
 }
