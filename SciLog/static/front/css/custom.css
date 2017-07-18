@@ -681,7 +681,8 @@ a {
 .user-profile--avatar {
   position: relative;
   width: 120px;
-  height: auto;
+  height: 120px;
+  border-radius: 50%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -989,6 +990,9 @@ i.list--link-inactive {
 }
 .padding--left-16 {
   padding-left: 16px;
+}
+.padding--right-8 {
+  padding-right: 8px;
 }
 .padding--right-16 {
   padding-right: 16px;
