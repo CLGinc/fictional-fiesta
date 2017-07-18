@@ -2,12 +2,18 @@
 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
   <div class="article width--full empty-states">
     <img src="{% static "front/img/optimised-empty-states.svg" %}" alt="logo">
-    <h1 class="mdl-color-text--blue-grey-300 mdc-typography--display1">There are no "VARIABLE" to list</h1>
+    <h1 class="mdl-color-text--blue-grey-300 mdc-typography--display1">
+      There are no {{ page_context_label }} to list...
+    </h1>
+    {% if display_tip_search %}
     <p class="mdl-color-text--blue-grey-400">
       Please update your search criteria and try again, or use the default filter!
     </p>
+    {% endif %}
+    {% if display_tip_create %}
     <p class="mdl-color-text--blue-grey-400">
-      Alternatively, you can ceate a new "VARIABLE" by using the action button in the bottom right corner.
+      New {{ page_context_label }} can be added by using the page actions button (<i class="material-icons">add_circle_outline</i>) in the bottom right corner.
     </p>
+    {% endif %}
   </div>
 </div>

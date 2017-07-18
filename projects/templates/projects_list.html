@@ -141,7 +141,7 @@
       </ul>
     </div>
     {% else %}
-    {% include "base/empty_states.html" %}
+    {% include "base/empty_states.html" with page_context_label="projects" display_tip_search="yes" display_tip_create="yes" %}
     {% endif %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
       <div class="mdl-spinner mdl-js-spinner" id="loading"></div>

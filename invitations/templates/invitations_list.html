@@ -52,12 +52,7 @@
         </ul>
       </ul>
       {% else %}
-      <div class="article width--full">
-        <h1 class="mdl-color-text--accent section--title">No invitations</h1>
-        <p class="mdl-color-text--blue-grey-900">
-          You have not received any invitations.
-        </p>
-      </div>
+      {% include "base/empty_states.html" with page_context_label="invitations" listed_item_name_in_body="invitation" %}
       {% endif %}
     </div>
   </div>
