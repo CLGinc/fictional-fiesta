@@ -141,14 +141,7 @@
       </ul>
     </div>
     {% else %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <div class="article width--full">
-        <h1 class="mdl-color-text--accent section--title">No results</h1>
-        <p class="mdl-color-text--blue-grey-900">
-          Please update your search criteria and try again or use the default filter!
-        </p>
-      </div>
-    </div>
+    {% include "base/empty_states.html" %}
     {% endif %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
       <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
