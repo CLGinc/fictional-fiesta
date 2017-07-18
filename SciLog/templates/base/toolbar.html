@@ -1,5 +1,10 @@
 {% load staticfiles %}
 {% load users_extras %}
+<!-- <form action="" class="toolbar__search-form" data-trigger="form--search">
+  <div class="toolbar__search-input">
+    <input type="text" class="mdc-textfield__input no-border" id="input--search" placeholder="Search...">
+  </div>
+</form> -->
 <header class="mdc-toolbar mdc-elevation--z6">
   <section class="mdc-toolbar__section mdc-toolbar__section--align-start padding-16 mdl-color--blue-grey-800">
     <button data-mdc-auto-init="MDCRipple" class="menu mdc-button mdc-button--icon mdl-color-text--light-blue-500 mobile-button">
@@ -11,6 +16,9 @@
       <span class="logo mdl-color-text--light-blue-300"><strong>Sci Log</strong></span>
     </a>
     <div class="mdl-layout-spacer"></div>
+    <!-- <button data-mdc-auto-init="MDCRipple" data-trigger="open--search" class="mdc-button mdc-button--icon mdl-color-text--white margin--right-16">
+      <i class="material-icons">search</i>
+    </button> -->
     <button data-mdc-auto-init="MDCRipple" data-trigger="profile--menu" class="mdc-button mdc-button--icon mdl-color-text--white">
     {% if request.user.avatar %}
       <img src="{{ request.user.avatar|resize:32 }}" height="32px" width="32px"></img>
