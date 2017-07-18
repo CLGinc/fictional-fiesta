@@ -42,6 +42,18 @@ $('[data-trigger="profile--menu"]').click(function() {
   var menu = new mdc.menu.MDCSimpleMenu(menuEl);
   menu.open = !menu.open;
 });
+$('#input--search').hover(function(){
+  $(this).focus();
+});
+$('[data-trigger="open--search"]').on('click', function() {
+  $('.toolbar__search-input').addClass('active');
+  setTimeout(function(){
+    $('#input--search').focus();
+  },300);
+});
+$('[data-trigger="form--search"]').on('focusout', '#input--search',function() {
+  $('.toolbar__search-input').removeClass('active');
+});
 // filters
 $('[data-trigger="filter"]').click(function() {
   var targetElementId = $(this).attr('data-target');
