@@ -11,12 +11,20 @@
     </a>
     <div class="mdl-layout-spacer"></div>
     <button data-mdc-auto-init="MDCRipple" data-trigger="profile--menu" class="mdc-button mdc-button--icon mdl-color-text--white">
+    {% if request.user.avatar %}
+      <img src="{{ request.user.avatar }}" height="32px" width="32px"></img>
+    {% else %}
       <i class="material-icons">account_circle</i>
+    {% endif %}
     </button>
     <div class="mdc-simple-menu profile--menu mdc-elevation--z4"
          tabindex="-1"
          style="top:60px; right: 0;">
+      {% if request.user.avatar %}
       <img src="{{ request.user.avatar }}" class="user-card--avatar center">
+      {% else %}
+      <img src="{% static "front/img/ninja.png" %}" class="user-card--avatar center">
+      {% endif %}
       <div class="user-card--name mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <span class="mdl-color-text--grey-900">{{ request.user }}</span><br>
         {% if request.user.scientific_degree %}<span class="mdl-color-text--grey-600">{{ request.user.scientific_degree }}</span>{% endif %}

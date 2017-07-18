@@ -15,7 +15,11 @@
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
         <div class="user-profile--card">
+          {% if auth_user.avatar %}
           <img class="user-profile--avatar" src="{{ auth_user.avatar }}"></img>
+          {% else %}
+          <img class="user-profile--avatar" src="{% static "front/img/ninja.png" %}"></img>
+          {% endif %}
           <div class="user-profile--name">
             <h1 class="mdc-card__title mdc-card__title--large">{{ auth_user.first_name }} {{ auth_user.last_name }}</h1>
             <h2 class="mdc-card__subtitle">{{ auth_user.scientific_degree }}</h2>
