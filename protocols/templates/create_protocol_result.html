@@ -465,23 +465,27 @@
     sb.show(data);
   };
   $(window).load(function(){
-    var projectInErroruuid = $('#link_result_to_project_input_uuid').val();
-    $('#link_result_to_project_input_name').val(choices[projectInErroruuid]);
+    $('#link_result_to_project_input_name').val($('#'+$('#link_result_to_project_input_uuid').val()).text());
   });
 
-  var choices = {};
+  var choices = [],
+      projects = {};
   $('.choice').each(function(){
-    choices[$(this).attr('id')] = $(this).text();
-  })
+    var innerArray = [];
+    innerArray.push($(this).attr('id'));
+    innerArray.push($(this).text());
+    choices.push(innerArray);
+  });
+  var projectInErroruuid = $('#link_result_to_project_input_uuid').val();
+  $('#link_result_to_project_input_name').val(choices[projectInErroruuid]);
 
   $('#link_result_to_project_input_name').autoComplete({
       minChars: 0,
       source: function(term, suggest){
           term = term.toLowerCase();
           var suggestions = [];
-          $.each(choices, function(key, value){
-            suggestions.push([key, value]);
-          });
+          for (i=0;i<choices.length;i++)
+              if (~(choices[i][0]+' '+choices[i][1]).toLowerCase().indexOf(term)) suggestions.push(choices[i]);
           suggest(suggestions);
       },
       renderItem: function (item, search){
@@ -495,4 +499,4 @@
       }
   });
   </script>
-{% endblock %}
+  {% endblock %}
