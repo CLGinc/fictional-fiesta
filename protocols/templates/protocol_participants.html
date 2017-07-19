@@ -15,8 +15,8 @@
       {% for role in roles %}
       <li class="mdc-list-item">
         <a class="links--wrap participant-list--link" href="/userid/">
-          {% if user.avatar %}
-          <img class="mdc-list-item__start-detail" src="{{ user.avatar|resize:56 }}"
+          {% if role.user.avatar %}
+          <img class="mdc-list-item__start-detail" src="{{ role.user.avatar|resize:56 }}"
             width="56" height="56" alt="Avatar of {{ role.user }}">
           {% else %}
           <img class="mdc-list-item__start-detail" src="/static/front/img/ninja.png"
