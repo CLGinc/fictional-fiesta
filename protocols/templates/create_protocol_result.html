@@ -440,6 +440,13 @@
     <button type="button" class="mdc-button mdc-snackbar__action-button"></button>
   </div>
 </div>
+{% if form.project.field.choices %}
+<div class="hidden">
+  {% for project_uuid, project_name in form.project.field.choices %}
+  <div class="choice" id="{{ project_uuid }}">{{ project_name }}</div>
+  {% endfor %}
+</div>
+{% endif %}
 {% include "base/scroll_top.html" %}
 {% endblock %}
 {% block post_load %}
@@ -461,7 +468,12 @@
     var projectInErroruuid = $('#link_result_to_project_input_uuid').val();
     $('#link_result_to_project_input_name').val(choices[projectInErroruuid]);
   });
-  var choices = { {% for project_uuid, project_name in form.project.field.choices %}"{{ project_uuid }}":"{{ project_name }}"{% if not forloop.last %},{% endif %}{% endfor %} };
+
+  var choices = {};
+  $('.choice').each(function(){
+    choices[$(this).attr('id')] = $(this).text();
+  })
+
   $('#link_result_to_project_input_name').autoComplete({
       minChars: 0,
       source: function(term, suggest){
@@ -470,11 +482,15 @@
           $.each(choices, function(key, value){
             suggestions.push([key, value]);
           });
+          suggestions = $(suggestions);
           suggest(suggestions);
       },
       renderItem: function (item, search){
           search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
           var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+          var item1 = item[1];
+          var decoded = item1;
+          // console.log(decoded);
           return '<div class="autocomplete-suggestion" data-pname="'+item[1]+'" data-puuid="'+item[0]+'" data-val="'+search+'">'+item[1].replace(re, "<b>$1</b>")+'</div>';
       },
       onSelect: function(e, term, item){
