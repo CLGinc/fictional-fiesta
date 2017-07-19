@@ -468,6 +468,12 @@
     $('#link_result_to_project_input_name').val($('#'+$('#link_result_to_project_input_uuid').val()).text());
   });
 
+  $('#link_result_to_project_input_name').change(function(){
+    if(!$(this).val()) {
+      $('#link_result_to_project_input_uuid').val('')
+    }
+  });
+
   var choices = [],
       projects = {};
   $('.choice').each(function(){
