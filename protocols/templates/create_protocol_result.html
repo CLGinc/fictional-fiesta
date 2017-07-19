@@ -482,15 +482,11 @@
           $.each(choices, function(key, value){
             suggestions.push([key, value]);
           });
-          suggestions = $(suggestions);
           suggest(suggestions);
       },
       renderItem: function (item, search){
           search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
           var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-          var item1 = item[1];
-          var decoded = item1;
-          // console.log(decoded);
           return '<div class="autocomplete-suggestion" data-pname="'+item[1]+'" data-puuid="'+item[0]+'" data-val="'+search+'">'+item[1].replace(re, "<b>$1</b>")+'</div>';
       },
       onSelect: function(e, term, item){
