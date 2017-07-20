@@ -159,6 +159,13 @@ class ProfilePage(DetailView):
     def get_object(self, queryset=None):
         return self.request.user
 
+    def get_context_data(self, **kwargs):
+        context = super(ProfilePage, self).get_context_data(**kwargs)
+        social_auths = self.request.user.social_auth.all()
+        for social_auth in social_auths:
+            context[social_auth.provider.replace('-', '_')] = social_auth
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class UpdateProfile(UpdateView):
