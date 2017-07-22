@@ -280,6 +280,7 @@ class UserViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
 
     def test_get_login(self):
@@ -325,6 +326,42 @@ class UserViewTest(TestCase):
         }
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 200)
+
+    def test_get_profile(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('users:profile_page')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_profile(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('users:profile_page')
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_get_update_profile(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('users:update_profile')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_update_profile(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse('users:update_profile')
+        data = {
+            'first_name': 'new first_name',
+            'last_name': 'new last_name',
+            'scientific_degree': 'new degree'
+        }
+        response = self.client.post(url, data)
+        self.assertRedirects(
+            response,
+            reverse('users:profile_page')
+        )
+        self.user1.refresh_from_db()
+        self.assertEqual(self.user1.first_name, 'new first_name')
+        self.assertEqual(self.user1.last_name, 'new last_name')
+        self.assertEqual(self.user1.scientific_degree, 'new degree')
 
 
 class UserFormTest(TestCase):
