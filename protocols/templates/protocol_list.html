@@ -145,17 +145,10 @@
       </ul>
     </div>
     {% else %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <div class="article width--full">
-        <h1 class="mdl-color-text--accent section--title">No results</h1>
-        <p class="mdl-color-text--blue-grey-900">
-          Please update your search criteria and try again or use the default filter!
-        </p>
-      </div>
-    </div>
+    {% include "base/empty_states.html" with page_context_label="protocols" display_tip_search="yes" display_tip_create="yes" %}
     {% endif %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center">
-      <div class="mdl-spinner mdl-js-spinner" id="loading"></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--top-24">
+      <div class="mdl-spinner mdl-js-spinner center" id="loading"></div>
     </div>
   </div>
   {% include "base/footer.html" %}

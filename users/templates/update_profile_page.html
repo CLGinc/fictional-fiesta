@@ -1,0 +1,102 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - Profile update{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<header class="mdc-toolbar mdl-color--orange-300 mdc-toolbar--fixed">
+  <div class="mdc-toolbar__row padding-16">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-800"
+         href="{% url 'users:profile_page' %}">
+        <i class="material-icons">close</i>
+        <span class="toolbar__button-label">Cancel</span>
+      </a>
+    </section>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Updating profile</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <button data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-800"
+         data-trigger="submit"
+         data-form="form--profile-update">
+        <i class="material-icons">check</i>
+        <span class="toolbar__button-label">Save</span>
+      </button>
+    </section>
+  </div>
+</header>
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
+    <div class="home mdc-layout-grid">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
+          My profile
+        </h1>
+      </div>
+      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+            id="form--profile-update"
+            method="post"
+            action="{% url 'users:update_profile' %}">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          {{ form.non_field_errors }}
+        {% endif %}
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">First name</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            <div class="mdc-textfield {% if form.first_name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text"
+                     name="first_name"
+                     maxlength="255" {% if form.first_name.value %}value="{{ form.first_name.value }}"{% endif %}>
+            </div>
+            {% if form.first_name.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.first_name.errors.as_text }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Last name</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            <div class="mdc-textfield {% if form.last_name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text"
+                     name="last_name"
+                     maxlength="255" {% if form.last_name.value %}value="{{ form.last_name.value }}"{% endif %}>
+            </div>
+            {% if form.last_name.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.last_name.errors.as_text }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Scientific degree</p>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
+            <div class="mdc-textfield {% if form.scientific_degree.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+              <input class="mdc-textfield__input" type="text"
+                     name="scientific_degree"
+                     maxlength="255" {% if form.scientific_degree.value %}value="{{ form.scientific_degree.value }}"{% endif %}>
+            </div>
+            {% if form.scientific_degree.errors %}
+              <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+                {{ form.scientific_degree.errors.as_text }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% include "base/footer.html" %}
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+  <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+  <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}

@@ -13,15 +13,6 @@
         Result details for {{ selected_protocol_result.title }}
       </h1>
     </div>
-    {% if request.user == selected_protocol_result.owner %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-      <a data-mdc-auto-init="MDCRipple"
-         href="{% url 'protocols:update_protocol_result' protocol_uuid=selected_protocol_result.protocol.pk result_uuid=selected_protocol_result.pk %}"
-         class="mdc-button mdl-color-text--blue-grey-600 subpageheader right">
-        <i class="material-icons mdl-color-text--light-blue-500">edit</i> Update result
-      </a>
-    </div>
-    {% endif %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">

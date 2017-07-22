@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, DetailView
 from django.views.generic.base import RedirectView
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import LogoutView, LoginView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -110,7 +111,7 @@ class ActivateUser(RedirectView):
 
 @method_decorator(login_required, name='dispatch')
 class Logout(LogoutView):
-    next_page = settings.LOGOUT_REDIRECT_URL
+    next_page = 'users:login_user'
 
 
 class RoleListMixin(MultipleObjectMixin):
@@ -148,3 +149,32 @@ class HomePage(TemplateView):
         invitations = [i for i in self.request.user.get_invitations(accepted=False) if i.is_expired() is False]
         context['number_of_invitations'] = len(invitations)
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfilePage(DetailView):
+    context_object_name = 'auth_user'
+    template_name = 'profile_page.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfilePage, self).get_context_data(**kwargs)
+        social_auths = self.request.user.social_auth.all()
+        for social_auth in social_auths:
+            context[social_auth.provider.replace('-', '_')] = social_auth
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateProfile(UpdateView):
+    context_object_name = 'auth_user'
+    template_name = 'update_profile_page.html'
+    fields = ['first_name', 'last_name', 'scientific_degree']
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('users:profile_page')
