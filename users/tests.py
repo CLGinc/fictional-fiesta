@@ -294,7 +294,7 @@ class UserViewTest(TestCase):
             'password': 'user1'
         }
         response = self.client.post(url, data)
-        self.assertRedirects(response, '/project/list/')
+        self.assertRedirects(response, reverse('users:home_page'))
 
     def test_post_login_redirect_to_project(self):
         url = reverse('users:login_user') + '?next=/project/{}/'.format(self.project1.pk)
