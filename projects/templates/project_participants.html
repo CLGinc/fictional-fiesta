@@ -1,3 +1,4 @@
+{% load users_extras %}
 <div class="mdc-layout-grid padding-0">
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--light-blue-500">
@@ -13,9 +14,14 @@
     <ul class="mdc-list mdc-list--avatar-list mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
       {% for role in roles %}
       <li class="mdc-list-item">
-        <a class="links--wrap participant-list--link" href="/userid/">
+        <a class="links--wrap participant-list--link" href="#">
+          {% if role.user.avatar %}
+          <img class="mdc-list-item__start-detail" src="{{ role.user.avatar|resize:56 }}"
+            width="56" height="56" alt="Avatar of {{ role.user }}">
+          {% else %}
           <img class="mdc-list-item__start-detail" src="/static/front/img/ninja.png"
             width="56" height="56" alt="Avatar of {{ role.user }}">
+          {% endif %}
           {{ role.user }}
         </a>
       </li>

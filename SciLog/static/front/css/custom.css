@@ -296,6 +296,7 @@ li {
   max-width: 1200px;
   left: 240px;
   margin: 0 auto;
+  padding: 0;
 }
 .logo {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -326,6 +327,44 @@ li {
   height: 100%;
   line-height: 2rem;
   overflow: hidden;
+}
+.toolbar__search-input {
+  height: 0;
+}
+.toolbar__search-input {
+  position: fixed;
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0px;
+  width: 32px;
+  height: 0px;
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: 20%;
+  margin: 0;
+  visibility: hidden;
+  z-index: 999;
+  -webkit-transition: all 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+  -moz-transition: all 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+  -o-transition: all 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+  transition: all 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+}
+.toolbar__search-input.active {
+  left: 0;
+  height: 64px;
+  transform: translateX(0);
+  width: 100%;
+  border-radius: 0;
+  padding: 8px 24px;
+  visibility: visible;
+}
+.toolbar__search-input > .mdc-textfield__input {
+  height: 100%;
+  font-size: 20px;
+}
+.mdc-textfield:not(.mdc-textfield--upgraded) .mdc-textfield__input:focus.no-border {
+  border: none;
 }
 .mdc-temporary-drawer__header::before {
   padding-top: 70%;
@@ -657,10 +696,10 @@ a {
   padding: 24px;
 }
 .user-card--avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 24px;
-  padding-top: 24px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-top: 24px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -670,6 +709,24 @@ a {
 }
 .user-card--name {
   transform: perspective(1px);
+}
+/*User profile*/
+.user-profile--card {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.user-profile--avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.user-profile--name {
+  padding-top: 40px;
+  text-align: center;
 }
 /*Participants list*/
 .participant-list--link {
@@ -858,6 +915,19 @@ i.list--link-inactive {
 .error {
   color: #ff1744;
 }
+/* Empty states */
+.empty-states {
+  padding: 40px;
+  text-align: center;
+}
+.empty-states > img {
+  width: 160px;
+  height: 160px;
+  padding: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
 /* Filter */
 .filter-form {
   display: none;
@@ -971,6 +1041,9 @@ i.list--link-inactive {
 }
 .padding--left-16 {
   padding-left: 16px;
+}
+.padding--right-8 {
+  padding-right: 8px;
 }
 .padding--right-16 {
   padding-right: 16px;

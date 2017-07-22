@@ -16,7 +16,7 @@
   </li>
   {% for source in selected_project.sources.all %}
 	<li class="border--bottom mdc-layout-grid padding-0 margin--none">
-    <a href="/resultid/"
+    <a href="#"
        class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}9{% else %}10{% endif %} list--link margin--none">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">{{ source.name }}</div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ source.isbn }}</div>
@@ -45,12 +45,5 @@
 {% endfor %}
 </ul>
 {% else %}
-<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-  <div class="article width--full margin--top-16">
-    <h1 class="mdl-color-text--accent section--title">No sources</h1>
-    <p class="mdl-color-text--blue-grey-900">
-      There are no sources yet. Use the '+ ADD' button to add more.
-    </p>
-  </div>
-</div>
+{% include "base/empty_states.html" with page_context_label="sources" display_tip_create="yes" %}
 {% endif %}

@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
-from .views import Login, Logout, Register, HomePage, ActivateUser
+from .views import Login, Logout, Register, HomePage, ActivateUser, ProfilePage
+from .views import UpdateProfile
 
 urlpatterns = [
     url(r'^login/$', Login.as_view(), name='login_user'),
@@ -8,4 +9,6 @@ urlpatterns = [
     url(r'^register/$', Register.as_view(), name='register_user'),
     url(r'^activate/(?P<username>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', ActivateUser.as_view(), name='activate_user'),
     url(r'^$', HomePage.as_view(), name='home_page'),
+    url(r'^profile/$', ProfilePage.as_view(), name='profile_page'),
+    url(r'^profile/update$', UpdateProfile.as_view(), name='update_profile'),
 ]

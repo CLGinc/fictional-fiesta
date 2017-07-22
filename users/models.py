@@ -95,6 +95,7 @@ class User(AbstractUser):
         verbose_name='email address'
     )
     scientific_degree = models.CharField(max_length=255, null=True, blank=True)
+    avatar = models.URLField(null=True, blank=True)
 
     def __str__(self):
         if self.first_name and self.last_name:
@@ -186,9 +187,9 @@ class User(AbstractUser):
         )
         msg.send(fail_silently=fail_silently)
 
-    def get_invitations(self):
+    def get_invitations(self, **kwargs):
         InvitationModel = apps.get_model('invitations', 'Invitation')
-        return InvitationModel.objects.filter(invited=self)
+        return InvitationModel.objects.filter(**kwargs, invited=self)
 
 
 class Source(models.Model):

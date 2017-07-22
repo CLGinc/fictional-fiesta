@@ -120,6 +120,19 @@
         </li>
         {% endif %}
       {% endif %}
+    {% elif 'users' in url_resolver.app_names %}
+      {% if url_resolver.url_name == 'profile_page' %}
+        <li>
+          <div>
+            <a href="{% url 'users:update_profile' %}" class="mdc-fab mdc-fab--mini material-icons mdl-color--orange-700 fixed-action-btn-list-action" data-mdc-auto-init="MDCRipple">
+              <span class="mdc-fab__icon">
+                mode_edit
+              </span>
+            </a>
+          </div>
+          <span><div class="fixed-action-btn-label">Update profile</div></span>
+        </li>
+      {% endif %}
     {% endif %}
   </ul>
   <div class="fixed-action-btn-main-btn">
