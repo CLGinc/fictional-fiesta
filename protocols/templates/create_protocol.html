@@ -40,12 +40,12 @@
           <span class="error">{{ form.nonfield_errors.as_text }}</span>
         {% endif %}
       </div>
-      <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
+      <form class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0"
             id="create_protocol_form"
             method="post"
             action="{% url 'protocols:create_protocol' %}">
         {% csrf_token %}
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Name and label</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none">
             <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -95,7 +95,7 @@
             </div>
           </div>
         </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid padding-0 margin--none">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid padding-0 margin--none">
           <div class="article mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
             <h1 class="mdl-color-text--light-blue-500 section--title">Procedure</h1>
             <div class="mdc-textfield mdc-textfield--upgraded input--temp padding-0 mdc-typography--body1">
@@ -114,80 +114,80 @@
               {% if form.procedure.value != "null" %}
               {% with procedure=form.procedure.value|json_to_dict %}
               {% for step in procedure.steps %}
-              <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
+              <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
                   data-step="0">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-                  <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
-                       data-content="step-number">{{ forloop.counter }}</div>
-                  <div class="mdl-color-text--blue-grey-600 text-center">
-                    STEP
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+                    <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
+                         data-content="step-number">{{ forloop.counter }}</div>
+                    <div class="mdl-color-text--blue-grey-600 text-center">
+                      STEP
+                    </div>
                   </div>
-                </div>
-                <!-- Title input -->
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                  <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-                    <input class="mdc-textfield__input" type="text"
-                           data-content="step-title"
-                           maxlength="255" {% if step.title %}value="{{ step.title }}"{% endif %}>
-                    <label class="mdc-textfield__label">Step title</label>
+                  <!-- Title input -->
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                    <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                      <input class="mdc-textfield__input" type="text"
+                             data-content="step-title"
+                             maxlength="255" {% if step.title %}value="{{ step.title }}"{% endif %}>
+                      <label class="mdc-textfield__label">Step title</label>
+                    </div>
+                    <!-- Text input -->
+                    <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                      <textarea class="mdc-textfield__input" rows="6" type="text"
+                                data-content="step-desc"
+                                maxlength="1024" required>{% if step.description %}{{ step.description }}{% endif %}</textarea>
+                      <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
+                    </div>
                   </div>
-                  <!-- Text input -->
-                  <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
-                    <textarea class="mdc-textfield__input" rows="6" type="text"
-                              data-content="step-desc"
-                              maxlength="1024" required>{% if step.description %}{{ step.description }}{% endif %}</textarea>
-                    <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
+                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                       data-trigger="add-step-create">
+                      <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
+                    </a>
+                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                       data-trigger="remove-step">
+                      <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
+                    </a>
                   </div>
-                </div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
-                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                     data-trigger="add-step-create">
-                    <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
-                  </a>
-                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                     data-trigger="remove-step">
-                    <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
-                  </a>
-                </div>
               </li>
               {% endfor %}
               {% endwith %}
               {% else %}
-              <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
+              <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
                   data-step="0">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
-                  <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
-                       data-content="step-number">1</div>
-                  <div class="mdl-color-text--blue-grey-600 text-center">
-                    STEP
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+                    <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
+                         data-content="step-number">1</div>
+                    <div class="mdl-color-text--blue-grey-600 text-center">
+                      STEP
+                    </div>
                   </div>
-                </div>
-                <!-- Title input -->
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-                  <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-                    <input class="mdc-textfield__input" type="text"
-                           data-content="step-title"
-                           maxlength="255">
-                    <label class="mdc-textfield__label">Step title</label>
+                  <!-- Title input -->
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+                    <div class="mdc-textfield {% if step_form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+                      <input class="mdc-textfield__input" type="text"
+                             data-content="step-title"
+                             maxlength="255">
+                      <label class="mdc-textfield__label">Step title</label>
+                    </div>
+                    <!-- Text input -->
+                    <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+                      <textarea class="mdc-textfield__input" rows="6" type="text"
+                                data-content="step-desc"
+                                maxlength="1024" required></textarea>
+                      <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
+                    </div>
                   </div>
-                  <!-- Text input -->
-                  <div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
-                    <textarea class="mdc-textfield__input" rows="6" type="text"
-                              data-content="step-desc"
-                              maxlength="1024" required></textarea>
-                    <label class="mdc-textfield__label" for="input-new-step--desc">Step description</label>
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
+                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                       data-trigger="add-step-create">
+                      <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
+                    </a>
+                    <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
+                       data-trigger="remove-step">
+                      <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
+                    </a>
                   </div>
-                </div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-8">
-                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                     data-trigger="add-step-create">
-                    <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i> Insert new step
-                  </a>
-                  <a data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600"
-                     data-trigger="remove-step">
-                    <i class="material-icons mdl-color-text--light-blue-500">close</i> Remove step
-                  </a>
-                </div>
               </li>
               {% endif %}
             </ul>

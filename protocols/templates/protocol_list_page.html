@@ -1,11 +1,11 @@
 {% for role in roles_list_page %}
 <li class="border--bottom">
-  <a href="{% url 'protocols:protocol' protocol_uuid=role.protocol.uuid %}" class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.datetime_created|date:"d M Y" }}</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.protocol.results.count }}</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
+  <a href="{% url 'protocols:protocol' protocol_uuid=role.protocol.uuid %}" class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.name }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>{{ role.protocol.description|truncatechars_html:92 }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.datetime_created|date:"d M Y" }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.protocol.results.count }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.get_role_display }}</p></div>
   </a>
 </li>
 {% endfor %}

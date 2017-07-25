@@ -14,8 +14,8 @@
       </h1>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+      <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Success</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {% if selected_protocol_result.is_successful %}
@@ -25,21 +25,21 @@
             {% endif %}
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.get_state_display }}
           </div>
         </div>
         {% if selected_protocol_result.project.name %}
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked to project</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.project.name }}
           </div>
         </div>
         {% endif %}
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.protocol.name }}
@@ -47,8 +47,8 @@
         </div>
       </div>
       {% if selected_protocol_result.note %}
-      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+      <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.note }}
@@ -56,63 +56,65 @@
         </div>
       </div>
       {% endif %}
-      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+      <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--top-24">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.independent_variable }}
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.dependent_variable }}
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.get_data_type_independent_display }}
           </div>
         </div>
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+        <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
             {{ selected_protocol_result.get_data_type_dependent_display }}
           </div>
         </div>
       </div>
-      <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
+      <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--top-24">
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">
           Data table
         </div>
-        <div class="table" data-content="dataTable--parent">
-          <div class="thead">
-            <div class="th table--border-right" id="independent-title">{{ selected_protocol_result.independent_variable }}</div>
-            <div class="th" id="dependent-title">{{ selected_protocol_result.dependent_variable }}</div>
-          </div>
-          <div class="tbody">
-            <div class="trow">
-              {% for independent_column in selected_protocol_result.data_columns.independent_variable %}
-              <div class="td table--border-right col-indep">
-                <ul class="mdc-list">
-                  <li class="mdc-list-item"></li>
-                  {% for data_value in independent_column.data %}
-                  <li class="mdc-list-item" data-type="independent-value">{{ data_value }}</li>
-                  {% endfor %}
-                </ul>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 table-container">
+          <div class="table" data-content="dataTable--parent">
+            <div class="thead">
+              <div class="th table--border-right" id="independent-title">{{ selected_protocol_result.independent_variable }}</div>
+              <div class="th" id="dependent-title">{{ selected_protocol_result.dependent_variable }}</div>
+            </div>
+            <div class="tbody">
+              <div class="trow">
+                {% for independent_column in selected_protocol_result.data_columns.independent_variable %}
+                <div class="td table--border-right col-indep">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item"></li>
+                    {% for data_value in independent_column.data %}
+                    <li class="mdc-list-item" data-type="independent-value">{{ data_value }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
+                {% for dependent_column in selected_protocol_result.data_columns.dependent_variable %}
+                <div class="td col">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item" data-type="dependent-title">{{ dependent_column.title }}</li>
+                    {% for data_value in dependent_column.data %}
+                    <li class="mdc-list-item" data-type="dependent-value">{{ data_value }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endfor %}
               </div>
-              {% endfor %}
-              {% for dependent_column in selected_protocol_result.data_columns.dependent_variable %}
-              <div class="td col">
-                <ul class="mdc-list">
-                  <li class="mdc-list-item" data-type="dependent-title">{{ dependent_column.title }}</li>
-                  {% for data_value in dependent_column.data %}
-                  <li class="mdc-list-item" data-type="dependent-value">{{ data_value }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {% endfor %}
             </div>
           </div>
         </div>

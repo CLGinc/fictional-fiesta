@@ -18,6 +18,7 @@
       </button>
       <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
         <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <div class="mdc-layout-grid__inner">
           <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by protocol</p>
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
             <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
@@ -112,18 +113,19 @@
             <i class="material-icons mdl-color-text--light-blue-500">close</i>
               Close
           </button>
+          </div>
         </div>
       </form>
     </div>
     {% if roles_list_page %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <ul class="mdc-list padding-0">
-        <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Protocol name</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Results</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
+        <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Protocol name</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>Description</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Created</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Results</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Role</p></div>
         </li>
       </ul>
       <ul class="mdc-list padding-0" id="items_list"
@@ -133,12 +135,12 @@
         {% for role in roles_list_page %}
         <li class="border--bottom">
           <a href="{% url 'protocols:protocol' protocol_uuid=role.protocol.uuid %}"
-             class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.name }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.protocol.description|truncatechars_html:92 }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.protocol.datetime_created|date:"d M Y" }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.protocol.results.count }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
+             class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.name }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>{{ role.protocol.description|truncatechars_html:92 }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.datetime_created|date:"d M Y" }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.protocol.results.count }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.get_role_display }}</p></div>
           </a>
         </li>
         {% endfor %}

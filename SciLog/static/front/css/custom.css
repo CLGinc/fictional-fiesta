@@ -1052,6 +1052,9 @@ i.list--link-inactive {
 .padding--right-16 {
   padding-right: 16px;
 }
+.padding--right-72 {
+  padding-right: 72px;
+}
 .top-8 {
   top:8px;
 }
@@ -1066,6 +1069,7 @@ i.list--link-inactive {
 }
 .select--fix > select {
   height: 48px;
+  margin-top: 16px;
 }
 .text-light--300 {
   font-weight: 300;
