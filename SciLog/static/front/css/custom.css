@@ -837,6 +837,9 @@ i.list--link-inactive {
 .mdc-checkbox {
   vertical-align: middle;
 }
+.checkbox-fix {
+  margin-top: 4px;
+}
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
 }

@@ -1,58 +1,65 @@
 {% if results_with_permission %}
-<ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 margin--none padding-0">
-    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %}">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">Protocol</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">Created by</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created on</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">State</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">Success</div>
+<div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
+  <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %}">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+      <p>Protocol</p>
     </div>
-    {% if can_add_items %}
-    <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+      <p>Created by</p>
     </div>
-    {% endif %}
-  </li>
-</ul>
-<ul class="mdc-list padding-0">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+      <p>Created on</p>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">
+      <p>State</p>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 text-center">
+      <p>Success</p>
+    </div>
+  </div>
+  {% if can_add_items %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-1 center">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">Remove</div>
+  </div>
+  {% endif %}
+</div>
   {% for result, has_role in results_with_permission %}
-  <li class="border--bottom mdc-layout-grid padding-0 margin--none {% if has_role is False %}mdl-color--grey-100{% endif %}">
-    {% if has_role %}
-      <a href="{% url 'protocols:protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}" class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none">
+<div class="border--bottom mdc-layout-grid__inner padding-0 margin--none {% if has_role is False %}mdl-color--grey-100{% endif %}">
+  {% if has_role %}
+    <a href="{% url 'protocols:protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}"
+       class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none">
+  {% else %}
+    <div class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none mdl-color-text--grey-400">
+  {% endif %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4"><p>{{ result.protocol }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3"><p>{{ result.owner }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ result.datetime_created|date:"d M Y" }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center"><p>{{ result.get_state_display }}</p></div>
+    {% if result.is_successful == True %}
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center"><p>Yes</p></div>
     {% else %}
-      <div class="links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none mdl-color-text--grey-400">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center"><p>No</p></div>
     {% endif %}
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">{{ result.protocol }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">{{ result.owner }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ result.datetime_created|date:"d M Y" }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 text-center">{{ result.get_state_display }}</div>
-      {% if result.is_successful == True %}
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--green-600 text-center">Yes</div>
-      {% else %}
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdl-color-text--pink-600 text-center">No</div>
-      {% endif %}
-    {% if has_role %}
-      </a>
+  {% if has_role %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+  {% if can_add_items %}
+    {% if request.user == result.owner %}
+    <a href="#" class="mdc-button mdc-button--icon center padding-8"
+       aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
+      <i class="material-icons list--link-remove">clear</i>
+    </a>
     {% else %}
-      </div>
+    <button class="mdc-button center padding-8" {% if has_role is False %}disabled{% endif %}
+       aria-label="Not accessible" title="Only the owner of the project or the result can remove it!" data-mdc-auto-init="MDCRipple">
+      <i class="material-icons list--link-inactive">lock_outline</i>
+    </button>
     {% endif %}
-    {% if can_add_items %}
-      {% if request.user == result.owner %}
-      <a href="#" class="mdc-button mdc-button--icon center padding-8"
-         aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
-        <i class="material-icons list--link-remove">clear</i>
-      </a>
-      {% else %}
-      <button class="mdc-button center padding-8" {% if has_role is False %}disabled{% endif %}
-         aria-label="Not accessible" title="Only the owner of the project or the result can remove it!" data-mdc-auto-init="MDCRipple">
-        <i class="material-icons list--link-inactive">lock_outline</i>
-      </button>
-      {% endif %}
-    {% endif %}
-  </li>
+  {% endif %}
+</div>
   {% endfor %}
-</ul>
 {% else %}
 {% include "base/empty_states.html" with page_context_label="results" display_tip_create="yes" %}
 {% endif %}
