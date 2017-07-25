@@ -1101,6 +1101,9 @@ i.list--link-inactive {
 .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
 .autocomplete-suggestion.selected { background: #f0f0f0; }
 /*media queries*/
+.mobile span {
+  display: none;
+}
 @media screen and (max-width: 1300px) {
   .mdc-toolbar {
     position: fixed;
@@ -1127,6 +1130,12 @@ i.list--link-inactive {
 @media screen and (max-width: 674px) {
   .mdc-tab {
     min-width: 72px;
+  }
+  .desktop {
+    display: none;
+  }
+  .mobile span {
+    display: block;
   }
 }
 @media screen and (max-width: 1025px) {

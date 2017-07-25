@@ -118,11 +118,11 @@
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
         <ul class="mdc-list padding-0">
           <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Project name</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>Description</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Created</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Protocols</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Role</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-tablet mobile"><p>Project name</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 desktop"><p>Description</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 desktop"><p>Created</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>Protocols</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>Role</p></div>
           </li>
         </ul>
         <ul class="mdc-list padding-0" id="items_list"
@@ -133,11 +133,16 @@
           <li class="border--bottom">
             <a href="{% url 'projects:project' project_uuid=role.project.uuid %}"
                class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.project.name }}</p></div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.project.datetime_created|date:"d M Y" }}</p></div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.project.protocols.count }}</p></div>
-              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.get_role_display }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-tablet mobile">
+                <p>
+                {{ role.project.name }}
+                <span class="mdc-typography--caption">{{ role.get_role_display }} / Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
+                </p>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 desktop"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 desktop"><p>{{ role.project.datetime_created|date:"d M Y" }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>{{ role.project.protocols.count }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>{{ role.get_role_display }}</p></div>
             </a>
           </li>
           {% endfor %}
