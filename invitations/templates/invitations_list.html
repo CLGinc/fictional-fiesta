@@ -22,7 +22,7 @@
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding--left-16"><p>Status</p></div>
           </div>
             {% for invitation in invitations_list %}
-          <div class="mdc-layout-grid__inner border--bottom">
+          <div class="mdc-layout-grid__inner border--bottom list--invitations">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ invitation.get_item }}</p></div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text"><p>{{ invitation.get_item_name }}</p></div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 wrap--text"><p>{{ invitation.inviter }}</p></div>

@@ -751,6 +751,10 @@ a {
   padding-bottom: 16px;
 }
 /*Lists*/
+.list--invitations {
+  font-weight: normal;
+  font-size: 14px;
+}
 .list--link {
   font-weight: normal;
   font-size: 14px;
