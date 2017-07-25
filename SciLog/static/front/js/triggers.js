@@ -388,13 +388,13 @@ $('[data-trigger="submit-ajax-invitation"]').click(function(){
         type: 'POST',
         success: function(response)
         {
-          parent.html('<button class="mdc-button button--height-normal" disabled>Accepted</button>');
+          parent.html('<button class="mdc-button button--height-normal" disabled><p>Accepted</p></button>');
           loader.toggleClass('is-active');
         },
         error: function(response)
         {
           loader.toggleClass('is-active');
-          button.html('Try again');
+          button.html('<p>Try again</p>');
         },
         complete: function(response)
         {

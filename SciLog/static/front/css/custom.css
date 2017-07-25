@@ -1008,6 +1008,7 @@ i.list--link-inactive {
 }
 .center--spinner {
   right:50%;
+  margin: 16px auto;
 }
 .relative {
   position: relative;
