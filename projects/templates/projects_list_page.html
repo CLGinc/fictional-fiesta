@@ -4,8 +4,9 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
       <p>
       {{ role.project.name }}
-      <span class="mdc-typography--caption display-on--tablet">Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
-      <span class="mdc-typography--caption display-on--mobile">{{ role.get_role_display }} / Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
+      <span class="mdc-typography--caption display-on--tablet"><strong>Createad on:</strong> {{ role.project.datetime_created|date:"d M Y" }}</span>
+      <span class="mdc-typography--caption display-on--mobile"><strong>Role:</strong> {{ role.get_role_display }}</span>
+      <span class="mdc-typography--caption display-on--mobile"><strong>Createad on:</strong> {{ role.project.datetime_created|date:"d M Y" }}</span>
       </p>
     </div>
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
