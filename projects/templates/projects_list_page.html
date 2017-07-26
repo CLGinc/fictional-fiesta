@@ -1,16 +1,17 @@
 {% for role in roles_list_page %}
 <li class="border--bottom">
   <a href="{% url 'projects:project' project_uuid=role.project.uuid %}" class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone mobile">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
       <p>
       {{ role.project.name }}
-      <span class="mdc-typography--caption">{{ role.get_role_display }} / Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
+      <span class="mdc-typography--caption display-on--tablet">Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
+      <span class="mdc-typography--caption display-on--mobile">{{ role.get_role_display }} / Createad on: {{ role.project.datetime_created|date:"d M Y" }}</span>
       </p>
     </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 desktop"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 desktop"><p>{{ role.project.datetime_created|date:"d M Y" }}</p></div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>{{ role.project.protocols.count }}</p></div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 desktop"><p>{{ role.get_role_display }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 display-on--desktop"><p>{{ role.project.datetime_created|date:"d M Y" }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet tablet"><p>{{ role.project.protocols.count }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet tablet"><p>{{ role.get_role_display }}</p></div>
   </a>
 </li>
 {% endfor %}
