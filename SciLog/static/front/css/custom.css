@@ -1124,9 +1124,6 @@ i.list--link-inactive {
 }
 /*mobile query*/
 @media (max-width: 479px) {
-  .tablet {
-    display: none;
-  }
   .display-on--desktop {
     display: none;
   }
@@ -1135,6 +1132,9 @@ i.list--link-inactive {
   }
   .display-on--tablet {
     display: none;
+  }
+  .hide-on--mobile {
+    display: none; 
   }
 }
 /*tablet query*/

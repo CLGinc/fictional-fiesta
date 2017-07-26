@@ -121,11 +121,11 @@
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
       <ul class="mdc-list padding-0">
         <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Protocol name</p></div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>Description</p></div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>Created</p></div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Results</p></div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Role</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet"><p>Protocol name</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>Description</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 display-on--desktop"><p>Created</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Results</p></div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Role</p></div>
         </li>
       </ul>
       <ul class="mdc-list padding-0" id="items_list"
@@ -136,11 +136,17 @@
         <li class="border--bottom">
           <a href="{% url 'protocols:protocol' protocol_uuid=role.protocol.uuid %}"
              class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.name }}</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>{{ role.protocol.description|truncatechars_html:92 }}</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ role.protocol.datetime_created|date:"d M Y" }}</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.protocol.results.count }}</p></div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>{{ role.get_role_display }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
+              <p>
+              {{ role.protocol.name }}
+              <span class="mdc-typography--caption display-on--tablet">Createad on: {{ role.protocol.datetime_created|date:"d M Y" }}</span>
+              <span class="mdc-typography--caption display-on--mobile">{{ role.get_role_display }} / Createad on: {{ role.protocol.datetime_created|date:"d M Y" }}</span>
+              </p>
+            </div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>{{ role.protocol.description|truncatechars_html:92 }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 display-on--desktop"><p>{{ role.protocol.datetime_created|date:"d M Y" }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>{{ role.protocol.results.count }}</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>{{ role.get_role_display }}</p></div>
           </a>
         </li>
         {% endfor %}
