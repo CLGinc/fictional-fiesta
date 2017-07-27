@@ -1,3 +1,6 @@
+.table-container {
+  overflow-x: auto;
+}
 .tbody input {
 padding: 8px;
 transition-duration: 0.28s;

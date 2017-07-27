@@ -1,10 +1,10 @@
 {% load users_extras %}
-<div class="mdc-layout-grid padding-0">
-  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--light-blue-500">
+<div class="mdc-layout-grid__inner padding-0">
+  <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--align-top padding-0">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-list mdl-color-text--light-blue-500 display-on--desktop">
       <p>Role</p>
     </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-list mdl-color-text--light-blue-500">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-list mdl-color-text--light-blue-500 display-on--desktop">
       <p>Email</p>
     </div>
     {% for role_value, roles in participants_by_role %}

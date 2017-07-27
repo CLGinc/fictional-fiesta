@@ -266,7 +266,7 @@ li {
 
 .mdc-button--icon {
     border-radius: 50%;
-    font-size: 24px;
+    /*font-size: 24px;*/
     height: 32px;
     margin-left: 0;
     margin-right: 0;
@@ -751,6 +751,10 @@ a {
   padding-bottom: 16px;
 }
 /*Lists*/
+.list--invitations {
+  font-weight: normal;
+  font-size: 14px;
+}
 .list--link {
   font-weight: normal;
   font-size: 14px;
@@ -813,6 +817,23 @@ i.list--link-inactive {
   max-height: 100%;
 }
 /*Modal*/
+.mdc-dialog {
+  z-index: 9999;
+}
+.mdc-dialog__backdrop {
+  z-index: 9998;
+}
+.mdc-dialog__surface {
+  height: 80%;
+  max-width: 1300px;
+  z-index: 9999;
+}
+.mdc-dialog__body {
+  height: 100%;
+}
+.mdc-dialog__body--scrollable {
+  max-height: 100%;
+}
 .modal {
   position: absolute;
   top: 69px;
@@ -836,6 +857,9 @@ i.list--link-inactive {
 }
 .mdc-checkbox {
   vertical-align: middle;
+}
+.checkbox-fix {
+  margin-top: 4px;
 }
 .mdc-checkbox.checkbox-fix::after {
   pointer-events:auto; /*fix required for custom click handling*/
@@ -1005,6 +1029,7 @@ i.list--link-inactive {
 }
 .center--spinner {
   right:50%;
+  margin: 16px auto;
 }
 .relative {
   position: relative;
@@ -1048,6 +1073,9 @@ i.list--link-inactive {
 .padding--right-16 {
   padding-right: 16px;
 }
+.padding--right-72 {
+  padding-right: 72px;
+}
 .top-8 {
   top:8px;
 }
@@ -1062,6 +1090,7 @@ i.list--link-inactive {
 }
 .select--fix > select {
   height: 48px;
+  margin-top: 16px;
 }
 .text-light--300 {
   font-weight: 300;
@@ -1103,6 +1132,49 @@ i.list--link-inactive {
     margin-top: 16px;
   }
 }
+/*mobile and tablet presets*/
+.display-on--mobile {
+  display: none;
+}
+.display-on--tablet {
+  display: none;
+}
+.hide-on--desktop {
+  display: none;
+}
+/*mobile query*/
+@media (max-width: 479px) {
+  .display-on--desktop {
+    display: none;
+  }
+  .display-on--mobile {
+    display: block;
+  }
+  .display-on--tablet {
+    display: none;
+  }
+  .hide-on--mobile {
+    display: none;
+  }
+  .hide-on--desktop {
+    display: block;
+  }
+}
+/*tablet query*/
+@media (max-width: 839px) and (min-width: 480px) {
+  .display-on--desktop {
+    display: none;
+  }
+  .display-on--tablet {
+    display: block;
+  }
+  .display-on--mobile {
+    display: none;
+  }
+  .hide-on--desktop {
+    display: block;
+  }
+}
 @media screen and (max-width: 600px) {
   .toolbar__button-label {
     display: none;
@@ -1115,6 +1187,9 @@ i.list--link-inactive {
 @media screen and (max-width: 674px) {
   .mdc-tab {
     min-width: 72px;
+  }
+  .mobile span {
+    display: block;
   }
 }
 @media screen and (max-width: 1025px) {

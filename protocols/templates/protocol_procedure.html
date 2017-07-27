@@ -1,22 +1,22 @@
-<ul class="mdc-list padding-0">
-  {% for step in selected_protocol.procedure.steps %}
-  <li class="mdc-layout-grid border--bottom padding-0 margin--none">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+{% for step in selected_protocol.procedure.steps %}
+<div class="mdc-layout-grid__inner border--bottom padding-0 margin--none">
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+    <p>
       <div class="mdl-color-text--blue-grey-600 text-center">
         {{ forloop.counter }}
       </div>
       <div class="mdl-color-text--blue-grey-600 text-center">
         STEP
       </div>
-    </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
-      <p class="mdl-color-text--light-blue-500">
-        {{ step.title }}
-      </p>
-      <p>
-        {{ step.description }}
-      </p>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
+    </p>
+  </div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11-desktop mdc-layout-grid__cell--span-7-tablet mdc-layout-grid__cell--span-3-phone">
+    <p class="mdl-color-text--light-blue-500">
+      {{ step.title }}
+    </p>
+    <p>
+      {{ step.description }}
+    </p>
+  </div>
+</div>
+{% endfor %}
