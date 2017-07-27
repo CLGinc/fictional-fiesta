@@ -1,6 +1,6 @@
 {% if results_with_permission %}
 <div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 hide-on--mobile">
-  <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %}">
+  <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11-desktop mdc-layout-grid__cell--span-7-tablet{% else %}12{% endif %}">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
       <p>Protocol</p>
     </div>
@@ -27,9 +27,9 @@
 <div class="border--bottom mdc-layout-grid__inner padding-0 margin--none {% if has_role is False %}mdl-color--grey-100{% endif %}">
   {% if has_role %}
     <a href="{% url 'protocols:protocol_result' protocol_uuid=result.protocol.uuid result_uuid=result.uuid %}"
-       class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none">
+       class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11-desktop mdc-layout-grid__cell--span-7-tablet mdc-layout-grid__cell--span-3-phone{% else %}12{% endif %} list--link margin--none">
   {% else %}
-    <div class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11{% else %}12{% endif %} list--link margin--none mdl-color-text--grey-400">
+    <div class="links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-{% if can_add_items %}11-desktop mdc-layout-grid__cell--span-6-tablet mdc-layout-grid__cell--span-3-phone{% else %}12{% endif %} list--link margin--none mdl-color-text--grey-400">
   {% endif %}
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
       <p>
@@ -54,17 +54,19 @@
     </div>
   {% endif %}
   {% if can_add_items %}
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
     {% if request.user == result.owner %}
     <a href="#" class="mdc-button mdc-button--icon center padding-8"
        aria-label="Remove result" title="Remove result" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-remove">clear</i>
     </a>
     {% else %}
-    <button class="mdc-button center padding-8" {% if has_role is False %}disabled{% endif %}
+    <button class="mdc-button mdc-button--icon center padding-8" {% if has_role is False %}disabled{% endif %}
        aria-label="Not accessible" title="Only the owner of the project or the result can remove it!" data-mdc-auto-init="MDCRipple">
       <i class="material-icons list--link-inactive">lock_outline</i>
     </button>
     {% endif %}
+  </div>
   {% endif %}
 </div>
   {% endfor %}

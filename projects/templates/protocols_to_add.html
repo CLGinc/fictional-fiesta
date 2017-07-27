@@ -1,9 +1,9 @@
 {% if form.element_choices.field.queryset %}
 <div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Select</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6"><p>Name</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4"><p>Owner</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Label</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-5-tablet hide-on--mobile"><p>Name</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 display-on--desktop"><p>Owner</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Label</p></div>
 </div>
 <form id="form--protocols" method="post" action="{% url 'projects:add_protocols_to_project' project_uuid=object.uuid %}">
   {% csrf_token %}
@@ -11,7 +11,7 @@
   <div data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.uuid }}"
       id="{{ protocol.uuid }}"
       class="border--bottom mdc-layout-grid__inner list--link links--wrap">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
       <div class="mdc-checkbox checkbox-fix">
         <input type="checkbox" name="element_choices" value="{{ protocol.uuid }}" id="checkbox_{{ protocol.uuid }}" class="mdc-checkbox__native-control"/>
         <div class="mdc-checkbox__background">

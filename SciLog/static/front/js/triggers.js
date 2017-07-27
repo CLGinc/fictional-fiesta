@@ -8,6 +8,28 @@ var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawe
 document.querySelector('.menu').addEventListener('click', function() {
   drawer.open = !drawer.open;
 });
+
+var dialogProtocols = new mdc.dialog.MDCDialog(document.querySelector('#dialog--protocols'));
+var dialogSources = new mdc.dialog.MDCDialog(document.querySelector('#dialog--sources'));
+
+dialogProtocols.listen('MDCDialog:cancel', function() {
+  var targetElementId = $(this).attr('data-target'),
+      requestTarget = $('#'+targetElementId).attr('data-request');
+  deleteOldList(requestTarget);
+});
+document.querySelector('#dialog--protocols-btn').addEventListener('click', function (evt) {
+  dialogProtocols.lastFocusedTarget = evt.target;
+  dialogProtocols.show();
+});
+dialogSources.listen('MDCDialog:cancel', function() {
+  var targetElementId = $(this).attr('data-target'),
+      requestTarget = $('#'+targetElementId).attr('data-request');
+  deleteOldList(requestTarget);
+});
+document.querySelector('#dialog--sources-btn').addEventListener('click', function (evt) {
+  dialogSources.lastFocusedTarget = evt.target;
+  dialogSources.show();
+});
 // action button
 $(window).load(function(){
   if($('.fixed-action-btn')){

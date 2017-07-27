@@ -54,59 +54,63 @@
   </div>
   {% include "base/footer.html" %}
 </div>
-<div id="modal--protocols" class="modal visible mdc-layout-grid" data-request="add_protocols">
-  <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-    <header class="mdc-toolbar mdl-color--light-blue-500 mdc-elevation--z2">
-      <div class="mdc-toolbar__row padding-16">
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-          <a data-mdc-auto-init="MDCRipple" data-trigger="close"  data-target="modal--protocols" class="mdc-button mdl-color-text--white">
-            <i class="material-icons">close</i>
-            <span class="toolbar__button-label">Cancel</span>
-          </a>
-        </section>
-        <section class="mdc-toolbar__section">
-          <span class="mdc-toolbar__title">Select protocols to add</span>
-        </section>
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-          <a data-mdc-auto-init="MDCRipple" data-trigger="submit" data-target="modal--protocols" data-form="form--protocols" class="mdc-button mdl-color-text--white modal--button">
-            <i class="material-icons">playlist_add</i>
-            <span class="toolbar__button-label">ADD</span>
-          </a>
-        </section>
-      </div>
+<div id="dialog--protocols"
+       class="mdc-dialog"
+       data-target="dialog--protocols" data-request="add_protocols">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title">
+        Select protocol(s) to add
+      </h2>
     </header>
-    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full" data-type="loader"></div>
-    <div id="add_protocols" class="modal--content">
-
-    </div>
+    <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+     	<div id="add_protocols"></div>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">close</i>
+        Cancel
+      </button>
+      <button type="button"
+              data-trigger="submit"
+              data-target="dialog--protocols"
+              data-form="form--protocols"
+              class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
+        Add
+      </button>
+    </footer>
   </div>
+  <div class="mdc-dialog__backdrop"></div>
 </div>
-<div id="modal--sources" class="modal visible mdc-layout-grid" data-request="add_sources">
-  <div class="article--modal padding-0 mdc-elevation--z16 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-    <header class="mdc-toolbar mdl-color--blue-500 mdc-elevation--z2">
-      <div class="mdc-toolbar__row padding-16">
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-          <a data-mdc-auto-init="MDCRipple" data-trigger="close"  data-target="modal--sources" class="mdc-button mdl-color-text--white">
-            <i class="material-icons">close</i>
-            <span class="toolbar__button-label">Cancel</span>
-          </a>
-        </section>
-        <section class="mdc-toolbar__section">
-          <span class="mdc-toolbar__title">Select sources to add</span>
-        </section>
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-          <a data-mdc-auto-init="MDCRipple" data-trigger="submit" data-target="modal--sources" data-form="form--sources" class="mdc-button mdl-color-text--white modal--button">
-            <i class="material-icons">playlist_add</i>
-            <span class="toolbar__button-label">ADD</span>
-          </a>
-        </section>
-      </div>
+<div id="dialog--sources"
+       class="mdc-dialog"
+       data-target="dialog--sources" data-request="add_sources">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title">
+        Select source(s) to add
+      </h2>
     </header>
-    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate width--full" data-type="loader"></div>
-    <div id="add_sources" class="modal--content">
-
-    </div>
+    <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+     	<div id="add_sources"></div>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">close</i>
+        Cancel
+      </button>
+      <button type="button"
+              data-trigger="submit"
+              data-target="dialog--sources"
+              data-form="form--sources"
+              class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
+        Add
+      </button>
+    </footer>
   </div>
+  <div class="mdc-dialog__backdrop"></div>
 </div>
 {% include "base/scroll_top.html" %}
 {% endblock %}

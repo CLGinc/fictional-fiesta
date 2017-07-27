@@ -266,7 +266,7 @@ li {
 
 .mdc-button--icon {
     border-radius: 50%;
-    font-size: 24px;
+    /*font-size: 24px;*/
     height: 32px;
     margin-left: 0;
     margin-right: 0;
@@ -817,6 +817,23 @@ i.list--link-inactive {
   max-height: 100%;
 }
 /*Modal*/
+.mdc-dialog {
+  z-index: 9999;
+}
+.mdc-dialog__backdrop {
+  z-index: 9998;
+}
+.mdc-dialog__surface {
+  height: 80%;
+  max-width: 1300px;
+  z-index: 9999;
+}
+.mdc-dialog__body {
+  height: 100%;
+}
+.mdc-dialog__body--scrollable {
+  max-height: 100%;
+}
 .modal {
   position: absolute;
   top: 69px;
