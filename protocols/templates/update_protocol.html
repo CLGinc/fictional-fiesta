@@ -45,7 +45,7 @@
       {% if form.non_field_errors %}
         <span class="error">{{ form.non_field_errors }}</span>
       {% endif %}
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
         <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Protocol name</p>
         <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_name"
@@ -74,7 +74,7 @@
           </select>
         </div>
       </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
         <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Description</p>
         <div class="mdc-textfield mdc-textfield--upgraded padding-0 {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_desc"
@@ -114,7 +114,7 @@
               </div>
             </div>
             <!-- Title input -->
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11-desktop mdc-layout-grid__cell--span-7-tablet mdc-layout-grid__cell--span-3-phone">
               <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        data-content="step-title"

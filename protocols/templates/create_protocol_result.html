@@ -55,7 +55,7 @@
         {{ data_columns_formset.management_form }}
         <input class="hidden" name="protocol" value="{{ selected_protocol.uuid }}"/>
         <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result title</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.title.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -71,7 +71,7 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 margin--none padding-0">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Result note</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-form-field {% if form.is_successful.errors %}mdc-textfield--invalid{% endif %}">
@@ -119,7 +119,7 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">State</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <select class="mdc-select margin--none" name="state">
@@ -134,7 +134,7 @@
               </p>
             {% endif %}
           </div>
-          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Link to project</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.project.errors %}mdc-textfield--invalid{% endif %} input--simple" data-mdc-auto-init="MDCTextfield">
@@ -162,7 +162,7 @@
               </p>
             {% endif %}
           </div>
-          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Linked protocol</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               {{ selected_protocol.name }}
@@ -170,7 +170,7 @@
           </div>
         </div>
         <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none padding--top-24 padding-0">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Independent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.independent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -181,7 +181,7 @@
                        data-trigger="update-value"
                        data-target="independent-title"
                        {% if form.independent_variable.value %}value="{{ form.independent_variable.value }}"{% endif %}>
-                <label class="mdc-textfield__label">Add a independent variable for data table</label>
+                <label class="mdc-textfield__label display-on--desktop">Add a independent variable for data table</label>
               </div>
               {% if form.independent_variable.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -190,8 +190,8 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Independent variables)</p>
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type <span class="display-on--desktop">(Independent variables)</span></p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
               {% with data=form.data_type_independent.value|default:form.data_type_independent.field.initial %}
               <select class="mdc-select margin--none" name="data_type_independent" data-trigger="data-type" data-target="independent-value">
@@ -202,7 +202,7 @@
               {% endwith %}
             </div>
           </div>
-          <div class="mdc-layout-grid__cell--span-3 margin--none padding-0">
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Dependent variable</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none">
               <div class="mdc-textfield {% if form.dependent_variable.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
@@ -213,7 +213,7 @@
                        data-trigger="update-value"
                        data-target="dependent-title"
                        {% if form.dependent_variable.value %}value="{{ form.dependent_variable.value }}"{% endif %}>
-                <label class="mdc-textfield__label">Add a dependent variable for data table</label>
+                <label class="mdc-textfield__label display-on--desktop">Add a dependent variable for data table</label>
               </div>
               {% if form.dependent_variable.errors %}
               <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
@@ -222,8 +222,8 @@
               {% endif %}
             </div>
           </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 margin--none padding-0">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type (Dependent varialbes)</p>
+          <div class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-4-phone margin--none padding-0">
+            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Data type <span class="display-on--desktop">(Dependent varialbes)</span></p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--none select--fix">
               {% with data=form.data_type_dependent.value|default:form.data_type_dependent.field.initial %}
               <select class="mdc-select margin--none" name="data_type_dependent" data-trigger="data-type" data-target="dependent-value">
