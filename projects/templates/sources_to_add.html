@@ -1,9 +1,9 @@
 {% if form.element_choices.field.queryset %}
-<div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
+<div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 hide-on--mobile">
   <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Select</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4"><p>Name</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>ISBN</p></div>
-  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5"><p>URL</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-3-phone"><p>Name</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-tablet"><p>ISBN</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>URL</p></div>
 </div>
 <form id="form--sources" method="post" action="{% url 'projects:project_add_sources' project_uuid=object.uuid %}">
   {% csrf_token %}
@@ -11,7 +11,7 @@
   <div data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ source.id }}"
       id="{{ source.id }}"
       class="border--bottom mdc-layout-grid__inner list--link links--wrap">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
       <div class="mdc-checkbox checkbox-fix">
         <input type="checkbox" name="element_choices" value="{{ source.id }}" id="checkbox_{{ source.id }}" class="mdc-checkbox__native-control"/>
         <div class="mdc-checkbox__background">
@@ -22,9 +22,16 @@
         </div>
       </div>
     </div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4"><p>{{ source.name }}</p></div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"><p>{{ source.isbn }}</p></div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5"><p>{{ source.url }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-3-phone">
+      <p>
+        {{ source.name }}
+        {% if source.isbn %}
+        <span class="mdc-typography--caption display-on--mobile"><strong>ISBN:</strong> {{ source.isbn }}</span>
+        {% endif %}
+      </p>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-tablet hide-on--mobile"><p>{{ source.isbn }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>{{ source.url }}</p></div>
   </div>
   {% endfor %}
   <select class="hidden" name="element_type" value="p">
