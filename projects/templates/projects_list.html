@@ -7,144 +7,155 @@
 <div class="mdc-layout-grid content">
 {% include "base/drawer.html" %}
   <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
-        My projects
-      </h1>
-      <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
-        <i class="material-icons mdl-color-text--light-blue-500">filter_list</i> Filter projects
-      </button>
-      <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
-        <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-          <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input"
-                     type="text"
-                     id="input-filter--name"
-                     name="name"
-                     {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
-              <label class="mdc-textfield__label" for="input-filter--name">Project name</label>
-            </div>
-          </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input"
-                     type="text"
-                     id="input-filter--date-from"
-                     name="created_from"
-                     {% if form.created_from.value %}value="{{ form.created_from.value }}"{% endif %}>
-              <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
-                <i class="material-icons right">arrow_drop_down</i> Created from:
-              </label>
-            </div>
-          </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
-              <input class="mdc-textfield__input"
-                     type="text"
-                     id="input-filter--date-to"
-                     name="created_to"
-                     {% if form.created_to.value %}value="{{ form.created_to.value }}"{% endif %}>
-              <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
-                <i class="material-icons right">arrow_drop_down</i> Created to:
-              </label>
-            </div>
-          </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <div class="mdc-form-field margin--top-8 wrap--checkboxes">
-              {% for role_value, role_label in form.role.field.choices %}
-                <div class="mdc-checkbox">
-                  <input
-                      type="checkbox"
-                      id="checkbox-{{ forloop.counter }}"
-                      name="role"
-                      value="{{ role_value }}"
-                      class="mdc-checkbox__native-control"
-                      {% if role_value in form.role.value %}checked{% endif %}/>
-                  <div class="mdc-checkbox__background">
-                    <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
-                      <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                    </svg>
-                    <div class="mdc-checkbox__mixedmark"></div>
+    <div class="mdc-layout-grid__inner">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <h1 class="mdc-typography--headline mdl-color-text--orange-500 subpageheader">
+          My projects
+        </h1>
+        <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+          <i class="material-icons mdl-color-text--light-blue-500">filter_list</i> Filter projects
+        </button>
+        <form method="get" id="filter-form" class="filter-form mdc-elevation--z4">
+          <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            <div class="mdc-layout-grid__inner">
+              <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by project</p>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input"
+                         type="text"
+                         id="input-filter--name"
+                         name="name"
+                         {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+                  <label class="mdc-textfield__label" for="input-filter--name">Project name</label>
+                </div>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input"
+                         type="text"
+                         id="input-filter--date-from"
+                         name="created_from"
+                         {% if form.created_from.value %}value="{{ form.created_from.value }}"{% endif %}>
+                  <label id="input-filter--date-from-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-from">
+                    <i class="material-icons right">arrow_drop_down</i> Created from:
+                  </label>
+                </div>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+                  <input class="mdc-textfield__input"
+                         type="text"
+                         id="input-filter--date-to"
+                         name="created_to"
+                         {% if form.created_to.value %}value="{{ form.created_to.value }}"{% endif %}>
+                  <label id="input-filter--date-to-label" class="mdc-textfield__label mdc-textfield__label--float-above" for="input-filter--date-to">
+                    <i class="material-icons right">arrow_drop_down</i> Created to:
+                  </label>
+                </div>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by user role</p>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+                  <div class="mdc-form-field margin--top-8 wrap--checkboxes">
+                  {% for role_value, role_label in form.role.field.choices %}
+                    <div class="mdc-checkbox">
+                      <input
+                          type="checkbox"
+                          id="checkbox-{{ forloop.counter }}"
+                          name="role"
+                          value="{{ role_value }}"
+                          class="mdc-checkbox__native-control"
+                          {% if role_value in form.role.value %}checked{% endif %}/>
+                      <div class="mdc-checkbox__background">
+                        <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+                          <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                      </div>
+                    </div>
+                    <label class="padding--right-16 label--hover" for="checkbox-{{ forloop.counter }}">{{ role_label }}</label>
+                  {% endfor %}
                   </div>
                 </div>
-                <label class="padding--right-16 label--hover" for="checkbox-{{ forloop.counter }}">{{ role_label }}</label>
-              {% endfor %}
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+                  <select class="mdc-select margin--none margin--top-8" name="order_by">
+                    <option value="" default>Select order by</option>
+                    {% for key, value in form.order_by.field.choices %}
+                    <option value="{{ key }}" {% if form.order_by.value == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order type</p>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+                  <select class="mdc-select margin--none margin--top-8" name="order_type">
+                    <option value="" default>Select order type</option>
+                    {% for key, value in form.order_type.field.choices %}
+                    <option value="{{ key }}" {% if form.order_type.value == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order by</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none margin--top-8" name="order_by">
-                <option value="" default>Select order by</option>
-                {% for key, value in form.order_by.field.choices %}
-                <option value="{{ key }}" {% if form.order_by.value == key %}selected{% endif %}>{{ value }}</option>
-                {% endfor %}
-              </select>
-            </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8 margin--none">
+            <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
+              <i class="material-icons mdl-color-text--light-blue-500">playlist_play</i>
+                Apply filter
+            </button>
+            <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
+              <i class="material-icons mdl-color-text--light-blue-500">close</i>
+                Close
+            </button>
           </div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Order type</p>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-              <select class="mdc-select margin--none margin--top-8" name="order_type">
-                <option value="" default>Select order type</option>
-                {% for key, value in form.order_type.field.choices %}
-                <option value="{{ key }}" {% if form.order_type.value == key %}selected{% endif %}>{{ value }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 filter-button--area padding-8 margin--none">
-          <button data-mdc-auto-init="MDCRipple" class="mdc-button mdl-color-text--blue-grey-600">
-            <i class="material-icons mdl-color-text--light-blue-500">playlist_play</i>
-              Apply filter
-          </button>
-          <button data-mdc-auto-init="MDCRipple" type="button" class="mdc-button mdl-color-text--blue-grey-600" data-trigger="filter" data-target="filter-form">
-            <i class="material-icons mdl-color-text--light-blue-500">close</i>
-              Close
-          </button>
-        </div>
-      </form>
-    </div>
-    {% if roles_list_page %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-      <ul class="mdc-list padding-0">
-        <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500">
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Project name</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">Description</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">Created</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Protocols</div>
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">Role</div>
-        </li>
-      </ul>
-      <ul class="mdc-list padding-0" id="items_list"
-          data-mode="infinitescroll"
-          data-pages="{{ paginator.num_pages }}"
-          data-currentpage="{{ page_obj.number }}">
-        {% for role in roles_list_page %}
-        <li class="border--bottom">
-          <a href="{% url 'projects:project' project_uuid=role.project.uuid %}"
-             class="margin--none links--wrap mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.name }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">{{ role.project.description|truncatechars_html:92 }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">{{ role.project.datetime_created|date:"d M Y" }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.project.protocols.count }}</div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">{{ role.get_role_display }}</div>
-          </a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% else %}
-    {% include "base/empty_states.html" with page_context_label="projects" display_tip_search="yes" display_tip_create="yes" %}
-    {% endif %}
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--top-24">
-      <div class="mdl-spinner mdl-js-spinner center" id="loading"></div>
+        </form>
+      </div>
+      {% if roles_list_page %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <ul class="mdc-list padding-0 hide-on--mobile">
+          <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet"><p>Project name</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>Description</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 display-on--desktop"><p>Created</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Protocols</p></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Role</p></div>
+          </li>
+        </ul>
+        <ul class="mdc-list padding-0" id="items_list"
+            data-mode="infinitescroll"
+            data-pages="{{ paginator.num_pages }}"
+            data-currentpage="{{ page_obj.number }}">
+          {% for role in roles_list_page %}
+          <li class="border--bottom">
+            <a href="{% url 'projects:project' project_uuid=role.project.uuid %}"
+               class="margin--none links--wrap mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 list--link">
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-4-phone mdc-layout-grid__cell--span-4-tablet">
+                <p>
+                {{ role.project.name }}
+                <span class="mdc-typography--caption display-on--tablet"><strong>Createad on:</strong> {{ role.project.datetime_created|date:"d M Y" }}</span>
+                <span class="mdc-typography--caption display-on--mobile"><strong>Role:</strong> {{ role.get_role_display }}</span>
+                <span class="mdc-typography--caption display-on--mobile"><strong>Createad on:</strong> {{ role.project.datetime_created|date:"d M Y" }}</span>
+                </p>
+              </div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 display-on--desktop"><p>{{ role.project.description|truncatechars_html:92 }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 display-on--desktop"><p>{{ role.project.datetime_created|date:"d M Y" }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>{{ role.project.protocols.count }}</p></div>
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>{{ role.get_role_display }}</p></div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      {% include "base/empty_states.html" with page_context_label="projects" display_tip_search="yes" display_tip_create="yes" %}
+      {% endif %}
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--top-24">
+        <div class="mdl-spinner mdl-js-spinner center" id="loading"></div>
+      </div>
     </div>
   </div>
   {% include "base/footer.html" %}

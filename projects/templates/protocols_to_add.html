@@ -1,36 +1,38 @@
 {% if form.element_choices.field.queryset %}
-<ul class="mdc-list padding-0">
-  <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-8">
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Select</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-8 margin--none">Name</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">Owner</div>
-    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">Label</div>
-  </li>
-</ul>
+<div class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 hide-on--mobile">
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1"><p>Select</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-5-tablet hide-on--mobile"><p>Name</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 display-on--desktop"><p>Owner</p></div>
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>Label</p></div>
+</div>
 <form id="form--protocols" method="post" action="{% url 'projects:add_protocols_to_project' project_uuid=object.uuid %}">
   {% csrf_token %}
-  <ul class="mdc-list padding-0">
-    {% for protocol in form.element_choices.field.queryset %}
-    <li data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.uuid }}"
-        id="{{ protocol.uuid }}"
-        class="border--bottom mdc-layout-grid padding-8 margin--none list--link links--wrap">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 margin--none">
-        <div class="mdc-checkbox checkbox-fix">
-          <input type="checkbox" name="element_choices" value="{{ protocol.uuid }}" id="checkbox_{{ protocol.uuid }}" class="mdc-checkbox__native-control"/>
-          <div class="mdc-checkbox__background">
-            <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
-              <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-            </svg>
-            <div class="mdc-checkbox__mixedmark"></div>
-          </div>
+  {% for protocol in form.element_choices.field.queryset %}
+  <div data-mdc-auto-init="MDCRipple" data-trigger="checkbox" data-target="checkbox_{{ protocol.uuid }}"
+      id="{{ protocol.uuid }}"
+      class="border--bottom mdc-layout-grid__inner list--link links--wrap">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
+      <div class="mdc-checkbox checkbox-fix">
+        <input type="checkbox" name="element_choices" value="{{ protocol.uuid }}" id="checkbox_{{ protocol.uuid }}" class="mdc-checkbox__native-control"/>
+        <div class="mdc-checkbox__background">
+          <svg version="1.1" class="mdc-checkbox__checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
+            <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+          </svg>
+          <div class="mdc-checkbox__mixedmark"></div>
         </div>
       </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 padding-8 margin--none">{{ protocol.name }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 padding-8 margin--none">{{ protocol.get_owner }}</div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 padding-8 margin--none">{{ protocol.get_label_display }}</div>
-    </li>
-    {% endfor %}
-  </ul>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-5-tablet mdc-layout-grid__cell--span-3-phone">
+      <p>
+        {{ protocol.name }}
+        <span class="mdc-typography--caption display-on--mobile"><strong>Label:</strong> {{ protocol.get_label_display }}</span>
+        <span class="mdc-typography--caption hide-on--desktop"><strong>Owner:</strong> {{ protocol.get_owner }}</span>
+      </p>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 display-on--desktop"><p>{{ protocol.get_owner }}</p></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--span-2-tablet hide-on--mobile"><p>{{ protocol.get_label_display }}</p></div>
+  </div>
+  {% endfor %}
   <select class="hidden" name="element_type" value="p">
     <option selected value="p">Protocols</option>
     <option value="s">Sources</option>

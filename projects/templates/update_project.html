@@ -36,7 +36,7 @@
         Update project
       </h1>
     </div>
-    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+    <form class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--project-edit"
           method="post"
           action="{% url 'projects:update_project' project_uuid=object.uuid %}">

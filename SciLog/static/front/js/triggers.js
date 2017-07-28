@@ -8,6 +8,7 @@ var drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawe
 document.querySelector('.menu').addEventListener('click', function() {
   drawer.open = !drawer.open;
 });
+
 // action button
 $(window).load(function(){
   if($('.fixed-action-btn')){
@@ -388,13 +389,13 @@ $('[data-trigger="submit-ajax-invitation"]').click(function(){
         type: 'POST',
         success: function(response)
         {
-          parent.html('<button class="mdc-button button--height-normal" disabled>Accepted</button>');
+          parent.html('<button class="mdc-button button--height-normal" disabled><p>Accepted</p></button>');
           loader.toggleClass('is-active');
         },
         error: function(response)
         {
           loader.toggleClass('is-active');
-          button.html('Try again');
+          button.html('<p>Try again</p>');
         },
         complete: function(response)
         {

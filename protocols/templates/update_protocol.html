@@ -37,7 +37,7 @@
         Update protocol
       </h1>
     </div>
-    <form class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+    <form class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
           id="form--protocol-edit"
           method="post"
           action="{% url 'protocols:update_protocol' protocol_uuid=object.uuid %}">
@@ -45,7 +45,7 @@
       {% if form.non_field_errors %}
         <span class="error">{{ form.non_field_errors }}</span>
       {% endif %}
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
         <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Protocol name</p>
         <div class="mdc-textfield {% if form.name.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
           <input type="text" id="protocol_name"
@@ -56,20 +56,6 @@
         {% if form.name.errors %}
         <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
           {{ form.name.errors.as_text }}
-        </p>
-        {% endif %}
-      </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
-        <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Description</p>
-        <div class="mdc-textfield mdc-textfield--upgraded padding-0 {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
-          <input type="text" id="protocol_desc"
-                 class="mdc-textfield__input mdl-color-text--blue-grey-900"
-                 value="{{ form.description.value }}"
-                 name="description">
-        </div>
-        {% if form.description.errors %}
-        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
-          {{ form.description.errors }}
         </p>
         {% endif %}
       </div>
@@ -88,6 +74,20 @@
           </select>
         </div>
       </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
+        <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Description</p>
+        <div class="mdc-textfield mdc-textfield--upgraded padding-0 {% if form.description.errors %}mdc-textfield--invalid{% endif %}" data-mdc-auto-init="MDCTextfield">
+          <input type="text" id="protocol_desc"
+                 class="mdc-textfield__input mdl-color-text--blue-grey-900"
+                 value="{{ form.description.value }}"
+                 name="description">
+        </div>
+        {% if form.description.errors %}
+        <p class="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" role="alert">
+          {{ form.description.errors }}
+        </p>
+        {% endif %}
+      </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding--left-none">
         <div class="border--bottom-blue padding--bottom-16">
           <span class="mdl-color-text--light-blue-500 article--modal-title padding-0">
@@ -104,7 +104,7 @@
         <ul class="mdc-list padding-0">
           {% with procedure=form.procedure.value|json_to_dict %}
           {% for step in procedure.steps %}
-          <li class="mdc-layout-grid border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
+          <li class="mdc-layout-grid__inner border--bottom mdl-color-text--light-blue-500 padding-0 margin--none step"
               data-step="0">
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid__cell--align-middle">
               <div class="mdc-typography--display1 mdl-color-text--light-blue-500 text-center"
@@ -114,7 +114,7 @@
               </div>
             </div>
             <!-- Title input -->
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11-desktop mdc-layout-grid__cell--span-7-tablet mdc-layout-grid__cell--span-3-phone">
               <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
                 <input class="mdc-textfield__input" type="text"
                        data-content="step-title"
