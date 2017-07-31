@@ -71,6 +71,11 @@ class RoleListForm(forms.Form):
         ('asc', 'Ascending'),
         ('desc', 'Descending'),
     )
+    ARCHIVED = (
+        (None, 'All'),
+        (False, 'Active'),
+        (True, 'Archived'),
+    )
 
     name = forms.CharField(max_length=255, required=False)
     created_from = forms.DateField(required=False)
@@ -78,6 +83,7 @@ class RoleListForm(forms.Form):
     role = forms.MultipleChoiceField(choices=Role.ROLES, required=False)
     order_by = forms.ChoiceField(required=False)
     order_type = forms.ChoiceField(choices=ORDER_TYPE, required=False)
+    archived = forms.ChoiceField(choices=ARCHIVED, required=False)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
@@ -94,10 +100,19 @@ class RoleListForm(forms.Form):
 
     def is_valid(self):
         valid = super(RoleListForm, self).is_valid()
+        fields_to_clean = {
+            'name': '',
+            'created_from': None,
+            'created_to': None,
+            'role': list(),
+            'order_by': '',
+            'order_type': '',
+            'archived': ''
+        }
         if valid:
-            self.cleaned_data = dict(
-                (k, v) for k, v in self.cleaned_data.items() if v
-            )
+            for key, value in fields_to_clean.items():
+                if self.cleaned_data.get(key) == value:
+                    self.cleaned_data.pop(key)
             self.generate_roles()
         return valid
 
@@ -129,6 +144,7 @@ class RoleListForm(forms.Form):
             'name': '{}__name__icontains'.format(self.scope),
             'created_from': '{}__datetime_created__date__gte'.format(self.scope),
             'created_to': '{}__datetime_created__date__lte'.format(self.scope),
+            'archived': '{}__archived'.format(self.scope),
         }
         roles = self.user.get_roles(
             scope=self.scope,

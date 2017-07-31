@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Sci Log - Archived {{ selected_project.name }}{% endblock %}
+{% block body %}
+{% include "base/toolbar.html" %}
+<header class="mdc-toolbar mdl-color--green-300 mdc-toolbar--fixed">
+  <div class="mdc-toolbar__row padding-16">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <a data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-800"
+         href="{% url 'projects:project' project_uuid=selected_project.uuid %}">
+        <i class="material-icons">close</i>
+        <span class="toolbar__button-label">Cancel</span>
+      </a>
+    </section>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title mdl-color-text--blue-grey-800">Successfully archived: {{ selected_project.name }}</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <button data-mdc-auto-init="MDCRipple"
+         class="mdc-button mdl-color-text--blue-grey-800"
+         href="{% url 'projects:archive_project' project_uuid=object.uuid %}"
+         data-trigger="submit"
+         data-form="form--project-edit">
+        <i class="material-icons">check</i>
+        <span class="toolbar__button-label">Archive</span>
+      </button>
+    </section>
+  </div>
+</header>
+<div class="mdc-layout-grid content">
+{% include "base/drawer.html" %}
+  <div class="mdc-layout-grid mdc-layout-grid__cell mdc-layout-grid__cell--span-12 main-grid mdc-elevation--z8">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+      <h1 class="mdc-typography--headline mdl-color-text--green-500 subpageheader">
+        Archive project
+      </h1>
+    </div>
+    <form class="mdc-layout-grid__inner mdc-layout-grid__cell mdc-layout-grid__cell--span-12 padding-0 margin--none"
+          id="form--project-edit"
+          method="post"
+          action="{% url 'projects:archive_project' project_uuid=object.uuid %}">
+      {% csrf_token %}
+    </form>
+  </div>
+  {% include "base/footer.html" %}
+</div>
+{% include "base/scroll_top.html" %}
+{% endblock %}
+{% block post_load %}
+<script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
+<script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+{% endblock %}

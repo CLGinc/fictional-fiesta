@@ -14,8 +14,9 @@ class ResultAdmin(admin.ModelAdmin):
 
 
 class ProtocolAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner', 'datetime_created')
+    list_display = ('name', 'owner', 'datetime_created', 'archived')
     search_fields = ('name',)
+    list_filter = ('archived',)
 
     def owner(self, obj):
         try:

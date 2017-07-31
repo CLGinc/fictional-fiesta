@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from .ajax import AddProtocols, AddSources
 from .views import CreateProject, ProjectList, ProjectView, UpdateProject
+from .views import ArchiveProject
 
 uuid_pattern = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 
@@ -20,6 +21,11 @@ urlpatterns = [
         r'^(?P<project_uuid>{})/update/$'.format(uuid_pattern),
         UpdateProject.as_view(),
         name='update_project'
+    ),
+    url(
+        r'^(?P<project_uuid>{})/archive/$'.format(uuid_pattern),
+        ArchiveProject.as_view(),
+        name='archive_project'
     ),
     url(
         r'^(?P<project_uuid>{})/$'.format(uuid_pattern),

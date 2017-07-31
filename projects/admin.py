@@ -5,8 +5,9 @@ from users.models import Role
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner', 'datetime_created')
+    list_display = ('name', 'owner', 'datetime_created', 'archived')
     search_fields = ('name',)
+    list_filter = ('archived',)
 
     def owner(self, obj):
         try:

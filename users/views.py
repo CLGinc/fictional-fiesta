@@ -119,8 +119,11 @@ class RoleListMixin(MultipleObjectMixin):
 
     def get_queryset(self):
         roles_list = None
+        data = self.request.GET.copy()
+        if not('archived' in data):
+            data['archived'] = False
         self.form = RoleListForm(
-            self.request.GET,
+            data=data,
             user=self.request.user,
             scope=self.scope
         )

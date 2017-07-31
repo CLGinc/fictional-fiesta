@@ -21,6 +21,7 @@ class Project(models.Model):
         related_name='projects',
         blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
+    archived = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-datetime_created']
@@ -44,3 +45,7 @@ class Project(models.Model):
                     )
                 )
         return participants_by_role
+
+    def archive(self):
+        self.archived = True
+        self.save()

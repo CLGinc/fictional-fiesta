@@ -52,6 +52,7 @@ class Protocol(models.Model):
     last_modified_by = models.ForeignKey(
         'users.User',
         related_name='procedures')
+    archived = models.BooleanField(default=False)
 
     class Meta:
             ordering = ['-datetime_created']
@@ -97,6 +98,10 @@ class Protocol(models.Model):
     def has_role(self, user):
         RoleModel = apps.get_model('users', 'Role')
         return RoleModel.objects.filter(user=user, protocol=self).exists()
+
+    def archive(self):
+        self.archived = True
+        self.save()
 
 
 class Result(models.Model):
