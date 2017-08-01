@@ -393,7 +393,8 @@ class UserFormTest(TestCase):
             'created_to': '2016-02-01',
             'role': ['owner'],
             'order_by': 'name',
-            'order_type': 'asc'
+            'order_type': 'asc',
+            'archived': False,
         }
         form = RoleListForm(
             data=data,
@@ -516,6 +517,41 @@ class UserFormTest(TestCase):
             Role.objects.get(project=self.project1, user=self.user1),
             Role.objects.get(project=self.project2, user=self.user1),
             Role.objects.get(project=self.project3, user=self.user1),
+        ]
+        projects = list(form.roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_archived_project_roles(self):
+        self.project1.archive()
+        data = {
+            'archived': True
+        }
+        form = RoleListForm(
+            data=data,
+            user=self.user1,
+            scope='project'
+        )
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project=self.project1, user=self.user1),
+        ]
+        projects = list(form.roles)
+        self.assertEqual(expected_projects, projects)
+
+    def test_active_project_roles(self):
+        self.project1.archive()
+        data = {
+            'archived': False
+        }
+        form = RoleListForm(
+            data=data,
+            user=self.user1,
+            scope='project'
+        )
+        self.assertTrue(form.is_valid())
+        expected_projects = [
+            Role.objects.get(project=self.project3, user=self.user1),
+            Role.objects.get(project=self.project2, user=self.user1),
         ]
         projects = list(form.roles)
         self.assertEqual(expected_projects, projects)
