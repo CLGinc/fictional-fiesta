@@ -93,8 +93,11 @@ class ArchiveProtocol(DeleteView, SinglePrototolMixin):
     template_name = 'archive_protocol.html'
 
     def get_queryset(self):
-        queryset = super(ArchiveProtocol, self).get_queryset()
-        return queryset.filter(archived=False)
+        return Protocol.objects.filter(
+            archived=False,
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
+        )
 
     def delete(self, request, *args, **kwargs):
         '''

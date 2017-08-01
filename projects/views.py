@@ -64,8 +64,11 @@ class ArchiveProject(DeleteView, SingleProjectMixin):
     template_name = 'archive_project.html'
 
     def get_queryset(self):
-        queryset = super(ArchiveProject, self).get_queryset()
-        return queryset.filter(archived=False)
+        return Project.objects.filter(
+            archived=False,
+            roles__role__in=Role.ROLES_CAN_EDIT,
+            roles__user=self.request.user
+        )
 
     def delete(self, request, *args, **kwargs):
         '''
