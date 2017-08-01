@@ -117,6 +117,10 @@ class ProtocolModelTest(TestCase):
         owner = protocol.roles.filter(role='owner')
         self.assertTrue(owner.exists())
 
+    def test_archive_protocol(self):
+        self.protocol1.archive()
+        self.assertTrue(self.protocol1.archived)
+
 
 class ProtocolViewTest(TestCase):
     fixtures = [
@@ -326,3 +330,63 @@ class ProtocolViewTest(TestCase):
         )
         response = self.client.post(url)
         self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_get_owner(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol1.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_archive_protocol_get_contributor(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol3.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_archive_protocol_get_watcher(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol1.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_archive_protocol_post_owner(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol1.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)
+        self.protocol1.refresh_from_db()
+        self.assertTrue(self.protocol1.archived)
+
+    def test_archive_protocol_post_contributor(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol3.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 404)
+        self.protocol3.refresh_from_db()
+        self.assertFalse(self.protocol3.archived)
+
+    def test_archive_protocol_post_watcher(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol',
+            kwargs={'protocol_uuid': self.protocol1.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 404)
+        self.protocol1.refresh_from_db()
+        self.assertFalse(self.protocol1.archived)
