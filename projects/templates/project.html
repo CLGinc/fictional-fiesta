@@ -112,6 +112,49 @@
   </div>
   <div class="mdc-dialog__backdrop"></div>
 </div>
+<div id="dialog--archive-project"
+       class="mdc-dialog"
+       data-target="dialog--archive-project" data-request="archive_project">
+  <div class="mdc-dialog__surface normalize">
+    <header class="mdc-dialog__header mdl-color--red-400 padding--bottom-24">
+      <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title mdl-color-text--white">
+        Do you want to archive this project?
+      </h2>
+    </header>
+    <section id="mdc-dialog-with-list-description" class="mdc-dialog__body normalize">
+      <div id="mdc-dialog-with-list-label" class="mdc-typography--headline mdl-color-text--blue-grey-900 text-center padding-40">
+        Archiving a project will make it inaccessible to participants.
+      </div>
+      <div class="mdc-layout-gird">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Project name</strong>: {{ selected_project.name }}</p>
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Participants</strong>: {{ selected_project.roles.count }}</p>
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Sources</strong>: {{ selected_project.sources.count }}</p>
+          </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Results</strong>: {{ selected_project.results.count }}</p>
+            <p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Protocols</strong>: {{ selected_project.protocols.count }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">close</i>
+        Cancel
+      </button>
+      <button type="button"
+              data-trigger="archive"
+              data-target="dialog--archive-protocols"
+              class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
+        Archive
+      </button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</div>
 {% include "base/scroll_top.html" %}
 {% endblock %}
 {% block post_load %}
@@ -122,24 +165,44 @@
   <script type="text/javascript">
     var dialogProtocols = new mdc.dialog.MDCDialog(document.querySelector('#dialog--protocols'));
     var dialogSources = new mdc.dialog.MDCDialog(document.querySelector('#dialog--sources'));
+    var dialogArchiveProject = new mdc.dialog.MDCDialog(document.querySelector('#dialog--archive-project'));
 
     dialogProtocols.listen('MDCDialog:cancel', function() {
       var targetElementId = $(this).attr('data-target'),
           requestTarget = $('#'+targetElementId).attr('data-request');
       deleteOldList(requestTarget);
     });
-    document.querySelector('#dialog--protocols-btn').addEventListener('click', function (evt) {
-      dialogProtocols.lastFocusedTarget = evt.target;
-      dialogProtocols.show();
-    });
+    var dialogProtocolsElement = document.querySelector('#dialog--protocols-btn');
+    if (dialogProtocolsElement) {
+      dialogProtocolsElement.addEventListener('click', function (evt) {
+        dialogProtocols.lastFocusedTarget = evt.target;
+        dialogProtocols.show();
+      });
+    }
     dialogSources.listen('MDCDialog:cancel', function() {
       var targetElementId = $(this).attr('data-target'),
           requestTarget = $('#'+targetElementId).attr('data-request');
       deleteOldList(requestTarget);
     });
-    document.querySelector('#dialog--sources-btn').addEventListener('click', function (evt) {
-      dialogSources.lastFocusedTarget = evt.target;
-      dialogSources.show();
+    var dialogSourcesElement = document.querySelector('#dialog--sources-btn');
+    if (dialogSourcesElement) {
+      dialogSourcesElement.addEventListener('click', function (evt) {
+        dialogSources.lastFocusedTarget = evt.target;
+        dialogSources.show();
+      });
+    }
+
+    dialogArchiveProject.listen('MDCDialog:cancel', function() {
+      var targetElementId = $(this).attr('data-target'),
+          requestTarget = $('#'+targetElementId).attr('data-request');
+      deleteOldList(requestTarget);
     });
+    var dialogArchiveProjectElement = document.querySelector('#dialog--archive-project-btn');
+    if(dialogArchiveProjectElement) {
+      dialogArchiveProjectElement.addEventListener('click', function (evt) {
+        dialogArchiveProject.lastFocusedTarget = evt.target;
+        dialogArchiveProject.show();
+      });
+    }
   </script>
 {% endblock %}

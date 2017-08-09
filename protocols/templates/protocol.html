@@ -54,9 +54,62 @@
   </div>
   {% include "base/footer.html" %}
 </div>
+<div id="dialog--archive-protocol"
+       class="mdc-dialog"
+       data-target="dialog--archive-protocol" data-request="archive_protocol">
+  <div class="mdc-dialog__surface normalize">
+    <header class="mdc-dialog__header mdl-color--red-400 padding--bottom-24">
+      <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title mdl-color-text--white">
+        Do you want to archive this protocol?
+      </h2>
+    </header>
+    <section id="mdc-dialog-with-list-description" class="mdc-dialog__body normalize">
+      <div id="mdc-dialog-with-list-label" class="mdc-typography--headline mdl-color-text--blue-grey-900 text-center padding-40">
+        Archiving a protocol will make it inaccessible to participants and projects.
+      </div>
+      <div class="mdc-layout-gird">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Protocol name</strong>: {{ selected_protocol.name }}</p>
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Participants</strong>: {{ selected_protocol.roles.count }}</p>
+          </div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+           	<p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Results</strong>: {{ selected_protocol.results.count }}</p>
+            <p class="mdc-typography--body1 mdl-color-text--blue-grey-900"><strong>Projects</strong>: {{ selected_protocol.projects.count }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">close</i>
+        Cancel
+      </button>
+      <button type="button"
+              data-trigger="archive"
+              data-target="dialog--archive-protocols"
+              class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdl-color-text--blue-grey-600">
+        <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
+        Archive
+      </button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</div>
 {% include "base/scroll_top.html" %}
 {% endblock %}
 {% block post_load %}
   <script type = "text/javascript" src="{% static "front/js/ajax.js" %}"></script>
   <script type = "text/javascript" src="{% static "front/js/triggers.js" %}"></script>
+  <script type="text/javascript">
+    var dialogArchiveProtocol = new mdc.dialog.MDCDialog(document.querySelector('#dialog--archive-protocol'));
+
+    var dialogArchiveElement = document.querySelector('#dialog--archive-protocol-btn');
+    if(dialogArchiveElement) {
+      dialogArchiveElement.addEventListener('click', function (evt) {
+        dialogArchiveProtocol.lastFocusedTarget = evt.target;
+        dialogArchiveProtocol.show();
+      });
+    }
+  </script>
 {% endblock %}

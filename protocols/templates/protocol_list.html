@@ -105,7 +105,12 @@
             <p class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdl-color-text--light-blue-500 mdc-typography--subhead">Search by archived status</p>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
               <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                {{ form.archived }}
+                <select class="mdc-select margin--none margin--top-8" name="order_type">
+                  <option value="" default>Select archive status</option>
+                  {% for key, value in form.archived.field.choices %}
+                  <option value="{{ key }}" {% if form.archived.value == key %}selected{% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
               </div>
             </div>
           </div>

@@ -828,8 +828,15 @@ i.list--link-inactive {
   max-width: 1300px;
   z-index: 9999;
 }
+.mdc-dialog__surface.normalize {
+  height: auto;
+  max-width: 865px;
+}
 .mdc-dialog__body {
   height: 100%;
+}
+.mdc-dialog__body.normalize {
+  height: auto;
 }
 .mdc-dialog__body--scrollable {
   max-height: 100%;
@@ -1059,6 +1066,9 @@ i.list--link-inactive {
   padding-bottom: 8px;
 }
 .padding--bottom-16 {
+  padding-bottom: 16px;
+}
+.padding--bottom-24 {
   padding-bottom: 16px;
 }
 .padding--left-none {
