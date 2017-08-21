@@ -74,15 +74,6 @@ class ArchiveProject(DeleteView, SingleProjectMixin):
             roles__user=self.request.user
         )
 
-    def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            self.object = self.get_object()
-            return super(
-                ArchiveProject,
-                self
-            ).get(request, *args, **kwargs)
-        return HttpResponseForbidden()
-
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
             self.object = self.get_object()
