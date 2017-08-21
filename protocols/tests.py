@@ -345,6 +345,12 @@ class ProtocolAjaxTest(TestCase):
         self.client = Client()
         self.protocol1 = Protocol.objects.get(name='Protocol 1')
         self.protocol3 = Protocol.objects.get(name='Protocol 3')
+        self.protocol1_result = Result.objects.get(
+            pk='cb0620cb-a996-47ae-9a32-5b2bffd5da19'
+        )
+        self.protocol3_result = Result.objects.get(
+            pk='833eaf8d-4154-45b9-b96a-2d9ee27f704a'
+        )
 
     def test_archive_protocol_get_owner_non_ajax(self):
         self.client.login(username='user2@gmail.com', password='user2')
@@ -468,3 +474,162 @@ class ProtocolAjaxTest(TestCase):
         self.assertEqual(response.status_code, 404)
         self.protocol1.refresh_from_db()
         self.assertFalse(self.protocol1.archived)
+
+    def test_archive_protocol_result_get_owner_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_get_contributor_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': self.protocol3_result.pk
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_get_watcher_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_post_owner_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_protocol_result_post_contributor_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': self.protocol3_result.pk
+            }
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_protocol_result_post_watcher_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_protocol_result_get_owner(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_get_contributor(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': self.protocol3_result.pk
+            }
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_get_watcher(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_protocol_result_post_owner(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.protocol1_result.refresh_from_db()
+        self.assertTrue(self.protocol1_result.archived)
+
+    def test_archive_protocol_result_post_contributor(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol3.pk,
+                'result_uuid': self.protocol3_result.pk
+            }
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 404)
+        self.protocol3_result.refresh_from_db()
+        self.assertFalse(self.protocol3_result.archived)
+
+    def test_archive_protocol_result_post_watcher(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'protocols:archive_protocol_result',
+            kwargs={
+                'protocol_uuid': self.protocol1.pk,
+                'result_uuid': self.protocol1_result.pk
+            }
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 404)
+        self.protocol1_result.refresh_from_db()
+        self.assertFalse(self.protocol1_result.archived)

@@ -150,6 +150,7 @@ class Result(models.Model):
     )
     data_columns = JSONField()
     datetime_created = models.DateTimeField(auto_now_add=True)
+    archived = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-datetime_created', 'owner']
@@ -178,6 +179,10 @@ class Result(models.Model):
             )
             if error_message:
                 raise ValidationError({'data_columns': 'Invalid JSON content: {}!'.format(error_message)})
+
+    def archive(self):
+        self.archived = True
+        self.save()
 
 
 class Attachment(models.Model):
