@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView
 from django.utils.decorators import method_decorator
 
 
@@ -56,29 +56,6 @@ class UpdateProject(UpdateView, SingleProjectMixin):
             roles__role__in=Role.ROLES_CAN_EDIT,
             roles__user=self.request.user
         )
-
-
-@method_decorator(login_required, name='dispatch')
-class ArchiveProject(DeleteView, SingleProjectMixin):
-    context_object_name = 'selected_project'
-    template_name = 'archive_project.html'
-
-    def get_queryset(self):
-        return Project.objects.filter(
-            archived=False,
-            roles__role__in=Role.ROLES_CAN_EDIT,
-            roles__user=self.request.user
-        )
-
-    def delete(self, request, *args, **kwargs):
-        '''
-        Calls the archive() method on the fetched object and then
-        renders success template.
-        '''
-        self.template_name = 'archive_project_success.html'
-        self.object = self.get_object()
-        self.object.archive()
-        return self.render_to_response(self.get_context_data())
 
 
 @method_decorator(login_required, name='dispatch')

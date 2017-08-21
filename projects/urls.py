@@ -1,8 +1,7 @@
 from django.conf.urls import url
 
-from .ajax import AddProtocols, AddSources
+from .ajax import AddProtocols, AddSources, ArchiveProject
 from .views import CreateProject, ProjectList, ProjectView, UpdateProject
-from .views import ArchiveProject
 
 uuid_pattern = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 

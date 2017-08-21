@@ -119,7 +119,6 @@ class ProjectViewTest(TestCase):
         self.client = Client()
         self.user1 = User.objects.get(username='user1@gmail.com')
         self.project1 = Project.objects.get(name='Project 1')
-        self.project2 = Project.objects.get(name='Project 2')
 
     def test_get_projects_list(self):
         self.client.login(username='user1@gmail.com', password='user1')
@@ -182,66 +181,6 @@ class ProjectViewTest(TestCase):
         self.assertRedirects(response, redirect_url)
         self.assertEqual(self.project1.name, 'New Project Name')
 
-    def test_archive_project_get_owner(self):
-        self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project1.pk}
-        )
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_archive_project_get_contributor(self):
-        self.client.login(username='user2@gmail.com', password='user2')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project2.pk}
-        )
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-
-    def test_archive_project_get_watcher(self):
-        self.client.login(username='user2@gmail.com', password='user2')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project1.pk}
-        )
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-
-    def test_archive_project_post_owner(self):
-        self.client.login(username='user1@gmail.com', password='user1')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project1.pk}
-        )
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, 200)
-        self.project1.refresh_from_db()
-        self.assertTrue(self.project1.archived)
-
-    def test_archive_project_post_contributor(self):
-        self.client.login(username='user2@gmail.com', password='user2')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project2.pk}
-        )
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, 404)
-        self.project2.refresh_from_db()
-        self.assertFalse(self.project2.archived)
-
-    def test_archive_project_post_watcher(self):
-        self.client.login(username='user2@gmail.com', password='user2')
-        url = reverse(
-            'projects:archive_project',
-            kwargs={'project_uuid': self.project1.pk}
-        )
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, 404)
-        self.project1.refresh_from_db()
-        self.assertFalse(self.project1.archived)
-
 
 class ProjectAjaxTest(TestCase):
     fixtures = [
@@ -255,6 +194,7 @@ class ProjectAjaxTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.project1 = Project.objects.get(name='Project 1')
+        self.project2 = Project.objects.get(name='Project 2')
         self.protocol8 = Protocol.objects.get(name='Protocol 8')
         self.protocol10 = Protocol.objects.get(name='Protocol 10')
 
@@ -351,6 +291,129 @@ class ProjectAjaxTest(TestCase):
             response,
             reverse('projects:project', kwargs={'project_uuid': str(self.project1.pk)})
         )
+
+    def test_archive_project_get_owner_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_get_contributor_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project2.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_get_watcher_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_post_owner_non_ajax(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_project_post_contributor_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project2.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_project_post_watcher_non_ajax(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_archive_project_get_owner(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_get_contributor(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project2.pk}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_get_watcher(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 405)
+
+    def test_archive_project_post_owner(self):
+        self.client.login(username='user1@gmail.com', password='user1')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.project1.refresh_from_db()
+        self.assertTrue(self.project1.archived)
+
+    def test_archive_project_post_contributor(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project2.pk}
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 404)
+        self.project2.refresh_from_db()
+        self.assertFalse(self.project2.archived)
+
+    def test_archive_project_post_watcher(self):
+        self.client.login(username='user2@gmail.com', password='user2')
+        url = reverse(
+            'projects:archive_project',
+            kwargs={'project_uuid': self.project1.pk}
+        )
+        response = self.client.post(
+            url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 404)
+        self.project1.refresh_from_db()
+        self.assertFalse(self.project1.archived)
 
 
 class ProjectFormTest(TestCase):
