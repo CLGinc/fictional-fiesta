@@ -88,7 +88,6 @@ class ArchiveProject(DeleteView, SingleProjectMixin):
         Calls the archive() method on the fetched object and then
         renders success template.
         '''
-        self.template_name = 'archive_project_success.html'
         self.object = self.get_object()
         self.object.archive()
         return JsonResponse(
