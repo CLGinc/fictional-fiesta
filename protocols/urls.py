@@ -2,7 +2,8 @@ from django.conf.urls import url
 
 from .views import ProtocoltList, ProtocolView, CreateProtocol, UpdateProtocol
 from .views import CreateProtocolResult, ProtocolResultView
-from .views import UpdateProtocolResult, ArchiveProtocol
+from .views import UpdateProtocolResult
+from .ajax import ArchiveProtocol
 
 uuid_pattern = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 

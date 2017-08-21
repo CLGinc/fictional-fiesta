@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import DetailView, UpdateView, CreateView
 from django.http import Http404
 
 from users.views import RoleListMixin
@@ -85,29 +85,6 @@ class UpdateProtocol(UpdateView, SinglePrototolMixin):
             roles__role__in=Role.ROLES_CAN_EDIT,
             roles__user=self.request.user
         )
-
-
-@method_decorator(login_required, name='dispatch')
-class ArchiveProtocol(DeleteView, SinglePrototolMixin):
-    context_object_name = 'selected_protocol'
-    template_name = 'archive_protocol.html'
-
-    def get_queryset(self):
-        return Protocol.objects.filter(
-            archived=False,
-            roles__role__in=Role.ROLES_CAN_EDIT,
-            roles__user=self.request.user
-        )
-
-    def delete(self, request, *args, **kwargs):
-        '''
-        Calls the archive() method on the fetched object and then
-        renders success template.
-        '''
-        self.template_name = 'archive_protocol_success.html'
-        self.object = self.get_object()
-        self.object.archive()
-        return self.render_to_response(self.get_context_data())
 
 
 @method_decorator(login_required, name='dispatch')
