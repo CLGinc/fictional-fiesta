@@ -79,6 +79,14 @@
           </div>
         </div>
       </div>
+      <div class="dialog-archiving--overlay">
+        <div id="mdc-dialog-with-list-label" class="mdc-typography--headline mdl-color-text--blue-grey-900 text-center padding-40 dialog-archiving--label">
+          Archiving...
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 margin--top-24">
+            <div class="mdl-spinner mdl-js-spinner center is-active" id="loading"></div>
+          </div>
+        </div>
+      </div>
     </section>
     <footer class="mdc-dialog__footer">
       <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdl-color-text--blue-grey-600">
@@ -86,9 +94,8 @@
         Cancel
       </button>
       <button type="button"
-              data-trigger="archive"
-              data-target="dialog--archive-protocols"
-              class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdl-color-text--blue-grey-600">
+              data-trigger="archive-ajax"
+              class="mdc-button mdc-dialog__footer__button mdl-color-text--blue-grey-600">
         <i class="material-icons mdl-color-text--light-blue-500">playlist_add</i>
         Archive
       </button>
@@ -110,6 +117,9 @@
         dialogArchiveProtocol.lastFocusedTarget = evt.target;
         dialogArchiveProtocol.show();
       });
+    dialogArchiveProtocol.listen('MDCDialog:cancel', function() {
+      $('.dialog-archiving--overlay').removeClass('dialog-archiving--overlay-active');
+    });
     }
   </script>
 {% endblock %}

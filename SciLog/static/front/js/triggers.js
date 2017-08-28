@@ -459,3 +459,32 @@ $('[data-trigger="submit-ajax"]').click(function(){
 		}
 	});
 });
+// Archive ajax
+$('[data-trigger="archive-ajax"]').click(function(){
+  $('.dialog-archiving--overlay').addClass('dialog-archiving--overlay-active');
+  var url = window.location.href + 'archive/',
+      state = '';
+  $.ajax({
+    url: url,
+    data: '',
+    type: 'POST',
+    success: function(json)
+    {
+      $('.dialog-archiving--label').html('Success!<br/>You will be redirected in 3 seconds');
+      state = true;
+    },
+    error: function(json)
+    {
+      $('.dialog-archiving--label').html('There was a problem!<br/>Please contact your administrator.');
+      state = false;
+    },
+    complete: function(json)
+    {
+      if(state) {
+        setTimeout(function(){
+          window.location.href = '../list/';
+        });
+      }
+    }
+  });
+});
