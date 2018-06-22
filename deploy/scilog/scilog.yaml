@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: scilog
+  labels:
+    name: scilog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scilog
+  template:
+    metadata:
+      labels:
+        app: scilog
+    spec:
+      containers:
+      - name: scilog
+        image: ggoranov/scilog
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: user
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: password
+          - name: DATABASE_HOST
+            value: postgres
+          - name: DATABASE_ENGINE
+            value: django.db.backends.postgresql_psycopg2
+          - name: DATABASE_NAME
+            value: scilog
+          - name: ALLOWED_HOSTS
+            value: '*'
+          - name: DEBUG
+            value: 'True'

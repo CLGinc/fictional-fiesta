@@ -1,0 +1,25 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_USER: 'scilog'
+      POSTGRES_PASSWORD: 'scilog'
+      POSTGRES_DB: 'scilog'
+  scilog:
+    build: .
+    image: scilog
+    depends_on:
+      - postgres
+    environment:
+      DJANGO_KEY: '220bcc25-f295-40c3-b89f-a2691fa48794'
+      ALLOWED_HOSTS: '*'
+      DATABASE_ENGINE: 'django.db.backends.postgresql_psycopg2'
+      DATABASE_NAME: 'scilog'
+      DATABASE_USER: 'scilog'
+      DATABASE_PASSWORD: 'scilog'
+      DATABASE_HOST: 'postgres'
+      DATABASE_PORT: '5432'
+      DEBUG: 'True'
+    ports:
+      - '8000:8000'
